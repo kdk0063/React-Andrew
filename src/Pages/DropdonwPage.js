@@ -1,10 +1,9 @@
-// import AccordionPage from './Pages/AccordionPage';
-// import ButtonPage from "./Pages/ButtonPage";
+
 import { useState } from 'react';
 
 import Dropdown from "./Components/Dropdown";
 
-function App() {
+function DropdownPage() {
     const [selection, setSelection] = useState(null);
 
     const options = [
@@ -36,4 +35,4 @@ function App() {
     )
 }
 
-export default App;
+export default DropdownPage;
