@@ -21,10 +21,10 @@ function App() {
     
     const handleSelect = (optionValue) => {
         setSelection(optionValue);
-    }
+    };
 
-    return(
-        <>  
+    return (
+        <div className="flex">  
             {/* <ButtonPage /> */}
             {/* <AccordionPage /> */}
             <Dropdown 
@@ -32,8 +32,13 @@ function App() {
                 value={selection} 
                 onChange={handleSelect}
             />
-        </>
+             <Dropdown 
+                options={options}
+                value={selection} 
+                onChange={handleSelect}
+            />
+        </div>
     )
-}
+};
 
 export default App;
