@@ -4,7 +4,7 @@ import Button from "../Components/Button";
 
 function ButtonPage() {
     const handleClick = () => {
-        console.log('clicked')
+        //do something on click
     }
 
     return(
@@ -16,22 +16,22 @@ function ButtonPage() {
                 </Button>
             </div>
             <div>
-                <Button danger rounded onMouseEnter={handleClick}>
+                <Button danger rounded className="mb-5" onMouseEnter={handleClick}>
                     <GoCloudDownload />
                     Buy Now!
                 </Button>
             </div>
             <div>
-                <Button warning rounded onMouseLeave={handleClick}>
+                <Button warning rounded className="mb-5" onMouseLeave={handleClick}>
                     <GoDatabase />
                     Seal Deal!
                 </Button>
             </div>
             <div>
-                <Button secondary outline>Hide Ads!</Button>
+                <Button secondary outline className="mb-5">Hide Ads!</Button>
             </div>
             <div>
-                <Button primary rounded>Bye Bye!</Button>
+                <Button primary rounded className="mb-5">Bye Bye!</Button>
             </div>
         </>
     )
