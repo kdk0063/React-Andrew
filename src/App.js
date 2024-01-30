@@ -1,14 +1,24 @@
-// import AccordionPage from './Pages/AccordionPage';
-// import ButtonPage from "./Pages/ButtonPage";
-// import DropdownPage from "./Pages/DropdonwPage";
+import Link from "./Components/Link";
+import Route from "./Components/Route";
+import AccordionPage from './Pages/AccordionPage';
+import DropdownPage from './Pages/DropdonwPage';
 
 function App() {
     return (
         <div>  
-            {/* <ButtonPage /> */}
-            {/* <AccordionPage /> */}
-            {/* <DropdownPage /> */}
+           <Link to="/accordion">Go to accordion</Link>
+           <Link to="/dropdown">Go to dropdown</Link>
+
+           <div>
+                <Route path="/accordion">
+                    <AccordionPage />
+                </Route>
+                <Route path="/dropdown">
+                    <DropdownPage />
+                </Route>
+           </div>
         </div>
+        
     )
 };
 
