@@ -11,16 +11,16 @@ function DropdownPage() {
         { label: 'Green', value: 'green' },
         { label: 'Blue', value: 'blue' }
     ];
-    
+
     const handleSelect = (optionValue) => {
         setSelection(optionValue);
-    }
+    };
 
-    return(
+    return (
         <div className="flex">
-            <Dropdown 
+            <Dropdown
                 options={options}
-                value={selection} 
+                value={selection}
                 onChange={handleSelect}
             />
         </div>

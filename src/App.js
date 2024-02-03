@@ -8,8 +8,8 @@ import LandingPage from "./Pages/LandingPage";
 function App() {
     return (
         <div className="ml-auto mr-auto max-w-[1600px]">
-            <Navbar />            
-           <div>
+            <Navbar />
+            <div>
                 <Route path="/bableDabbleProject">
                     <BableDabblePage />
                 </Route>
@@ -22,9 +22,9 @@ function App() {
                 <Route path="/">
                     <LandingPage />
                 </Route>
-           </div>
+            </div>
         </div>
-        
+
     )
 }
 export default App;

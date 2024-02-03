@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect} from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 const NavigationContext = createContext();
 
@@ -10,12 +10,12 @@ function NavigationProvider({ children }) {
         const handler = () => {
             setCurrentPath(window.location.pathname)
         };
-        
+
         window.addEventListener('popstate', handler);
-       
+
 
         return () => {
-            window.removeEventListener('popstate', handler);            
+            window.removeEventListener('popstate', handler);
         };
 
     }, []);
@@ -27,12 +27,12 @@ function NavigationProvider({ children }) {
     }
 
     const handleNav = () => {
-        setNav(!!nav);
+        setNav(!nav);
     };
 
     return (
-        <NavigationContext.Provider value={{ currentPath, navigate, handleNav, nav}}>
-            { children }
+        <NavigationContext.Provider value={{ currentPath, navigate, handleNav, nav }}>
+            {children}
         </NavigationContext.Provider>
     );
 }
