@@ -15,12 +15,17 @@ function Introduction() {
     });
 
     const handleContactClick = (props) => {
-        console.log('here', props)
         const mailto = "mailto:kdk0063@gmail.com";
-        // window.open('https://github.com/kdk0063', '_blank').focus();
-        // window.open('https://www.linkedin.com/in/andrewkyukim', '_blank').focus();
-        window.location.href = mailto;
-    }
+
+        switch (props) {
+            case 'mail':
+                return window.location.href = mailto;
+            case 'github':
+                return window.open('https://github.com/kdk0063', '_blank').focus();
+            default:
+                return window.open('https://www.linkedin.com/in/andrewkyukim', '_blank').focus();
+        };
+    };
 
     return (
         <>
