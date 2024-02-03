@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import useNavigation from '../hooks/use-navigation';
 
 function Link({ to, children, className, activeClassName }) {
-    const { navigate, currentPath } = useNavigation();
+    const { navigate, currentPath, handleNav } = useNavigation();
     
     const classes = classNames(
-        'text-blue-500', 
+        'text-black', 
         className,
         currentPath === to && activeClassName
     )
@@ -18,6 +18,7 @@ function Link({ to, children, className, activeClassName }) {
         event.preventDefault();
 
         navigate(to);
+        handleNav()
     }; 
 
     return(

@@ -4,7 +4,7 @@ const NavigationContext = createContext();
 
 function NavigationProvider({children}) {
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
-
+    const [nav, setNav] = useState(false);
 
     useEffect(() => {
         const handler = () => {
@@ -24,8 +24,13 @@ function NavigationProvider({children}) {
         setCurrentPath(to);
     }
 
+    const handleNav = () => {
+        setNav(!nav);
+    };
+
+
     return (
-        <NavigationContext.Provider value={{ currentPath, navigate}}>
+        <NavigationContext.Provider value={{ currentPath, navigate, handleNav, nav}}>
             { children }
         </NavigationContext.Provider>
     );

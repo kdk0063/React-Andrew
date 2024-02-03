@@ -1,26 +1,25 @@
-import Sidebar from "./Components/Sidebar"; 
+import Navbar from "./Components/Navbar";
 import Route from "./Components/Route";
-import AccordionPage from './Pages/AccordionPage';
-import DropdownPage from './Pages/DropdownPage';
-import ButtonPage from './Pages/ButtonPage';
-import ModalPage from "./Pages/ModalPage";
+import BeonCarrierPage from './Pages/BeonCarrierPage';
+import KidianPage from './Pages/KidianPage';
+// import DropdownPage from './Pages/DropdownPage';
+// import ButtonPage from './Pages/ButtonPage';
+// import ModalPage from "./Pages/ModalPage";
+import LandingPage from "./Pages/LandingPage";
 
 function App() {
     return (
-        <div className="container mx-auto grid grid-cols-6 gap-4 mt-4">
-            <Sidebar />
-           <div className="col-span-5">
-                <Route path="/accordion">
-                    <AccordionPage />
+        <div className="ml-auto mr-auto max-w-[1600px]">
+            <Navbar />
+           <div>
+                <Route path="/beonCarrierProject">
+                    <BeonCarrierPage />
+                </Route>
+                <Route path="/kidianProject">
+                    <KidianPage />
                 </Route>
                 <Route path="/">
-                    <DropdownPage />
-                </Route>
-                <Route path="/buttons">
-                    <ButtonPage />
-                </Route>
-                <Route path="/modal">
-                    <ModalPage />
+                    <LandingPage />
                 </Route>
            </div>
         </div>
