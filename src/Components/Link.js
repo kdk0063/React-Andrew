@@ -13,12 +13,12 @@ function Link({ to, children, className, activeClassName }) {
     const handleClick = (event) =>{
         if(event.ctrlKey || event.metaKey){
             return;
-        }
+        };
 
         event.preventDefault();
 
         navigate(to);
-        handleNav()
+        handleNav();
     }; 
 
     return(

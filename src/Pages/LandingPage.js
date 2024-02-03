@@ -6,7 +6,7 @@ function LandingPage() {
         <>
             <Introduction />
 
-            <ProjectPage/>
+            <ProjectPage />
         </>
     )
 };

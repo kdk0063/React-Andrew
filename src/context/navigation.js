@@ -1,8 +1,8 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect} from 'react';
 
 const NavigationContext = createContext();
 
-function NavigationProvider({children}) {
+function NavigationProvider({ children }) {
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
     const [nav, setNav] = useState(false);
 
@@ -12,9 +12,10 @@ function NavigationProvider({children}) {
         };
         
         window.addEventListener('popstate', handler);
+       
 
         return () => {
-            window.removeEventListener('popstate', handler);
+            window.removeEventListener('popstate', handler);            
         };
 
     }, []);
@@ -22,12 +23,12 @@ function NavigationProvider({children}) {
     const navigate = (to) => {
         window.history.pushState({}, '', to);
         setCurrentPath(to);
+        window.scrollTo(0, 0);
     }
 
     const handleNav = () => {
-        setNav(!nav);
+        setNav(!!nav);
     };
-
 
     return (
         <NavigationContext.Provider value={{ currentPath, navigate, handleNav, nav}}>

@@ -5,12 +5,27 @@ import { GoChevronDown } from "react-icons/go";
 import { FaGithub, FaLinkedin  } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";
 
+import './Introduction.css';
+
 
 function Introduction() {
     const [words] = useTypewriter({
-        words: ["Fullstack Developer.", "UX Enthusiast.", "Collaborator."],
+        words: ["Fullstack Developer.", "React sorcerer", "UX Enthusiast.", "Collaborator."],
         loop: {},
     });
+
+    // const listenToScroll = () => {
+    //     let heightToHideFrom = 1000;
+    //     const windowScroll = document.body.scrollTo ||
+    //         document.documentElement.scrollTop;
+
+    //     if(windowScroll > heightToHideFrom) {
+    //         isVisible && setIsVisible(false);
+    //     }
+    //     else{
+    //         setIsVisible(true);
+    //     }
+    // }
 
     return (
         <>
@@ -31,7 +46,7 @@ function Introduction() {
                 </div>     
 
                 <div className='grid justify-items-center absolute inset-x-0 bottom-0 pb-20'>
-                    <GoChevronDown  className="text-4xl"/>
+                    <GoChevronDown className="text-4xl blinking-icon"/>
                 </div>
             </div>
         </>

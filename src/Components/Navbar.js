@@ -9,16 +9,13 @@ function Navbar() {
     const { handleNav, nav } = useNavigation();
     
     const links = [
-        // { label: 'Dropdown', path: '/' },
         { label: 'Home', path: '/'},
-        { label: 'Project', path: '/beonCarrierProject' },
-        // { label: 'Buttons', path: '/buttons' },
-        // { label: 'Modal', path: '/modal' }
+        // { label: 'Project', path: '/' },
     ];
 
-    const renderedLinks = links.map((link) => {
+    const renderedLinks = links.map((link, index) => {
         return (
-            <li className="mt-2">
+            <li className="mt-2" key={index}>
                 <Link 
                     key={link.label} 
                     to={link.path} 

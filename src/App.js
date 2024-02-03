@@ -1,17 +1,18 @@
 import Navbar from "./Components/Navbar";
 import Route from "./Components/Route";
+import BableDabblePage from './Pages/BabelDabblePage';
 import BeonCarrierPage from './Pages/BeonCarrierPage';
 import KidianPage from './Pages/KidianPage';
-// import DropdownPage from './Pages/DropdownPage';
-// import ButtonPage from './Pages/ButtonPage';
-// import ModalPage from "./Pages/ModalPage";
 import LandingPage from "./Pages/LandingPage";
 
 function App() {
     return (
         <div className="ml-auto mr-auto max-w-[1600px]">
-            <Navbar />
+            <Navbar />            
            <div>
+                <Route path="/bableDabbleProject">
+                    <BableDabblePage />
+                </Route>
                 <Route path="/beonCarrierProject">
                     <BeonCarrierPage />
                 </Route>
