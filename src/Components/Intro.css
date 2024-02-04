@@ -1,0 +1,30 @@
+.fly-in-text {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.fly-in-text li {
+    display: inline-block;
+    margin-right: 25px;
+    font-family: Open Sans, Arial;
+    font-weight: 200;
+    font-size: 2em;
+    color: #000;
+    opacity: 1;
+    text-shadow: 4px 4px 1px rgba(0, 0, 0, 0.3);
+}
+
+.start-fly-in li {
+    transform: translate(0px, 0px) !important;
+    transition: all 2.5s ease;
+}
+
+.fly-in-text li:last-child {
+    margin-right: 0;
+}
+
+.fly-in-text.hidden li {
+    opacity: 0;
+}
