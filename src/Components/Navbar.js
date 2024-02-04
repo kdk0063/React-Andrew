@@ -10,8 +10,7 @@ function Navbar() {
 
   const links = [
     { label: 'Home', path: '/' },
-    // { label: 'Personal Projects', path: '/sideprojects' }
-    // { label: 'Project', path: '/' },
+    { label: 'Personal Projects', path: '/sideprojects' }
   ];
 
   const renderedLinks = links.map((link, index) => {
