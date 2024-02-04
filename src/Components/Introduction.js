@@ -10,7 +10,7 @@ import './Introduction.css';
 
 function Introduction() {
     const [words] = useTypewriter({
-        words: ["Fullstack Developer.", "React sorcerer", "UX Enthusiast.", "Collaborator."],
+        words: ["Fullstack Developer.", "React wizard", "UX Enthusiast.", "Collaborator."],
         loop: {},
     });
 
