@@ -27,6 +27,11 @@ function Introduction() {
         };
     };
 
+    const handleScroll = () => {
+        console.log('clicked?')
+        window.scrollTo({ top: 1000, behavior: "smooth" })
+    }
+
     return (
         <>
             <div className="h-screen lg:pt-[15%] md:pt-[20%] sm:pt-[25%] xs:pt-[25%] flex justify-end">
@@ -48,7 +53,7 @@ function Introduction() {
                 </div>
 
                 <div className='grid justify-items-center absolute inset-x-0 bottom-0 pb-20'>
-                    <GoChevronDown className="text-4xl blinking-icon" />
+                    <GoChevronDown onClick={handleScroll} cursor-pointer className="text-4xl blinking-icon" />
                 </div>
             </div>
         </>
