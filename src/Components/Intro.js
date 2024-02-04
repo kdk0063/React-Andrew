@@ -1,43 +1,66 @@
-import { useRef } from 'react';
-import Link from './Link';
+import React, { useEffect, useRef } from 'react';
+import './Intro.css';
 
-import './intro.css'
+const Intro = () => {
+  const listRef = useRef(null);
 
-function Intro() {
-    const elemRef = useRef(null);
+  useEffect(() => {
+    const acceptRef = (elem) => {
+        const liElements = elem.querySelectorAll('li');
 
-    const acceptref = (elem) => {
-        elemRef.find('li').each((i, li) => {
-            const px = Math.random() * 250 - 125;
-            const py = Math.random() * 250 - 125;
-            //                             back tags
-            elemRef.css('transform', `translate(${px}px, ${py}px)`)
+        //loop thorugh each ref element which is li element and add random initial position
+        liElements.forEach((li, index) => {
+        const px = Math.random() * 250 - 125;
+        const py = Math.random() * 250 - 125;
+        li.style.transform = `translate(${px}px, ${py}px)`;
         });
+
+        //add predefined css class which is 'start-fly-in
         setTimeout(function () {
-            elemRef.addClass('start-fly-in')
+        elem.classList.add('start-fly-in');
         }, 0);
+
+        //blinking text css
+        // document.querySelector(".blinking-text");
+
+        // setTimeout(() => blinker(), 3500);
+
+        // const blinker = () => {
+        //     const blinkingText = document.querySelector('.blinking-text');
+        //     if (blinkingText) {
+        //         blinkingText.style.display = blinkingText.style.display === 'none' 
+        //             ? 'block' 
+        //             : 'none'
+        //         }
+        // };
+    
+        // setInterval(blinker, 2000);
     };
 
-    return (
-        <div>
-            <Link to='/home'>
-                <div className='bodyclick'>
-                    <ul ref={acceptref} className='fly-in-text'>
-                        <li>G</li>
-                        <li>R</li>
-                        <li>E</li>
-                        <li>A</li>
-                        <li>T</li>
-                        <li>N</li>
-                        <li>E</li>
-                        <li>S</li>
-                        <li>S</li>
-                    </ul>
+    if (listRef.current) {
+      acceptRef(listRef.current);
+    }
+  }, []);
 
-                    <div className='blinking-text click'>Click To Enter</div>
-                </div>
-            </Link>
+  return (
+    <div>
+        <div className='bodyclick'>
+          <ul ref={listRef} className='fly-in-text'>
+            <li>S</li>
+            <li>C</li>
+            <li>A</li>
+            <li>T</li>
+            <li>T</li>
+            <li>E</li>
+            <li>R</li>            
+          </ul>
+
+            <div className='blinking-text'>
+                Click To to refresh
+            </div>
         </div>
-    )
-}
+    </div>
+  );
+};
+
 export default Intro;

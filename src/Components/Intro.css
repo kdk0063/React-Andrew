@@ -28,3 +28,36 @@
 .fly-in-text.hidden li {
     opacity: 0;
 }
+
+.bodyclick {
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh; 
+}
+
+.blinking-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8em;
+    animation: fadeIn 2s infinite;
+    color: black; 
+}
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+  }

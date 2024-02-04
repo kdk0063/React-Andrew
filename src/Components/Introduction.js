@@ -28,7 +28,6 @@ function Introduction() {
     };
 
     const handleScroll = () => {
-        console.log('clicked?')
         window.scrollTo({ top: 1000, behavior: "smooth" })
     }
 

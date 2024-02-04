@@ -10,6 +10,7 @@ function Navbar() {
 
   const links = [
     { label: 'Home', path: '/' },
+    // { label: 'Personal Projects', path: '/sideprojects' }
     // { label: 'Project', path: '/' },
   ];
 
@@ -31,10 +32,10 @@ function Navbar() {
   return (
     <div className='bg-white flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white'>
       {/* Logo */}
-      <h1 className='w-full text-3xl font-bold text-black'>AK.</h1>
+      <h1 className='w-auto text-3xl font-bold text-black'>AK.</h1>
 
       {/* Desktop Navigation */}
-      <ul className='hidden md:flex'>
+      <ul className='hidden md:flex flex-nowrap'>
         {renderedLinks}
       </ul>
 
