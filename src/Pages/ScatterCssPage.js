@@ -3,6 +3,10 @@ import './ScatterCssPage.css';
 
 function ScatterCssPage() {
     const listRef = useRef(null);
+   
+    function refreshPage() {
+        window.location.reload(false);
+      }
 
     useEffect(() => {
         const acceptRef = (elem) => {
@@ -24,11 +28,7 @@ function ScatterCssPage() {
         if (listRef.current) {
             acceptRef(listRef.current);
         }
-    }, [listRef]);
-
-    const reloadCurrent = () => {
-        window.location.reload();
-    }
+    }, []);
 
     return (
         <div>
@@ -44,7 +44,7 @@ function ScatterCssPage() {
                 </ul>
             </div>
             
-            <div className='blinking-text cursor-pointer' onClick={reloadCurrent}>
+            <div className='blinking-text cursor-pointer' onClick={refreshPage}>
                 Click To to refresh
             </div>
         </div>
