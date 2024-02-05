@@ -4,6 +4,7 @@ import Route from "./Components/Route";
 import BableDabblePage from "./Pages/BabelDabblePage";
 import BeonCarrierPage from "./Pages/BeonCarrierPage";
 import CalculatorPage from "./Pages/CalculatorPage";
+import AgeCalculator from "./Pages/AgeCalculator";
 import KidianPage from "./Pages/KidianPage";
 import LandingPage from "./Pages/LandingPage";
 import PersonalProjectPage from "./Pages/PersonalProjectPage";
@@ -16,6 +17,10 @@ function App() {
             <Navbar />
 
             <div>
+                <Route path="/">
+                    <LandingPage />
+                </Route>
+
                 <Route path="/bableDabbleProject">
                     <BableDabblePage />
                 </Route>
@@ -28,12 +33,12 @@ function App() {
                     <CalculatorPage />
                 </Route>
 
-                <Route path="/kidianProject">
-                    <KidianPage />
+                <Route path="/ageCalculator">
+                    <AgeCalculator />
                 </Route>
 
-                <Route path="/">
-                    <LandingPage />
+                <Route path="/kidianProject">
+                    <KidianPage />
                 </Route>
 
                 <Route path="/sideprojects">

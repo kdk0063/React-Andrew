@@ -13,8 +13,13 @@ function PersonalProjectPage() {
                                 <Link className="no-underline cursor-pointer hover:text-white " to={"/scatterCssPage"}>
                                     Custom Intro CSS Flying text Effect
                                 </Link>
-                            </li>                           
+                            </li>
 
+                            <li className="hover:bg-sky-700 rounded-lg">
+                                <Link className="no-underline cursor-pointer hover:text-white " to={"/ageCalculator"}>
+                                    AgeCalculator
+                                </Link>
+                            </li>
                             {/* <li>
                                 <Link className="no-underline cursor-pointer" to={'/calculator'}>
                                     Calculator

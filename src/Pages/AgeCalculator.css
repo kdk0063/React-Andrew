@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .dateCounterPage {
+        @apply bg-[#f0f1f1] flex justify-center items-center h-screen
+    }
+
+    .inputCard { 
+        @apply bg-white rounded-[1.6rem] rounded-br-[115px] px-4 py-12 sm:px-12 min-w-[320px] max-w-[1440px] w-7/12 sm:w-9/12 md:w-8/12 lg:w-8/12 xl:w-7/12
+    }
+    
+    .inputLable {
+        @apply tracking-widest text-sm text-gray-500 mb-1 font-bold uppercase       
+    }
+
+    .inputStyle {
+        @apply border border-gray-300 rounded-lg p-3 lg:p-4 w-full focus:outline-none focus:border-[#8751fa] caret-[#8751fa]
+    }
+
+    .inputWraper {
+        @apply flex flex-col items-start flex-1 mb-4 
+    }
+
+    .validation {
+        @apply text-[#ff6b6b] mt-2 md:text-sm text-xs
+    }
+}
