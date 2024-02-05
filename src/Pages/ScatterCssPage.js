@@ -24,7 +24,11 @@ function ScatterCssPage() {
         if (listRef.current) {
             acceptRef(listRef.current);
         }
-    }, []);
+    }, [listRef]);
+
+    const reloadCurrent = () => {
+        window.location.reload();
+    }
 
     return (
         <div>
@@ -40,7 +44,7 @@ function ScatterCssPage() {
                 </ul>
             </div>
             
-            <div className='blinking-text cursor-pointer' onClick={() => window.location.reload()}>
+            <div className='blinking-text cursor-pointer' onClick={reloadCurrent}>
                 Click To to refresh
             </div>
         </div>
