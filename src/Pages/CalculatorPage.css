@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn-number {
+        @apply flex-[1_0_15%] p-1 m-2 shadow-lg shadow-[0px_3px_2px_#B4A597] bg-[#E9E3DC] font-bold text-[#4B4B50] rounded-lg
+    }
+    .btn-del {
+        @apply flex-[1_0_15%] p-1 m-2 shadow-lg shadow-[0px_3px_2px_#404E72] bg-[#637097] font-bold rounded-lg
+    }
+    .btn-reset {
+        @apply flex-[1_0_25%] p-1 m-2 shadow-lg shadow-[0px_3px_2px_#404E72] bg-[#637097] font-bold rounded-lg
+    }
+    .btn-equal {
+        @apply flex-[1_0_25%] p-1 m-2 shadow-lg shadow-[0px_3px_2px_#93261A] bg-[#D03F30] font-bold rounded-lg
+    }
+
+}

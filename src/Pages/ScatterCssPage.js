@@ -28,16 +28,18 @@ function ScatterCssPage() {
 
     return (
         <div>
-            <ul ref={listRef} className='fly-in-text'>
-                <li>S</li>
-                <li>C</li>
-                <li>A</li>
-                <li>T</li>
-                <li>T</li>
-                <li>E</li>
-                <li>R</li>
-            </ul>
-
+            <div>
+                <ul ref={listRef} className='fly-in-text'>
+                   <li>S</li>
+                    <li>C</li>
+                    <li>A</li>
+                    <li>T</li>
+                    <li>T</li>
+                    <li>E</li>
+                    <li>R</li>
+                </ul>
+            </div>
+            
             <div className='blinking-text cursor-pointer' onClick={() => window.location.reload()}>
                 Click To to refresh
             </div>

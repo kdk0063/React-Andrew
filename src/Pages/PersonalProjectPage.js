@@ -5,31 +5,26 @@ function PersonalProjectPage() {
         <>
             <div className="p-5">
                 <div className="flex flex-col">
-                    <h1 className="flex justify-center">Personal Project</h1>
+                    <h1 className="mb-[2rem] text-center font-bold text-[#5c8d89] text-3xl">Personal Side Projects:</h1>
 
                     <div className="flex justify-center mt-5">
-                        <ul>
-                            <li>
-                                <Link className="no-underline cursor-pointer" to={"/scatterCssPage"}>
-                                    custom intro css effect
+                        <ul className="list-disc">
+                            <li className="hover:bg-sky-700 rounded-lg">
+                                <Link className="no-underline cursor-pointer hover:text-white " to={"/scatterCssPage"}>
+                                    Custom Intro CSS Flying text Effect
                                 </Link>
-                            </li>
+                            </li>                           
 
-                            <li>
+                            {/* <li>
                                 <Link className="no-underline cursor-pointer" to={'/calculator'}>
                                     Calculator
                                 </Link>
-                            </li>
-
-
-                            {/* <li>Reusable custom component with tailwind css</li>
-
-                        <div>If you are a dev, you need a calculator app...</div>
-                        <li>calculator</li>
-
-                        <div>And.... weather app using api as well...</div>
-                        <li>weather app</li> */}
+                            </li> */}
                         </ul>
+                    </div>
+
+                    <div className="flex justify-center mt-[15rem] font-bold">
+                        <h1>MORE SIDE PROJECTS COMING SOON.</h1>
                     </div>
                 </div>
             </div>
