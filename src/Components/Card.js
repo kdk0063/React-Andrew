@@ -1,21 +1,11 @@
 import React from 'react';
-import Link from "./Link";
+import useNavigation from '../hooks/use-navigation';
 
-const Card = ({ imageUrl, title, description, links }) => {
+const Card = ({ imageUrl, title, description, link }) => {
+  const { navigate } = useNavigation();
 
-  const handleDetailClick = links => {
-    console.log('links', links)
-
-    return (
-        <Link
-          key={links.label}
-          to={links.path}
-          className="p-4 m-2 cursor-pointer"
-          activeClassName="font-bold pl-2"
-        >
-          {links.label}
-        </Link>
-    )
+  const handleDetailClick = () => {
+     navigate(link)  
   };
 
   return (
@@ -27,7 +17,7 @@ const Card = ({ imageUrl, title, description, links }) => {
       </div>
       <div className="px-6 py-4">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-[#5C8D89] text-white font-bold py-2 px-4 rounded"
           onClick={handleDetailClick}
         >
           Go to Detail

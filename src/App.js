@@ -21,6 +21,10 @@ function App() {
                     <LandingPage />
                 </Route>
 
+                <Route path="/age-calculator">
+                    <AgeCalculator />
+                </Route>
+                
                 <Route path="/bableDabbleProject">
                     <BableDabblePage />
                 </Route>
@@ -33,10 +37,6 @@ function App() {
                     <CalculatorPage />
                 </Route>
 
-                <Route path="/ageCalculator">
-                    <AgeCalculator />
-                </Route>
-
                 <Route path="/kidianProject">
                     <KidianPage />
                 </Route>
@@ -45,7 +45,7 @@ function App() {
                     <PersonalProjectPage />
                 </Route>
 
-                <Route path="/scatterCssPage">
+                <Route path="/scatter-css-page">
                     <ScatterCssPage />
                 </Route>
             </div>
