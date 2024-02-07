@@ -1,11 +1,15 @@
 import Link from "../Components/Link";
 
+import Card from '../Components/Card';
+
 function PersonalProjectPage() {
     return (
         <>
             <div className="p-5">
                 <div className="flex flex-col">
                     <h1 className="mb-[2rem] text-center font-bold text-[#5c8d89] text-3xl">Personal Side Projects:</h1>
+
+                    <Card />
 
                     <div className="flex justify-center mt-5">
                         <ul className="list-disc">
