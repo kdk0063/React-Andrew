@@ -5,6 +5,10 @@ const Card = ({ imageUrl, title, description, link }) => {
   const { navigate } = useNavigation();
 
   const handleDetailClick = () => {
+    if(link === ""){
+      return;
+    }
+
      navigate(link)  
   };
 
@@ -20,7 +24,7 @@ const Card = ({ imageUrl, title, description, link }) => {
           className="bg-[#5C8D89] text-white font-bold py-2 px-4 rounded"
           onClick={handleDetailClick}
         >
-          Go to Detail
+          { link !== "" ? "Go to Detail" : "Coming Soon"}
         </button>
       </div>
     </div>

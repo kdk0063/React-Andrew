@@ -56,7 +56,7 @@ function Navbar() {
       >
         {/* Mobile Logo */}
         <h1 className='w-full text-3xl font-bold text-black m-4'>AK.</h1>
-        {renderedLinks}
+          {renderedLinks}
       </ul>
     </div>
   );

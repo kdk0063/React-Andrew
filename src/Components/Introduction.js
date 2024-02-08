@@ -51,8 +51,8 @@ function Introduction() {
                     </div>
                 </div>
 
-                <div className='grid justify-items-center absolute inset-x-0 bottom-0 pb-20'>
-                    <GoChevronDown onClick={handleScroll} cursor-pointer className="text-4xl blinking-icon" />
+                <div className='grid justify-items-center absolute inset-x-0 bottom-0 pb-20 cursor-pointer'>
+                    <GoChevronDown onClick={handleScroll} className="text-4xl blinking-icon" />
                 </div>
             </div>
         </>

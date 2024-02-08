@@ -2,6 +2,7 @@ import Card from '../Components/Card';
 
 import AgeCalculatorImg from '../images/ageCalc.JPG';
 import ScatterEffect from '../images/scatter.JPG';
+import TipSplitter from '../images/splitter.JPG';
 
 function PersonalProjectPage() {
     const contentItems =[
@@ -17,7 +18,15 @@ function PersonalProjectPage() {
             imageUrl: AgeCalculatorImg,
             path: "/age-calculator"
         },
+        {
+            title: "Tip Splitter",
+            description: "Tip Splitter to demonstrate date type logic calculation",
+            imageUrl: TipSplitter,
+            path: ""
+        },
     ];
+
+    console.log('contentItems', contentItems[2])
 
 
     return (
@@ -28,6 +37,7 @@ function PersonalProjectPage() {
                     <div className="flex flex-wrap justify-center mt-5">
                         <Card imageUrl={contentItems[0].imageUrl} title={contentItems[0].title} description={contentItems[0].description} link={contentItems[0].path}/>                    
                         <Card imageUrl={contentItems[1].imageUrl} title={contentItems[1].title} description={contentItems[1].description} link={contentItems[1].path}/>                    
+                        <Card imageUrl={contentItems[2].imageUrl} title={contentItems[2].title} description={contentItems[2].description} link={contentItems[2].path}/>                                     
                     </div>
 
                     <div className="flex justify-center mt-[15rem] font-bold">
