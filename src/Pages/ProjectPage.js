@@ -1,58 +1,89 @@
 import Link from '../Components/Link';
-import Panel from '../Components/Panel';
+import { TbTrafficCone } from 'react-icons/tb';
 import BeonCarrierImage from '../images/beoncarrier.JPG';
 import KidianImage from '../images/kidian.JPG';
-import BableDabbleImage from '../images/bableDabble.JPG'
+import BableDabbleImage from '../images/bableDabble.JPG';
+
+const projects = [
+    {
+        title: "Beon Carrier",
+        description: "Logistics web service application",
+        image: BeonCarrierImage,
+        path: "/beonCarrierProject",
+    },
+    {
+        title: "Kidian",
+        description: "Marketplace app for parties and events",
+        image: KidianImage,
+        path: "/kidianProject",
+    },
+    {
+        title: "Babel Dabble",
+        description: "International competitive calligraphy platform",
+        image: BableDabbleImage,
+        path: "/bableDabbleProject",
+    },
+    {
+        title: "Inventory Tracker",
+        description: "QR code-based inventory tracking application",
+        image: null,
+        path: "",
+    },
+    {
+        title: "Allen's Cabinets",
+        description: "Business website for a local cabinet company",
+        image: null,
+        path: "",
+    },
+];
+
+function ProjectCard({ title, description, image, path }) {
+    const inner = (
+        <div className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl border border-transparent hover:border-[#F58426] transition-all duration-300 flex flex-col h-full">
+            <div className="h-44 overflow-hidden bg-[#E8EDF2] flex-shrink-0">
+                {image
+                    ? <img
+                        src={image}
+                        alt={title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    : <div className="w-full h-full flex items-center justify-center gap-2 border-2 border-dashed border-[#F58426]/30">
+                        <TbTrafficCone className="text-[#F58426]/60 text-lg" />
+                        <span className="text-[#F58426]/60 font-bold tracking-widest uppercase text-xs">Coming Soon</span>
+                        <TbTrafficCone className="text-[#F58426]/60 text-lg" />
+                      </div>
+                }
+            </div>
+            <div className="p-5 flex flex-col flex-1">
+                <h3 className="font-bold text-lg group-hover:text-[#F58426] transition-colors duration-200">{title}</h3>
+                <p className="text-gray-500 text-sm mt-1 flex-1">{description}</p>
+                <span className={`mt-4 self-start text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full ${
+                    path
+                        ? 'bg-[#F58426]/10 text-[#F58426] group-hover:bg-[#F58426] group-hover:text-white'
+                        : 'bg-gray-100 text-gray-400'
+                } transition-colors duration-200`}>
+                    {path ? 'View Project' : 'Coming Soon'}
+                </span>
+            </div>
+        </div>
+    );
+
+    if (path) {
+        return <Link to={path} className="no-underline h-full">{inner}</Link>;
+    }
+    return <div className="h-full">{inner}</div>;
+}
 
 function ProjectPage() {
     return (
-        <>
-            <h1 className="mb-[2rem] text-center font-bold text-[#FF3D00] uppercase tracking-widest">Professional Projects</h1>
-
-            <div className="min-h-[65rem] mb-[2rem] pl-[5rem] pr-[5rem] max-w-[70rem] ml-auto mr-auto">
-                <Link to={'/beonCarrierProject'} className="no-underline">
-                    <Panel className="group hover:shadow-xl hover:border-[#FF3D00] transition-all duration-300 w-[70%] ml-auto mr-auto">
-                        <div className="flex flex-wrap justify-center">
-                            <div>
-                                <img className="h-auto w-[20rem] md:rounded-none md:rounded-s-lg" src={BeonCarrierImage} alt="" />
-                            </div>
-                            <div className="flex flex-col self-center mr-auto ml-auto mt-5">
-                                <h5 className="mb-2 text-2xl font-bold text-black group-hover:text-[#FF3D00] transition-colors duration-200">Beon Carrier</h5>
-                                <p className="mb-3 text-black group-hover:text-[#FF3D00] transition-colors duration-200">Logistics Web Service Application</p>
-                            </div>
-                        </div>
-                    </Panel>
-                </Link>
-
-                <Link className="no-underline" to={'/kidianProject'} >
-                    <Panel className="group hover:shadow-xl hover:border-[#FF3D00] transition-all duration-300 mt-[8rem] w-[70%] ml-auto mr-auto">
-                        <div className="flex flex-wrap-reverse justify-center">
-                            <div className="flex flex-col self-center mr-auto ml-auto mt-5">
-                                <h5 className="mb-2 text-2xl font-bold text-black group-hover:text-[#FF3D00] transition-colors duration-200">Kidian</h5>
-                                <p className="mb-3 text-black group-hover:text-[#FF3D00] transition-colors duration-200">Marketplace app for parties and events</p>
-                            </div>
-                            <div>
-                                <img className="h-auto w-[20rem] md:rounded-none md:rounded-s-lg" src={KidianImage} alt="" />
-                            </div>
-                        </div>
-                    </Panel>
-                </Link>
-
-                <Link className="no-underline" to={'/bableDabbleProject'} >
-                    <Panel className="group hover:shadow-xl hover:border-[#FF3D00] transition-all duration-300 mt-[8rem] w-[70%] ml-auto mr-auto">
-                        <div className="flex flex-wrap justify-center">
-                            <div>
-                                <img className="h-[15rem] w-[20rem] md:rounded-none md:rounded-s-lg" src={BableDabbleImage} alt="" />
-                            </div>
-                            <div className="flex flex-col self-center mr-auto ml-auto mt-5">
-                                <h5 className="mb-2 text-2xl font-bold text-black group-hover:text-[#FF3D00] transition-colors duration-200">Babel Dabble</h5>
-                                <p className="mb-3 text-black group-hover:text-[#FF3D00] transition-colors duration-200">International Competitive Calligraphy</p>
-                            </div>
-                        </div>
-                    </Panel>
-                </Link>
+        <div className="py-[4rem] px-[2rem]">
+            <h1 className="mb-[2rem] text-center font-bold text-[#F58426] uppercase tracking-widest">Professional Projects</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[70rem] mx-auto">
+                {projects.map((p) => (
+                    <ProjectCard key={p.title} {...p} />
+                ))}
             </div>
-        </>
-    )
-};
-export default ProjectPage
+        </div>
+    );
+}
+export default ProjectPage;

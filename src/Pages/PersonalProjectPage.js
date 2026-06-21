@@ -20,13 +20,11 @@ function PersonalProjectPage() {
         },
         {
             title: "Tip Splitter",
-            description: "Tip Splitter to demonstrate date type logic calculation",
+            description: "Tip Splitter to demonstrate state management and real-time calculation",
             imageUrl: TipSplitter,
-            path: ""
+            path: "/tip-splitter"
         },
     ];
-
-    console.log('contentItems', contentItems[2])
 
 
     return (
