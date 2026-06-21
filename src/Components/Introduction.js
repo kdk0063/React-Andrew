@@ -10,7 +10,7 @@ import './Introduction.css';
 
 function Introduction() {
     const [words] = useTypewriter({
-        words: ["Fullstack Developer.", "React wizard", "UX Enthusiast.", "Collaborator."],
+        words: ["Fullstack Developer.", "React Wizard.", "UX Enthusiast.", "Collaborator."],
         loop: {},
     });
 
@@ -35,24 +35,33 @@ function Introduction() {
         <>
             <div className="h-screen lg:pt-[15%] md:pt-[20%] sm:pt-[25%] xs:pt-[25%] flex justify-end">
                 <div className="lg:pr-[10rem] md:pr-[10rem] xs:pr-[5rem]">
-                    <h1 className="text-[3rem]">Hi!, I'm Andrew,</h1>
+                    <h1 className="text-[3rem] font-bold">Hi! I'm Andrew,</h1>
                     <div className="mt-12 text-[2rem]">
-                        I'm a <span className='ml-1 text-[#5c8d89]'>{words}</span>
-                        <Cursor cursorColor='#a7d7c5' />
+                        I'm a <span className='ml-1 text-[#FF3D00] font-semibold'>{words}</span>
+                        <Cursor cursorColor='#FF3D00' />
                     </div>
 
                     <p className="lg:w-[36rem] md:w-[30rem] xs:w-[25rem] mt-4 text-[1.25rem] text-wrap">
                         {AboutMe.introA}
                     </p>
                     <div className="flex items-start space-x-4 mt-5">
-                        <MdOutlineMail onClick={() => handleContactClick('mail')} className="text-3xl cursor-pointer" />
-                        <FaGithub onClick={() => handleContactClick('github')} className="text-3xl cursor-pointer" />
-                        <FaLinkedin onClick={() => handleContactClick('linkedin')} className="text-3xl cursor-pointer" />
+                        <MdOutlineMail
+                            onClick={() => handleContactClick('mail')}
+                            className="text-3xl cursor-pointer text-[#FF3D00] hover:text-[#1F00FF] transition-colors duration-200"
+                        />
+                        <FaGithub
+                            onClick={() => handleContactClick('github')}
+                            className="text-3xl cursor-pointer text-[#FF3D00] hover:text-[#1F00FF] transition-colors duration-200"
+                        />
+                        <FaLinkedin
+                            onClick={() => handleContactClick('linkedin')}
+                            className="text-3xl cursor-pointer text-[#FF3D00] hover:text-[#1F00FF] transition-colors duration-200"
+                        />
                     </div>
                 </div>
 
                 <div className='grid justify-items-center absolute inset-x-0 bottom-0 pb-20 cursor-pointer'>
-                    <GoChevronDown onClick={handleScroll} className="text-4xl blinking-icon" />
+                    <GoChevronDown onClick={handleScroll} className="text-4xl blinking-icon text-[#FF3D00]" />
                 </div>
             </div>
         </>

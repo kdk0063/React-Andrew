@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+    body {
+      background-color: #F0EBE3;
+    }
     h1 {
       @apply text-2xl;
     }
@@ -13,7 +16,7 @@
       @apply text-lg;
     }
     a {
-      @apply text-blue-600 underline;
+      @apply no-underline;
     }
   }
 

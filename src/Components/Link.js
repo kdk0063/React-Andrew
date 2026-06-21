@@ -1,28 +1,24 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import useNavigation from '../hooks/use-navigation';
 
 function Link({ to, children, className, activeClassName }) {
     const { navigate, currentPath, handleNav } = useNavigation();
 
-    const classes = classNames(
+    const classes = twMerge(
         'text-black',
         className,
-        currentPath === to && activeClassName
-    )
+        currentPath === to ? activeClassName : undefined
+    );
 
     const handleClick = (event) => {
-        if (event.ctrlKey || event.metaKey) {
-            return;
-        };
-
+        if (event.ctrlKey || event.metaKey) return;
         event.preventDefault();
-
         navigate(to);
         handleNav();
     };
 
     return (
         <a className={classes} onClick={handleClick} href={to}>{children}</a>
-    )
-};
+    );
+}
 export default Link;
