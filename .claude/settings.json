@@ -4,7 +4,8 @@
       "PowerShell($file = \"c:\\\\Users\\\\kdk00\\\\Desktop\\\\Ak\\\\Code\\\\React-Andrew\\\\package.json\"; \\(Get-Content $file -Raw\\) -replace '\"react-scripts\": \"\\\\^0\\\\.0\\\\.0\"', '\"react-scripts\": \"5.0.1\"' | Set-Content $file -Encoding utf8)",
       "WebFetch(domain:www.awwwards.com)",
       "WebFetch(domain:copula.agency)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "PowerShell(Stop-Process -Name \"node\" -ErrorAction SilentlyContinue)"
     ]
   }
 }
