@@ -4,7 +4,30 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        accent: {
+          DEFAULT: '#0047AB',
+          dark: '#0B2F6B',
+          light: '#EAF1FB',
+        },
+        butter: '#F2C14E',
+        ink: '#0A0A0A',
+      },
+      fontFamily: {
+        display: ['"Permanent Marker"', 'cursive'],
+        body: ['"Kalam"', 'cursive'],
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        marquee: 'marquee 24s linear infinite',
+      },
+    },
     screens: {
       'xs': '555.56px',
         // => @media (min-width: 555px) { ... }

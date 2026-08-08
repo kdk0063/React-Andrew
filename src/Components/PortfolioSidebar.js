@@ -32,23 +32,27 @@ function PortfolioSidebar() {
     };
 
     return (
-        <aside className="hidden md:flex flex-col fixed left-0 top-0 h-screen w-[200px] bg-[#003F7F] px-8 py-10 z-40">
-            <h1 className="text-3xl font-bold text-[#F58426] mb-16">AK.</h1>
-            <nav className="flex flex-col gap-8">
+        <aside className="hidden md:flex flex-col justify-between fixed left-0 top-0 h-screen w-[110px] px-6 py-8 z-40 border-r border-ink/10 bg-white">
+            <h1 className="text-2xl text-accent">AK.</h1>
+
+            <nav className="flex flex-col gap-5">
                 {NAV_ITEMS.map(({ label, id }) => (
                     <button
                         key={id}
                         onClick={() => handleClick(id)}
-                        className={`text-left text-sm font-medium transition-all duration-200 pl-3 ${
-                            activeSection === id
-                                ? 'text-[#F58426] border-l-2 border-[#F58426]'
-                                : 'text-white/50 hover:text-white border-l-2 border-transparent'
+                        className={`flex items-center gap-2 text-left text-xs uppercase tracking-widest transition-colors duration-200 ${
+                            activeSection === id ? 'text-accent' : 'text-ink/35 hover:text-ink'
                         }`}
                     >
+                        <span className={`h-px transition-all duration-300 ${
+                            activeSection === id ? 'w-4 bg-accent' : 'w-2 bg-ink/25'
+                        }`} />
                         {label}
                     </button>
                 ))}
             </nav>
+
+            <span className="text-[0.6rem] uppercase tracking-[0.2em] text-ink/30">© {new Date().getFullYear()}</span>
         </aside>
     );
 }

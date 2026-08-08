@@ -1,3 +1,4 @@
+import Cursor from "./Components/Cursor";
 import Navbar from "./Components/Navbar";
 import PortfolioSidebar from "./Components/PortfolioSidebar";
 import Router from "./Pages/Router";
@@ -9,8 +10,9 @@ function App() {
 
     return (
         <div className="flex min-h-screen">
+            <Cursor />
             {isHome && <PortfolioSidebar />}
-            <div className={`flex-1 ${isHome ? 'md:ml-[200px]' : ''}`}>
+            <div className={`flex-1 min-w-0 ${isHome ? 'md:ml-[110px]' : ''}`}>
                 {/* Show Navbar on non-home pages, or on mobile for home */}
                 <div className={isHome ? 'md:hidden' : ''}>
                     <Navbar />
