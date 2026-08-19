@@ -1,17 +1,13 @@
-import ProjectRow from '../Components/ProjectRow';
+import ProjectSection from '../Components/ProjectSection';
 import { personalProjects } from '../constants/projects';
 
 function PersonalProjectPage() {
     return (
-        <div className="py-[5rem]">
-            <div className="px-4 md:px-10 mb-10">
-                <h1 className="text-3xl md:text-5xl">Personal Side Projects</h1>
-            </div>
-            <div className="border-b border-ink/15">
-                {personalProjects.map((project, index) => (
-                    <ProjectRow key={project.title} index={index} {...project} />
-                ))}
-            </div>
+        <div className="px-5 py-16">
+            <ProjectSection
+                label={`${personalProjects.length} Personal Projects`}
+                projects={personalProjects}
+            />
         </div>
     );
 }

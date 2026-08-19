@@ -6,26 +6,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: {
-          DEFAULT: '#0047AB',
-          dark: '#0B2F6B',
-          light: '#EAF1FB',
-        },
-        butter: '#F2C14E',
-        ink: '#0A0A0A',
+        paper: '#FFFFFF',
+        card: '#F4F3F1',
+        ink: '#1A1A1A',
+        muted: '#AAAAAA',
+        accent: '#0047AB',
       },
       fontFamily: {
-        display: ['"Permanent Marker"', 'cursive'],
-        body: ['"Kalam"', 'cursive'],
-      },
-      keyframes: {
-        marquee: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
-      },
-      animation: {
-        marquee: 'marquee 24s linear infinite',
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
       },
     },
     screens: {
@@ -51,4 +40,3 @@ module.exports = {
     require('@tailwindcss/aspect-ratio')
   ],
 };
-

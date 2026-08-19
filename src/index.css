@@ -4,17 +4,16 @@
 
 @layer base {
     body {
-      background-color: #FFFFFF;
-      @apply font-body text-ink;
+      @apply bg-paper text-ink font-sans antialiased;
     }
     h1 {
-      @apply text-2xl font-display;
+      @apply text-2xl font-medium;
     }
     h2 {
-      @apply text-xl font-display;
+      @apply text-xl font-medium;
     }
     h3 {
-      @apply text-lg font-display;
+      @apply text-base font-medium;
     }
     a {
       @apply no-underline;
@@ -23,22 +22,4 @@
 
 button > svg {
     margin-right: 5px;
-}
-
-/* Paper grain overlay */
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-    pointer-events: none;
-    opacity: 0.28;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Custom cursor — only where the replacement cursor actually renders (md+, fine pointer) */
-@media (pointer: fine) and (min-width: 768px) {
-    body, a, button {
-        cursor: none;
-    }
 }

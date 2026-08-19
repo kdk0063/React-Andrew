@@ -1,60 +1,36 @@
 import Link from "./Link";
-import useNavigation from '../hooks/use-navigation';
-
-import { IoMdClose } from "react-icons/io";
-import { FiMenu } from "react-icons/fi";
 
 function Navbar() {
-
-  const { handleNav, nav } = useNavigation();
-
   const links = [
     { label: 'Home', path: '/' },
-    { label: 'Personal Projects', path: '/sideprojects' }
+    { label: 'Projects', path: '/sideprojects' },
   ];
 
-  const renderedLinks = links.map((link, index) => (
-    <li key={index}>
-      <Link
-        to={link.path}
-        className="block px-5 py-2 rounded-full text-sm font-medium text-black transition-all duration-200 hover:bg-accent hover:text-white"
-        activeClassName="bg-accent text-white"
-      >
-        {link.label}
-      </Link>
-    </li>
-  ));
-
   return (
-    <div className='flex justify-between items-center h-20 max-w-[1240px] mx-auto px-6'>
-      {/* Logo */}
-      <h1 className='w-auto text-3xl text-accent'>AK.</h1>
+    <header className="flex justify-between items-center px-6 md:px-10 py-6">
+      <Link to="/" className="text-sm font-medium tracking-tight text-ink">
+        AK
+      </Link>
 
-      {/* Desktop Navigation — pill group */}
-      <ul className='hidden md:flex items-center border-2 border-accent rounded-full px-1 py-1 gap-1'>
-        {renderedLinks}
-      </ul>
-
-      {/* Mobile Navigation Icon */}
-      <div onClick={handleNav} className='block md:hidden cursor-pointer'>
-        {nav
-          ? <IoMdClose className="text-accent" size={22} />
-          : <FiMenu className="text-accent" size={22} />
-        }
-      </div>
-
-      {/* Mobile Navigation Menu */}
-      <ul
-        className={
-          nav
-            ? 'fixed md:hidden left-0 top-0 w-[60%] h-full border-r-2 border-r-accent bg-white ease-in-out duration-500 z-50 p-6'
-            : 'ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%] z-50'
-        }
-      >
-        <h1 className='text-3xl text-accent mb-6'>AK.</h1>
-        {renderedLinks}
-      </ul>
-    </div>
+      <nav className="flex items-center gap-6">
+        {links.map((link) => (
+          <Link
+            key={link.path}
+            to={link.path}
+            className="text-sm text-muted hover:text-ink transition-colors duration-200"
+            activeClassName="text-ink"
+          >
+            {link.label}
+          </Link>
+        ))}
+        <a
+          href="mailto:kdk0063@gmail.com"
+          className="text-sm text-muted hover:text-ink transition-colors duration-200"
+        >
+          Contact
+        </a>
+      </nav>
+    </header>
   );
 }
 export default Navbar;

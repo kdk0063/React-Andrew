@@ -23,7 +23,7 @@ function Reveal({ children, className = '' }) {
     return (
         <div
             ref={ref}
-            className={`transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} ${className}`}
+            className={`transition-all duration-[900ms] ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'} ${className}`}
         >
             {children}
         </div>
