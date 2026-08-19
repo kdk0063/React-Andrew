@@ -17,8 +17,8 @@ function Introduction() {
             </p>
 
             <p className="mt-2 text-[20px] leading-[1.5] text-ink/70">
-                He builds scalable, efficient web applications with a focus on
-                delivering an excellent experience to their users.
+                He turns coffee into components, edge cases into tests, and
+                “it works on my machine” into “it works on yours.”
             </p>
         </div>
     );
