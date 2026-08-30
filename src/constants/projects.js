@@ -1,4 +1,6 @@
 import AgeCalculatorImg from '../images/ageCalc.JPG';
+import AllensAdminImg from '../images/allensAdmin.JPG';
+import AllensCabinetsImg from '../images/allensCabinets.JPG';
 import BableDabbleImg from '../images/bableDabble.JPG';
 import BeonCarrierImg from '../images/beoncarrier.JPG';
 import KidianImg from '../images/kidian.JPG';
@@ -6,6 +8,18 @@ import ScatterImg from '../images/scatter.JPG';
 import SplitterImg from '../images/splitter.JPG';
 
 export const professionalProjects = [
+    {
+        title: "Allen's Cabinets",
+        description: "Business website for a local cabinet company",
+        image: AllensCabinetsImg,
+        path: "",
+    },
+    {
+        title: "Inventory Tracker",
+        description: "QR code-based inventory tracking application",
+        image: AllensAdminImg,
+        path: "",
+    },
     {
         title: "Beon Carrier",
         description: "Logistics web service application",
@@ -23,18 +37,6 @@ export const professionalProjects = [
         description: "International competitive calligraphy platform",
         image: BableDabbleImg,
         path: "/bableDabbleProject",
-    },
-    {
-        title: "Inventory Tracker",
-        description: "QR code-based inventory tracking application",
-        image: null,
-        path: "",
-    },
-    {
-        title: "Allen's Cabinets",
-        description: "Business website for a local cabinet company",
-        image: null,
-        path: "",
     },
 ];
 
