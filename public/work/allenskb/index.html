@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Case study: allenskb.com — the marketing site, showroom booking and quote flow for Allen's Cabinets. Prerendered React on Vercel, Supabase with row-level security, Resend email.">
+  <meta name="color-scheme" content="light">
+  <meta property="og:title" content="allenskb.com — Andrew Kim">
+  <meta property="og:description" content="The marketing site, showroom booking and quote flow for Allen's Cabinets.">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%90%3C/text%3E%3C/svg%3E">
+  <title>allenskb.com — Andrew Kim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400..600&display=swap">
+</head>
+<body>
+
+<style>
+/* Same tokens and primitives as the home page, so the case study reads as
+   part of the same document rather than a separate microsite. */
+:root{
+  --paper:#FBFBF9;
+  --paper-2:#EFEFEB;
+  --ink:#0C0D0F;
+  --ink-2:#6B6B67;
+  --rule:#CFCFC9;
+  --rule-faint:#E4E4DE;
+  --accent:#0C0D0F;
+  --wash:#E6E6E1;
+
+  --sans:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+
+  color-scheme:light;
+
+  --maxw:1280px;
+  --pad:clamp(20px,4vw,64px);
+  --hair:1px;
+}
+
+*{box-sizing:border-box;}
+html{background:var(--paper);}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;}
+::selection{background:var(--accent);color:var(--paper);}
+img{max-width:100%;}
+
+
+.shell{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);}
+
+.label{
+  font-family:var(--sans);font-variation-settings:'wdth' 88;font-weight:600;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);
+}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;font-variant-numeric:tabular-nums;}
+
+/* ---------- masthead ---------- */
+.masthead{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:var(--hair) solid var(--ink);}
+.masthead .shell{
+  display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  padding-top:12px;padding-bottom:11px;
+}
+.wordmark{
+  font-family:var(--sans);font-weight:700;font-variation-settings:'wdth' 100;
+  font-size:14px;letter-spacing:-.01em;text-transform:uppercase;text-decoration:none;
+}
+.mastnav{display:flex;gap:22px;align-items:baseline;}
+.mastnav a{
+  text-decoration:none;border-bottom:var(--hair) solid transparent;padding-bottom:2px;
+  transition:border-color .18s ease;
+}
+.mastnav a:hover,.mastnav a:focus-visible{border-bottom-color:var(--accent);}
+.mastnav a:focus-visible,.wordmark:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+
+/* ---------- sections ---------- */
+.sec{border-top:var(--hair) solid var(--ink);padding:clamp(40px,6vw,72px) 0 clamp(48px,7vw,88px);}
+.sec:first-of-type{border-top:0;}
+.sechead{display:flex;align-items:baseline;gap:16px;padding:14px 0 0;}
+.sechead .bar{flex:1;height:var(--hair);background:var(--rule);}
+.sec > .shell > .sechead{padding-top:0;margin-top:-26px;}
+
+/* ---------- title block ---------- */
+.titleblock{padding:clamp(40px,7vw,88px) 0 clamp(40px,6vw,64px);}
+h1{
+  font-family:var(--sans);font-weight:700;font-variation-settings:'wdth' 96;
+  font-size:clamp(40px,7vw,92px);line-height:.95;letter-spacing:-.04em;
+  margin:18px 0 0;
+}
+.lede{
+  font-size:clamp(17px,1.5vw,20px);line-height:1.5;max-width:36em;margin:22px 0 0;
+}
+.lede em{color:var(--ink-2);}
+.specs{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:0;
+  margin-top:clamp(32px,5vw,48px);border-top:var(--hair) solid var(--ink);
+}
+@media (min-width:820px){.specs{grid-template-columns:repeat(4,1fr);}}
+.specs div{padding:12px 16px 14px 0;border-bottom:var(--hair) solid var(--rule);}
+.specs dt{margin:0;}
+.specs dd{margin:6px 0 0;font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:17px;letter-spacing:-.01em;}
+.specs dd a{text-decoration:none;border-bottom:var(--hair) solid var(--ink);}
+.specs dd a:hover{background:var(--wash);}
+
+.hero-shot{margin:clamp(32px,5vw,56px) 0 0;}
+.hero-shot img{display:block;width:100%;height:auto;border:var(--hair) solid var(--ink);background:var(--paper-2);}
+
+figcaption{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  margin-top:8px;padding-top:7px;border-top:var(--hair) solid var(--rule);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--ink-2);
+  text-transform:uppercase;
+}
+
+/* ---------- flow ---------- */
+.flowmap{margin-top:28px;}
+.flowmap svg{display:block;width:100%;height:auto;}
+.flowmap .box{fill:var(--paper);stroke:var(--ink);}
+.flowmap .box.alt{fill:var(--paper-2);}
+.flowmap .t{fill:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.06em;}
+.flowmap .s{fill:var(--ink-2);font-family:var(--mono);font-size:8.5px;letter-spacing:.04em;}
+.flowmap .ln{stroke:var(--ink);fill:none;}
+.scrollx{overflow-x:auto;}
+.scrollx svg{min-width:720px;}
+.flowmap .dash{stroke:var(--ink-2);stroke-dasharray:3 3;fill:none;}
+.flowmap svg.flowmap-wide{display:none;}
+@media (min-width:760px){.flowmap svg.flowmap-wide{display:block;}.flowmap svg.flowmap-tall{display:none;}}
+
+.steps{margin-top:clamp(36px,5vw,56px);}
+.step{
+  display:grid;grid-template-columns:1fr;gap:18px 40px;
+  padding:26px 0 34px;border-top:var(--hair) solid var(--rule);
+}
+.step:first-child{border-top:var(--hair) solid var(--ink);}
+@media (min-width:900px){.step{grid-template-columns:minmax(0,4fr) minmax(0,8fr);}}
+.step .num{font-family:var(--mono);font-size:11.5px;}
+.step h3{
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 94;
+  font-size:clamp(22px,2.4vw,28px);line-height:1.08;letter-spacing:-.025em;margin:8px 0 0;
+}
+.step p{margin:12px 0 0;font-size:16px;color:var(--ink-2);max-width:32em;}
+.step p code,.note code,.stacktable code{font-family:var(--mono);font-size:.82em;color:var(--ink);background:var(--paper-2);padding:1px 4px;}
+.step figure{margin:0;}
+.step figure img{display:block;width:100%;height:auto;border:var(--hair) solid var(--ink);background:var(--paper-2);}
+.pair{display:grid;grid-template-columns:1fr;gap:18px;}
+@media (min-width:640px){.pair{grid-template-columns:1fr 1fr;}}
+.phone{display:grid;grid-template-columns:1fr;gap:18px;align-items:end;}
+@media (min-width:640px){.phone{grid-template-columns:minmax(0,5fr) minmax(0,2fr);}}
+
+/* ---------- stack table ---------- */
+.stacktable{width:100%;border-collapse:collapse;margin-top:28px;border-top:var(--hair) solid var(--ink);}
+.stacktable th,.stacktable td{text-align:left;vertical-align:top;padding:14px 18px 15px 0;border-bottom:var(--hair) solid var(--rule);}
+.stacktable th{font-weight:inherit;}
+.stacktable td.tool{
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;
+  font-size:17px;letter-spacing:-.01em;white-space:nowrap;
+}
+.stacktable td.why{font-size:15.5px;color:var(--ink-2);}
+.stacktable .layer{width:120px;}
+@media (max-width:700px){
+  .stacktable,.stacktable tbody,.stacktable tr,.stacktable td{display:block;}
+  .stacktable thead{display:none;}
+  .stacktable tr{padding:12px 0 14px;border-bottom:var(--hair) solid var(--rule);}
+  .stacktable td{padding:0;border:0;}
+  .stacktable td.tool{margin-top:4px;}
+  .stacktable td.why{margin-top:6px;}
+}
+
+/* ---------- notes ---------- */
+.notes{display:grid;grid-template-columns:1fr;gap:0;margin-top:28px;border-top:var(--hair) solid var(--ink);}
+@media (min-width:820px){.notes{grid-template-columns:1fr 1fr;}}
+.note{padding:22px 0 26px;border-bottom:var(--hair) solid var(--rule);}
+@media (min-width:820px){
+  .note:nth-child(odd){padding-right:32px;border-right:var(--hair) solid var(--rule);}
+  .note:nth-child(even){padding-left:32px;}
+}
+.note h4{
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 90;
+  font-size:19px;letter-spacing:-.01em;margin:10px 0 8px;
+}
+.note p{margin:0;font-size:15.5px;line-height:1.55;color:var(--ink-2);}
+
+/* ---------- footer ---------- */
+.nextlinks{display:flex;flex-direction:column;margin-top:26px;border-top:var(--hair) solid var(--ink);}
+.nextlinks a{
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:15px 0;border-bottom:var(--hair) solid var(--rule);text-decoration:none;
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:19px;letter-spacing:-.015em;
+  transition:padding-left .18s ease;
+}
+.nextlinks a span{font-family:var(--mono);font-size:11px;font-weight:400;color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;}
+.nextlinks a:hover,.nextlinks a:focus-visible{padding-left:10px;}
+.nextlinks a:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;background:var(--wash);}
+.colophon{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 28px;
+  margin-top:clamp(56px,8vw,104px);padding:12px 0 40px;border-top:var(--hair) solid var(--ink);
+}
+
+.reveal{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1);}
+:root.js-reveal .reveal{opacity:0;transform:translateY(14px);}
+:root.js-reveal .reveal.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){
+  .reveal,:root.js-reveal .reveal{opacity:1;transform:none;transition:none;}
+  .nextlinks a{transition:none;}
+}
+</style>
+
+<header class="masthead">
+  <div class="shell">
+    <a class="wordmark" href="../../">Andrew&nbsp;Kim</a>
+    <nav class="mastnav label" aria-label="Case study">
+      <a href="#flow">Flow</a>
+      <a href="#architecture">System</a>
+      <a href="#stack">Stack</a>
+      <a href="../../#work">← All work</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="titleblock">
+  <div class="shell">
+    <div class="label">Case study 02 &nbsp;/&nbsp; Allen's Cabinets</div>
+    <h1>allenskb.com</h1>
+    <p class="lede">The public site for a kitchen and bath showroom in Alexandria, Virginia. It replaces an old WordPress site, and it has one job: turn someone looking at kitchen photos into a showroom visit or a quote request. <em>Every booking and inquiry goes into the same Postgres database the staff admin tool reads from.</em></p>
+
+    <dl class="specs">
+      <div><dt class="label">Role</dt><dd>Design &amp; engineering</dd></div>
+      <div><dt class="label">Client</dt><dd>Allen's Cabinets</dd></div>
+      <div><dt class="label">Year</dt><dd>2026</dd></div>
+      <div><dt class="label">Status</dt><dd><a href="https://allenskb.com" target="_blank" rel="noopener noreferrer">Live ↗</a></dd></div>
+    </dl>
+
+    <figure class="hero-shot">
+      <img src="home.jpg" alt="allenskb.com home page: a full-bleed kitchen photograph with the headline 'Designed for How You Live', two calls to action and three count-up figures." width="1200" height="750">
+      <figcaption><span>Fig. 01 — Home, desktop</span><span>Live site</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" id="flow">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label">§01</span>
+      <span class="label" style="color:var(--ink)">Visitor flow</span>
+      <span class="bar"></span>
+      <span class="mono" style="color:var(--ink-2)">06 STEPS</span>
+    </div>
+
+    <div class="flowmap reveal">
+      <!-- Wide: one row, left to right, with the two ways to convert branching off the gallery. -->
+      <svg class="flowmap-wide" viewBox="0 0 960 200" role="img" aria-label="Visitor flow: land on home, browse a product page, see the gallery, then either book a showroom visit or send a quote request. Both write to Supabase, send an email, and appear in the admin tool.">
+        <g stroke-width="1.2">
+          <rect class="box" x="0" y="70" width="130" height="56"></rect>
+          <rect class="box" x="170" y="70" width="130" height="56"></rect>
+          <rect class="box" x="340" y="70" width="130" height="56"></rect>
+          <rect class="box alt" x="530" y="14" width="160" height="56"></rect>
+          <rect class="box alt" x="530" y="126" width="160" height="56"></rect>
+          <rect class="box" x="760" y="70" width="200" height="56"></rect>
+        </g>
+        <text class="t" x="12" y="94">01 LAND</text><text class="s" x="12" y="110">HOME · SEARCH · AD</text>
+        <text class="t" x="182" y="94">02 BROWSE</text><text class="s" x="182" y="110">CABINETS · COUNTERS</text>
+        <text class="t" x="352" y="94">03 SEE WORK</text><text class="s" x="352" y="110">GALLERY · FILTERS</text>
+        <text class="t" x="542" y="38">04–05 BOOK A VISIT</text><text class="s" x="542" y="54">DATE → TIME → DETAILS</text>
+        <text class="t" x="542" y="150">06 REQUEST A QUOTE</text><text class="s" x="542" y="166">FORM + UP TO 4 PHOTOS</text>
+        <text class="t" x="772" y="94">SUPABASE → EMAIL</text><text class="s" x="772" y="110">ROW IN ADMIN TOOL</text>
+        <g class="ln" stroke-width="1">
+          <line x1="130" y1="98" x2="170" y2="98"></line>
+          <line x1="300" y1="98" x2="340" y2="98"></line>
+          <polyline points="470,98 500,98 500,42 530,42"></polyline>
+          <polyline points="500,98 500,154 530,154"></polyline>
+          <polyline points="690,42 725,42 725,98 760,98"></polyline>
+          <polyline points="690,154 725,154 725,98"></polyline>
+          <path d="M164 94 L170 98 L164 102"></path>
+          <path d="M334 94 L340 98 L334 102"></path>
+          <path d="M524 38 L530 42 L524 46"></path>
+          <path d="M524 150 L530 154 L524 158"></path>
+          <path d="M754 94 L760 98 L754 102"></path>
+        </g>
+        <!-- Every page can open booking directly: the header's Schedule button. -->
+        <path class="dash" stroke-width="1" d="M65 70 L65 42 L524 42"></path>
+        <text class="s" x="80" y="36">SCHEDULE BUTTON — ANY PAGE</text>
+      </svg>
+
+      <!-- Narrow: the same flow as a single column. -->
+      <svg class="flowmap-tall" viewBox="0 0 320 400" role="img" aria-label="Visitor flow: land, browse, see work, then book a visit or request a quote; both land in Supabase and send an email.">
+        <g stroke-width="1.2">
+          <rect class="box" x="0" y="0" width="320" height="48"></rect>
+          <rect class="box" x="0" y="72" width="320" height="48"></rect>
+          <rect class="box" x="0" y="144" width="320" height="48"></rect>
+          <rect class="box alt" x="0" y="224" width="152" height="60"></rect>
+          <rect class="box alt" x="168" y="224" width="152" height="60"></rect>
+          <rect class="box" x="0" y="320" width="320" height="48"></rect>
+        </g>
+        <text class="t" x="12" y="21">01 LAND</text><text class="s" x="12" y="36">HOME · SEARCH · AD</text>
+        <text class="t" x="12" y="93">02 BROWSE</text><text class="s" x="12" y="108">CABINETS · COUNTERTOPS · HANDLES</text>
+        <text class="t" x="12" y="165">03 SEE WORK</text><text class="s" x="12" y="180">GALLERY · FILTERS</text>
+        <text class="t" x="10" y="248">04–05 BOOK</text><text class="s" x="10" y="265">DATE → TIME</text>
+        <text class="t" x="178" y="248">06 QUOTE</text><text class="s" x="178" y="265">FORM + PHOTOS</text>
+        <text class="t" x="12" y="341">SUPABASE → EMAIL</text><text class="s" x="12" y="356">ROW IN ADMIN TOOL</text>
+        <g class="ln" stroke-width="1">
+          <line x1="160" y1="48" x2="160" y2="72"></line>
+          <line x1="160" y1="120" x2="160" y2="144"></line>
+          <polyline points="160,192 160,208 76,208 76,224"></polyline>
+          <polyline points="160,208 244,208 244,224"></polyline>
+          <polyline points="76,284 76,302 160,302 160,320"></polyline>
+          <polyline points="244,284 244,302 160,302"></polyline>
+        </g>
+      </svg>
+      <figcaption><span>Fig. 02 — Visitor flow</span><span>Two ways to convert</span></figcaption>
+    </div>
+
+    <div class="steps">
+      <article class="step reveal">
+        <div>
+          <div class="num">01 — /</div>
+          <h3>Land on the kitchen, not the logo</h3>
+          <p>The old <code>/</code> was a splash screen that gated into <code>/home</code> — no body copy and no crawlable link. Now it is the real homepage: a full-bleed project photo, the two actions that matter, and count-up figures driven by IntersectionObserver so they animate when you actually reach them.</p>
+        </div>
+        <div class="phone">
+          <figure>
+            <img src="home.jpg" alt="Home page on desktop." width="1200" height="750" loading="lazy">
+            <figcaption><span>Desktop · 1440</span><span></span></figcaption>
+          </figure>
+          <figure>
+            <img src="mobile.jpg" alt="Home page on a phone: headline, stacked full-width buttons and the three figures." width="390" height="844" loading="lazy">
+            <figcaption><span>Mobile · 390</span><span></span></figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="step reveal">
+        <div>
+          <div class="num">02 — /cabinets</div>
+          <h3>Browse by product</h3>
+          <p>Cabinets, countertops and handles each get their own page, with the product lines, lead times and a way to book on every one. Each route is prerendered to its own HTML file with its own title, canonical URL and Open Graph card, so a shared link previews the right page.</p>
+        </div>
+        <figure>
+          <img src="cabinets.jpg" alt="Cabinets page: 'Cabinetry for Every Vision & Budget' over a wood kitchen, with 3 cabinet lines, 2–12 week lead time and serving since 2018." width="1200" height="750" loading="lazy">
+          <figcaption><span>Fig. 03 — Cabinets</span><span>Prerendered route</span></figcaption>
+        </figure>
+      </article>
+
+      <article class="step reveal">
+        <div>
+          <div class="num">03 — /gallery</div>
+          <h3>See the finished work</h3>
+          <p>A masonry gallery of completed projects, filterable by kitchen, bathroom and countertop, with a lightbox. The staff publish projects from the admin tool, and the build pulls a snapshot from Supabase — so the gallery is in the static HTML and loads without a database round trip. A failed fetch fails the build rather than shipping an empty gallery.</p>
+        </div>
+        <figure>
+          <img src="gallery.jpg" alt="Gallery page: category filter pills above a four-column masonry grid of kitchen photographs." width="1200" height="750" loading="lazy">
+          <figcaption><span>Fig. 04 — Gallery</span><span>Built from Supabase</span></figcaption>
+        </figure>
+      </article>
+
+      <article class="step reveal">
+        <div>
+          <div class="num">04–05 — Booking modal</div>
+          <h3>Book a showroom visit in three steps</h3>
+          <p>Date, then time, then name and email. The calendar shows only open days, and each time slot allows two bookings. A Postgres trigger enforces that limit, so two people picking the last slot at the same moment can't both get it. The confirmation email links to a token-scoped page where the customer can cancel or reschedule without making an account.</p>
+        </div>
+        <div class="pair">
+          <figure>
+            <img src="book-1.jpg" alt="Booking modal step 1: 'Choose a date' calendar with available days marked." width="1200" height="750" loading="lazy">
+            <figcaption><span>Step 1 · Date</span><span></span></figcaption>
+          </figure>
+          <figure>
+            <img src="book-2.jpg" alt="Booking modal step 2: 'Choose a time' with four one-hour slots." width="1200" height="750" loading="lazy">
+            <figcaption><span>Step 2 · Time</span><span></span></figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="step reveal">
+        <div>
+          <div class="num">06 — /contact</div>
+          <h3>Or ask for a quote, with photos</h3>
+          <p>The quote form takes up to four photos of the room. They are resized in the browser to 1600&nbsp;px, with EXIF rotation applied, so they fit under Vercel's 4.5&nbsp;MB request limit. They are attached to the notification email and never stored — the business asked for no photo retention.</p>
+        </div>
+        <figure>
+          <img src="contact-form.jpg" alt="Quote form: name, email, phone, project type, message, a photo drop zone and showroom hours." width="1200" height="750" loading="lazy">
+          <figcaption><span>Fig. 05 — Quote request</span><span>Photos never stored</span></figcaption>
+        </figure>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="architecture">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label">§02</span>
+      <span class="label" style="color:var(--ink)">System</span>
+      <span class="bar"></span>
+    </div>
+
+    <div class="flowmap reveal">
+      <div class="scrollx"><svg viewBox="0 0 960 290" role="img" aria-label="Architecture: at build time, Vite prerenders every route and snapshots the gallery from Supabase. At run time the browser loads static HTML from Vercel and hydrates React. Forms insert into Supabase under row-level security, then call Vercel functions that send email through Resend. The Allen's Admin tool reads the same database.">
+        <text class="s" x="0" y="12">BUILD TIME</text>
+        <text class="s" x="0" y="140">RUN TIME</text>
+        <line class="dash" stroke-width="1" x1="0" y1="118" x2="960" y2="118"></line>
+        <g stroke-width="1.2">
+          <rect class="box" x="0" y="24" width="220" height="64"></rect>
+          <rect class="box" x="300" y="24" width="220" height="64"></rect>
+          <rect class="box" x="0" y="152" width="220" height="64"></rect>
+          <rect class="box" x="300" y="152" width="220" height="64"></rect>
+          <rect class="box alt" x="600" y="152" width="170" height="64"></rect>
+          <rect class="box" x="300" y="232" width="220" height="50"></rect>
+          <rect class="box" x="820" y="152" width="140" height="64"></rect>
+          <rect class="box" x="820" y="232" width="140" height="50"></rect>
+        </g>
+        <text class="t" x="12" y="50">VITE BUILD + SSR</text><text class="s" x="12" y="66">PRERENDER 8 ROUTES</text><text class="s" x="12" y="78">TITLE · CANONICAL · OG</text>
+        <text class="t" x="312" y="50">GALLERY SNAPSHOT</text><text class="s" x="312" y="66">PUBLISHED PROJECTS</text><text class="s" x="312" y="78">→ JSON IN THE BUNDLE</text>
+        <text class="t" x="12" y="178">BROWSER</text><text class="s" x="12" y="194">STATIC HTML → HYDRATE</text><text class="s" x="12" y="206">REACT 19 · ROUTER 7</text>
+        <text class="t" x="312" y="178">VERCEL FUNCTIONS</text><text class="s" x="312" y="194">/api/quote-request</text><text class="s" x="312" y="206">/api/book-appointment …</text>
+        <text class="t" x="612" y="178">SUPABASE</text><text class="s" x="612" y="194">POSTGRES + RLS</text><text class="s" x="612" y="206">QUOTES · BOOKINGS · PROJECTS</text>
+        <text class="t" x="312" y="255">RESEND</text><text class="s" x="312" y="270">BUSINESS + CUSTOMER EMAIL</text>
+        <text class="t" x="832" y="178">ALLEN'S ADMIN</text><text class="s" x="832" y="194">STAFF · SAME DB</text>
+        <text class="t" x="832" y="255">INBOX</text><text class="s" x="832" y="270">info@</text>
+        <g class="ln" stroke-width="1">
+          <line x1="220" y1="56" x2="300" y2="56"></line><path d="M226 52 L220 56 L226 60"></path>
+          <polyline points="520,56 685,56 685,152"></polyline><path d="M526 52 L520 56 L526 60"></path>
+          <line x1="110" y1="88" x2="110" y2="152"></line><path d="M106 146 L110 152 L114 146"></path>
+          <line x1="220" y1="184" x2="300" y2="184"></line><path d="M294 180 L300 184 L294 188"></path>
+          <polyline points="180,152 180,136 640,136 640,152"></polyline><path d="M636 146 L640 152 L644 146"></path>
+          <line x1="410" y1="216" x2="410" y2="232"></line><path d="M406 226 L410 232 L414 226"></path>
+          <line x1="520" y1="257" x2="820" y2="257"></line><path d="M814 253 L820 257 L814 261"></path>
+          <line x1="770" y1="184" x2="820" y2="184"></line><path d="M776 180 L770 184 L776 188"></path>
+        </g>
+        <text class="s" x="232" y="132">INSERT · ANON KEY · RLS: WRITE-ONLY</text>
+      </svg></div>
+      <figcaption><span>Fig. 06 — System</span><span>No server at request time</span></figcaption>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="stack">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label">§03</span>
+      <span class="label" style="color:var(--ink)">Tech stack</span>
+      <span class="bar"></span>
+    </div>
+
+    <table class="stacktable">
+      <thead>
+        <tr><th class="label layer">Layer</th><th class="label">Tool</th><th class="label">Why it's there</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Interface</td><td class="tool">React 19</td><td class="why">Lazy-loaded route components; <code>hydrateRoot</code> adopts the prerendered markup instead of redrawing it.</td></tr>
+        <tr><td class="label">Routing</td><td class="tool">React Router 7</td><td class="why">Eight public routes, a token-scoped appointment page and a real 404.</td></tr>
+        <tr><td class="label">Build</td><td class="tool">Vite 8</td><td class="why">Client build plus an SSR build, then a Node script writes one HTML file per route with its own meta tags.</td></tr>
+        <tr><td class="label">Styling</td><td class="tool">Plain CSS</td><td class="why">One stylesheet per component on shared custom-property tokens. No framework, no runtime.</td></tr>
+        <tr><td class="label">Data</td><td class="tool">Supabase</td><td class="why">Postgres with row-level security. The public site can only insert; staff read everything through the admin app.</td></tr>
+        <tr><td class="label">Logic</td><td class="tool">PL/pgSQL</td><td class="why">Security-definer RPCs for slot availability and cancel/reschedule, and a trigger that caps bookings per slot.</td></tr>
+        <tr><td class="label">Server</td><td class="tool">Vercel Functions</td><td class="why">Send email and record analytics, so the API keys stay out of the browser bundle.</td></tr>
+        <tr><td class="label">Email</td><td class="tool">Resend</td><td class="why">Booking and quote notifications to the business, plus a confirmation to the customer.</td></tr>
+        <tr><td class="label">Hosting</td><td class="tool">Vercel</td><td class="why">Static hosting with rewrites, security headers and a strict Content-Security-Policy.</td></tr>
+        <tr><td class="label">Tests</td><td class="tool">node:test</td><td class="why">Checks on the SEO output and on how analytics paths are normalised.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="notes">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label">§04</span>
+      <span class="label" style="color:var(--ink)">Engineering notes</span>
+      <span class="bar"></span>
+    </div>
+    <div class="notes">
+      <div class="note reveal">
+        <div class="label">SEO</div>
+        <h4>Static HTML for crawlers that don't run JavaScript</h4>
+        <p>Before prerendering, every route shipped an empty <code>&lt;div id="root"&gt;</code> and the homepage's share card. Bing, AI crawlers and link previews (iMessage, Slack) read the raw HTML, so each page now carries its real words and meta tags at build time.</p>
+      </div>
+      <div class="note reveal">
+        <div class="label">Migration</div>
+        <h4>39 old URLs, none of them lost</h4>
+        <p>Every URL from the WordPress site — yearly project pages, deal pages, <code>/showroom</code>, <code>/faqs</code> — has a permanent 301 to its closest new page, so existing search rankings and bookmarks carry over.</p>
+      </div>
+      <div class="note reveal">
+        <div class="label">Concurrency</div>
+        <h4>The database enforces the booking limit</h4>
+        <p>The UI hides full slots, but that's only for display. A <code>BEFORE INSERT</code> trigger is what enforces the two-per-slot limit, and the availability RPC returns only slot counts — never names or emails.</p>
+      </div>
+      <div class="note reveal">
+        <div class="label">Privacy</div>
+        <h4>Visitor counts with no cookies</h4>
+        <p>Page views and conversions go through a serverless function that hashes IP, user agent and the day together with a salt, and saves only the hash. The hash changes daily, so nobody can be followed from one day to the next, and there's no cookie banner. Bots, Do Not Track and GPC requests are ignored.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="next">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label">§05</span>
+      <span class="label" style="color:var(--ink)">Next</span>
+      <span class="bar"></span>
+    </div>
+    <div class="nextlinks">
+      <a href="https://allenskb.com" target="_blank" rel="noopener noreferrer">Visit allenskb.com <span>Live site ↗</span></a>
+      <a href="../../#work">Back to all work <span>Index</span></a>
+    </div>
+
+    <div class="colophon">
+      <span class="mono" style="color:var(--ink-2)">© 2026 ANDREW KIM</span>
+      <span class="mono" style="color:var(--ink-2)">SCREENSHOTS FROM THE LIVE SITE, SEPT 2026</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js-reveal');
+  var revealAll = function(){ items.forEach(function(el){ el.classList.add('in'); }); };
+  setTimeout(revealAll, 2000);
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
