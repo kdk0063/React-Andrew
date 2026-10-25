@@ -1,0 +1,184 @@
+/* Cover and spine styles for the parody designs in covers.js.
+   1em on a cover = a tenth of the cover's width, so lettering scales
+   with the book. Spine sizes follow the spine depth (--d). */
+.cvx{position:absolute;inset:0;font-size:calc(var(--w) / 10);overflow:hidden;}
+.cvx > svg{position:absolute;inset:0;width:100%;height:100%;}
+.cvx > div{position:absolute;z-index:1;}
+
+/* ---------- Pride and Prejudice ---------- */
+.cvx-pride{
+  background-color:#1D2848;
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),
+                   repeating-linear-gradient(-45deg,rgba(0,0,0,.14) 0 1px,transparent 1px 3px);
+}
+.pp-title{
+  right:.45em;bottom:.9em;width:6.3em;text-align:center;color:#E2C46F;
+  font-family:"Playfair Display",Georgia,serif;font-style:italic;line-height:1;
+  text-shadow:0 0 .25em #1D2848,0 0 .12em #1D2848,0 0 .5em #1D2848;
+}
+.pp-title .big{display:block;font-size:1.02em;font-weight:600;text-transform:uppercase;letter-spacing:.07em;}
+.pp-title .and{display:block;font-size:.55em;margin:.12em 0;}
+.pp-title .by{display:block;font-size:.6em;margin-top:.5em;}
+.pp-title .ill{display:block;font-size:.42em;margin-top:.4em;}
+
+/* ---------- The Catcher in the Rye ---------- */
+.cvx-catcher{background:#C53B2C;}
+.ct-title{left:.45em;right:.4em;top:.45em;color:#F3E2BC;font-family:"Playfair Display",Georgia,serif;font-weight:700;line-height:.95;}
+.ct-title .sm{font-size:.72em;font-style:italic;font-weight:600;}
+.ct-title .lg{font-size:1.45em;}
+.ct-band{left:0;right:0;bottom:0;height:2.3em;font-size:.6em;background:#F1ECE2;color:#1B1B1B;
+  display:flex;align-items:center;justify-content:center;gap:.35em;
+  font-family:"Playfair Display",Georgia,serif;font-weight:700;letter-spacing:.04em;}
+.ct-band em{font-weight:600;letter-spacing:0;}
+
+/* ---------- Fahrenheit 451 ---------- */
+.cvx-f451{
+  background-color:#E7DEC7;
+  background-image:radial-gradient(rgba(120,100,60,.12) 1px,transparent 1.3px);background-size:7px 7px;
+}
+.cvx-f451 .fx-art{z-index:0;}
+.fx-cap{left:.5em;top:.55em;font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 75;font-weight:600;
+  font-size:.32em;line-height:1.3;letter-spacing:.06em;text-transform:uppercase;color:#2E5446;text-align:center;}
+.fx-author,.fx-title{left:0;right:0;text-align:center;font-family:"Archivo",sans-serif;font-weight:700;
+  font-variation-settings:'wdth' 62;text-transform:uppercase;line-height:.85;white-space:nowrap;}
+.fx-author{top:1.75em;}
+.fx-author .first{display:block;font-size:1.2em;color:#8B8A84;letter-spacing:.03em;}
+.fx-author .last{display:block;font-size:3em;color:#C8372C;}
+.fx-title{bottom:1.2em;}
+.fx-title .t{font-size:1.05em;color:#2E5446;letter-spacing:.02em;}
+.fx-title .n{font-size:1.85em;color:#C8372C;}
+.fx-pub{right:.6em;bottom:.5em;font-family:"Archivo",sans-serif;font-weight:600;font-size:.28em;letter-spacing:.3em;text-transform:uppercase;color:#3A3A36;}
+
+/* ---------- The White Album ---------- */
+.cvx-white{background:#F6F2EA;}
+.side-cover.cov-white{border-color:#CFCBC2;}
+.wa{inset:.4em .3em;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  font-family:"Abril Fatface","Playfair Display",Georgia,serif;font-size:1.95em;line-height:.9;letter-spacing:-.02em;white-space:nowrap;}
+.wa .r{color:#C42F2A;}
+.wa .b{color:#5EA8DC;}
+.wa .i{position:relative;display:inline-block;}
+.wa .i::after{content:"";position:absolute;left:50%;bottom:.66em;width:.2em;height:.2em;border-radius:50%;
+  background:#C42F2A;transform:translateX(-50%);}
+.wa .i.db::after{background:#5EA8DC;}
+
+/* ---------- spines ---------- */
+.spx{padding:12px 0;}
+.spx .t{font-variation-settings:normal;}
+
+.spx-pride{background:#1D2848;color:#E2C46F;}
+.spx-pride .t{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:600;text-transform:none;letter-spacing:.03em;font-size:calc(var(--d) * .34);}
+.pp-rule{width:68%;height:6px;border-top:1px solid currentColor;border-bottom:1px solid currentColor;}
+
+.spx-catcher{background:#C53B2C;color:#F3E2BC;padding-bottom:0;}
+.ct-spine-top{display:flex;flex-direction:column;align-items:center;font-family:"Playfair Display",Georgia,serif;
+  font-weight:700;font-size:calc(var(--d) * .2);line-height:1.05;}
+.ct-spine-top .sm{font-style:italic;font-weight:600;}
+.spx-catcher .t{font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:calc(var(--d) * .26);letter-spacing:.06em;}
+.ct-spine-band{align-self:stretch;background:#F1ECE2;color:#1B1B1B;text-align:center;
+  font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:calc(var(--d) * .22);padding:7px 0;}
+
+.spx-f451{background:#E7DEC7;color:#C8372C;}
+.spx-f451 .t{font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 62;font-weight:700;font-size:calc(var(--d) * .44);letter-spacing:.02em;}
+.fx-spine-n{font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 62;font-weight:700;color:#2E5446;font-size:calc(var(--d) * .3);}
+.fx-spine-pub{font-family:"Archivo",sans-serif;font-weight:600;font-size:calc(var(--d) * .15);letter-spacing:.2em;color:#3A3A36;}
+
+.spx-white{background:#F6F2EA;color:#5EA8DC;border-color:#CFCBC2;}
+.spx-white .t{font-family:"Abril Fatface","Playfair Display",Georgia,serif;font-weight:400;text-transform:none;font-size:calc(var(--d) * .38);letter-spacing:.01em;}
+.wa-spine-r{font-family:"Abril Fatface","Playfair Display",Georgia,serif;color:#C42F2A;font-size:calc(var(--d) * .3);}
+.spx-white .mark{color:#C42F2A;}
+
+/* ---------- Supreme (Grandstand) ---------- */
+.cvx-supreme{
+  background-color:#F3F3F1;
+  background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.025) 0 1px,transparent 1px 3px),
+                   repeating-linear-gradient(90deg,rgba(0,0,0,.02) 0 1px,transparent 1px 3px);
+}
+.side-cover.cov-supreme{border-color:#D6D6D2;}
+.sp-box{left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;}
+.sp-box span{background:#E0262B;color:#fff;font-family:"Jost","Futura","Century Gothic",sans-serif;font-style:italic;font-weight:800;
+  font-size:1.18em;letter-spacing:-.02em;line-height:1;padding:.2em .32em .24em;}
+.sp-emboss{left:0;right:0;bottom:.7em;text-align:center;font-family:"Archivo",sans-serif;font-weight:700;font-size:.42em;
+  letter-spacing:.32em;color:#F3F3F1;text-shadow:1px 1px 0 rgba(255,255,255,.9),-1px -1px 0 rgba(0,0,0,.14);}
+.spx-supreme{background:#F3F3F1;border-color:#D6D6D2;padding:22px 0 12px;}
+.sp-spine-box{background:#E0262B;padding:8px 3px;display:flex;}
+.spx-supreme .t{color:#fff;font-family:"Jost","Futura",sans-serif;font-style:italic;font-weight:800;text-transform:none;
+  letter-spacing:0;font-size:calc(var(--d) * .3);}
+.sp-spine-pub{font-family:"Archivo",sans-serif;font-weight:700;font-size:calc(var(--d) * .15);letter-spacing:.2em;color:#B5B5B0;}
+
+/* ---------- A.P.C. (Allen's Cabinets) ---------- */
+.cvx-apc,.spx-apc{
+  background-color:#B9B8B2;
+  background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.14) 0 1px,transparent 1px 2.5px),
+                   repeating-linear-gradient(90deg,rgba(0,0,0,.09) 0 1px,transparent 1px 2.5px);
+}
+.apc-title,.apc-ghost{left:.55em;top:1.1em;font-family:"Archivo","Helvetica Neue",Helvetica,sans-serif;font-weight:700;
+  font-variation-settings:'wdth' 92;font-size:1.32em;line-height:.9;letter-spacing:-.02em;text-transform:uppercase;}
+.apc-title{color:#1E2333;}
+.apc-ghost{color:#F4F3EF;transform:translate(-.32em,.62em);opacity:.92;}
+.spx-apc{color:#1E2333;border-color:#9E9D97;}
+.apc-spine-top{font-family:"Archivo",sans-serif;font-weight:700;font-size:calc(var(--d) * .2);letter-spacing:.06em;}
+.spx-apc .t{font-family:"Archivo","Helvetica Neue",sans-serif;font-weight:700;font-size:calc(var(--d) * .22);letter-spacing:.14em;}
+
+/* ---------- Nike apparel (Kidian) ---------- */
+.cvx-nike,.spx-nike{
+  background-color:#C3D8EB;
+  background-image:radial-gradient(ellipse at 20% 30%,rgba(255,255,255,.55) 0 12%,transparent 30%),
+                   radial-gradient(ellipse at 75% 18%,rgba(255,255,255,.45) 0 10%,transparent 26%),
+                   radial-gradient(ellipse at 60% 62%,rgba(150,185,215,.55) 0 14%,transparent 34%),
+                   radial-gradient(ellipse at 18% 80%,rgba(255,255,255,.5) 0 10%,transparent 28%),
+                   radial-gradient(ellipse at 85% 88%,rgba(150,185,215,.5) 0 12%,transparent 30%);
+}
+.nk-line{position:absolute;left:0;right:0;height:3px;border-top:1px solid rgba(40,60,80,.35);border-bottom:1px solid rgba(255,255,255,.7);z-index:1;}
+.nk-top,.nk-big,.nk-sub{left:.5em;right:.4em;text-align:center;font-family:"Archivo","Helvetica Neue",Helvetica,sans-serif;font-weight:700;
+  letter-spacing:-.03em;color:#141414;line-height:1;}
+.nk-top{top:7%;font-size:.82em;white-space:nowrap;}
+.nk-mark{left:0;right:0;top:19%;display:flex;justify-content:center;color:#141414;}
+.nk-mark svg{width:2.2em;height:2.2em;}
+.nk-big{top:45%;font-size:1.6em;white-space:nowrap;}
+.nk-sub{top:72%;font-size:.86em;}
+.nk-pub{left:.55em;bottom:.5em;display:flex;align-items:center;gap:.3em;font-family:Georgia,serif;font-size:.42em;letter-spacing:.12em;color:#2A2A2A;}
+.nk-pub .o{width:.9em;height:.9em;border:1px solid currentColor;border-radius:50%;}
+.spx-nike{color:#141414;border-color:#9DB7CF;}
+.spx-nike .t{font-family:"Archivo",sans-serif;font-weight:700;text-transform:none;letter-spacing:-.01em;font-size:calc(var(--d) * .2);}
+.nk-spine-mark{width:calc(var(--d) * .3);}
+.nk-spine-pub{font-family:Georgia,serif;font-size:calc(var(--d) * .16);letter-spacing:.1em;}
+
+/* ---------- Stussy (Babel Dabble) ---------- */
+.cvx-stussy,.spx-stussy{
+  background-color:#141414;
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);
+}
+.st-tag{left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:"Permanent Marker","Marker Felt",cursive;font-size:1.75em;line-height:.85;transform:rotate(-8deg);
+  color:#2E2E2E;text-shadow:0 -1px 0 rgba(255,255,255,.18),0 1px 0 rgba(0,0,0,.6);}
+.st-foot{left:0;right:0;bottom:1.1em;text-align:center;font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 80;
+  font-weight:600;font-size:.32em;letter-spacing:.06em;color:#6E6E6A;transform:rotate(-4deg);}
+.spx-stussy{color:#8A8A86;}
+.spx-stussy .t{font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 80;font-weight:600;font-size:calc(var(--d) * .17);letter-spacing:.06em;text-transform:none;}
+.st-spine-mark{width:calc(var(--d) * .26);color:#3A3A38;}
+
+/* ---------- Knicks history book (Allen's Admin) ---------- */
+.cvx-knicks,.spx-knicks{background-color:#1F5BB5;
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 1px,transparent 1px 3px);}
+.kn-frame{position:absolute;inset:3% 4.2%;border-left:2px solid #F58A26;border-right:2px solid #F58A26;}
+.kn-top,.kn-mid,.kn-foot{left:4.2%;right:4.2%;color:#F58A26;font-family:"Archivo",sans-serif;
+  font-variation-settings:'wdth' 66;font-weight:800;text-transform:uppercase;text-align:center;}
+.kn-top{top:3%;padding:.55em 0 .5em;border-bottom:2px solid #F58A26;font-size:.48em;letter-spacing:.04em;}
+.kn-mid{top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+.kn-kicker{font-size:.42em;letter-spacing:.03em;margin-bottom:.35em;}
+.kn-title{font-size:2.05em;line-height:.86;letter-spacing:-.005em;}
+.kn-mast{display:flex;align-items:center;gap:.12em;margin-top:.35em;font-family:"Playfair Display",Georgia,serif;
+  font-variation-settings:normal;font-weight:700;font-size:.62em;letter-spacing:.02em;}
+.kn-star{display:inline-flex;width:.8em;height:.8em;}
+.kn-star svg{width:100%;height:100%;}
+.kn-foot{bottom:3%;padding:.5em .55em .45em;border-top:2px solid #F58A26;display:flex;justify-content:space-between;
+  font-size:.3em;line-height:1.2;letter-spacing:.04em;}
+.kn-foot span:first-child{text-align:left;}
+.kn-foot span:last-child{text-align:right;}
+.spx-knicks{color:#F58A26;border-color:#123E7E;}
+.spx-knicks::before,.spx-knicks::after{content:"";position:absolute;left:0;right:0;height:2px;background:#F58A26;}
+.spx-knicks::before{top:30px;}
+.spx-knicks::after{bottom:30px;}
+.kn-spine-top{font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 66;font-weight:800;font-size:calc(var(--d) * .2);letter-spacing:.06em;}
+.spx-knicks .t{font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 66;font-weight:800;font-size:calc(var(--d) * .42);letter-spacing:.01em;}
+.kn-spine-star{width:calc(var(--d) * .26);}
