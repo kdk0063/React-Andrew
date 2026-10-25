@@ -16,7 +16,7 @@
       size: { h: 380, d: 64 }, spine: { bg: '#1B5FAA', fg: '#FFFFFF', ac: '#E9A23B', pat: 'band' }, cover: { bg: '#1B5FAA', fg: '#FFFFFF' }
     },
     {
-      id: 'allensadmin', design: 'catcher', title: "Allen’s Admin", spineTitle: "Allen's Admin", coverTitle: 'Allen’s<br>Admin',
+      id: 'allensadmin', design: 'knicks', title: "Allen’s Admin", spineTitle: "Allen's Admin", coverTitle: 'Allen’s<br>Admin',
       kicker: 'Client · In production', tag: 'Internal tool',
       desc: 'The operations platform the showroom runs on: intake forms with recoverable drafts, record search, side-by-side quote comparison, two-way Trello sync and page-accurate PDF printing.',
       meta: [['Role', 'Sole engineer'], ['Stack', 'React, TypeScript, Supabase, Trello API'], ['Status', 'In daily use']],

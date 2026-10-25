@@ -156,3 +156,29 @@
 .spx-stussy{color:#8A8A86;}
 .spx-stussy .t{font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 80;font-weight:600;font-size:calc(var(--d) * .17);letter-spacing:.06em;text-transform:none;}
 .st-spine-mark{width:calc(var(--d) * .26);color:#3A3A38;}
+
+/* ---------- Knicks history book (Allen's Admin) ---------- */
+.cvx-knicks,.spx-knicks{background-color:#1F5BB5;
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 1px,transparent 1px 3px);}
+.kn-frame{position:absolute;inset:3% 4.2%;border-left:2px solid #F58A26;border-right:2px solid #F58A26;}
+.kn-top,.kn-mid,.kn-foot{left:4.2%;right:4.2%;color:#F58A26;font-family:"Archivo",sans-serif;
+  font-variation-settings:'wdth' 66;font-weight:800;text-transform:uppercase;text-align:center;}
+.kn-top{top:3%;padding:.55em 0 .5em;border-bottom:2px solid #F58A26;font-size:.48em;letter-spacing:.04em;}
+.kn-mid{top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+.kn-kicker{font-size:.42em;letter-spacing:.03em;margin-bottom:.35em;}
+.kn-title{font-size:2.05em;line-height:.86;letter-spacing:-.005em;}
+.kn-mast{display:flex;align-items:center;gap:.12em;margin-top:.35em;font-family:"Playfair Display",Georgia,serif;
+  font-variation-settings:normal;font-weight:700;font-size:.62em;letter-spacing:.02em;}
+.kn-star{display:inline-flex;width:.8em;height:.8em;}
+.kn-star svg{width:100%;height:100%;}
+.kn-foot{bottom:3%;padding:.5em .55em .45em;border-top:2px solid #F58A26;display:flex;justify-content:space-between;
+  font-size:.3em;line-height:1.2;letter-spacing:.04em;}
+.kn-foot span:first-child{text-align:left;}
+.kn-foot span:last-child{text-align:right;}
+.spx-knicks{color:#F58A26;border-color:#123E7E;}
+.spx-knicks::before,.spx-knicks::after{content:"";position:absolute;left:0;right:0;height:2px;background:#F58A26;}
+.spx-knicks::before{top:30px;}
+.spx-knicks::after{bottom:30px;}
+.kn-spine-top{font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 66;font-weight:800;font-size:calc(var(--d) * .2);letter-spacing:.06em;}
+.spx-knicks .t{font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 66;font-weight:800;font-size:calc(var(--d) * .42);letter-spacing:.01em;}
+.kn-spine-star{width:calc(var(--d) * .26);}

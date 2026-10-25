@@ -10,6 +10,7 @@
      apc      A.P.C. Transmission / This is the A.P.C. Book
      nike     Look Good, Feel Good, Play Good: Nike Apparel (Phaidon)
      stussy   Stussy: Vintage Retrospective
+     knicks   The Basketball History of the New York Knicks (Historic Newspapers)
    Brand marks themselves (box logo wording, swoosh, signature) are never
    reproduced: every cover carries the project's own name and the ADK star.
    Covers are sized in em: library.css sets the cover's font-size to a
@@ -129,6 +130,19 @@
       },
       spine: function () {
         return '<span class="wa-spine-r">ADK</span><span class="t">MeChelin Guide</span><span class="mark">' + STAR + '</span>';
+      }
+    },
+    knicks: {
+      cover: function () {
+        return '<div class="cvx cvx-knicks"><span class="kn-frame"></span>' +
+          '<div class="kn-top">Historic Spreadsheets</div>' +
+          '<div class="kn-mid"><span class="kn-kicker">The back-office history of</span>' +
+          '<span class="kn-title">Allen’s<br>Admin</span>' +
+          '<span class="kn-mast">Daily<span class="kn-star">' + STAR + '</span>Ops</span></div>' +
+          '<div class="kn-foot"><span>As told in quotes<br>&amp; invoices</span><span>Presented to<br>Allen’s Cabinets</span></div></div>';
+      },
+      spine: function () {
+        return '<span class="kn-spine-top">ADK</span><span class="t">Allen’s Admin</span><span class="kn-spine-star">' + STAR + '</span>';
       }
     },
     supreme: {
