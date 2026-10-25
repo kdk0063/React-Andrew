@@ -31,56 +31,6 @@
     .proof li{display:flex;gap:12px;align-items:baseline;font-family:var(--sans);font-size:15px;line-height:1.35;}
     .proof b{font-weight:800;font-variation-settings:'wdth' 110;text-transform:uppercase;letter-spacing:.02em;color:var(--gold);white-space:nowrap;}
 
-    /* ---------- sections ---------- */
-    .sec{padding:clamp(64px,9vw,120px) 0;}
-    .sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px 32px;margin-bottom:clamp(32px,5vw,56px);}
-    .sec-head p{max-width:30em;margin:0;color:var(--ink-2);}
-
-    /* ---------- services ---------- */
-    .services{display:grid;grid-template-columns:1fr;gap:18px;}
-    @media (min-width:900px){.services{grid-template-columns:repeat(3,1fr);}}
-    .service{background:var(--paper-2);border:2px solid var(--ink);border-radius:18px;padding:28px 26px 30px;display:flex;flex-direction:column;}
-    .service:nth-child(2){background:var(--blue);color:var(--paper);border-color:var(--blue);}
-    .service:nth-child(2) .label{color:#CFE0F5;}
-    .service:nth-child(2) li::before{color:var(--gold);}
-    .service h3{font-family:var(--sans);font-weight:800;font-variation-settings:'wdth' 108;font-size:26px;line-height:1.05;letter-spacing:-.01em;text-transform:uppercase;margin:14px 0 12px;}
-    .service p{margin:0 0 18px;font-size:17px;}
-    .service ul{list-style:none;margin:auto 0 0;padding:16px 0 0;border-top:1px solid currentColor;}
-    .service li{font-family:var(--sans);font-size:15px;padding:5px 0;}
-    .service li::before{content:"✦ ";color:var(--blue);}
-
-    /* ---------- process ---------- */
-    .process{background:var(--paper-2);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);}
-    .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:0;counter-reset:step;}
-    @media (min-width:860px){.steps{grid-template-columns:repeat(4,1fr);}}
-    .steps li{padding:24px 24px 28px 0;border-top:2px solid var(--ink);}
-    @media (min-width:860px){.steps li{padding-right:28px;}.steps li + li{padding-left:24px;border-left:1px solid var(--rule);}}
-    .steps .n{font-family:var(--sans);font-weight:800;font-size:44px;line-height:1;color:var(--blue);}
-    .steps h3{font-family:var(--sans);font-weight:800;font-variation-settings:'wdth' 108;font-size:21px;text-transform:uppercase;margin:12px 0 8px;}
-    .steps p{margin:0;font-size:16px;color:var(--ink-2);}
-
-    /* ---------- about ---------- */
-    .about-grid{display:grid;grid-template-columns:1fr;gap:clamp(32px,5vw,64px);align-items:center;}
-    @media (min-width:900px){.about-grid{grid-template-columns:7fr 5fr;}}
-    .about p{margin:18px 0 0;}
-    .about p:first-of-type{margin-top:24px;}
-    .meaning{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);border-radius:16px;overflow:hidden;}
-    .meaning div{padding:18px 10px;text-align:center;border-left:1px solid var(--rule);}
-    .meaning div:first-child{border-left:0;}
-    .meaning .h{font-family:var(--serif);font-size:clamp(28px,3.4vw,40px);line-height:1;}
-    .meaning .w{font-family:var(--sans);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-top:10px;}
-    .meaning .m{font-family:var(--mono);font-size:12px;color:var(--ink-2);margin-top:2px;}
-    .meaning div:nth-child(3){background:var(--blue);color:var(--paper);}
-    .meaning div:nth-child(3) .m{color:#CFE0F5;}
-    .meaning div:nth-child(4){background:var(--gold);}
-    .seal-note{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink-2);margin-top:12px;text-align:center;}
-
-    /* ---------- closing CTA ---------- */
-    .closer{background:var(--blue);color:var(--paper);text-align:center;}
-    .closer h2{color:var(--paper);}
-    .closer p{max-width:32em;margin:20px auto 0;font-size:20px;}
-    .closer .btn-primary{background:var(--paper);color:var(--ink);border-color:var(--paper);margin-top:32px;}
-    .closer .btn-primary:hover{background:var(--gold);border-color:var(--gold);}
   </style>
 </head>
 <body>
@@ -92,10 +42,7 @@
       <span class="studio">Studio</span>
     </a>
     <nav class="nav" aria-label="Main">
-      <a class="link" href="#services">Services</a>
       <a class="link" href="#work">Work</a>
-      <a class="link" href="#process">Process</a>
-      <a class="link" href="#about">About</a>
       <a class="btn btn-primary" href="/contact/">Contact</a>
     </nav>
   </div>
@@ -133,101 +80,9 @@
 
 
 
-<section class="sec" id="services">
-  <div class="shell">
-    <div class="sec-head">
-      <h2 class="display">What I build</h2>
-      <p>Three kinds of projects, often for the same business: the site customers see, and the tools your team uses to keep up with them.</p>
-    </div>
-    <div class="services">
-      <article class="service reveal">
-        <p class="label">01 · For your customers</p>
-        <h3>Websites that bring in business</h3>
-        <p>A fast, good-looking site with the parts that turn visitors into customers: book an appointment, request a quote, see the work.</p>
-        <ul><li>Design and build</li><li>Booking and quote forms</li><li>Photo galleries</li><li>Search basics and analytics</li></ul>
-      </article>
-      <article class="service reveal">
-        <p class="label">02 · For your team</p>
-        <h3>Custom tools to run the business</h3>
-        <p>Admin panels and dashboards that replace spreadsheets and sticky notes, built around how your shop actually works.</p>
-        <ul><li>Customer and job tracking</li><li>Quotes and printable paperwork</li><li>Inventory and QR codes</li><li>Connections to Trello, email and more</li></ul>
-      </article>
-      <article class="service reveal">
-        <p class="label">03 · For a bigger idea</p>
-        <h3>Web apps, start to finish</h3>
-        <p>For a new product or an idea that needs more than a website: accounts, data and the interface, built and deployed for you.</p>
-        <ul><li>Accounts and permissions</li><li>Databases and APIs</li><li>Maps, 3D and interactive screens</li><li>Hosting and ongoing support</li></ul>
-      </article>
-    </div>
-  </div>
-</section>
 
 
-
-<section class="sec process" id="process">
-  <div class="shell">
-    <div class="sec-head">
-      <h2 class="display">How it works</h2>
-      <p>No jargon, no handoffs. You talk to the person writing the code from start to finish.</p>
-    </div>
-    <ol class="steps">
-      <li class="reveal"><div class="n">01</div><h3>Talk</h3><p>Tell me what's slowing the business down, or what you want customers to be able to do.</p></li>
-      <li class="reveal"><div class="n">02</div><h3>Plan</h3><p>You get a written proposal: what I'll build, how long it takes and what it costs.</p></li>
-      <li class="reveal"><div class="n">03</div><h3>Build</h3><p>Regular updates and a working preview you can click through as it comes together.</p></li>
-      <li class="reveal"><div class="n">04</div><h3>Launch</h3><p>We go live, I show your team how it works, and I stay on for fixes and changes.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec about" id="about">
-  <div class="shell about-grid">
-    <div>
-      <h2 class="display">Hi, I'm Andrew</h2>
-      <p>My full name is Andrew Dong Kyu Kim. I'm Korean, born in Buffalo, and I've been building for the web since 2017: five years on logistics software at NTG, apps for startups as a contractor, and now websites and tools for small businesses.</p>
-      <p>Before code, I was a b-boy. Breaking taught me what I still bring to every project: practice until the hard part looks easy, and show up for your crew. I'm also a lifelong Knicks and Bills fan, so I know a thing or two about patience.</p>
-      <p>The name ADK is my initials. The K in the logo is half of a star, because my Korean name, 東奎, means <em>east star</em>.</p>
-    </div>
-    <div class="reveal">
-      <div class="meaning" aria-label="The meaning of each part of Andrew's name">
-        <div><div class="h">A</div><div class="w">Andrew</div><div class="m">courage</div></div>
-        <div><div class="h">金</div><div class="w">Kim</div><div class="m">gold</div></div>
-        <div><div class="h">東</div><div class="w">Dong</div><div class="m">east</div></div>
-        <div><div class="h">奎</div><div class="w">Kyu</div><div class="m">star</div></div>
-      </div>
-      <p class="seal-note">The brave golden star of the East</p>
-    </div>
-  </div>
-</section>
-
-<section class="sec closer">
-  <div class="shell">
-    <h2 class="display">Got a project? Or a spreadsheet you're tired of?</h2>
-    <p>Tell me how the work gets done today, and I'll tell you what I'd build.</p>
-    <a class="btn btn-primary" href="/contact/">Get in touch</a>
-  </div>
-</section>
 </main>
-
-<footer class="site-foot">
-  <div class="shell">
-    <div>
-      <a class="brand" href="/" aria-label="ADK Studio home">
-        <svg viewBox="0 0 98 40" role="img" aria-label="ADK"><text class="lm-text" x="0" y="33">AD</text><path class="lm-k" d="M61 8v24M61 20l12-12M61 20l12 12"/><path class="lm-east" d="M61 20h19"/><path class="lm-star" d="M90 13.5l2 4.5 4.5 2-4.5 2-2 4.5-2-4.5-4.5-2 4.5-2z"/></svg>
-        <span class="studio">Studio</span>
-      </a>
-      <p>Websites and custom software for small businesses, by Andrew Dong Kyu Kim.</p>
-    </div>
-    <div>
-      <h3>Site</h3>
-      <ul><li><a href="#services">Services</a></li><li><a href="#work">Work</a></li><li><a href="#about">About</a></li><li><a href="/contact/">Contact</a></li></ul>
-    </div>
-    <div>
-      <h3>Elsewhere</h3>
-      <ul><li><a href="https://github.com/kdk0063" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li><li><a href="https://www.allenscabinets.com" target="_blank" rel="noopener noreferrer">allenscabinets.com ↗</a></li></ul>
-    </div>
-    <div class="fine"><span>© 2026 ADK Studio</span><span>東奎 · EAST STAR</span></div>
-  </div>
-</footer>
 
 <script src="/library.js"></script>
 <script>
