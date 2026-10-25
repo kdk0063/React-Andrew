@@ -12,7 +12,7 @@
       desc: 'Marketing site, showroom booking and quote requests for a kitchen and bath showroom in Alexandria, Virginia. Every request lands in the same database the staff tool reads.',
       meta: [['Role', 'Design & engineering'], ['Year', '2026'], ['Stack', 'React, Vite, Supabase, Vercel'], ['Status', 'Live']],
       links: [['Open project', '/work/allenskb/', true], ['Visit site ↗', 'https://www.allenscabinets.com']],
-      size: { h: 380, d: 64 }, spine: { bg: '#1B5FAA', fg: '#F3EFE6', ac: '#E9A23B', pat: 'band' }, cover: { bg: '#1B5FAA', fg: '#F3EFE6' }
+      size: { h: 380, d: 64 }, spine: { bg: '#1B5FAA', fg: '#FFFFFF', ac: '#E9A23B', pat: 'band' }, cover: { bg: '#1B5FAA', fg: '#FFFFFF' }
     },
     {
       id: 'allensadmin', title: "Allen’s Admin", spineTitle: "Allen's Admin", coverTitle: 'Allen’s<br>Admin',
@@ -21,7 +21,7 @@
       meta: [['Role', 'Sole engineer'], ['Stack', 'React, TypeScript, Supabase, Trello API'], ['Status', 'In daily use']],
       links: [],
       note: 'Private client tool · case study coming',
-      size: { h: 350, d: 54 }, spine: { bg: '#121212', fg: '#F3EFE6', ac: '#E9A23B', pat: 'stripes' }, cover: { bg: '#121212', fg: '#E9A23B' }
+      size: { h: 350, d: 54 }, spine: { bg: '#121212', fg: '#FFFFFF', ac: '#E9A23B', pat: 'stripes' }, cover: { bg: '#121212', fg: '#E9A23B' }
     },
     {
       id: 'grandstand', title: 'Grandstand', spineTitle: 'Grandstand', coverTitle: 'Grand<br>stand',
@@ -30,7 +30,7 @@
       meta: [['Role', 'Design & engineering'], ['Stack', 'Three.js, React Three Fiber, Zustand, Blender'], ['Status', 'Live']],
       links: [['Open project', '/work/grandstand/', true]],
       liveUrl: null, // TODO: Grandstand's live URL
-      size: { h: 400, d: 72 }, spine: { bg: '#D7392B', fg: '#F3EFE6', ac: '#121212', pat: 'check' }, cover: { bg: '#D7392B', fg: '#F3EFE6' }
+      size: { h: 400, d: 72 }, spine: { bg: '#D7392B', fg: '#FFFFFF', ac: '#121212', pat: 'check' }, cover: { bg: '#D7392B', fg: '#FFFFFF' }
     },
     {
       id: 'mechelinguide', title: 'MeChelinGuide', spineTitle: 'MeChelinGuide', coverTitle: 'MeChelin<br>Guide',
@@ -63,7 +63,7 @@
       desc: 'A real-time competitive calligraphy platform that turns learning Chinese characters into timed matches, with practice mode, word lists and a leaderboard.',
       meta: [['Role', 'Junior full-stack developer'], ['Years', '2017–2018'], ['Stack', 'React, AngularJS, ASP.NET Web API, SQL Server']],
       links: [['Open project', '/work/babel-dabble/', true]],
-      size: { h: 345, d: 58 }, spine: { bg: '#44507C', fg: '#F3EFE6', ac: '#7FB2E5', pat: 'stripes' }, cover: { bg: '#44507C', fg: '#F3EFE6' }
+      size: { h: 345, d: 58 }, spine: { bg: '#44507C', fg: '#FFFFFF', ac: '#7FB2E5', pat: 'stripes' }, cover: { bg: '#44507C', fg: '#FFFFFF' }
     }
   ];
 

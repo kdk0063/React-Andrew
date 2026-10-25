@@ -51,8 +51,8 @@
 .side-cover{left:0;width:var(--w);transform:translateZ(calc(var(--d) / 2));}
 .side-spine{left:calc((var(--w) - var(--d)) / 2);width:var(--d);transform:rotateY(-90deg) translateZ(calc(var(--w) / 2));}
 .side-pages{left:calc((var(--w) - var(--d)) / 2);width:var(--d);transform:rotateY(90deg) translateZ(calc(var(--w) / 2));
-  background:repeating-linear-gradient(90deg,#F6F2E8 0 2px,#E4DDCC 2px 3px);}
-.side-top{left:0;width:var(--w);height:var(--d) !important;top:0;transform-origin:top center;transform:rotateX(90deg) translateZ(calc(var(--d) / -2)) translateY(calc(var(--d) / -2));background:#E4DDCC;}
+  background:repeating-linear-gradient(90deg,#F8F8F6 0 2px,#E3E3E0 2px 3px);}
+.side-top{left:0;width:var(--w);height:var(--d) !important;top:0;transform-origin:top center;transform:rotateX(90deg) translateZ(calc(var(--d) / -2)) translateY(calc(var(--d) / -2));background:#E3E3E0;}
 
 /* ---------- spine art (placeholder until brand images arrive) ---------- */
 .side-spine{
