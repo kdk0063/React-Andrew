@@ -4,33 +4,61 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ADK Studio — Andrew Kim’s creative space for design and code</title>
-  <meta name="description" content="ADK Studio is Andrew Kim’s creative space: design and code put to work for small businesses, from sites that bring in customers to tools that run the day.">
+  <meta name="description" content="ADK Studio is Andrew Kim’s creative space for design and code: websites, tools and experiments, shown as they were built.">
   <meta name="color-scheme" content="light">
   <meta property="og:title" content="ADK Studio">
   <meta property="og:description" content="A creative space for design, code and better business.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23121212'/%3E%3Cg stroke='%23F3EFE6' stroke-width='4.5' stroke-linecap='round'%3E%3Cpath d='M11 9v22M11 20l9-10M11 20l9 10'/%3E%3C/g%3E%3Cpath d='M11 20h11' stroke='%236FA3DF' stroke-width='3.5' stroke-linecap='round'/%3E%3Cpath d='M30 14l1.6 4.4L36 20l-4.4 1.6L30 26l-1.6-4.4L24 20l4.4-1.6z' fill='%23E9A23B'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%230A0A0A'/%3E%3Cg stroke='%23FFFFFF' stroke-width='4.5' stroke-linecap='round'%3E%3Cpath d='M11 9v22M11 20l9-10M11 20l9 10'/%3E%3C/g%3E%3Cpath d='M11 20h11' stroke='%236FA3DF' stroke-width='3.5' stroke-linecap='round'/%3E%3Cpath d='M30 14l1.6 4.4L36 20l-4.4 1.6L30 26l-1.6-4.4L24 20l4.4-1.6z' fill='%23E9A23B'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400..600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="/adk.css">
-  <link rel="stylesheet" href="/library.css">
   <style>
-    /* ---------- hero: intro, then the library ---------- */
-    .hero{padding:clamp(36px,5vw,64px) 0 0;}
-    .hero-intro{max-width:calc(820px + 2 * var(--pad));margin-left:0;}
-    .hero h1{font-size:clamp(32px,4.4vw,56px);margin-top:14px;}
-    .hero h1 .blue{color:var(--blue);}
-    .hero .lede{font-size:clamp(17px,1.4vw,19px);margin-top:16px;}
-    .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}
-    .hero .library{padding:8px 0 clamp(48px,6vw,80px);}
+    /* One screen: a short intro above a slow, endless drift of project
+       screens. Each screen floats on its own beat; hovering the strip
+       pauses it, and clicking a screen opens that book in the library. */
+    body{min-height:100vh;display:flex;flex-direction:column;}
+    main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:clamp(32px,6vh,72px) 0 clamp(16px,3vh,32px);}
+    .intro{text-align:center;}
+    .intro h1{font-size:clamp(34px,5vw,64px);margin:16px auto 0;max-width:16ch;}
+    .intro .lede{margin:18px auto 0;max-width:30em;}
+    .intro .cta{margin-top:28px;display:flex;justify-content:center;gap:12px;}
 
-    /* ---------- proof band ---------- */
-    .proof{background:var(--ink);color:var(--paper);}
-    .proof ul{list-style:none;margin:0;padding:22px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 32px;}
-    .proof li{display:flex;gap:12px;align-items:baseline;font-family:var(--sans);font-size:15px;line-height:1.35;}
-    .proof b{font-weight:800;font-variation-settings:'wdth' 110;text-transform:uppercase;letter-spacing:.02em;color:var(--gold);white-space:nowrap;}
+    .float{position:relative;margin-top:clamp(32px,6vh,64px);overflow:hidden;padding:30px 0 40px;
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+              mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);}
+    .float-track{display:flex;align-items:center;gap:48px;width:max-content;padding-right:48px;
+      animation:drift 90s linear infinite;}
+    .float:hover .float-track,.float:focus-within .float-track{animation-play-state:paused;}
+    @keyframes drift{to{transform:translateX(-50%);}}
 
+    .screen{--r:0deg;--d:0s;flex:none;display:block;text-decoration:none;color:var(--ink);
+      transform:rotate(var(--r));animation:bob 7s ease-in-out infinite;animation-delay:var(--d);
+      transition:scale .3s ease;}
+    .screen:hover,.screen:focus-visible{scale:1.05;}
+    @keyframes bob{50%{transform:rotate(var(--r)) translateY(-12px);}}
+    .screen .frame{display:block;background:#fff;border:1px solid var(--rule);overflow:hidden;
+      box-shadow:0 1px 2px rgba(0,0,0,.06),0 18px 40px -12px rgba(0,0,0,.22);}
+    .screen img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;}
+    .browser .frame{width:clamp(250px,24vw,340px);border-radius:10px;}
+    .browser .bar{display:flex;gap:5px;padding:8px 10px;border-bottom:1px solid var(--rule);background:var(--paper-2);}
+    .browser .bar i{width:7px;height:7px;border-radius:50%;background:#C9C9C6;}
+    .browser .shot{display:block;aspect-ratio:16/10;}
+    .phone .frame{width:clamp(108px,10vw,144px);aspect-ratio:9/19;border-radius:22px;padding:5px;background:var(--ink);border-color:var(--ink);}
+    .phone img{border-radius:17px;background:#fff;}
+    .mockup .bare{display:block;width:clamp(150px,13vw,190px);}
+    .mockup img{height:auto;object-fit:contain;mix-blend-mode:multiply;}
+    .cap{display:block;margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-align:center;}
+
+    .foot-line{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding:0 var(--pad) 28px;margin:0;}
+
+    @media (prefers-reduced-motion:reduce){
+      .float{-webkit-mask-image:none;mask-image:none;}
+      .float-track{animation:none;flex-wrap:wrap;justify-content:center;width:auto;padding:0 var(--pad);row-gap:40px;}
+      .float-track [aria-hidden="true"]{display:none;}
+      .screen{animation:none;transition:none;}
+    }
   </style>
 </head>
 <body>
@@ -42,61 +70,67 @@
       <span class="studio">Studio</span>
     </a>
     <nav class="nav" aria-label="Main">
-      <a class="link" href="#work">Work</a>
+      <a class="link" href="/projects/">Projects</a>
       <a class="btn btn-primary" href="/contact/">Contact</a>
     </nav>
   </div>
 </header>
 
 <main>
-<section class="hero" id="work">
-  <div class="shell hero-intro">
-    <p class="label">ADK Studio · Design and development</p>
-    <h1 class="display">A creative space for design, code <span class="blue">and better business.</span></h1>
-    <p class="lede">I'm Andrew Kim, and this is where I make things. I love good design as much as clean code, and I put both to work for small businesses: sites that look sharp and bring in customers, and tools that make the day run smoother. Every project here is a book. Pull one off the shelf.</p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="/contact/">Start a project <svg class="star" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" fill="#E9A23B"/></svg></a>
+  <div class="shell intro">
+    <p class="label">ADK Studio · Andrew Kim</p>
+    <h1 class="display">A creative space for design, code and better business.</h1>
+    <p class="lede">I love good design as much as clean code. Here are some of the things I’ve made.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="/projects/">See projects</a>
     </div>
   </div>
-  <div class="library" aria-label="The library: one book per project">
-  <div class="shelf-scroll" id="shelf-scroll">
-    <div class="shelf" id="shelf"></div>
+
+  <div class="float" aria-label="Project screens">
+    <div class="float-track" id="float-track"></div>
   </div>
-  <div class="shelf-detail" id="shelf-detail" aria-live="polite"></div>
-  <div class="shell"><p class="shelf-note">07 books · client work, NTG, contracts and personal projects</p></div>
-  </div>
-</section>
-
-<section class="proof" aria-label="Track record">
-  <div class="shell">
-    <ul>
-      <li><b>Live</b><span>Website and admin tool running Allen's Cabinets every day</span></li>
-      <li><b>5 years</b><span>Full-stack on NTG's Beon Carrier load board</span></li>
-      <li><b>Since 2017</b><span>Building for the web, front end to database</span></li>
-      <li><b>One person</b><span>Design, code, launch and support</span></li>
-    </ul>
-  </div>
-</section>
-
-
-
-
-
 </main>
 
-<script src="/library.js"></script>
+<p class="foot-line">© 2026 ADK Studio · 東奎</p>
+
 <script>
 (function(){
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
-  if (reduce || !('IntersectionObserver' in window)) return;
-  document.documentElement.classList.add('js-reveal');
-  // Fail open: if the observer never fires, the content still shows.
-  setTimeout(function(){ items.forEach(function(el){ el.classList.add('in'); }); }, 2000);
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
-  items.forEach(function(el){ io.observe(el); });
+  // One entry per screen. kind: browser (16:10 window), phone (tall,
+  // framed here) or mockup (image already has its own device frame).
+  var SCREENS = [
+    { book:'allenscabinets', kind:'browser', src:'/work/allenskb/home.jpg', cap:'allenscabinets.com' },
+    { book:'beoncarrier', kind:'mockup', src:'/work/beon-carrier/mobile-bids.jpg', cap:'Beon Carrier · app' },
+    { book:'grandstand', kind:'browser', src:'/work/grandstand/track.jpg', cap:'Grandstand' },
+    { book:'allensadmin', kind:'browser', src:'/work/allens-admin.jpg', cap:"Allen's Admin" },
+    { book:'allenscabinets', kind:'phone', src:'/work/allenskb/mobile.jpg', cap:'allenscabinets.com · mobile' },
+    { book:'beoncarrier', kind:'browser', src:'/work/beon-carrier/web-bids.jpg', cap:'Beon Carrier' },
+    { book:'kidian', kind:'browser', src:'/work/kidian/hero.jpg', cap:'Kidian' },
+    { book:'allenscabinets', kind:'browser', src:'/work/allenskb/book-1.jpg', cap:'Showroom booking' },
+    { book:'beoncarrier', kind:'mockup', src:'/work/beon-carrier/mobile-load.jpg', cap:'Load details' }
+  ];
+  var track = document.getElementById('float-track');
+  var tilts = ['-2deg','1.5deg','-1deg','2deg','-1.5deg','1deg'];
+
+  function card(s, i, copy) {
+    var a = document.createElement('a');
+    a.className = 'screen ' + s.kind;
+    a.href = '/projects/#book/' + s.book;
+    a.style.setProperty('--r', tilts[i % tilts.length]);
+    a.style.setProperty('--d', (-(i * 0.9) % 7).toFixed(2) + 's');
+    if (copy) { a.setAttribute('aria-hidden', 'true'); a.tabIndex = -1; }
+    else a.setAttribute('aria-label', s.cap + ': open in projects');
+    // mockup: an image that already includes its own device frame.
+    var inner = s.kind === 'browser'
+      ? '<span class="frame"><span class="bar"><i></i><i></i><i></i></span><span class="shot"><img src="' + s.src + '" alt="" loading="lazy"></span></span>'
+      : s.kind === 'mockup'
+        ? '<span class="bare"><img src="' + s.src + '" alt="" loading="lazy"></span>'
+        : '<span class="frame"><img src="' + s.src + '" alt="" loading="lazy"></span>';
+    a.innerHTML = inner + '<span class="cap">' + s.cap + '</span>';
+    return a;
+  }
+  // Two copies back to back so the drift loops without a seam.
+  SCREENS.forEach(function (s, i) { track.appendChild(card(s, i, false)); });
+  SCREENS.forEach(function (s, i) { track.appendChild(card(s, i, true)); });
 })();
 </script>
 </body>

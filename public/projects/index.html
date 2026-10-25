@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects — ADK Studio</title>
+  <meta name="description" content="ADK Studio is Andrew Kim’s creative space: design and code put to work for small businesses, from sites that bring in customers to tools that run the day.">
+  <meta name="color-scheme" content="light">
+  <meta property="og:title" content="ADK Studio">
+  <meta property="og:description" content="A creative space for design, code and better business.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23121212'/%3E%3Cg stroke='%23F3EFE6' stroke-width='4.5' stroke-linecap='round'%3E%3Cpath d='M11 9v22M11 20l9-10M11 20l9 10'/%3E%3C/g%3E%3Cpath d='M11 20h11' stroke='%236FA3DF' stroke-width='3.5' stroke-linecap='round'/%3E%3Cpath d='M30 14l1.6 4.4L36 20l-4.4 1.6L30 26l-1.6-4.4L24 20l4.4-1.6z' fill='%23E9A23B'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/adk.css">
+  <link rel="stylesheet" href="/library.css">
+  <style>
+    /* ---------- hero: intro, then the library ---------- */
+    .hero{padding:clamp(36px,5vw,64px) 0 0;}
+    .hero-intro{max-width:calc(820px + 2 * var(--pad));margin-left:0;}
+    .hero h1{font-size:clamp(40px,5.6vw,72px);margin-top:12px;}
+    .hero h1 .blue{color:var(--blue);}
+    .hero .lede{font-size:clamp(17px,1.4vw,19px);margin-top:16px;}
+    .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}
+    .hero .library{padding:8px 0 clamp(48px,6vw,80px);}
+
+    /* ---------- proof band ---------- */
+    .proof{background:var(--ink);color:var(--paper);}
+    .proof ul{list-style:none;margin:0;padding:22px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 32px;}
+    .proof li{display:flex;gap:12px;align-items:baseline;font-family:var(--sans);font-size:15px;line-height:1.35;}
+    .proof b{font-weight:800;font-variation-settings:'wdth' 110;text-transform:uppercase;letter-spacing:.02em;color:var(--gold);white-space:nowrap;}
+
+  </style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="ADK Studio home">
+      <svg viewBox="0 0 98 40" role="img" aria-label="ADK"><text class="lm-text" x="0" y="33">AD</text><path class="lm-k" d="M61 8v24M61 20l12-12M61 20l12 12"/><path class="lm-east" d="M61 20h19"/><path class="lm-star" d="M90 13.5l2 4.5 4.5 2-4.5 2-2 4.5-2-4.5-4.5-2 4.5-2z"/></svg>
+      <span class="studio">Studio</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="link" href="/projects/" aria-current="page">Projects</a>
+      <a class="btn btn-primary" href="/contact/">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="projects">
+  <div class="shell hero-intro">
+    <p class="label">The library · 07 books</p>
+    <h1 class="display">Projects</h1>
+    <p class="lede">Every project is a book. Click a spine to open it, and click again (or press Esc) to put it back.</p>
+  </div>
+  <div class="library" aria-label="The library: one book per project">
+  <div class="shelf-scroll" id="shelf-scroll">
+    <div class="shelf" id="shelf"></div>
+  </div>
+  <div class="shelf-detail" id="shelf-detail" aria-live="polite"></div>
+  <div class="shell"><p class="shelf-note">07 books · client work, NTG, contracts and personal projects</p></div>
+  </div>
+</section>
+
+
+
+
+
+
+
+</main>
+
+<script src="/library.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js-reveal');
+  // Fail open: if the observer never fires, the content still shows.
+  setTimeout(function(){ items.forEach(function(el){ el.classList.add('in'); }); }, 2000);
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
