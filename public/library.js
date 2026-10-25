@@ -94,7 +94,7 @@
   }
 
   function size(b) {
-    var s = narrow.matches ? 0.72 : 1;
+    var s = narrow.matches ? 0.72 : 0.86;
     var h = Math.round(b.size.h * s), d = Math.round(b.size.d * s), w = Math.round(b.size.h * 0.72 * s);
     return { h: h, d: d, w: w };
   }
