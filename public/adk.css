@@ -35,6 +35,8 @@ img{max-width:100%;display:block;}
 ::selection{background:var(--blue);color:var(--paper);}
 :focus-visible{outline:2px solid var(--blue);outline-offset:3px;}
 
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+
 .shell{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);}
 
 /* ---------- type ---------- */
