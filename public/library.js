@@ -1,13 +1,14 @@
 /* ADK Studio — the library.
    One book per project. To give a book real art later, set
    spine.image / cover.image to an image path; the placeholder
-   lettering hides itself when an image is present. */
+   lettering hides itself when an image is present. A book with a
+   `design` uses that parody cover and spine from covers.js instead. */
 (function () {
   var STAR = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" fill="currentColor"/></svg>';
 
   var BOOKS = [
     {
-      id: 'allenscabinets', title: "allenscabinets.com", spineTitle: "Allen's Cabinets", coverTitle: 'Allen’s<br>Cabinets',
+      id: 'allenscabinets', design: 'apc', title: "allenscabinets.com", spineTitle: "Allen's Cabinets", coverTitle: 'Allen’s<br>Cabinets',
       kicker: 'Client · 2026', tag: 'Website',
       desc: 'Marketing site, showroom booking and quote requests for a kitchen and bath showroom in Alexandria, Virginia. Every request lands in the same database the staff tool reads.',
       meta: [['Role', 'Design & engineering'], ['Year', '2026'], ['Stack', 'React, Vite, Supabase, Vercel'], ['Status', 'Live']],
@@ -15,7 +16,7 @@
       size: { h: 380, d: 64 }, spine: { bg: '#1B5FAA', fg: '#FFFFFF', ac: '#E9A23B', pat: 'band' }, cover: { bg: '#1B5FAA', fg: '#FFFFFF' }
     },
     {
-      id: 'allensadmin', title: "Allen’s Admin", spineTitle: "Allen's Admin", coverTitle: 'Allen’s<br>Admin',
+      id: 'allensadmin', design: 'catcher', title: "Allen’s Admin", spineTitle: "Allen's Admin", coverTitle: 'Allen’s<br>Admin',
       kicker: 'Client · In production', tag: 'Internal tool',
       desc: 'The operations platform the showroom runs on: intake forms with recoverable drafts, record search, side-by-side quote comparison, two-way Trello sync and page-accurate PDF printing.',
       meta: [['Role', 'Sole engineer'], ['Stack', 'React, TypeScript, Supabase, Trello API'], ['Status', 'In daily use']],
@@ -24,7 +25,7 @@
       size: { h: 350, d: 54 }, spine: { bg: '#121212', fg: '#FFFFFF', ac: '#E9A23B', pat: 'stripes' }, cover: { bg: '#121212', fg: '#E9A23B' }
     },
     {
-      id: 'grandstand', title: 'Grandstand', spineTitle: 'Grandstand', coverTitle: 'Grand<br>stand',
+      id: 'grandstand', design: 'supreme', title: 'Grandstand', spineTitle: 'Grandstand', coverTitle: 'Grand<br>stand',
       kicker: 'Personal · Live', tag: '3D web',
       desc: 'An isometric 3D race circuit that runs live in the browser: a Blender-modelled track and cars, a full grid, a pace car and a jumbotron, lit and post-processed in real time.',
       meta: [['Role', 'Design & engineering'], ['Stack', 'Three.js, React Three Fiber, Zustand, Blender'], ['Status', 'Live']],
@@ -33,7 +34,7 @@
       size: { h: 400, d: 72 }, spine: { bg: '#D7392B', fg: '#FFFFFF', ac: '#121212', pat: 'check' }, cover: { bg: '#D7392B', fg: '#FFFFFF' }
     },
     {
-      id: 'mechelinguide', title: 'MeChelinGuide', spineTitle: 'MeChelinGuide', coverTitle: 'MeChelin<br>Guide',
+      id: 'mechelinguide', design: 'white', title: 'MeChelinGuide', spineTitle: 'MeChelinGuide', coverTitle: 'MeChelin<br>Guide',
       kicker: 'Personal · In progress', tag: 'Map app',
       desc: 'A shared, invite-only map of places worth eating. Private circles with seat caps, row-level security on everything, Google sign-in and a vector-tile map that rescopes with the feed.',
       meta: [['Role', 'Product & engineering'], ['Stack', 'React 19, Supabase, MapLibre'], ['Status', 'Work in progress']],
@@ -50,7 +51,7 @@
       size: { h: 370, d: 66 }, spine: { bg: '#F2C230', fg: '#121212', ac: '#121212', pat: 'band' }, cover: { bg: '#121212', fg: '#F2C230' }
     },
     {
-      id: 'kidian', title: 'Kidian', spineTitle: 'Kidian', coverTitle: 'Kidian',
+      id: 'kidian', design: 'nike', title: 'Kidian', spineTitle: 'Kidian', coverTitle: 'Kidian',
       kicker: 'Contract · 2018–2019', tag: 'Marketplace',
       desc: 'A marketplace app for kids’ parties: search vendors by date and party size, compare packages and reviews, book, and add extras like the cake. OpenTable for birthdays.',
       meta: [['Role', 'Front-end developer'], ['Years', '2018–2019'], ['Stack', 'React, Context API, Figma']],
@@ -58,7 +59,7 @@
       size: { h: 320, d: 48 }, spine: { bg: '#3CA9FF', fg: '#FFFFFF', ac: '#FFFFFF', pat: 'dots' }, cover: { bg: '#3CA9FF', fg: '#FFFFFF' }
     },
     {
-      id: 'babeldabble', title: 'Babel Dabble', spineTitle: 'Babel Dabble', coverTitle: 'Babel<br>Dabble',
+      id: 'babeldabble', design: 'stussy', title: 'Babel Dabble', spineTitle: 'Babel Dabble', coverTitle: 'Babel<br>Dabble',
       kicker: 'Contract · 2017–2018', tag: 'Ed-tech game',
       desc: 'A real-time competitive calligraphy platform that turns learning Chinese characters into timed matches, with practice mode, word lists and a leaderboard.',
       meta: [['Role', 'Junior full-stack developer'], ['Years', '2017–2018'], ['Stack', 'React, AngularJS, ASP.NET Web API, SQL Server']],
@@ -126,18 +127,26 @@
     var spineImg = b.spine.image ? ' has-img" style="background-image:url(\'' + esc(b.spine.image) + '\')' : '';
     var coverImg = b.cover.image ? ' has-img" style="background-image:url(\'' + esc(b.cover.image) + '\')' : '';
 
+    var design = b.design && window.ADK_COVERS && window.ADK_COVERS[b.design];
+    var spineHTML = design
+      ? '<div class="side side-spine spx spx-' + b.design + '">' + design.spine(b, no) + '</div>'
+      : '<div class="side side-spine pat-' + b.spine.pat + spineImg + '">' +
+          '<span class="n">' + no + '</span><span class="t">' + esc(b.spineTitle) + '</span><span class="mark">' + STAR + '</span></div>';
+    var coverHTML = design
+      ? '<div class="side side-cover cov-' + b.design + '">' + design.cover(b, no) + '</div>'
+      : '<div class="side side-cover' + coverImg + '"><div class="cv">' +
+          '<div class="cv-top"><span>No. ' + no + '</span><span>ADK Studio</span></div>' +
+          '<div><div class="cv-title">' + b.coverTitle + '</div><span class="cv-tag">' + esc(b.tag) + '</span></div>' +
+          '<div class="cv-bottom"><span>' + esc(b.kicker) + '</span><span class="cv-mark" style="width:22px">' + STAR + '</span></div>' +
+        '</div></div>';
+
     el.innerHTML =
       '<button class="book-hit" type="button" aria-expanded="false" aria-controls="panel-' + b.id + '">' +
         '<span class="sr-only">' + esc(b.title) + ': show details</span></button>' +
       '<div class="book-stage" aria-hidden="true"><div class="book-box">' +
-        '<div class="side side-spine pat-' + b.spine.pat + spineImg + '">' +
-          '<span class="n">' + no + '</span><span class="t">' + esc(b.spineTitle) + '</span><span class="mark">' + STAR + '</span></div>' +
+        spineHTML +
         '<div class="side side-pages"></div>' +
-        '<div class="side side-cover' + coverImg + '"><div class="cv">' +
-          '<div class="cv-top"><span>No. ' + no + '</span><span>ADK Studio</span></div>' +
-          '<div><div class="cv-title">' + b.coverTitle + '</div><span class="cv-tag">' + esc(b.tag) + '</span></div>' +
-          '<div class="cv-bottom"><span>' + esc(b.kicker) + '</span><span class="cv-mark" style="width:22px">' + STAR + '</span></div>' +
-        '</div></div>' +
+        coverHTML +
       '</div></div>' +
       '<div class="book-panel" id="panel-' + b.id + '" role="region" aria-labelledby="bp-' + b.id + '">' + panelHTML(b) + '</div>';
     shelf.appendChild(el);
