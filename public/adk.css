@@ -65,17 +65,10 @@ img{max-width:100%;display:block;}
 /* ---------- header ---------- */
 .site-head{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.88);-webkit-backdrop-filter:saturate(1.4) blur(10px);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--rule);}
 .site-head .shell{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:14px;padding-bottom:14px;}
-.brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
-.brand svg{height:26px;width:auto;display:block;}
-.brand .studio{font-family:var(--sans);font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);padding-top:2px;}
+.brand{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:-.03em;line-height:1;text-decoration:none;color:var(--ink);}
 .nav{display:flex;align-items:center;gap:28px;}
 .nav a.link{font-size:15px;text-decoration:none;color:var(--ink-2);padding:4px 0;border-bottom:1px solid transparent;}
 .nav a.link:hover,.nav a.link[aria-current="page"]{color:var(--ink);border-bottom-color:var(--ink);}
 .nav .btn{padding:9px 18px;font-size:14px;}
-@media (max-width:420px){.brand .studio{display:none;}.nav{gap:18px;}}
+@media (max-width:420px){.nav{gap:18px;}}
 
-/* ---------- logo pieces ---------- */
-.lm-text{font-family:var(--sans);font-weight:800;font-size:38px;letter-spacing:-1px;fill:var(--ink);}
-.lm-k{stroke:var(--ink);stroke-width:5.5;stroke-linecap:round;fill:none;}
-.lm-east{stroke:var(--blue);stroke-width:4;stroke-linecap:round;}
-.lm-star{fill:var(--gold);}
