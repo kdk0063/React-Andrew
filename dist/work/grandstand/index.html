@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Grandstand — real-time 3D in the browser with React Three Fiber. Case study coming soon.">
+  <meta name="description" content="Case study: Grandstand, real Formula 1 races replayed as 3D dioramas in the browser. React Three Fiber, Blender and OpenStreetMap.">
   <meta name="color-scheme" content="light">
   <meta property="og:title" content="Grandstand — Andrew Kim">
-  <meta property="og:description" content="Real-time 3D in the browser. Case study coming soon.">
+  <meta property="og:description" content="Real F1 races, replayed on a tiny 3D world you can walk around.">
   <meta property="og:type" content="article">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%90%3C/text%3E%3C/svg%3E">
   <title>Grandstand — Andrew Kim</title>
@@ -213,53 +213,156 @@ figcaption{
   .reveal,:root.js-reveal .reveal{opacity:1;transform:none;transition:none;}
   .nextlinks a{transition:none;}
 }
-.soon{
-  display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:7px 12px 6px;
-  border:var(--hair) solid var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
-}
-.soon::before{content:"";width:7px;height:7px;border:var(--hair) solid var(--ink);flex:none;}
+.phones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+.phones figure{margin:0;}
+.phones img{display:block;width:100%;height:auto;aspect-ratio:636/1107;object-fit:contain;background:#fff;}
+.phones figcaption{text-transform:uppercase;}
+.duties{margin:14px 0 0;padding:0;list-style:none;border-top:var(--hair) solid var(--rule);}
+.duties li{padding:10px 0 11px;border-bottom:var(--hair) solid var(--rule-faint);font-size:16px;}
+.duties li::before{content:"— ";color:var(--ink-2);}
+.wide{margin:0;}
+.wide img{display:block;width:100%;height:auto;border:var(--hair) solid var(--ink);background:var(--paper-2);}
+.pair2{display:grid;grid-template-columns:1fr;gap:18px;}
+@media (min-width:760px){.pair2{grid-template-columns:1fr 1fr;}}
+.pair2 figure{margin:0;}
+.pair2 img{display:block;width:100%;height:auto;border:var(--hair) solid var(--ink);}
+.pitch{margin-top:28px;padding:22px 24px;border:var(--hair) solid var(--ink);background:var(--paper-2);}
+.pitch h3{margin:0;font-family:var(--sans);font-weight:600;font-size:22px;letter-spacing:-.02em;}
+.pitch p{margin:10px 0 0;font-size:16px;color:var(--ink-2);max-width:40em;}
+.pitch a{display:inline-block;margin-top:16px;font-family:var(--sans);font-weight:500;font-size:15px;text-decoration:none;background:var(--ink);color:var(--paper);padding:11px 20px;border-radius:999px;}
 </style>
 
 <header class="masthead">
   <div class="shell">
     <a class="wordmark" href="../../">Andrew&nbsp;Kim</a>
     <nav class="mastnav label" aria-label="Case study">
-      <a href="../../#work">← All work</a>
+      <a href="#product">Product</a><a href="#build">How it is built</a>
+      <a href="../../projects/">← All work</a>
     </nav>
   </div>
 </header>
-
 <main>
 <section class="titleblock">
   <div class="shell">
-    <div class="label">Case study &nbsp;/&nbsp; Personal R&amp;D</div>
+    <div class="label">Case study &nbsp;/&nbsp; Personal project</div>
     <h1>Grandstand</h1>
-    <p class="lede">A miniature race circuit rendered live in the browser — terrain, grandstands, a pit lane and a grid of cars, lit and post-processed in real time. <em>The full write-up is on its way.</em></p>
-    <div class="soon">Case study coming soon</div>
-
+    <p class="lede">Real Formula 1 races replayed on a tiny 3D world you can walk around. Every lap, pit stop and position change from the actual race plays out on a hand-built diorama of the circuit, in the browser, with no download. <em>Built by a fan, for fans: designed, modelled and coded end to end.</em></p>
     <dl class="specs">
-      <div><dt class="label">Role</dt><dd>Personal R&amp;D</dd></div>
-      <div><dt class="label">Built with</dt><dd>Three.js · R3F</dd></div>
+      <div><dt class="label">Role</dt><dd>Design, 3D &amp; engineering</dd></div>
+      <div><dt class="label">Type</dt><dd>Personal product</dd></div>
       <div><dt class="label">Year</dt><dd>2026</dd></div>
-      <div><dt class="label">Status</dt><dd>In progress</dd></div>
+      <div><dt class="label">Status</dt><dd><a href="https://grandstands.net" target="_blank" rel="noopener noreferrer">Live ↗</a></dd></div>
     </dl>
-
     <figure class="hero-shot">
-      <img src="track.jpg" alt="Grandstand: an overhead 3D view of a race circuit on a green terrain block, with grandstands, a pit building, trees and a Start Race button." width="1200" height="750">
-      <figcaption><span>Fig. 01 — Circuit overview</span><span>Work in progress</span></figcaption>
+      <img src="landing.jpg" alt="Grandstand home page: the headline Take your seat in the grandstand over a 3D diorama of Monza, a red results ticker along the top and a results card." width="1600" height="1000">
+      <figcaption><span>Fig. 01 — Home</span><span>grandstands.net</span></figcaption>
     </figure>
+  </div>
+</section>
 
-    <div class="nextlinks" style="margin-top:clamp(40px,6vw,64px)">
-      <a href="../../#work">Back to all work <span>Index</span></a>
+<section class="sec" id="product">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label" style="color:var(--ink)">Product</span>
+      <span class="bar"></span>
     </div>
-
+    <div class="steps">
+      <article class="step reveal">
+        <div>
+          <div class="num">01 — Pick a circuit</div>
+          <h3>Choose your circuit</h3>
+          <p>Every circuit on the 2026 calendar has a card with its real track outline. Built circuits replay their race; the rest wear an “under construction” stripe, and the next race to be built is flagged so fans know what is coming.</p>
+        </div>
+        <figure><img src="tracks.jpg" alt="Track select page: cards with white track outlines for Red Bull Ring, Monza and Circuit of the Americas, and under-construction cards below." width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 02 — Track select</span><span></span></figcaption></figure>
+      </article>
+      <article class="step reveal">
+        <div>
+          <div class="num">02 — Enter the stands</div>
+          <h3>A whole circuit on a tabletop</h3>
+          <p>Each circuit is a diorama cut from the real map: the track, pit building, garages, grandstands, trees and a jumbotron showing the actual race result. Drag to orbit, scroll to zoom, and click a car to follow its driver.</p>
+        </div>
+        <figure><img src="scene-monza.jpg" alt="Monza as a 3D diorama: track, pit building and garages, grandstand, forest and a jumbotron showing the Italian Grand Prix result." width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 03 — Monza</span><span></span></figcaption></figure>
+      </article>
+      <article class="step reveal">
+        <div>
+          <div class="num">03 — Start the race</div>
+          <h3>The real race, replayed</h3>
+          <p>Press Start Race and all 22 cars run the actual Grand Prix from lights out, using lap-by-lap race data: overtakes, pit stops with tyre changes, retirements and the safety car. A live timing tower tracks gaps and tyres, at 1× to 8× speed.</p>
+        </div>
+        <figure><img src="race-monza.jpg" alt="Race in progress at Monza with a timing tower listing all 22 drivers, their tyres and gaps to the leader." width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 04 — Race replay</span><span></span></figcaption></figure>
+      </article>
+      <article class="step reveal">
+        <div>
+          <div class="num">04 — Up close</div>
+          <h3>Down at track level</h3>
+          <p>Zoom in and the detail holds up: the full grid on the start straight, team-coloured garages, crews in the pit lane and kerbs at every corner. Circuit of the Americas replays the 2025 race while the 2026 replay is prepared.</p>
+        </div>
+        <figure><img src="scene-cota.jpg" alt="Close view of Circuit of the Americas: the grid lined up on the start straight beside the grandstand, pit building and team garages." width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 05 — Circuit of the Americas</span><span></span></figcaption></figure>
+      </article>
+      <article class="step reveal">
+        <div>
+          <div class="num">05 — Teams</div>
+          <h3>Every team, every driver</h3>
+          <p>Team pages give each constructor its base, history, titles and current line-up, linked from the cars on track and the menu.</p>
+        </div>
+        <figure><img src="team-ferrari.jpg" alt="Team page for Ferrari with base, founding year, power unit, titles, the two drivers and a history section." width="1600" height="1000" loading="lazy"><figcaption><span>Fig. 06 — Team page</span><span></span></figcaption></figure>
+      </article>
+    </div>
+  </div>
+</section>
+<section class="sec" id="build">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label" style="color:var(--ink)">How it is built</span>
+      <span class="bar"></span>
+    </div>
+<div class="notes"><div class="note reveal"><div class="label">3D</div><h4>Circuits from real map data</h4><p>Each layout starts from OpenStreetMap. A Python tool turns the map data into a circuit module (track curve, pit lane, garages), so adding a new track is repeatable instead of hand-placed.</p></div><div class="note reveal"><div class="label">Modelling</div><h4>Blender, scripted</h4><p>Terrain, barriers, buildings, vegetation, cars and pit crews are built by Python scripts in Blender, so every circuit shares one look and can be regenerated.</p></div><div class="note reveal"><div class="label">Performance</div><h4>Fast enough for a phone</h4><p>Models are Draco-compressed, cars switch to lighter versions at a distance, and assets are cached hard, so a full circuit with 22 cars loads quickly in a browser tab.</p></div><div class="note reveal"><div class="label">Data</div><h4>Real race timing</h4><p>Each built circuit carries a race file with the real results and timing. Speeds, pit stops and retirements are derived from it, and covered by tests.</p></div></div>
+    <table class="stacktable">
+      <thead><tr><th class="label layer">Layer</th><th class="label">Tool</th><th class="label">Used for</th></tr></thead>
+      <tbody>
+        <tr><td class="label">Interface</td><td class="tool">React 18</td><td class="why">The landing page, track select, team pages, timing tower and controls.</td></tr>
+        <tr><td class="label">3D</td><td class="tool">Three.js + React Three Fiber</td><td class="why">The diorama, cameras, lighting and post-processing.</td></tr>
+        <tr><td class="label">Modelling</td><td class="tool">Blender + Python</td><td class="why">Scripted models for terrain, buildings, cars and crews.</td></tr>
+        <tr><td class="label">Map data</td><td class="tool">OpenStreetMap</td><td class="why">Real circuit layouts and pit lanes.</td></tr>
+        <tr><td class="label">Hosting</td><td class="tool">Vercel</td><td class="why">Static build with long-lived caching for models.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section class="sec" id="next">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label" style="color:var(--ink)">Next</span>
+      <span class="bar"></span>
+    </div>
+    <div class="nextlinks">
+      <a href="https://grandstands.net" target="_blank" rel="noopener noreferrer">Visit grandstands.net <span>Live site ↗</span></a>
+      <a href="../../projects/">Back to all work <span>Index</span></a>
+    </div>
     <div class="colophon">
-      <span class="mono" style="color:var(--ink-2)">© 2026 ANDREW KIM</span>
-      <span class="mono" style="color:var(--ink-2)">SCREENSHOT FROM A LOCAL BUILD, SEPT 2026</span>
+      <span class="mono" style="color:var(--ink-2)">© 2026 ADK STUDIO</span>
+      <span class="mono" style="color:var(--ink-2)">TRACK LAYOUTS © OPENSTREETMAP CONTRIBUTORS</span>
     </div>
   </div>
 </section>
 </main>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js-reveal');
+  var revealAll = function(){ items.forEach(function(el){ el.classList.add('in'); }); };
+  setTimeout(revealAll, 2000);
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
 
 </body>
 </html>

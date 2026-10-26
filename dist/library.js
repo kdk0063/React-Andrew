@@ -18,20 +18,19 @@
     },
     {
       id: 'allensadmin', design: 'knicks', title: "Allen’s Admin", spineTitle: "Allen's Admin", coverTitle: 'Allen’s<br>Admin',
-      kicker: 'Client · In production', tag: 'Internal tool',
-      desc: 'The operations platform the showroom runs on: intake forms with recoverable drafts, record search, side-by-side quote comparison, two-way Trello sync and page-accurate PDF printing.',
-      meta: [['Role', 'Sole engineer'], ['Stack', 'React, TypeScript, Supabase, Trello API'], ['Status', 'In daily use']],
-      links: [],
-      note: 'Private client tool · case study coming',
+      kicker: 'Client · Custom CRM', tag: 'Custom CRM',
+      desc: 'A CRM built around how a showroom actually works: every job moves from first call to install, with follow-ups that write themselves, supplier orders, contractors and insights in one place.',
+      meta: [['Role', 'Sole designer & engineer'], ['Stack', 'React, Supabase, Trello, QuickBooks'], ['Status', 'In daily use']],
+      links: [['Open project', '/work/allens-admin/', true]],
       size: { h: 350, d: 41 }, spine: { image: '/books/allensadmin-spine.jpg', bg: '#121212', fg: '#FFFFFF', ac: '#E9A23B', pat: 'stripes' }, cover: { image: '/books/allensadmin-cover.jpg', bg: '#121212', fg: '#E9A23B' }
     },
     {
       id: 'grandstand', design: 'supreme', title: 'Grandstand', spineTitle: 'Grandstand', coverTitle: 'Grand<br>stand',
       kicker: 'Personal · Live', tag: '3D web',
-      desc: 'An isometric 3D race circuit that runs live in the browser: a Blender-modelled track and cars, a full grid, a pace car and a jumbotron, lit and post-processed in real time.',
-      meta: [['Role', 'Design & engineering'], ['Stack', 'Three.js, React Three Fiber, Zustand, Blender'], ['Status', 'Live']],
+      desc: 'Real Formula 1 races replayed on a tiny 3D world you can walk around: every lap, pit stop and overtake from the actual race, on hand-built dioramas of each circuit, in the browser.',
+      meta: [['Role', 'Design, 3D & engineering'], ['Stack', 'Three.js, React Three Fiber, Blender, OpenStreetMap'], ['Status', 'Live']],
       links: [['Open project', '/work/grandstand/', true]],
-      liveUrl: null, // TODO: Grandstand's live URL
+      liveUrl: 'https://grandstands.net',
       size: { h: 400, d: 51 }, spine: { image: '/books/grandstand-spine.jpg', bg: '#D7392B', fg: '#FFFFFF', ac: '#121212', pat: 'check' }, cover: { image: '/books/grandstand-cover.jpg', bg: '#D7392B', fg: '#FFFFFF' }
     },
     {
