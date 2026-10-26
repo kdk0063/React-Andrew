@@ -7,7 +7,13 @@
 .library{padding:clamp(40px,6vw,72px) 0 clamp(64px,8vw,104px);}
 .library .sec-head{margin-bottom:12px;}
 
-.shelf-scroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scroll-behavior:smooth;}
+.shelf-scroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#C9C9C6 transparent;scroll-behavior:smooth;
+  /* Room under the shelf line for the scrollbar, which on macOS floats over
+     the content and would otherwise sit on the bottom of the books. */
+  padding-bottom:22px;}
+.shelf-scroll::-webkit-scrollbar{height:6px;}
+.shelf-scroll::-webkit-scrollbar-thumb{background:#C9C9C6;border-radius:999px;}
+.shelf-scroll::-webkit-scrollbar-track{background:transparent;}
 @media (prefers-reduced-motion:reduce){.shelf-scroll{scroll-behavior:auto;}}
 .shelf{
   display:flex;align-items:flex-end;gap:6px;
