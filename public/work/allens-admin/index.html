@@ -230,6 +230,8 @@ figcaption{
 .pitch h3{margin:0;font-family:var(--sans);font-weight:600;font-size:22px;letter-spacing:-.02em;}
 .pitch p{margin:10px 0 0;font-size:16px;color:var(--ink-2);max-width:40em;}
 .pitch a{display:inline-block;margin-top:16px;font-family:var(--sans);font-weight:500;font-size:15px;text-decoration:none;background:var(--ink);color:var(--paper);padding:11px 20px;border-radius:999px;}
+/* On the narrowest phones keep only the way back. */
+@media (max-width:419px){.mastnav a:not(:last-child){display:none;}}
 </style>
 
 <header class="masthead">

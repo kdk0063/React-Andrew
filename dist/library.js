@@ -73,7 +73,25 @@
   var detail = document.getElementById('shelf-detail');
   if (!shelf) return;
 
-  var narrow = window.matchMedia('(max-width: 760px)');
+  var library = shelf.closest('.library') || shelf.parentNode;
+  // The shelf always fits its width; it never scrolls sideways. fit() picks
+  // a scale for the books and decides whether the open book's details sit
+  // beside it ("inline") or below the shelf ("stacked", phones and tablets).
+  var BASE = 0.86, MIN_INLINE = 0.7, PANEL = 340, GAPX = 36, GAP = 6;
+  var scale = BASE;
+  function fit() {
+    var cs = getComputedStyle(shelf);
+    var pad = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    var avail = scroller.clientWidth - pad - GAP * (BOOKS.length - 1);
+    // Room for every spine plus the widest book open (cover minus its spine).
+    var sumD = 0, extra = 0;
+    BOOKS.forEach(function (b) { sumD += b.size.d; extra = Math.max(extra, b.size.h * 0.72 - b.size.d); });
+    var inlineScale = (avail - 2 * GAPX - PANEL) / (sumD + extra);
+    var stacked = inlineScale < MIN_INLINE;
+    scale = Math.min(BASE, stacked ? avail / (sumD + extra) : inlineScale);
+    library.classList.toggle('stacked', stacked);
+  }
+  fit();
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   var openEl = null;
 
@@ -95,7 +113,7 @@
   }
 
   function size(b) {
-    var s = narrow.matches ? 0.72 : 0.86;
+    var s = scale;
     var h = Math.round(b.size.h * s), d = Math.round(b.size.d * s), w = Math.round(b.size.h * 0.72 * s);
     return { h: h, d: d, w: w };
   }
@@ -174,13 +192,9 @@
     var b = BOOKS.filter(function (x) { return x.id === el.dataset.id; })[0];
     if (detail) detail.innerHTML = '<div class="book-panel" role="region" aria-labelledby="bpm-' + b.id + '">' + panelHTML(b).replace('id="bp-', 'id="bpm-') + '</div>';
     if (!quiet) setHash(b.id);
-    // Bring the open book into view once the slot has widened.
-    setTimeout(function () {
-      var r = el.getBoundingClientRect(), sr = scroller.getBoundingClientRect();
-      if (r.left < sr.left || r.right > sr.right) {
-        scroller.scrollLeft += r.left - sr.left - 24;
-      }
-      if (fromHash) el.scrollIntoView({ block: 'center', behavior: reduce.matches ? 'auto' : 'smooth' });
+    // A linked book: bring it into view once its slot has widened.
+    if (fromHash) setTimeout(function () {
+      el.scrollIntoView({ block: 'center', behavior: reduce.matches ? 'auto' : 'smooth' });
     }, reduce.matches ? 0 : 420);
   }
 
@@ -199,8 +213,13 @@
     }
   });
 
-  narrow.addEventListener('change', function () {
-    BOOKS.forEach(function (b) { applySize(document.getElementById('book-' + b.id), b); });
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      fit();
+      BOOKS.forEach(function (b) { applySize(document.getElementById('book-' + b.id), b); });
+    }, 120);
   });
 
   // A link like /#book/grandstand opens that book and scrolls to it once

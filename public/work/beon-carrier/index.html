@@ -220,6 +220,8 @@ figcaption{
 .duties{margin:14px 0 0;padding:0;list-style:none;border-top:var(--hair) solid var(--rule);}
 .duties li{padding:10px 0 11px;border-bottom:var(--hair) solid var(--rule-faint);font-size:16px;}
 .duties li::before{content:"— ";color:var(--ink-2);}
+/* On the narrowest phones keep only the way back. */
+@media (max-width:419px){.mastnav a:not(:last-child){display:none;}}
 </style>
 
 <header class="masthead">

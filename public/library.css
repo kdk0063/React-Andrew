@@ -7,14 +7,9 @@
 .library{padding:clamp(40px,6vw,72px) 0 clamp(64px,8vw,104px);}
 .library .sec-head{margin-bottom:12px;}
 
-.shelf-scroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#C9C9C6 transparent;scroll-behavior:smooth;
-  /* Room under the shelf line for the scrollbar, which on macOS floats over
-     the content and would otherwise sit on the bottom of the books. */
-  padding-bottom:22px;}
-.shelf-scroll::-webkit-scrollbar{height:6px;}
-.shelf-scroll::-webkit-scrollbar-thumb{background:#C9C9C6;border-radius:999px;}
-.shelf-scroll::-webkit-scrollbar-track{background:transparent;}
-@media (prefers-reduced-motion:reduce){.shelf-scroll{scroll-behavior:auto;}}
+/* The books are scaled to fit (library.js), so nothing visible overflows;
+   hidden detail panels of closed books must not create a scrollbar. */
+.shelf-scroll{overflow:hidden;}
 .shelf{
   display:flex;align-items:flex-end;gap:6px;
   width:max-content;min-width:100%;
@@ -130,15 +125,13 @@
 .bp-actions a:not(.primary):hover{background:var(--ink);color:var(--paper);}
 .bp-actions span{border-style:dashed;color:var(--ink-2);}
 
-/* ---------- narrow screens: smaller books, panel below the shelf ---------- */
+/* ---------- stacked (set by fit() in library.js): details below the shelf ---------- */
 .shelf-detail{display:none;}
-@media (max-width:760px){
-  .book{--s:.72;}
-  .book .book-panel{display:none;}
-  .book.is-open{width:var(--w);height:var(--h);}
-  .shelf-detail{display:block;padding:22px var(--pad) 0;}
-  .shelf-detail .book-panel{position:static;width:auto;opacity:1;visibility:visible;transform:none;display:block;}
-}
+.library.stacked .book .book-panel{display:none;}
+.library.stacked .book.is-open{width:var(--w);height:var(--h);}
+.library.stacked .shelf-detail{display:block;padding:22px var(--pad) 0;}
+.library.stacked .shelf-detail .book-panel{position:static;width:auto;opacity:1;visibility:visible;transform:none;display:block;}
+
 
 @media (prefers-reduced-motion:reduce){
   .book,.book-stage,.book-box,.book-panel,.book.is-open .book-panel{transition:none !important;}
