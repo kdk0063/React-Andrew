@@ -165,14 +165,15 @@
     if (!keepHash) setHash(null);
   }
 
-  function open(el, fromHash) {
+  // quiet: open without touching the URL or scrolling (the default open book).
+  function open(el, fromHash, quiet) {
     if (openEl && openEl !== el) close(openEl, true);
     el.classList.add('is-open');
     el.querySelector('.book-hit').setAttribute('aria-expanded', 'true');
     openEl = el;
     var b = BOOKS.filter(function (x) { return x.id === el.dataset.id; })[0];
     if (detail) detail.innerHTML = '<div class="book-panel" role="region" aria-labelledby="bpm-' + b.id + '">' + panelHTML(b).replace('id="bp-', 'id="bpm-') + '</div>';
-    setHash(b.id);
+    if (!quiet) setHash(b.id);
     // Bring the open book into view once the slot has widened.
     setTimeout(function () {
       var r = el.getBoundingClientRect(), sr = scroller.getBoundingClientRect();
@@ -212,5 +213,10 @@
       var go = function () { open(target, true); };
       if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
     }
+  } else {
+    // No book in the link: the first book starts open, as a preview of
+    // how the shelf works.
+    var first = shelf.querySelector('.book');
+    if (first) open(first, false, true);
   }
 })();
