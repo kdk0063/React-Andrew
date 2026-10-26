@@ -31,7 +31,7 @@
       meta: [['Role', 'Design, 3D & engineering'], ['Stack', 'Three.js, React Three Fiber, Blender, OpenStreetMap'], ['Status', 'Live']],
       links: [['Open project', '/work/grandstand/', true]],
       liveUrl: 'https://grandstands.net',
-      size: { h: 400, d: 51 }, spine: { image: '/books/grandstand-spine.jpg', bg: '#D7392B', fg: '#FFFFFF', ac: '#121212', pat: 'check' }, cover: { image: '/books/grandstand-cover.jpg', bg: '#D7392B', fg: '#FFFFFF' }
+      size: { h: 400, d: 53 }, spine: { image: '/books/grandstand-spine.jpg', bg: '#D7392B', fg: '#FFFFFF', ac: '#121212', pat: 'check' }, cover: { image: '/books/grandstand-cover.jpg', bg: '#D7392B', fg: '#FFFFFF' }
     },
     {
       id: 'mechelinguide', design: 'white', title: 'MeChelinGuide', spineTitle: 'MeChelinGuide', coverTitle: 'MeChelin<br>Guide',
