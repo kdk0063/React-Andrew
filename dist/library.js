@@ -1,8 +1,9 @@
 /* ADK Studio — the library.
-   One book per project. To give a book real art later, set
-   spine.image / cover.image to an image path; the placeholder
-   lettering hides itself when an image is present. A book with a
-   `design` uses that parody cover and spine from covers.js instead. */
+   One book per project. A side with spine.image / cover.image shows
+   that photo (the realistic Artlist scans in /books/); a side without
+   one falls back to the book's `design` parody from covers.js, then to
+   the placeholder lettering. A photographed book's size.d is its spine
+   photo's width/height × size.h, so the scan fills the spine undistorted. */
 (function () {
   var STAR = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" fill="currentColor"/></svg>';
 
@@ -13,7 +14,7 @@
       desc: 'Marketing site, showroom booking and quote requests for a kitchen and bath showroom in Alexandria, Virginia. Every request lands in the same database the staff tool reads.',
       meta: [['Role', 'Design & engineering'], ['Year', '2026'], ['Stack', 'React, Vite, Supabase, Vercel'], ['Status', 'Live']],
       links: [['Open project', '/work/allenskb/', true], ['Visit site ↗', 'https://www.allenscabinets.com']],
-      size: { h: 380, d: 64 }, spine: { bg: '#1B5FAA', fg: '#FFFFFF', ac: '#E9A23B', pat: 'band' }, cover: { bg: '#1B5FAA', fg: '#FFFFFF' }
+      size: { h: 380, d: 73 }, spine: { image: '/books/allenscabinets-spine.jpg', bg: '#1B5FAA', fg: '#FFFFFF', ac: '#E9A23B', pat: 'band' }, cover: { image: '/books/allenscabinets-cover.jpg', bg: '#1B5FAA', fg: '#FFFFFF' }
     },
     {
       id: 'allensadmin', design: 'knicks', title: "Allen’s Admin", spineTitle: "Allen's Admin", coverTitle: 'Allen’s<br>Admin',
@@ -22,7 +23,7 @@
       meta: [['Role', 'Sole engineer'], ['Stack', 'React, TypeScript, Supabase, Trello API'], ['Status', 'In daily use']],
       links: [],
       note: 'Private client tool · case study coming',
-      size: { h: 350, d: 54 }, spine: { bg: '#121212', fg: '#FFFFFF', ac: '#E9A23B', pat: 'stripes' }, cover: { bg: '#121212', fg: '#E9A23B' }
+      size: { h: 350, d: 41 }, spine: { image: '/books/allensadmin-spine.jpg', bg: '#121212', fg: '#FFFFFF', ac: '#E9A23B', pat: 'stripes' }, cover: { image: '/books/allensadmin-cover.jpg', bg: '#121212', fg: '#E9A23B' }
     },
     {
       id: 'grandstand', design: 'supreme', title: 'Grandstand', spineTitle: 'Grandstand', coverTitle: 'Grand<br>stand',
@@ -31,7 +32,7 @@
       meta: [['Role', 'Design & engineering'], ['Stack', 'Three.js, React Three Fiber, Zustand, Blender'], ['Status', 'Live']],
       links: [['Open project', '/work/grandstand/', true]],
       liveUrl: null, // TODO: Grandstand's live URL
-      size: { h: 400, d: 72 }, spine: { bg: '#D7392B', fg: '#FFFFFF', ac: '#121212', pat: 'check' }, cover: { bg: '#D7392B', fg: '#FFFFFF' }
+      size: { h: 400, d: 51 }, spine: { image: '/books/grandstand-spine.jpg', bg: '#D7392B', fg: '#FFFFFF', ac: '#121212', pat: 'check' }, cover: { image: '/books/grandstand-cover.jpg', bg: '#D7392B', fg: '#FFFFFF' }
     },
     {
       id: 'mechelinguide', design: 'white', title: 'MeChelinGuide', spineTitle: 'MeChelinGuide', coverTitle: 'MeChelin<br>Guide',
@@ -40,7 +41,7 @@
       meta: [['Role', 'Product & engineering'], ['Stack', 'React 19, Supabase, MapLibre'], ['Status', 'Work in progress']],
       links: [],
       note: 'Coming soon',
-      size: { h: 330, d: 50 }, spine: { bg: '#E9A23B', fg: '#121212', ac: '#121212', pat: 'dots' }, cover: { bg: '#E9A23B', fg: '#121212' }
+      size: { h: 330, d: 47 }, spine: { image: '/books/mechelinguide-spine.jpg', bg: '#E9A23B', fg: '#121212', ac: '#121212', pat: 'dots' }, cover: { image: '/books/mechelinguide-cover.jpg', bg: '#E9A23B', fg: '#121212' }
     },
     {
       id: 'beoncarrier', title: 'Beon Carrier', spineTitle: 'Beon Carrier', coverTitle: 'Beon<br>Carrier',
@@ -48,7 +49,7 @@
       desc: 'NTG’s load board for trucking carriers. Find loads by lane, see rate and route on one screen, book instantly or bid, then get paid fast. I worked on it full-stack for five years.',
       meta: [['Role', 'Full-stack developer'], ['Years', '2019–2024'], ['Stack', 'React, .NET Core, SQL Server'], ['Status', 'Live']],
       links: [['Open project', '/work/beon-carrier/', true], ['ntgfreight.com ↗', 'https://ntgfreight.com/technology/beon-carrier/']],
-      size: { h: 370, d: 66 }, spine: { bg: '#F2C230', fg: '#121212', ac: '#121212', pat: 'band' }, cover: { bg: '#121212', fg: '#F2C230' }
+      size: { h: 370, d: 54 }, spine: { image: '/books/beoncarrier-spine.jpg', bg: '#F2C230', fg: '#121212', ac: '#121212', pat: 'band' }, cover: { image: '/books/beoncarrier-cover.jpg', bg: '#121212', fg: '#F2C230' }
     },
     {
       id: 'kidian', design: 'nike', title: 'Kidian', spineTitle: 'Kidian', coverTitle: 'Kidian',
@@ -56,7 +57,7 @@
       desc: 'A marketplace app for kids’ parties: search vendors by date and party size, compare packages and reviews, book, and add extras like the cake. OpenTable for birthdays.',
       meta: [['Role', 'Front-end developer'], ['Years', '2018–2019'], ['Stack', 'React, Context API, Figma']],
       links: [['Open project', '/work/kidian/', true]],
-      size: { h: 320, d: 48 }, spine: { bg: '#3CA9FF', fg: '#FFFFFF', ac: '#FFFFFF', pat: 'dots' }, cover: { bg: '#3CA9FF', fg: '#FFFFFF' }
+      size: { h: 320, d: 30 }, spine: { image: '/books/kidian-spine.jpg', bg: '#3CA9FF', fg: '#FFFFFF', ac: '#FFFFFF', pat: 'dots' }, cover: { image: '/books/kidian-cover.jpg', bg: '#3CA9FF', fg: '#FFFFFF' }
     },
     {
       id: 'babeldabble', design: 'stussy', title: 'Babel Dabble', spineTitle: 'Babel Dabble', coverTitle: 'Babel<br>Dabble',
@@ -64,7 +65,7 @@
       desc: 'A real-time competitive calligraphy platform that turns learning Chinese characters into timed matches, with practice mode, word lists and a leaderboard.',
       meta: [['Role', 'Junior full-stack developer'], ['Years', '2017–2018'], ['Stack', 'React, AngularJS, ASP.NET Web API, SQL Server']],
       links: [['Open project', '/work/babel-dabble/', true]],
-      size: { h: 345, d: 58 }, spine: { bg: '#44507C', fg: '#FFFFFF', ac: '#7FB2E5', pat: 'stripes' }, cover: { bg: '#44507C', fg: '#FFFFFF' }
+      size: { h: 345, d: 41 }, spine: { image: '/books/babeldabble-spine.jpg', bg: '#44507C', fg: '#FFFFFF', ac: '#7FB2E5', pat: 'stripes' }, cover: { image: '/books/babeldabble-cover.jpg', bg: '#44507C', fg: '#FFFFFF' }
     }
   ];
 
@@ -128,11 +129,11 @@
     var coverImg = b.cover.image ? ' has-img" style="background-image:url(\'' + esc(b.cover.image) + '\')' : '';
 
     var design = b.design && window.ADK_COVERS && window.ADK_COVERS[b.design];
-    var spineHTML = design
+    var spineHTML = design && !b.spine.image
       ? '<div class="side side-spine spx spx-' + b.design + '">' + design.spine(b, no) + '</div>'
       : '<div class="side side-spine pat-' + b.spine.pat + spineImg + '">' +
           '<span class="n">' + no + '</span><span class="t">' + esc(b.spineTitle) + '</span><span class="mark">' + STAR + '</span></div>';
-    var coverHTML = design
+    var coverHTML = design && !b.cover.image
       ? '<div class="side side-cover cov-' + b.design + '">' + design.cover(b, no) + '</div>'
       : '<div class="side side-cover' + coverImg + '"><div class="cv">' +
           '<div class="cv-top"><span>No. ' + no + '</span><span>ADK Studio</span></div>' +

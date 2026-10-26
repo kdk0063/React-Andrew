@@ -63,6 +63,10 @@
   background-size:cover;background-position:center;
 }
 .side-spine.has-img > *{display:none;}
+/* Photo spines: the scan already has its own edges and headcaps, so
+   stretch it to the face and drop the drawn border and patterns. */
+.side-spine.has-img{border:0;border-radius:2px;padding:0;background-size:100% 100%;}
+.side-spine.has-img::before,.side-spine.has-img::after{display:none;}
 .side-spine .n{font-family:var(--mono);font-size:11px;letter-spacing:.06em;}
 .side-spine .t{
   writing-mode:vertical-rl;text-orientation:sideways;transform:rotate(180deg);
@@ -86,6 +90,7 @@
 }
 .cv{position:absolute;inset:0;padding:22px 22px 20px 30px;display:flex;flex-direction:column;justify-content:space-between;}
 .side-cover.has-img .cv{display:none;}
+.side-cover.has-img{border:0;border-radius:2px 5px 5px 2px;box-shadow:none;background-size:100% 100%;}
 .cv-top,.cv-bottom{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;}
 .cv-title{font-family:var(--sans);font-weight:800;font-variation-settings:'wdth' 118;text-transform:uppercase;line-height:.88;letter-spacing:-.02em;font-size:var(--csize,46px);}
 .cv-tag{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:2px solid currentColor;border-radius:999px;padding:3px 10px;}

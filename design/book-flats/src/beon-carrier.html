@@ -1,0 +1,111 @@
+<!doctype html>
+<!-- Beon Carrier flats: a parody of the Korean edition of Nietzsche's
+     Übermensch (teal, radiating eye, heavy Korean title, huge Latin word).
+     Render with headless Chrome:
+       ?side=cover  → 1440×2000   ?side=spine → 360×2000 -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Black+Han+Sans&family=Nanum+Myeongjo:wght@800&display=block" rel="stylesheet">
+<style>
+  :root{--teal:#16B7B1;--ink:#1A1A1A;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:var(--teal);color:var(--ink);overflow:hidden;}
+  .cover,.spine{position:relative;background:var(--teal);display:none;}
+  body[data-side="cover"] .cover{display:block;width:1440px;height:2000px;}
+  body[data-side="spine"] .spine{display:flex;width:360px;height:2000px;}
+
+  /* ---------- cover ---------- */
+  .tag{position:absolute;top:118px;left:0;right:0;text-align:center;
+    font-family:'Nanum Myeongjo',serif;font-weight:800;font-size:60px;letter-spacing:-.01em;}
+  .title{position:absolute;top:240px;left:0;right:0;text-align:center;
+    font-family:'Black Han Sans',sans-serif;font-size:270px;line-height:1;letter-spacing:-.01em;}
+  .credit{position:absolute;top:585px;left:0;right:0;text-align:center;
+    font-family:'Nanum Myeongjo',serif;font-weight:800;font-size:34px;}
+  .credit i{font-style:normal;font-weight:400;opacity:.75;margin:0 .5em;}
+  .eye{position:absolute;left:0;top:690px;width:1440px;height:880px;}
+  .latin{position:absolute;top:1585px;left:0;right:0;text-align:center;
+    font-family:'Anton',sans-serif;font-size:250px;line-height:1;letter-spacing:-.005em;white-space:nowrap;}
+  .pub{position:absolute;bottom:70px;left:0;right:0;text-align:center;
+    font-family:'Black Han Sans',sans-serif;font-size:56px;letter-spacing:.06em;}
+
+  /* ---------- spine ---------- */
+  .spine{flex-direction:column;align-items:center;justify-content:space-between;padding:70px 0 80px;}
+  .spine .mini{width:210px;height:120px;}
+  .spine .ko{font-family:'Black Han Sans',sans-serif;font-size:150px;line-height:1.02;
+    writing-mode:vertical-rl;text-orientation:upright;letter-spacing:-.02em;}
+  .spine .en{font-family:'Anton',sans-serif;font-size:96px;line-height:1;white-space:nowrap;
+    writing-mode:vertical-rl;transform:rotate(180deg);}
+  .spine .pub{position:static;font-size:58px;letter-spacing:.04em;}
+</style>
+</head>
+<body>
+<section class="cover">
+  <p class="tag">누구의 배차도 아닌, 내 레인대로 달리겠다는 선언</p>
+  <h1 class="title">비온 캐리어</h1>
+  <p class="credit">앤드류 김 지음<i>|</i>NTG 펴냄</p>
+  <svg class="eye" viewBox="0 0 1440 880" aria-hidden="true">
+    <g id="rays" stroke="#1A1A1A" stroke-width="22" stroke-linecap="butt"></g>
+    <!-- horizon lines out of the corners of the eye -->
+    <line x1="80" y1="440" x2="260" y2="440" stroke="#1A1A1A" stroke-width="26"/>
+    <line x1="1180" y1="440" x2="1360" y2="440" stroke="#1A1A1A" stroke-width="26"/>
+    <!-- almond -->
+    <path d="M250 440 C470 205 970 205 1190 440 C970 675 470 675 250 440Z" fill="#fff"/>
+    <clipPath id="lid"><path d="M250 440 C470 205 970 205 1190 440 C970 675 470 675 250 440Z"/></clipPath>
+    <clipPath id="iris"><circle cx="720" cy="440" r="196"/></clipPath>
+    <g clip-path="url(#lid)"><circle cx="720" cy="440" r="196" fill="#0D0D0D"/>
+    <g clip-path="url(#iris)">
+      <g id="stars" fill="#fff"></g>
+      <!-- the highway: a lane that sweeps across the night like a ring -->
+      <path d="M470 560 C600 470 820 430 990 330" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" opacity=".92"/>
+      <path d="M470 560 C600 470 820 430 990 330" fill="none" stroke="#0D0D0D" stroke-width="4" stroke-dasharray="22 20"/>
+    </g></g>
+    <path d="M250 440 C470 205 970 205 1190 440 C970 675 470 675 250 440Z" fill="none" stroke="#1A1A1A" stroke-width="30" stroke-linejoin="round"/>
+    <!-- the ADK four-point star as the sun at the centre -->
+    <circle cx="720" cy="440" r="40" fill="#fff" opacity=".18"/>
+    <path d="M720 372l13 55 55 13-55 13-13 55-13-55-55-13 55-13z" fill="#fff"/>
+  </svg>
+  <p class="latin">Beon Carrier</p>
+  <p class="pub">ADK</p>
+</section>
+
+<section class="spine">
+  <svg class="mini" viewBox="250 205 940 470" aria-hidden="true">
+    <path d="M250 440 C470 205 970 205 1190 440 C970 675 470 675 250 440Z" fill="#fff" stroke="#1A1A1A" stroke-width="44"/>
+    <circle cx="720" cy="440" r="170" fill="#0D0D0D"/>
+    <path d="M720 372l13 55 55 13-55 13-13 55-13-55-55-13 55-13z" fill="#fff"/>
+  </svg>
+  <span class="ko">비온캐리어</span>
+  <span class="en">Beon Carrier</span>
+  <span class="pub">ADK</span>
+</section>
+
+<script>
+  document.body.dataset.side = new URLSearchParams(location.search).get('side') || 'cover';
+
+  // Rays: short bars on a circle around the eye, skipping the horizon.
+  var rays = document.getElementById('rays'), cx = 720, cy = 440;
+  [-90, -63, -40, -20, 20, 40, 63, 90, 117, 140, 160, 200, 220, 243, 270, 297, 320, 340].forEach(function (deg) {
+    if (Math.abs(Math.sin(deg * Math.PI / 180)) < 0.25) return;
+    var a = deg * Math.PI / 180, r1 = 330, r2 = 430;
+    var sx = 1.35; // stretch sideways to follow the almond
+    var l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l.setAttribute('x1', cx + Math.cos(a) * r1 * sx); l.setAttribute('y1', cy + Math.sin(a) * r1);
+    l.setAttribute('x2', cx + Math.cos(a) * r2 * sx); l.setAttribute('y2', cy + Math.sin(a) * r2);
+    rays.appendChild(l);
+  });
+
+  // Stars: a fixed pseudo-random field so every render is identical.
+  var seed = 7, rnd = function () { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  var g = document.getElementById('stars');
+  for (var i = 0; i < 170; i++) {
+    var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', 520 + rnd() * 400); c.setAttribute('cy', 240 + rnd() * 400);
+    c.setAttribute('r', rnd() < 0.08 ? 3.6 : 0.8 + rnd() * 1.6);
+    c.setAttribute('opacity', 0.45 + rnd() * 0.55);
+    g.appendChild(c);
+  }
+</script>
+</body>
+</html>

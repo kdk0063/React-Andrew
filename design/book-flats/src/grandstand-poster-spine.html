@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- Grandstand spine flat for the Akira-style poster cover (the cover itself
+     was generated in Artlist from design/book-flats/ref/grandstand-poster-ref.png).
+     Render with headless Chrome at 360×2000. -->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Dela+Gothic+One&display=block" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:360px;height:2000px;overflow:hidden;}
+  .spine{position:relative;width:360px;height:2000px;
+    background:linear-gradient(180deg,#A8D2EE 0%,#C9E4F5 30%,#F2F7FA 62%,#FFFFFF 100%);
+    display:flex;flex-direction:column;align-items:center;padding:130px 0 80px;}
+  /* the shaft of light down the middle, as on the cover */
+  .spine::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:26px;margin-left:-13px;
+    background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.6) 70%,rgba(255,255,255,0));}
+  .en{position:relative;font-family:'Anton',sans-serif;font-size:182px;line-height:1;color:#111;
+    writing-mode:vertical-rl;letter-spacing:.01em;white-space:nowrap;}
+  .ja{position:relative;margin-top:60px;font-family:'Dela Gothic One',sans-serif;font-size:104px;white-space:nowrap;line-height:1.04;
+    color:#D8121B;writing-mode:vertical-rl;text-orientation:upright;letter-spacing:-.02em;}
+  .pub{position:relative;margin-top:auto;font-family:'Anton',sans-serif;font-size:62px;letter-spacing:.06em;color:#111;}
+</style>
+</head>
+<body>
+  <div class="spine">
+    <span class="en">GRANDSTAND</span>
+    <span class="ja">かんらんせき</span>
+    <span class="pub">ADK</span>
+  </div>
+</body>
+</html>
