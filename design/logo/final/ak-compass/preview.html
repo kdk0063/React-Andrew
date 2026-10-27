@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{font-family:system-ui,sans-serif;padding:32px;width:1200px;background:#fff}
+  .row{display:flex;gap:24px;margin-bottom:24px;align-items:stretch}
+  .tile{flex:1;border:1px solid #e3e3e3;border-radius:14px;padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-height:220px}
+  .dark{background:#111;border-color:#111}
+  .small{display:flex;gap:18px;align-items:center}
+  p{font-size:12px;color:#888}
+  .dark p{color:#888}
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="tile"><img src="ak-mark.svg" height="100"><p>ak-mark.svg</p></div>
+    <div class="tile dark"><img src="ak-mark-white.svg" height="100"><p>ak-mark-white.svg</p></div>
+  </div>
+  <div class="row">
+    <div class="tile"><img src="ak-lockup.svg" height="140"><p>ak-lockup.svg</p></div>
+    <div class="tile dark"><img src="ak-lockup-white.svg" height="140"><p>ak-lockup-white.svg</p></div>
+  </div>
+  <div class="row">
+    <div class="tile"><div class="small"><img src="compass-icon.svg" height="96"><img src="compass-icon.svg" height="32"><img src="compass-icon.svg" height="16"></div><p>compass-icon.svg at 96 / 32 / 16 px</p></div>
+    <div class="tile"><div class="small"><img src="ak-mark.svg" height="40"><img src="ak-mark.svg" height="20"><img src="ak-mark.svg" height="12"></div><p>ak-mark.svg at 40 / 20 / 12 px tall</p></div>
+    <div class="tile dark"><div class="small"><img src="compass-icon-white.svg" height="32"><img src="compass-icon-white.svg" height="16"></div><p>white icon at 32 / 16 px</p></div>
+  </div>
+</body>
+</html>
