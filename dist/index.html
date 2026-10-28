@@ -54,7 +54,19 @@
     .mockup img{height:auto;-o-object-fit:contain;object-fit:contain;mix-blend-mode:multiply;}
     .cap{display:block;margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-align:center;}
 
-    .foot-line{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding:0 var(--pad) 28px;margin:0;}
+    .foot-line{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding:0 var(--pad) 28px;margin:0;display:flex;align-items:center;justify-content:center;gap:9px;}
+    .foot-line .hanja{height:16px;width:auto;display:block;}
+    /* 東奎 in the clan gold, written in stroke order (획순) each time the footer comes into view */
+    .foot-line.armed .stk{stroke-dasharray:1;stroke-dashoffset:1;}
+    .foot-line.armed .sun,.foot-line.armed .sta{opacity:0;}
+    .foot-line.play .stk{animation:hj-write .32s cubic-bezier(.6,0,.3,1) forwards;animation-delay:calc(var(--n) * .16s);}
+    .foot-line .sun{transform-box:fill-box;transform-origin:50% 100%;}
+    .foot-line.play .sun{animation:hj-rise .7s cubic-bezier(.3,1.4,.5,1) .5s forwards;}
+    .foot-line .sta{transform-box:fill-box;transform-origin:50% 50%;}
+    .foot-line.play .sta{animation:hj-land .6s cubic-bezier(.3,1.8,.5,1) 1.9s forwards;}
+    @keyframes hj-write{to{stroke-dashoffset:0;}}
+    @keyframes hj-rise{from{opacity:0;transform:translateY(40%) scaleY(.6);}to{opacity:1;transform:none;}}
+    @keyframes hj-land{from{opacity:0;transform:scale(0) rotate(-90deg);}to{opacity:1;transform:none;}}
 
     @media (prefers-reduced-motion:reduce){
       .float{-webkit-mask-image:none;mask-image:none;}
@@ -91,7 +103,7 @@
   </div>
 </main>
 
-<p class="foot-line">© 2026 ADK Studio · 東奎</p>
+<p class="foot-line" id="foot-line"><span>© 2026 ADK Studio</span><span aria-hidden="true">·</span><svg class="hanja" viewBox="-6 -6 232 112" role="img" aria-label="東奎"><g transform="translate(0 0) scale(1)"><path class="stk" pathLength="1" style="--n:0" d="M4 8H96" fill="none" stroke="#F5C902" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:1" d="M50 0V20" fill="none" stroke="#F5C902" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><rect class="sun" x="16" y="19" width="68" height="44" rx="11" fill="#B7282E"/><path class="stk" pathLength="1" style="--n:2" d="M50 19V63" fill="none" stroke="#F5C902" stroke-width="11" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:3" d="M16 41H84" fill="none" stroke="#F5C902" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:4" d="M50 62A44 38 0 0 1 6 100" fill="none" stroke="#F5C902" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:5" d="M50 62A44 38 0 0 0 94 100" fill="none" stroke="#F5C902" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/></g><g transform="translate(120 0) scale(1)"><path class="stk" pathLength="1" style="--n:6" d="M4 15H78" fill="none" stroke="#F5C902" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><circle class="sta" cx="89" cy="15" r="11" fill="#F5C902"/><circle cx="89" cy="15" r="3.8" fill="#FFFFFF"/><path class="stk" pathLength="1" style="--n:7" d="M50 0V15A44 29 0 0 1 6 44" fill="none" stroke="#F5C902" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:8" d="M50 15A44 29 0 0 0 94 44" fill="none" stroke="#F5C902" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:9" d="M50 50V100" fill="none" stroke="#F5C902" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:10" d="M26 54H74" fill="none" stroke="#F5C902" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:11" d="M14 67H86" fill="none" stroke="#F5C902" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:12" d="M26 81H74" fill="none" stroke="#F5C902" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:13" d="M4 95H96" fill="none" stroke="#F5C902" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/></g></svg></p>
 
 <script>
 (function(){
@@ -131,6 +143,18 @@
   // Two copies back to back so the drift loops without a seam.
   SCREENS.forEach(function (s, i) { track.appendChild(card(s, i, false)); });
   SCREENS.forEach(function (s, i) { track.appendChild(card(s, i, true)); });
+})();
+</script>
+<script>
+// Replay the 東奎 stroke-order animation every time the footer scrolls into view
+(function(){
+  var f=document.getElementById('foot-line');
+  if(!f||!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  f.classList.add('armed');
+  new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){f.classList.remove('play');void f.offsetWidth;f.classList.add('play');}
+    else f.classList.remove('play');
+  });},{threshold:0.6}).observe(f);
 })();
 </script>
 </body>
