@@ -75,7 +75,8 @@ img{max-width:100%;display:block;}
 
 /* East star: rests north, swings east on hover */
 .brand,.wordmark{display:inline-flex;align-items:center;gap:7px;}
-.brand .mark,.wordmark .mark{width:36px;height:36px;margin:-10px -6px -10px -10px;overflow:visible;}
+.brand .mark,.wordmark .mark{width:36px;height:36px;margin:-10px -10px -10px -9px;overflow:visible;}
+.brand .needle,.wordmark .needle{transform:none;transition:none;}
 .needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
-.brand:hover .needle,.brand:focus-visible .needle,.wordmark:hover .needle,.wordmark:focus-visible .needle,.nextlinks a.live:hover .needle,.nextlinks a.live:focus-visible .needle{transform:rotate(0deg);}
+.nextlinks a.live:hover .needle,.nextlinks a.live:focus-visible .needle{transform:rotate(0deg);}
 @media (prefers-reduced-motion:reduce){.needle{transition:none;}}

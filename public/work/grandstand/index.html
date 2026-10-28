@@ -228,13 +228,14 @@ figcaption{
 .nextlinks a:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;background:var(--wash);}
 /* East star: rests north, swings east on hover */
 .brand,.wordmark{display:inline-flex;align-items:center;gap:7px;}
-.brand .mark,.wordmark .mark{width:36px;height:36px;margin:-10px -6px -10px -10px;overflow:visible;}
+.brand .mark,.wordmark .mark{width:36px;height:36px;margin:-10px -10px -10px -9px;overflow:visible;}
+.brand .needle,.wordmark .needle{transform:none;transition:none;}
 .nextlinks a.live{align-items:center;}
 .nextlinks a.live .go{display:inline-flex;align-items:center;gap:10px;}
 .nextlinks a.live .go i{width:7px;height:7px;border-radius:50%;background:#22C55E;}
 .nextlinks a.live .mark{width:40px;height:40px;margin:-10px 0 -10px -2px;overflow:visible;color:var(--ink);}
 .needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
-.brand:hover .needle,.brand:focus-visible .needle,.wordmark:hover .needle,.wordmark:focus-visible .needle,.nextlinks a.live:hover .needle,.nextlinks a.live:focus-visible .needle{transform:rotate(0deg);}
+.nextlinks a.live:hover .needle,.nextlinks a.live:focus-visible .needle{transform:rotate(0deg);}
 @media (prefers-reduced-motion:reduce){.needle{transition:none;}}
 .colophon{
   display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 28px;
@@ -271,7 +272,7 @@ figcaption{
 
 <header class="masthead">
   <div class="shell">
-    <a class="wordmark" href="../../"><svg class="mark" viewBox="-124 -124 248 248" aria-hidden="true"><defs><clipPath id="tip-hdr"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#tip-hdr)"/></g></svg>ADK&nbsp;Studio</a>
+    <a class="wordmark" href="../../">ADK&nbsp;Studio<svg class="mark" viewBox="-124 -124 248 248" aria-hidden="true"><defs><clipPath id="tip-hdr"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#tip-hdr)"/></g></svg></a>
     <nav class="mastnav label" aria-label="Case study">
       <a href="#product">Product</a><a href="#build">How it is built</a>
       <a href="../../projects/">← All work</a>
