@@ -130,11 +130,11 @@ h1{
 .compass:focus-visible{outline:none;}
 .specs dd a.compass:focus-visible::after{outline:2px solid var(--ink);outline-offset:-2px;}
 @keyframes compass-orbit{
-  0%{offset-distance:0%;z-index:3;scale:1;}
-  24.9%{z-index:3;}25%{z-index:0;scale:.8;}
-  50%{scale:.65;}
-  74.9%{z-index:0;}75%{z-index:3;scale:.8;}
-  100%{offset-distance:100%;z-index:3;scale:1;}}
+  0%{offset-distance:0%;z-index:3;transform:scale(1);}
+  24.9%{z-index:3;}25%{z-index:0;transform:scale(.8);}
+  50%{transform:scale(.65);}
+  74.9%{z-index:0;}75%{z-index:3;transform:scale(.8);}
+  100%{offset-distance:100%;z-index:3;transform:scale(1);}}
 @media (prefers-reduced-motion:reduce){.compass *{animation:none!important;transition:none!important;}}
 
 .hero-shot{margin:clamp(32px,5vw,56px) 0 0;}
