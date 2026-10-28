@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — ADK Studio</title>
+  <meta name="description" content="Tell ADK Studio about your project: websites, brand identity and tools for small businesses.">
+  <meta name="color-scheme" content="light">
+  <meta property="og:title" content="ADK Studio">
+  <meta property="og:description" content="A creative space for design, code and better business.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/adk.css">
+  <style>
+    .contact{padding:clamp(40px,6vw,88px) 0 clamp(64px,8vw,112px);}
+    .contact .shell{max-width:calc(820px + 2 * var(--pad));margin-left:0;}
+    .contact h1{font-size:clamp(40px,5.6vw,72px);margin-top:12px;}
+
+    .form{display:grid;grid-template-columns:1fr 1fr;gap:26px 20px;margin-top:clamp(36px,4vw,52px);}
+    .form[hidden]{display:none;}
+    .field{display:flex;flex-direction:column;gap:10px;min-width:0;}
+    .field.wide{grid-column:1 / -1;}
+    .field label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);}
+    .field label small{font-size:inherit;color:var(--ink-2);letter-spacing:.06em;text-transform:none;}
+    .field input,.field select,.field textarea{
+      width:100%;font:inherit;font-size:17px;color:var(--ink);background:var(--paper);
+      padding:14px 16px;border:1px solid #CFCFC9;border-radius:12px;
+      transition:border-color .2s ease,box-shadow .2s ease;
+    }
+    .field input::placeholder,.field textarea::placeholder{color:#A3A39E;}
+    .field input:hover,.field select:hover,.field textarea:hover{border-color:#9A9A95;}
+    .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(10,10,10,.08);}
+    .field input:user-invalid,.field select:user-invalid,.field textarea:user-invalid,
+    .form.tried .field :invalid{border-color:#B7282E;}
+    .field select{appearance:none;-webkit-appearance:none;padding-right:44px;cursor:pointer;
+      background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%230A0A0A' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 18px center / 12px 8px;}
+    .field select:invalid{color:#A3A39E;}
+    .field select option{color:var(--ink);}
+    .field textarea{min-height:190px;resize:vertical;line-height:1.5;}
+    .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+
+    .submit-row{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:6px;}
+    .btn-send{cursor:pointer;font-size:16px;padding:15px 26px 15px 28px;gap:12px;}
+    .btn-send .mark{width:30px;height:30px;margin:-9px -6px -9px -4px;overflow:visible;color:var(--paper);}
+    .btn-send:hover .needle,.btn-send:focus-visible .needle,.btn-send[aria-busy="true"] .needle{transform:rotate(0deg);}
+    .btn-send[disabled]{opacity:.7;cursor:progress;}
+    .submit-note{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink-2);margin:0;}
+    .status{grid-column:1 / -1;margin:0;font-size:15px;color:#B7282E;}
+    .status:empty{display:none;}
+    .status a{color:inherit;}
+
+    .sent{margin-top:clamp(36px,4vw,52px);padding:clamp(28px,4vw,44px);border:1px solid var(--rule);border-radius:16px;background:var(--paper-2);}
+    .sent .mark{width:64px;height:64px;margin:-12px 0 6px -12px;overflow:visible;color:var(--ink);}
+    .sent h2{font-size:clamp(28px,3.4vw,40px);margin:0;}
+    .sent p{color:var(--ink-2);margin:12px 0 0;max-width:34em;}
+    .sent.in .needle{transform:rotate(0deg);transition-delay:.25s;}
+
+    @media (max-width:640px){.form{grid-template-columns:1fr;gap:22px;}}
+  </style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="/brand/adk-tag.svg" alt="" width="62" height="30"><span class="sub">Studio</span></span></a>
+    <nav class="nav" aria-label="Main">
+      <a class="link" href="/projects/">Projects</a>
+      <a class="btn btn-primary" href="/contact/" aria-current="page">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="contact">
+  <div class="shell">
+    <p class="label">Contact</p>
+    <h1 class="display">Tell us about your project</h1>
+    <p class="lede">The more detail you share, the better we can help.</p>
+
+    <form class="form" id="contact-form" action="https://formsubmit.co/kdk0063@gmail.com" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="New project inquiry — ADK Studio">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://studioadk.com/contact/?sent=1">
+      <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+
+      <div class="field">
+        <label for="f-name">Full name</label>
+        <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Jane Smith" required>
+      </div>
+      <div class="field">
+        <label for="f-email">Email</label>
+        <input id="f-email" name="email" type="email" autocomplete="email" placeholder="jane@example.com" required>
+      </div>
+      <div class="field">
+        <label for="f-phone">Phone <small>(optional)</small></label>
+        <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="703-555-0100">
+      </div>
+      <div class="field">
+        <label for="f-type">Project type</label>
+        <select id="f-type" name="project_type" required>
+          <option value="" disabled selected>Select a project…</option>
+          <option>Website</option>
+          <option>Brand identity &amp; logo</option>
+          <option>Web app or internal tool</option>
+          <option>Online store</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="field wide">
+        <label for="f-msg">Message</label>
+        <textarea id="f-msg" name="message" placeholder="Tell us about your project, timeline, budget range, and any questions you have…" required></textarea>
+      </div>
+
+      <p class="status" id="form-status" role="alert"></p>
+      <div class="submit-row">
+        <button class="btn btn-primary btn-send" type="submit"><span class="go">Send message</span><svg class="mark" viewBox="-124 -124 248 248" aria-hidden="true"><defs><clipPath id="tip-send"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#tip-send)"/></g></svg></button>
+        <p class="submit-note">Goes straight to our inbox.</p>
+      </div>
+    </form>
+
+    <div class="sent" id="form-sent" tabindex="-1" hidden>
+      <svg class="mark" viewBox="-124 -124 248 248" aria-hidden="true"><defs><clipPath id="tip-sent"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#tip-sent)"/></g></svg>
+      <h2 class="display">Thanks, it’s on its way.</h2>
+      <p>We read every message and will get back to you soon.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<p class="foot-line" id="foot-line"><span>© 2026 ADK Studio</span><span aria-hidden="true">·</span><svg class="hanja" viewBox="-6 -6 232 112" role="img" aria-label="東奎"><g transform="translate(0 0) scale(1)"><path class="stk" pathLength="1" style="--n:0" d="M4 8H96" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:1" d="M50 0V20" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><rect class="sun" x="16" y="19" width="68" height="44" rx="11" fill="#B7282E"/><path class="stk" pathLength="1" style="--n:2" d="M50 19V63" fill="none" stroke="#2A2623" stroke-width="11" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:3" d="M16 41H84" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:4" d="M50 62A44 38 0 0 1 6 100" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:5" d="M50 62A44 38 0 0 0 94 100" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/></g><g transform="translate(120 0) scale(1)"><path class="stk" pathLength="1" style="--n:6" d="M4 15H78" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><circle class="sta" cx="89" cy="15" r="11" fill="#F5C902"/><circle cx="89" cy="15" r="3.8" fill="#FFFFFF"/><path class="stk" pathLength="1" style="--n:7" d="M50 0V15A44 29 0 0 1 6 44" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:8" d="M50 15A44 29 0 0 0 94 44" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:9" d="M50 50V100" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:10" d="M26 54H74" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:11" d="M14 67H86" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:12" d="M26 81H74" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:13" d="M4 95H96" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/></g></svg></p>
+
+<script>
+// Send the form in place; without JS it posts straight to FormSubmit and comes back with ?sent=1
+(function(){
+  var form=document.getElementById('contact-form'), sent=document.getElementById('form-sent'),
+      status=document.getElementById('form-status'), btn=form.querySelector('.btn-send'), label=btn.querySelector('.go');
+  function done(){
+    form.hidden=true; sent.hidden=false; sent.focus();
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ sent.classList.add('in'); }); });
+  }
+  if (/[?&]sent=1/.test(location.search)) done();
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    status.textContent='';
+    if (!form.checkValidity()) {
+      form.classList.add('tried');
+      var bad=form.querySelector(':invalid'); if (bad) bad.focus();
+      status.textContent='Please fill in your name, a valid email, the project type and a message.';
+      return;
+    }
+    if (form.elements._honey.value) { done(); return; }
+    var data={}; new FormData(form).forEach(function(v,k){ data[k]=v; });
+    btn.disabled=true; btn.setAttribute('aria-busy','true'); label.textContent='Sending…';
+    fetch('https://formsubmit.co/ajax/kdk0063@gmail.com', {
+      method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify(data)
+    }).then(function(r){ return r.json().then(function(j){ if (!r.ok || String(j.success)!=='true') throw new Error(j.message||'Failed'); }); })
+      .then(done)
+      .catch(function(){
+        btn.disabled=false; btn.removeAttribute('aria-busy'); label.textContent='Send message';
+        status.innerHTML='Something went wrong sending that. Please try again, or email <a href="mailto:kdk0063@gmail.com">kdk0063@gmail.com</a>.';
+      });
+  });
+})();
+</script>
+<script>
+// Replay the 東奎 stroke-order animation every time the footer scrolls into view
+(function(){
+  var f=document.getElementById('foot-line');
+  if(!f||!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  f.classList.add('armed');
+  new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){f.classList.remove('play');void f.offsetWidth;f.classList.add('play');}
+    else f.classList.remove('play');
+  });},{threshold:0.6}).observe(f);
+})();
+</script>
+</body>
+</html>
