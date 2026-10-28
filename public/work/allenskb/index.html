@@ -108,33 +108,33 @@ h1{
   display:grid;grid-template-columns:repeat(2,1fr);gap:0;
   margin-top:clamp(32px,5vw,48px);border-top:var(--hair) solid var(--ink);
 }
-@media (min-width:820px){.specs{grid-template-columns:repeat(4,1fr);}}
+@media (min-width:820px){.specs{grid-template-columns:repeat(4,1fr);}.specs.has-visit{grid-template-columns:repeat(5,1fr);}}
 .specs div{padding:12px 16px 14px 0;border-bottom:var(--hair) solid var(--rule);}
 .specs dt{margin:0;}
 .specs dd{margin:6px 0 0;font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:17px;letter-spacing:-.01em;}
 .specs div{position:relative;display:flex;flex-direction:column;}
-.specs dd a.compass{position:static;display:block;width:96px;height:46px;margin:-2px 0 -4px;color:var(--ink);text-decoration:none;}
+.specs dd a.compass{position:static;display:block;width:146px;height:46px;margin:-2px 0 -4px;color:var(--ink);text-decoration:none;}
 .specs dd a.compass::after{content:"";position:absolute;inset:0;}
-.live-tag{display:inline-flex;align-items:center;gap:6px;margin-left:8px;color:var(--ink);}
-.live-tag i{position:relative;width:7px;height:7px;border-radius:50%;background:#22C55E;}
+.live-tag{display:inline-flex;align-items:center;gap:9px;color:var(--ink);}
+.live-tag i{position:relative;width:8px;height:8px;border-radius:50%;background:#22C55E;}
 .live-tag i::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:compass-ping 1.6s ease-out infinite;}
 .specs dd{position:relative;flex:1;display:flex;align-items:center;}
-.compass .orbit{position:absolute;left:-4px;top:50%;margin-top:-23px;width:100px;height:46px;pointer-events:none;transition:translate .5s cubic-bezier(.2,.8,.2,1);}
+.compass .orbit{position:absolute;left:-19px;top:50%;margin-top:-23px;width:150px;height:46px;pointer-events:none;transition:translate .5s cubic-bezier(.2,.8,.2,1);}
 @keyframes compass-ping{to{transform:scale(2.6);opacity:0;}}
-.compass .rose{position:absolute;left:34px;top:6px;width:32px;height:32px;overflow:visible;z-index:1;animation:compass-sway 3.2s ease-in-out infinite alternate;}
+.compass .rose{position:absolute;left:59px;top:6px;width:32px;height:32px;overflow:visible;z-index:1;animation:compass-sway 3.2s ease-in-out infinite alternate;}
 .compass:hover .rose,.compass:focus-visible .rose{animation-play-state:paused;}
 .compass .needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
 .compass:hover .needle,.compass:focus-visible .needle{transform:rotate(0deg);}
-.compass .ch{position:absolute;left:0;top:0;width:7px;height:11px;font:600 8.5px/11px var(--mono);text-align:center;offset-path:path('M50 29A47 7 0 0 1 3 22A47 7 0 0 1 50 15A47 7 0 0 1 97 22A47 7 0 0 1 50 29Z');offset-rotate:0deg;animation:compass-orbit 14s linear infinite;}
+.compass .ch{position:absolute;left:0;top:0;width:7px;height:11px;font:600 8.5px/11px var(--mono);text-align:center;offset-path:path('M75 30A71 8 0 0 1 4 22A71 8 0 0 1 75 14A71 8 0 0 1 146 22A71 8 0 0 1 75 30Z');offset-rotate:0deg;animation:compass-orbit 20s linear infinite;}
 .compass .ch i{display:block;font-style:normal;}
 .compass:focus-visible{outline:none;}
 .specs dd a.compass:focus-visible::after{outline:2px solid var(--ink);outline-offset:-2px;}
 @keyframes compass-orbit{
   0%{offset-distance:0%;opacity:1;}
-  17%{opacity:1;}
-  22%{opacity:0;}
-  78%{opacity:0;}
-  83%{opacity:1;}
+  16%{opacity:1;}
+  21%{opacity:0;}
+  79%{opacity:0;}
+  84%{opacity:1;}
   100%{offset-distance:100%;opacity:1;}}
 @keyframes compass-sway{from{transform:rotate(-7deg);}to{transform:rotate(7deg);}}
 @media (prefers-reduced-motion:reduce){.compass *{animation:none!important;transition:none!important;}}
@@ -272,11 +272,11 @@ figcaption{
     <h1>allenscabinets.com</h1>
     <p class="lede">The public site for a kitchen and bath showroom in Alexandria, Virginia. It replaces an old WordPress site, and it has one job: turn someone looking at kitchen photos into a showroom visit or a quote request. <em>Every booking and inquiry goes into the same Postgres database the staff admin tool reads from.</em></p>
 
-    <dl class="specs">
+    <dl class="specs has-visit">
       <div><dt class="label">Role</dt><dd>Design &amp; engineering</dd></div>
       <div><dt class="label">Client</dt><dd>Allen's Cabinets</dd></div>
       <div><dt class="label">Year</dt><dd>2026</dd></div>
-      <div><dt class="label">Status<span class="live-tag"><i aria-hidden="true"></i>Live</span></dt><dd><a class="compass" href="https://www.allenscabinets.com" target="_blank" rel="noopener noreferrer" aria-label="Live — visit the site (opens in a new tab)"><span class="orbit" aria-hidden="true"><svg class="rose" viewBox="-124 -124 248 248"><defs><clipPath id="east-tip"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#east-tip)"/></g></svg><span class="ch" style="--i:0;animation-delay:-0.000s"><i>L</i></span><span class="ch" style="--i:1;animation-delay:-13.562s"><i>I</i></span><span class="ch" style="--i:2;animation-delay:-13.125s"><i>V</i></span><span class="ch" style="--i:3;animation-delay:-12.688s"><i>E</i></span><span class="ch" style="--i:4;animation-delay:-12.250s"><i>&nbsp;</i></span><span class="ch" style="--i:5;animation-delay:-11.812s"><i>·</i></span><span class="ch" style="--i:6;animation-delay:-11.375s"><i>&nbsp;</i></span><span class="ch" style="--i:7;animation-delay:-10.938s"><i>V</i></span><span class="ch" style="--i:8;animation-delay:-10.500s"><i>I</i></span><span class="ch" style="--i:9;animation-delay:-10.062s"><i>S</i></span><span class="ch" style="--i:10;animation-delay:-9.625s"><i>I</i></span><span class="ch" style="--i:11;animation-delay:-9.188s"><i>T</i></span><span class="ch" style="--i:12;animation-delay:-8.750s"><i>&nbsp;</i></span><span class="ch" style="--i:13;animation-delay:-8.312s"><i>S</i></span><span class="ch" style="--i:14;animation-delay:-7.875s"><i>I</i></span><span class="ch" style="--i:15;animation-delay:-7.438s"><i>T</i></span><span class="ch" style="--i:16;animation-delay:-7.000s"><i>E</i></span><span class="ch" style="--i:17;animation-delay:-6.562s"><i>&nbsp;</i></span><span class="ch" style="--i:18;animation-delay:-6.125s"><i>·</i></span><span class="ch" style="--i:19;animation-delay:-5.688s"><i>&nbsp;</i></span><span class="ch" style="--i:20;animation-delay:-5.250s"><i>H</i></span><span class="ch" style="--i:21;animation-delay:-4.812s"><i>E</i></span><span class="ch" style="--i:22;animation-delay:-4.375s"><i>A</i></span><span class="ch" style="--i:23;animation-delay:-3.938s"><i>D</i></span><span class="ch" style="--i:24;animation-delay:-3.500s"><i>&nbsp;</i></span><span class="ch" style="--i:25;animation-delay:-3.062s"><i>E</i></span><span class="ch" style="--i:26;animation-delay:-2.625s"><i>A</i></span><span class="ch" style="--i:27;animation-delay:-2.188s"><i>S</i></span><span class="ch" style="--i:28;animation-delay:-1.750s"><i>T</i></span><span class="ch" style="--i:29;animation-delay:-1.312s"><i>&nbsp;</i></span><span class="ch" style="--i:30;animation-delay:-0.875s"><i>·</i></span><span class="ch" style="--i:31;animation-delay:-0.438s"><i>&nbsp;</i></span></span></a></dd></div>
+      <div><dt class="label">Status</dt><dd><span class="live-tag"><i aria-hidden="true"></i>Live</span></dd></div><div><dt class="label">Visit</dt><dd><a class="compass" href="https://www.allenscabinets.com" target="_blank" rel="noopener noreferrer" aria-label="Visit the live site (opens in a new tab)"><span class="orbit" aria-hidden="true"><svg class="rose" viewBox="-124 -124 248 248"><defs><clipPath id="east-tip"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#east-tip)"/></g></svg><span class="ch" style="--i:0;animation-delay:-0.000s"><i>V</i></span><span class="ch" style="--i:1;animation-delay:-19.600s"><i>I</i></span><span class="ch" style="--i:2;animation-delay:-19.200s"><i>S</i></span><span class="ch" style="--i:3;animation-delay:-18.800s"><i>I</i></span><span class="ch" style="--i:4;animation-delay:-18.400s"><i>T</i></span><span class="ch" style="--i:5;animation-delay:-18.000s"><i>&nbsp;</i></span><span class="ch" style="--i:6;animation-delay:-17.600s"><i>S</i></span><span class="ch" style="--i:7;animation-delay:-17.200s"><i>I</i></span><span class="ch" style="--i:8;animation-delay:-16.800s"><i>T</i></span><span class="ch" style="--i:9;animation-delay:-16.400s"><i>E</i></span><span class="ch" style="--i:10;animation-delay:-16.000s"><i>&nbsp;</i></span><span class="ch" style="--i:11;animation-delay:-15.600s"><i>·</i></span><span class="ch" style="--i:12;animation-delay:-15.200s"><i>&nbsp;</i></span><span class="ch" style="--i:13;animation-delay:-14.800s"><i>H</i></span><span class="ch" style="--i:14;animation-delay:-14.400s"><i>E</i></span><span class="ch" style="--i:15;animation-delay:-14.000s"><i>A</i></span><span class="ch" style="--i:16;animation-delay:-13.600s"><i>D</i></span><span class="ch" style="--i:17;animation-delay:-13.200s"><i>&nbsp;</i></span><span class="ch" style="--i:18;animation-delay:-12.800s"><i>E</i></span><span class="ch" style="--i:19;animation-delay:-12.400s"><i>A</i></span><span class="ch" style="--i:20;animation-delay:-12.000s"><i>S</i></span><span class="ch" style="--i:21;animation-delay:-11.600s"><i>T</i></span><span class="ch" style="--i:22;animation-delay:-11.200s"><i>&nbsp;</i></span><span class="ch" style="--i:23;animation-delay:-10.800s"><i>·</i></span><span class="ch" style="--i:24;animation-delay:-10.400s"><i>&nbsp;</i></span><span class="ch" style="--i:25;animation-delay:-10.000s"><i>V</i></span><span class="ch" style="--i:26;animation-delay:-9.600s"><i>I</i></span><span class="ch" style="--i:27;animation-delay:-9.200s"><i>S</i></span><span class="ch" style="--i:28;animation-delay:-8.800s"><i>I</i></span><span class="ch" style="--i:29;animation-delay:-8.400s"><i>T</i></span><span class="ch" style="--i:30;animation-delay:-8.000s"><i>&nbsp;</i></span><span class="ch" style="--i:31;animation-delay:-7.600s"><i>S</i></span><span class="ch" style="--i:32;animation-delay:-7.200s"><i>I</i></span><span class="ch" style="--i:33;animation-delay:-6.800s"><i>T</i></span><span class="ch" style="--i:34;animation-delay:-6.400s"><i>E</i></span><span class="ch" style="--i:35;animation-delay:-6.000s"><i>&nbsp;</i></span><span class="ch" style="--i:36;animation-delay:-5.600s"><i>·</i></span><span class="ch" style="--i:37;animation-delay:-5.200s"><i>&nbsp;</i></span><span class="ch" style="--i:38;animation-delay:-4.800s"><i>H</i></span><span class="ch" style="--i:39;animation-delay:-4.400s"><i>E</i></span><span class="ch" style="--i:40;animation-delay:-4.000s"><i>A</i></span><span class="ch" style="--i:41;animation-delay:-3.600s"><i>D</i></span><span class="ch" style="--i:42;animation-delay:-3.200s"><i>&nbsp;</i></span><span class="ch" style="--i:43;animation-delay:-2.800s"><i>E</i></span><span class="ch" style="--i:44;animation-delay:-2.400s"><i>A</i></span><span class="ch" style="--i:45;animation-delay:-2.000s"><i>S</i></span><span class="ch" style="--i:46;animation-delay:-1.600s"><i>T</i></span><span class="ch" style="--i:47;animation-delay:-1.200s"><i>&nbsp;</i></span><span class="ch" style="--i:48;animation-delay:-0.800s"><i>·</i></span><span class="ch" style="--i:49;animation-delay:-0.400s"><i>&nbsp;</i></span></span></a></dd></div>
     </dl>
 
     <figure class="hero-shot">
