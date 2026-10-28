@@ -83,4 +83,4 @@ img{max-width:100%;display:block;}
 
 .brand .logo,.wordmark .logo{display:block;height:auto;}
 .lockup{display:flex;flex-direction:column;align-items:center;gap:3px;}
-.lockup .sub{font-family:"Archivo",sans-serif;font-weight:800;font-size:8.5px;line-height:1;letter-spacing:.34em;margin-right:-.34em;text-transform:uppercase;color:#0A0A0A;}
+.lockup .sub{font-family:"Archivo",sans-serif;font-weight:800;font-size:7px;line-height:1;letter-spacing:.14em;margin-right:-.14em;text-transform:uppercase;color:#0A0A0A;}
