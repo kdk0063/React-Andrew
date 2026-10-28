@@ -68,7 +68,7 @@ img{max-width:100%;}
 /* ---------- masthead ---------- */
 .masthead{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:var(--hair) solid var(--ink);}
 .masthead .shell{
-  display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
   padding-top:12px;padding-bottom:11px;
 }
 .wordmark{
@@ -220,6 +220,8 @@ figcaption{
 .nextlinks a:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;background:var(--wash);}
 /* East star: rests north, swings east on hover */
 .brand,.wordmark{display:inline-flex;align-items:center;gap:7px;}
+.brand .logo,.wordmark .logo{display:block;height:auto;}
+.wordmark .logo{height:32px;width:auto;}
 .brand .mark,.wordmark .mark{width:36px;height:36px;margin:-10px -10px -10px -9px;overflow:visible;}
 .brand .needle,.wordmark .needle{transform:none;transition:none;}
 .nextlinks a.live{align-items:center;}
@@ -245,7 +247,7 @@ figcaption{
 
 <header class="masthead">
   <div class="shell">
-    <a class="wordmark" href="../../">ADK&nbsp;Studio<svg class="mark" viewBox="-124 -124 248 248" aria-hidden="true"><defs><clipPath id="tip-hdr"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#tip-hdr)"/></g></svg></a>
+    <a class="wordmark" href="../../" aria-label="ADK Studio home"><img class="logo" src="../../brand/adk-tag.svg" alt="ADK Studio" width="58" height="28"></a>
     <nav class="mastnav label" aria-label="Case study">
       <a href="#flow">Flow</a>
       <a href="#architecture">System</a>
