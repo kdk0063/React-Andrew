@@ -114,11 +114,11 @@
         return '<div class="cvx cvx-f451">' + carInFlames() +
           '<div class="fx-cap">Wonderful races<br>by the author of<br>allenscabinets.com</div>' +
           '<div class="fx-author"><span class="first">Andrew</span><span class="last">Kim</span></div>' +
-          '<div class="fx-title"><span class="t">Grandstand</span> <span class="n">451</span></div>' +
+          '<div class="fx-title"><span class="t">Grandstands</span> <span class="n">451</span></div>' +
           '<div class="fx-pub">ADK Studio Books</div></div>';
       },
       spine: function () {
-        return '<span class="fx-spine-n">451</span><span class="t">Grandstand</span><span class="fx-spine-pub">ADK</span>';
+        return '<span class="fx-spine-n">451</span><span class="t">Grandstands</span><span class="fx-spine-pub">ADK</span>';
       }
     },
     white: {
@@ -147,10 +147,10 @@
     },
     supreme: {
       cover: function () {
-        return '<div class="cvx cvx-supreme"><div class="sp-box"><span>Grandstand</span></div><div class="sp-emboss">ADK STUDIO</div></div>';
+        return '<div class="cvx cvx-supreme"><div class="sp-box"><span>Grandstands</span></div><div class="sp-emboss">ADK STUDIO</div></div>';
       },
       spine: function () {
-        return '<span class="sp-spine-box"><span class="t">Grandstand</span></span><span class="sp-spine-pub">ADK</span>';
+        return '<span class="sp-spine-box"><span class="t">Grandstands</span></span><span class="sp-spine-pub">ADK</span>';
       }
     },
     apc: {

@@ -25,7 +25,7 @@
       size: { h: 350, d: 41 }, spine: { image: '/books/allensadmin-spine.jpg', bg: '#121212', fg: '#FFFFFF', ac: '#E9A23B', pat: 'stripes' }, cover: { image: '/books/allensadmin-cover.jpg', bg: '#121212', fg: '#E9A23B' }
     },
     {
-      id: 'grandstand', design: 'supreme', title: 'Grandstand', spineTitle: 'Grandstand', coverTitle: 'Grand<br>stand',
+      id: 'grandstand', design: 'supreme', title: 'Grandstands', spineTitle: 'Grandstands', coverTitle: 'Grand<br>stands',
       kicker: 'Personal · Live', tag: '3D web',
       desc: 'Real Formula 1 races replayed on a tiny 3D world you can walk around: every lap, pit stop and overtake from the actual race, on hand-built dioramas of each circuit, in the browser.',
       meta: [['Role', 'Design, 3D & engineering'], ['Stack', 'Three.js, React Three Fiber, Blender, OpenStreetMap'], ['Status', 'Live']],
