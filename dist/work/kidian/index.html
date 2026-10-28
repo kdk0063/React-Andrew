@@ -228,7 +228,8 @@ figcaption{
 /* East star: rests north, swings east on hover */
 .brand,.wordmark{display:inline-flex;align-items:center;gap:7px;}
 .brand .logo,.wordmark .logo{display:block;height:auto;}
-.wordmark .logo{height:32px;width:auto;}
+.lockup{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.lockup .sub{font-family:"Archivo",sans-serif;font-weight:800;font-size:8.5px;line-height:1;letter-spacing:.34em;margin-right:-.34em;text-transform:uppercase;color:#0A0A0A;}
 .brand .mark,.wordmark .mark{width:36px;height:36px;margin:-10px -10px -10px -9px;overflow:visible;}
 .brand .needle,.wordmark .needle{transform:none;transition:none;}
 .nextlinks a.live{align-items:center;}
@@ -263,7 +264,7 @@ figcaption{
 
 <header class="masthead">
   <div class="shell">
-    <a class="wordmark" href="../../" aria-label="ADK Studio home"><img class="logo" src="../../brand/adk-tag.svg" alt="ADK Studio" width="58" height="28"></a>
+    <a class="wordmark" href="../../" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="../../brand/adk-tag.svg" alt="" width="54" height="26"><span class="sub">Studio</span></span></a>
     <nav class="mastnav label" aria-label="Case study">
       <a href="#product">Product</a>
       <a href="#role">Role</a>
