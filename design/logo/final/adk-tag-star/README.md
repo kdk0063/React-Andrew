@@ -7,6 +7,7 @@ file is one shape and the background shows through the star on any colour.
 - `adk-tag-star.svg` / `-white`: the tag
 - `adk-tag-star-lockup.svg` / `-white`: tag + STUDIO (Archivo ExtraBold)
 - `adk-tag-star-gold.svg` / `-white`: accent version, star filled in brand gold #E9A23B
+- `adk-tag-star-goldtip.svg` / `-white` and `adk-tag-star-lockup-goldtip.svg` / `-white`: star stays cut out, only the east point is gold (matches the East star mark)
 - `preview-tag-star.png`: light, dark, east blue and small sizes
 
 Rebuild (star size and position are constants at the top of the script):

@@ -96,4 +96,9 @@ for ink, sfx in (('#0A0A0A', ''), ('#FFFFFF', '-white')):
     write(f'adk-tag-star-lockup{sfx}.svg', f'<path d="{cut_d}" fill="{ink}"/><g fill="{ink}">{studio}</g>', H + 130)
     # Accent variant: the cut is filled with brand gold instead of left empty.
     write(f'adk-tag-star-gold{sfx}.svg', f'<path d="{cut_d}" fill="{ink}"/><path d="{star_d}" fill="#E9A23B"/>', H)
+    # Gold-tip variant: the star stays cut out, only its east point is gold (same proportion as the brand East star).
+    tip = (f'<defs><clipPath id="east-tip"><rect x="{CX + RE * .48:.1f}" y="{CY - R}" width="{RE}" height="{2 * R}"/></clipPath></defs>'
+           f'<path d="{star_d}" fill="#E9A23B" clip-path="url(#east-tip)"/>')
+    write(f'adk-tag-star-goldtip{sfx}.svg', f'<path d="{cut_d}" fill="{ink}"/>{tip}', H)
+    write(f'adk-tag-star-lockup-goldtip{sfx}.svg', f'<path d="{cut_d}" fill="{ink}"/><g fill="{ink}">{studio}</g>{tip}', H + 130)
 print('wrote', sorted(p.name for p in out.glob('adk-tag-star*')))
