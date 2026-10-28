@@ -109,8 +109,14 @@ h1{
 .specs div{padding:12px 16px 14px 0;border-bottom:var(--hair) solid var(--rule);}
 .specs dt{margin:0;}
 .specs dd{margin:6px 0 0;font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:17px;letter-spacing:-.01em;}
-.specs dd a.compass{position:relative;display:block;width:136px;height:92px;margin:-2px 0 -6px -6px;color:var(--ink);text-decoration:none;transition:translate .5s cubic-bezier(.2,.8,.2,1);}
-.compass .orbit{position:absolute;inset:0;}
+.specs div{position:relative;}
+.specs dd a.compass{display:inline-flex;align-items:center;gap:9px;color:var(--ink);text-decoration:none;}
+.specs dd a.compass::after{content:"";position:absolute;inset:0;}
+.compass .pulse{position:relative;width:8px;height:8px;border-radius:50%;background:#22C55E;}
+.compass .pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:compass-ping 1.6s ease-out infinite;}
+.compass .orbit{position:absolute;right:-2px;top:50%;width:136px;height:92px;margin-top:-46px;transform:scale(.78);transform-origin:right center;pointer-events:none;transition:translate .5s cubic-bezier(.2,.8,.2,1);}
+@media (max-width:819px){.compass .orbit{transform:scale(.72);}}
+@keyframes compass-ping{to{transform:scale(2.6);opacity:0;}}
 .compass .track{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:rgba(12,13,15,.3);stroke-width:1;stroke-dasharray:2 4;}
 .compass .rose{position:absolute;left:39px;top:19px;width:58px;height:58px;overflow:visible;z-index:1;animation:compass-sway 3.2s ease-in-out infinite alternate;}
 .compass:hover .rose,.compass:focus-visible .rose{animation-play-state:paused;}
@@ -119,7 +125,8 @@ h1{
 .compass .ch{position:absolute;left:0;top:0;width:10px;height:14px;font:600 10.5px/14px var(--mono);text-align:center;offset-path:path('M68 67A60 19 0 0 1 8 48A60 19 0 0 1 68 29A60 19 0 0 1 128 48A60 19 0 0 1 68 67Z');offset-rotate:0deg;animation:compass-orbit 14s linear infinite;}
 .compass .ch i{display:block;font-style:normal;}
 .compass:hover .ch i,.compass:focus-visible .ch i{animation:compass-hop .6s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(var(--i) * 18ms);}
-.compass:focus-visible{outline:1px solid var(--ink);outline-offset:4px;}
+.compass:focus-visible{outline:none;}
+.specs dd a.compass:focus-visible::after{outline:2px solid var(--ink);outline-offset:-2px;}
 @keyframes compass-orbit{
   0%{offset-distance:0%;z-index:2;opacity:1;scale:1;}
   24.9%{z-index:2;}25%{z-index:0;opacity:.45;scale:.86;}
