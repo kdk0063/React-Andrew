@@ -1,0 +1,86 @@
+<!doctype html>
+<!-- Next round from "A ✦ K" (liked) and a compass-ring reference:
+     emblems where the ring is the D, the K sits inside it and the A is the
+     compass's north point; plus refinements of A ✦ K. Needles point east. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Archivo:wght@600&display=block" rel="stylesheet">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{background:#fff;font-family:'Archivo',sans-serif;color:#111;padding:36px;width:1400px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{border:1px solid #e3e3e3;border-radius:16px;padding:22px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .card svg.big{height:210px;width:auto;max-width:400px}
+  .studio{font-weight:600;font-size:12px;letter-spacing:.5em;margin-left:.5em}
+  .icons{display:flex;gap:12px;align-items:center}
+  .label{font-size:12px;color:#777;text-align:center;line-height:1.45}
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+const INK = '#111';
+function needle(cx, cy, deg, len, w, solid = false) {
+  const a = deg * Math.PI / 180, ux = Math.cos(a), uy = -Math.sin(a), px = -uy, py = ux, b = len * 0.2;
+  const P = (x, y) => `${x.toFixed(1)},${y.toFixed(1)}`;
+  const tip = P(cx + ux * len, cy + uy * len), L = P(cx + ux * b + px * w, cy + uy * b + py * w), R = P(cx + ux * b - px * w, cy + uy * b - py * w);
+  if (solid) return `<polygon points="${cx},${cy} ${L} ${tip} ${R}" fill="${INK}"/>`;
+  return `<polygon points="${cx},${cy} ${L} ${tip}" fill="${INK}"/><polygon points="${cx},${cy} ${tip} ${R}" fill="#fff" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>`;
+}
+const serif = (ch, x, y, s) => `<text x="${x}" y="${y}" text-anchor="middle" font-family="Cormorant Garamond" font-weight="600" font-size="${s}" fill="${INK}">${ch}</text>`;
+
+const marks = [
+  { name: '1 · D-ring emblem: the ring is a D (spine + bowl), the K hangs inside it, the A is the north point, east needle longest',
+    vb: '0 0 220 220',
+    body:
+      `<rect x="72" y="58" width="12" height="104" fill="${INK}"/>` +                                  // D spine = K stem
+      `<path d="M84,58 A52,52 0 0 1 84,162" fill="none" stroke="${INK}" stroke-width="12"/>` +          // D bowl
+      `<polygon points="84,112 84,98 124,64 136,72" fill="${INK}"/>` +                                   // K upper arm
+      `<polygon points="92,104 102,98 136,150 124,156" fill="${INK}"/>` +                                // K leg
+      `<polygon points="78,8 98,58 88,58 78,36 68,58 58,58" fill="${INK}"/>` +                           // A as the north point
+      `<rect x="66" y="44" width="24" height="4" fill="${INK}"/>` +                                       // A crossbar
+      needle(136, 110, 0, 78, 6, true) + needle(78, 162, 270, 34, 7, true) + needle(32, 110, 180, 24, 6, true)
+  },
+  { name: '2 · Broken ring: an A and K share one stem inside an open compass ring; four needles, east the longest',
+    vb: '0 0 220 220',
+    body:
+      `<path d="M128,46 A62,62 0 1 1 72,52" fill="none" stroke="${INK}" stroke-width="7"/>` +           // ring with a gap at north-west
+      `<rect x="104" y="64" width="11" height="92" fill="${INK}"/>` +                                    // shared stem (A right leg + K stem)
+      `<polygon points="110,64 115,64 80,156 69,156" fill="${INK}"/>` +                                  // A left leg
+      `<rect x="82" y="120" width="26" height="4" fill="${INK}"/>` +                                      // A crossbar
+      `<polygon points="115,114 115,104 146,68 152,74" fill="${INK}"/>` +                                // K arm
+      `<polygon points="118,106 126,102 154,156 144,156" fill="${INK}"/>` +                              // K leg
+      needle(110, 110, 90, 98, 7, true) + needle(110, 110, 270, 98, 7, true) + needle(172, 110, 0, 44, 6, true) + needle(48, 110, 180, 20, 5, true)
+  },
+  { name: '3 · A ✦ K, tightened: star sized to the letters\' crossbar height, a hairline dial ring as the D',
+    vb: '0 0 330 160',
+    body: serif('A', 70, 134, 150) + `<circle cx="165" cy="88" r="28" fill="none" stroke="${INK}" stroke-width="2"/>` +
+      needle(165, 88, 0, 56, 6) + needle(165, 88, 90, 40, 6) + needle(165, 88, 180, 34, 6) + needle(165, 88, 270, 40, 6) + serif('K', 262, 134, 150)
+  },
+  { name: '4 · A ✦ K, the version you liked, star a touch larger and centred on the letters\' optical middle',
+    vb: '0 0 330 160',
+    body: serif('A', 66, 134, 150) + needle(165, 84, 0, 64, 8) + needle(165, 84, 90, 42, 8) + needle(165, 84, 180, 40, 8) + needle(165, 84, 270, 42, 8) + serif('K', 266, 134, 150)
+  },
+  { name: '5 · A ✦ K stacked over STUDIO with the star\'s east point running under the K',
+    vb: '0 0 330 160',
+    body: serif('A', 66, 134, 150) + needle(160, 96, 0, 140, 6) + needle(160, 96, 90, 44, 7) + needle(160, 96, 180, 34, 7) + needle(160, 96, 270, 34, 7) + serif('K', 250, 134, 150)
+  },
+  { name: '6 · Emblem 1 as an icon only (no STUDIO), checking it holds at small sizes',
+    vb: '0 0 220 220', iconOnly: true,
+    body: null
+  }
+];
+marks[5].body = marks[0].body;
+
+const svg = (m, h, cls = '') => `<svg ${cls} viewBox="${m.vb}" height="${h}" xmlns="http://www.w3.org/2000/svg">${m.body}</svg>`;
+document.getElementById('grid').innerHTML = marks.map(m => `
+  <div class="card">
+    ${svg(m, 210, 'class="big"')}
+    ${m.iconOnly ? '' : '<div class="studio">STUDIO</div>'}
+    <div class="icons">${svg(m, 48)}${svg(m, 24)}</div>
+    <div class="label">${m.name}</div>
+  </div>`).join('');
+</script>
+</body>
+</html>

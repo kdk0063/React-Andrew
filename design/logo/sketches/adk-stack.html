@@ -1,0 +1,55 @@
+<!doctype html>
+<!-- Vertical ADK monogram, interlocked. Letters overlap by roughly half and
+     weave: each letter is drawn whole, then part of an earlier letter is
+     redrawn on top through a clip, so strokes pass over and under like a
+     woven monogram. A white stroke under every fill cuts the crossings. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@96,400&family=Cormorant+Garamond:wght@500&family=Archivo+Black&family=Archivo:wght@600&display=block" rel="stylesheet">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{background:#fff;font-family:'Archivo',sans-serif;color:#111;padding:36px;width:1400px}
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+  .card{border:1px solid #e3e3e3;border-radius:16px;padding:18px 8px 14px;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .card svg.big{width:170px;height:250px}
+  .studio{font-weight:600;font-size:11px;letter-spacing:.5em;margin-left:.5em}
+  .label{font-size:12px;color:#777;text-align:center}
+  .icons{display:flex;gap:10px;align-items:flex-end}
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+const fonts = [['Bodoni Moda', 400, 'Bodoni light'], ['Cormorant Garamond', 500, 'Cormorant'], ['Archivo Black', 400, 'Archivo outline', true]];
+// Letters: [char, x, baseline y, size]. Weave: [letter index, clip x, y, w, h] redrawn on top.
+const layouts = [
+  { name: 'Deep stack', vb: '0 0 200 250',
+    letters: [['A', 100, 112, 150], ['D', 100, 170, 150], ['K', 100, 228, 150]],
+    weave: [[0, 0, 0, 100, 250], [1, 100, 150, 100, 100]] },
+  { name: 'Diagonal cascade', vb: '0 0 220 260',
+    letters: [['A', 80, 112, 145], ['D', 110, 172, 145], ['K', 140, 232, 145]],
+    weave: [[0, 0, 0, 82, 260], [1, 110, 150, 110, 110]] }
+];
+let uid = 0;
+function mark(L, f, w, h, big) {
+  const t = (l) => `<text x="${l[1]}" y="${l[2]}" text-anchor="middle" font-family="${f[0]}" font-weight="${f[1]}" font-size="${l[3]}"
+      fill="${f[3] ? '#fff' : '#111'}" stroke="${f[3] ? '#111' : '#fff'}" stroke-width="${f[3] ? 3 : 5}" paint-order="stroke" stroke-linejoin="round">${l[0]}</text>`;
+  let defs = '', over = '';
+  L.weave.forEach(([i, x, y, cw, ch]) => {
+    const id = 'c' + (uid++);
+    defs += `<clipPath id="${id}"><rect x="${x}" y="${y}" width="${cw}" height="${ch}"/></clipPath>`;
+    over += `<g clip-path="url(#${id})">${t(L.letters[i])}</g>`;
+  });
+  return `<svg ${big ? 'class="big"' : ''} viewBox="${L.vb}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg"><defs>${defs}</defs>${L.letters.map(t).join('')}${over}</svg>`;
+}
+document.getElementById('grid').innerHTML = layouts.flatMap(L => fonts.map(f => `
+  <div class="card">
+    ${mark(L, f, 170, 250, true)}
+    <div class="studio">STUDIO</div>
+    <div class="icons">${mark(L, f, 32, 46)}${mark(L, f, 15, 22)}</div>
+    <div class="label">${L.name} · ${f[2]}</div>
+  </div>`)).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- A.P.C.-style wordmarks (plain bold sans caps, full stops) merged with
+     A ✦ K, where the compass stands in for the D. East point longest. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=Work+Sans:wght@500&display=block" rel="stylesheet">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{background:#fff;font-family:'Archivo',sans-serif;color:#111;padding:36px;width:1400px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{border:1px solid #e3e3e3;border-radius:16px;padding:26px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;min-height:250px;justify-content:center}
+  .card svg.big{width:360px;height:140px}
+  .icons{display:flex;gap:14px;align-items:center}
+  .label{font-size:12px;color:#777;text-align:center}
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+const INK = '#111';
+function needle(cx, cy, deg, len, w) {
+  const a = deg * Math.PI / 180, ux = Math.cos(a), uy = -Math.sin(a), px = -uy, py = ux, b = len * 0.2;
+  const P = (x, y) => `${x.toFixed(1)},${y.toFixed(1)}`;
+  const tip = P(cx + ux * len, cy + uy * len), L = P(cx + ux * b + px * w, cy + uy * b + py * w), R = P(cx + ux * b - px * w, cy + uy * b - py * w);
+  return `<polygon points="${cx},${cy} ${L} ${tip}" fill="${INK}"/><polygon points="${cx},${cy} ${tip} ${R}" fill="#fff" stroke="${INK}" stroke-width="1.5" stroke-linejoin="round"/>`;
+}
+const compass = (cx, cy, s = 1, ring = true) =>
+  (ring ? `<circle cx="${cx}" cy="${cy}" r="${17 * s}" fill="none" stroke="${INK}" stroke-width="1.5"/>` : '') +
+  needle(cx, cy, 0, 36 * s, 4.5 * s) + needle(cx, cy, 90, 25 * s, 4.5 * s) + needle(cx, cy, 180, 21 * s, 4.5 * s) + needle(cx, cy, 270, 25 * s, 4.5 * s);
+const T = (s, x, y, size, w = 800, ls = 0, fam = 'Archivo') =>
+  `<text x="${x}" y="${y}" font-family="${fam}" font-weight="${w}" font-size="${size}" letter-spacing="${ls}" fill="${INK}">${s}</text>`;
+const dot = (x, y, r = 7) => `<rect x="${x}" y="${y - r * 2}" width="${r * 2}" height="${r * 2}" fill="${INK}"/>`;
+
+const marks = [
+  { name: '1 · A.✦.K. — A.P.C. rhythm, the compass takes the D\'s place between the stops',
+    body: T('A', 22, 112, 112) + dot(116, 112) + compass(180, 74) + dot(232, 112) + T('K', 256, 112, 112) },
+  { name: '2 · A.D.K. — full A.P.C. lockup; the last full stop becomes a small compass',
+    body: T('A.D.K', 8, 112, 100) + compass(334, 100, .62, false) },
+  { name: '3 · A✦K. — tight caps, compass in the middle, one closing full stop',
+    body: T('A', 46, 112, 112) + compass(170, 74) + T('K', 214, 112, 112) + dot(306, 112) },
+  { name: '4 · Book-cover A.P.C.: wide-tracked caps, A . ✦ . K',
+    body: T('A', 30, 104, 80, 500, 0, 'Work Sans') + dot(106, 104, 4) + compass(172, 76, .8) + dot(230, 104, 4) + T('K', 264, 104, 80, 500, 0, 'Work Sans') },
+  { name: '5 · A.✦.K. with STUDIO letter-spaced underneath, A.P.C. label style',
+    body: T('A', 58, 92, 84) + dot(130, 92, 5) + compass(180, 64, .78) + dot(222, 92, 5) + T('K', 240, 92, 84) +
+          T('STUDIO', 118, 128, 15, 600, 9) },
+  { name: '6 · A.K. compact with the compass as a superscript, east of the K',
+    body: T('A.K.', 40, 112, 112) + compass(300, 46, .7) }
+];
+const mk = (m, w, h, big) => `<svg ${big ? 'class="big"' : ''} viewBox="0 0 360 140" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg">${m.body}</svg>`;
+document.getElementById('grid').innerHTML = marks.map(m => `
+  <div class="card">
+    ${mk(m, 360, 140, true)}
+    <div class="icons">${mk(m, 110, 43)}${mk(m, 56, 22)}</div>
+    <div class="label">${m.name}</div>
+  </div>`).join('');
+</script>
+</body>
+</html>

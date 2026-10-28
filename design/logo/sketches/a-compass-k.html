@@ -1,0 +1,64 @@
+<!doctype html>
+<!-- A · compass · K: the A and K stay letters, the D becomes a compass /
+     direction mark. The needle always points east (東奎, east star). -->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Archivo+Black&family=Archivo:wght@600&display=block" rel="stylesheet">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{background:#fff;font-family:'Archivo',sans-serif;color:#111;padding:36px;width:1400px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .card{border:1px solid #e3e3e3;border-radius:16px;padding:22px 10px 14px;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .card svg.big{width:300px;height:132px}
+  .studio{font-weight:600;font-size:11px;letter-spacing:.5em;margin-left:.5em}
+  .label{font-size:12px;color:#777;text-align:center;line-height:1.45}
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+const INK = '#111';
+const fonts = [['Cormorant Garamond', 600, 'serif'], ['Archivo Black', 400, 'sans']];
+const letter = (f, ch, x) => `<text x="${x}" y="122" text-anchor="middle" font-family="${f[0]}" font-weight="${f[1]}" font-size="150" fill="${INK}">${ch}</text>`;
+
+// Split-shaded needle from (cx,cy) toward deg (0 = east), length len, half-width w.
+function needle(cx, cy, deg, len, w) {
+  const a = deg * Math.PI / 180, ux = Math.cos(a), uy = -Math.sin(a), px = -uy, py = ux, b = len * 0.2;
+  const P = (x, y) => `${x.toFixed(1)},${y.toFixed(1)}`;
+  const tip = P(cx + ux * len, cy + uy * len), L = P(cx + ux * b + px * w, cy + uy * b + py * w), R = P(cx + ux * b - px * w, cy + uy * b - py * w);
+  return `<polygon points="${cx},${cy} ${L} ${tip}" fill="${INK}"/><polygon points="${cx},${cy} ${tip} ${R}" fill="#fff" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>`;
+}
+const star = (cx, cy, r, east = 1.8) =>
+  needle(cx, cy, 0, r * east, r * .2) + needle(cx, cy, 90, r, r * .2) + needle(cx, cy, 180, r, r * .2) + needle(cx, cy, 270, r, r * .2);
+
+const concepts = [
+  { name: '1 · Compass star: the D is a compass rose between the letters, its east point longest',
+    body: f => letter(f, 'A', 62) + star(150, 70, 34) + letter(f, 'K', 248) },
+  { name: '2 · D-shaped dial: a spine plus a half-circle bowl, with a needle pointing east inside',
+    body: f => letter(f, 'A', 58) +
+      `<rect x="112" y="18" width="9" height="104" fill="${INK}"/>` +
+      `<path d="M121,18 A52,52 0 0 1 121,122" fill="none" stroke="${INK}" stroke-width="7"/>` +
+      [30, 60, 90, 120, 150].map(d => { const a = (d - 90) * Math.PI / 180; return `<line x1="${121 + Math.sin(-a + Math.PI / 2) * 44}" y1="${70 - Math.cos(-a + Math.PI / 2) * 44}" x2="${121 + Math.sin(-a + Math.PI / 2) * 38}" y2="${70 - Math.cos(-a + Math.PI / 2) * 38}" stroke="${INK}" stroke-width="2.5"/>`; }).join('') +
+      needle(121, 70, 0, 40, 7) + letter(f, 'K', 240) },
+  { name: '3 · Open dial: half a compass ring; the needle\'s east point runs out and pierces the K',
+    body: f => letter(f, 'A', 56) +
+      `<path d="M150,22 A48,48 0 0 1 150,118" fill="none" stroke="${INK}" stroke-width="3"/>` +
+      `<path d="M150,22 A48,48 0 0 0 150,118" fill="none" stroke="${INK}" stroke-width="3" stroke-dasharray="3 7"/>` +
+      letter(f, 'K', 252) + needle(150, 70, 0, 128, 6) + needle(150, 70, 180, 30, 5) + needle(150, 70, 90, 26, 5) + needle(150, 70, 270, 26, 5) },
+  { name: '4 · Direction arrow: the D is a bold arrowhead/needle aimed east, cut like a letter',
+    body: f => letter(f, 'A', 60) +
+      `<polygon points="112,22 192,70 112,118 132,70" fill="${INK}"/>` +
+      `<polygon points="112,22 192,70 132,70" fill="#fff" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>` +
+      letter(f, 'K', 252) }
+];
+
+document.getElementById('grid').innerHTML = fonts.flatMap(f => concepts.map(c => `
+  <div class="card">
+    <svg class="big" viewBox="-6 0 320 140" xmlns="http://www.w3.org/2000/svg">${c.body(f)}</svg>
+    <div class="studio">STUDIO</div>
+    <div class="label">${c.name} · ${f[2]}</div>
+  </div>`)).join('');
+</script>
+</body>
+</html>

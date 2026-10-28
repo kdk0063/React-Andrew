@@ -1,0 +1,90 @@
+<!doctype html>
+<!-- Compass-K sketches: hand-built SVG, no image generation.
+     Each needle is split-shaded (one half filled, one half outlined) like a
+     classic compass rose. The east point is always the longest: 東奎, east star. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@600&display=block" rel="stylesheet">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{background:#fff;font-family:'Archivo',sans-serif;color:#111;padding:40px;width:1400px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .card{border:1px solid #e3e3e3;border-radius:18px;padding:34px 30px 22px;display:flex;flex-direction:column;align-items:center;gap:18px}
+  .lock{display:flex;align-items:center;gap:22px}
+  .lock svg{width:190px;height:190px}
+  .word{display:flex;flex-direction:column}
+  .word b{font-family:'Archivo Black',sans-serif;font-size:66px;letter-spacing:.01em;line-height:1}
+  .word span{font-weight:600;font-size:15px;letter-spacing:.42em;margin-top:6px}
+  .label{font-size:14px;color:#777;letter-spacing:.04em}
+  .icons{display:flex;gap:18px;align-items:center}
+  .icons svg{width:48px;height:48px}
+  .icons svg.s{width:22px;height:22px}
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+// A needle from (cx,cy) toward angle (deg, 0 = east, counter-clockwise),
+// length len, half-width w at 18% of its length. Split shaded.
+function needle(cx, cy, deg, len, w, split = true) {
+  const a = deg * Math.PI / 180, ux = Math.cos(a), uy = -Math.sin(a);
+  const px = -uy, py = ux, b = len * 0.18;
+  const tip = [cx + ux * len, cy + uy * len];
+  const L = [cx + ux * b + px * w, cy + uy * b + py * w];
+  const R = [cx + ux * b - px * w, cy + uy * b - py * w];
+  const p = q => q.map(n => n.toFixed(1)).join(',');
+  if (!split) return `<polygon points="${cx},${cy} ${p(L)} ${p(tip)} ${p(R)}" fill="#111"/>`;
+  return `<polygon points="${cx},${cy} ${p(L)} ${p(tip)}" fill="#111"/>` +
+         `<polygon points="${cx},${cy} ${p(tip)} ${p(R)}" fill="#fff" stroke="#111" stroke-width="2.2" stroke-linejoin="round"/>`;
+}
+const ring = (cx, cy, r, sw = 4) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#111" stroke-width="${sw}"/>`;
+const svg = body => `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+
+const marks = [
+  {
+    name: '1 · Needle K: the N–S needle is the stem, NE and SE needles are the arms, a long east point',
+    body:
+      ring(78, 100, 40) +
+      needle(78, 100, 90, 82, 9) + needle(78, 100, 270, 82, 9) +   // stem
+      needle(78, 100, 45, 78, 9) + needle(78, 100, -45, 78, 9) +   // arms
+      needle(78, 100, 0, 118, 6) + needle(78, 100, 180, 26, 5)     // east (long), west (short)
+  },
+  {
+    name: '2 · Stem + rose: a solid K stem, the compass rose sits on it and throws the K arms and the east point',
+    body:
+      `<rect x="52" y="24" width="20" height="152" fill="#111"/>` +
+      ring(62, 100, 28, 3.5) +
+      needle(62, 100, 48, 90, 10) + needle(62, 100, -48, 90, 10) +  // K arms
+      needle(62, 100, 0, 128, 6)                                       // long east point
+  },
+  {
+    name: '3 · K in the ring: bold K, its upper arm breaks out of the ring as the needle',
+    body:
+      ring(96, 100, 62, 4) +
+      `<rect x="60" y="56" width="20" height="88" fill="#111"/>` +
+      `<polygon points="80,104 80,84 118,56 140,56" fill="#111"/>` +   // upper arm
+      `<polygon points="88,96 104,90 140,144 118,144" fill="#111"/>` + // lower leg
+      needle(116, 66, 38, 74, 6) +                                       // needle out of the ring, NE
+      needle(170, 100, 0, 26, 4, false) + needle(170, 100, 180, 12, 4, false) +
+      needle(170, 100, 90, 12, 4, false) + needle(170, 100, 270, 12, 4, false) // small east star
+  },
+  {
+    name: '4 · Solid K: no ring; a heavy K whose arms end in needle points and a compass star at the joint',
+    body:
+      `<rect x="40" y="30" width="24" height="140" fill="#111"/>` +
+      needle(64, 100, 48, 96, 13, false) + needle(64, 100, -48, 96, 13, false) +
+      `<circle cx="64" cy="100" r="17" fill="#fff"/>` +
+      needle(64, 100, 0, 120, 6) + needle(64, 100, 90, 16, 5) + needle(64, 100, 270, 16, 5) + needle(64, 100, 180, 16, 5)
+  }
+];
+
+document.getElementById('grid').innerHTML = marks.map(m => `
+  <div class="card">
+    <div class="lock">${svg(m.body)}<div class="word"><b>A.D.K.</b><span>STUDIO</span></div></div>
+    <div class="icons">${svg(m.body).replace('<svg', '<svg')}${svg(m.body).replace('<svg', '<svg class="s"')}<span class="label">icon sizes</span></div>
+    <div class="label">${m.name}</div>
+  </div>`).join('');
+</script>
+</body>
+</html>

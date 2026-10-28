@@ -1,0 +1,80 @@
+<!doctype html>
+<!-- ADK interlocking monogram sketches (hand-built SVG, no image generation).
+     Idea from the YSL stack and the A&K shared-stroke mark, drawn fresh:
+     high-contrast strokes (thick downstrokes, hairline upstrokes). -->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600&display=block" rel="stylesheet">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{background:#fff;font-family:'Archivo',sans-serif;color:#111;padding:40px;width:1400px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .card{border:1px solid #e3e3e3;border-radius:18px;padding:30px 24px 22px;display:flex;flex-direction:column;align-items:center;gap:16px}
+  .big{height:300px;display:flex;align-items:center}
+  .big svg{height:280px;width:auto}
+  .studio{font-weight:600;font-size:14px;letter-spacing:.5em;margin-left:.5em}
+  .icons{display:flex;gap:16px;align-items:center}
+  .icons svg{height:48px;width:auto}
+  .icons svg.s{height:20px}
+  .label{font-size:13px;color:#777;text-align:center;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+const K = '#111';
+const thick = (x1, y1, x2, y2, w = 15) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${K}" stroke-width="${w}"/>`;
+const hair = (x1, y1, x2, y2, w = 4.5) => thick(x1, y1, x2, y2, w);
+const serif = (x1, x2, y) => hair(x1, y, x2, y, 4);
+const bowl = (x, y1, y2, out, inn, t = 7) => `<path fill-rule="evenodd" fill="${K}" d="M${x},${y1} C${out},${y1} ${out},${y2} ${x},${y2} Z M${x},${y1 + t} C${inn},${y1 + t} ${inn},${y2 - t} ${x},${y2 - t} Z"/>`;
+const star = (cx, cy, r) => `<polygon points="${cx},${cy - r} ${cx + r * .18},${cy - r * .18} ${cx + r * 1.7},${cy} ${cx + r * .18},${cy + r * .18} ${cx},${cy + r} ${cx - r * .18},${cy + r * .18} ${cx - r},${cy} ${cx - r * .18},${cy - r * .18}" fill="${K}"/>`;
+
+const marks = [
+  {
+    name: '1 · Shared stem: one upright is the A\'s right leg, the D\'s spine and the K\'s stem; the K\'s arms cut through the D\'s bowl',
+    vb: '0 0 200 200',
+    body:
+      thick(100, 30, 100, 170, 16) +                                  // shared stem
+      thick(96, 34, 40, 170, 15) + serif(26, 56, 170) +              // A diagonal + foot
+      hair(62, 120, 100, 120) +                                        // A crossbar
+      bowl(108, 30, 170, 192, 166) + // D bowl, thick at its belly
+      hair(108, 104, 178, 32) + serif(168, 190, 32) +                 // K upper arm (hairline)
+      thick(116, 96, 182, 170, 14) + serif(170, 196, 170) +          // K leg (thick)
+      serif(90, 110, 30)
+  },
+  {
+    name: '2 · Vertical stack (YSL-style): A on top, D in the middle, K at the foot, all hung on one central axis',
+    vb: '0 0 200 320',
+    body:
+      thick(100, 18, 62, 120, 15) + hair(100, 18, 138, 120) +         // A
+      hair(76, 88, 126, 88) +                                          // A crossbar
+      thick(100, 70, 100, 290, 16) +                                   // axis: D spine + K stem
+      bowl(108, 110, 220, 178, 156) + // D bowl
+      hair(108, 262, 160, 214) + thick(118, 254, 166, 300, 14) +      // K arms
+      serif(86, 116, 290) + serif(150, 178, 300)
+  },
+  {
+    name: '3 · East line: A, D and K overlap left to right; the A\'s crossbar runs through all three and ends in the east star',
+    vb: '0 0 280 200',
+    body:
+      thick(70, 32, 22, 168, 15) + hair(70, 32, 112, 168) + serif(10, 36, 168) + // A
+      thick(100, 40, 100, 168, 15) +                                   // D spine (crosses the A's leg)
+      bowl(107, 40, 168, 190, 166) + // D bowl
+      thick(166, 40, 166, 168, 15) +                                   // K stem, inside the D's belly
+      hair(173, 112, 226, 40) + thick(180, 104, 232, 168, 14) +       // K arms
+      hair(30, 128, 238, 128) + star(252, 128, 13)                    // the east line + star
+  }
+];
+
+const svg = (m, cls = '') => `<svg ${cls} viewBox="${m.vb}" xmlns="http://www.w3.org/2000/svg">${m.body}</svg>`;
+document.getElementById('grid').innerHTML = marks.map(m => `
+  <div class="card">
+    <div class="big">${svg(m)}</div>
+    <div class="studio">STUDIO</div>
+    <div class="icons">${svg(m)}${svg(m, 'class="s"')}</div>
+    <div class="label">${m.name}</div>
+  </div>`).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<!-- A ✦ K in six typefaces, compass ~30% smaller than the first sketch but
+     kept recognisable with a hairline dial ring. East point longest. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Bodoni+Moda:opsz,wght@96,500&family=Fraunces:opsz,wght@144,500&family=Libre+Caslon+Display&family=Montserrat:wght@700&family=Syne:wght@700&family=Archivo:wght@600&display=block" rel="stylesheet">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{background:#fff;font-family:'Archivo',sans-serif;color:#111;padding:36px;width:1400px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{border:1px solid #e3e3e3;border-radius:16px;padding:26px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .card svg.big{width:330px;height:150px}
+  .studio{font-weight:600;font-size:12px;letter-spacing:.5em;margin-left:.5em}
+  .icons{display:flex;gap:14px;align-items:center}
+  .label{font-size:12px;color:#777}
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+const INK = '#111';
+const fonts = [
+  ['Playfair Display', 600], ['Bodoni Moda', 500], ['Fraunces', 500],
+  ['Libre Caslon Display', 400], ['Montserrat', 700], ['Syne', 700]
+];
+function needle(cx, cy, deg, len, w) {
+  const a = deg * Math.PI / 180, ux = Math.cos(a), uy = -Math.sin(a), px = -uy, py = ux, b = len * 0.2;
+  const P = (x, y) => `${x.toFixed(1)},${y.toFixed(1)}`;
+  const tip = P(cx + ux * len, cy + uy * len), L = P(cx + ux * b + px * w, cy + uy * b + py * w), R = P(cx + ux * b - px * w, cy + uy * b - py * w);
+  return `<polygon points="${cx},${cy} ${L} ${tip}" fill="${INK}"/><polygon points="${cx},${cy} ${tip} ${R}" fill="#fff" stroke="${INK}" stroke-width="1.6" stroke-linejoin="round"/>`;
+}
+// Compass sits on the letters' optical middle (about the crossbar height).
+const compass = (cx, cy) =>
+  `<circle cx="${cx}" cy="${cy}" r="19" fill="none" stroke="${INK}" stroke-width="1.6"/>` +
+  needle(cx, cy, 0, 40, 5) + needle(cx, cy, 90, 28, 5) + needle(cx, cy, 180, 24, 5) + needle(cx, cy, 270, 28, 5);
+const mark = (f, w, h, big) =>
+  `<svg ${big ? 'class="big"' : ''} viewBox="0 0 330 150" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg">
+     <text x="78" y="126" text-anchor="middle" font-family="${f[0]}" font-weight="${f[1]}" font-size="140" fill="${INK}">A</text>
+     ${compass(163, 86)}
+     <text x="252" y="126" text-anchor="middle" font-family="${f[0]}" font-weight="${f[1]}" font-size="140" fill="${INK}">K</text>
+   </svg>`;
+document.getElementById('grid').innerHTML = fonts.map(f => `
+  <div class="card">
+    ${mark(f, 330, 150, true)}
+    <div class="studio">STUDIO</div>
+    <div class="icons">${mark(f, 110, 50)}${mark(f, 55, 25)}</div>
+    <div class="label">${f[0]}</div>
+  </div>`).join('');
+</script>
+</body>
+</html>

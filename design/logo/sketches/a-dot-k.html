@@ -1,0 +1,55 @@
+<!doctype html>
+<!-- "A.K" where the full stop is the compass: it sits on the baseline like a
+     period, at three sizes, in a bold A.P.C.-style sans and a serif. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Libre+Caslon+Display&display=block" rel="stylesheet">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{background:#fff;font-family:'Archivo',sans-serif;color:#111;padding:36px;width:1400px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{border:1px solid #e3e3e3;border-radius:16px;padding:26px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .card svg.big{width:300px;height:140px}
+  .studio{font-weight:600;font-size:12px;letter-spacing:.5em;margin-left:.5em}
+  .icons{display:flex;gap:14px;align-items:center}
+  .label{font-size:12px;color:#777;text-align:center}
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+const INK = '#111';
+function needle(cx, cy, deg, len, w) {
+  const a = deg * Math.PI / 180, ux = Math.cos(a), uy = -Math.sin(a), px = -uy, py = ux, b = len * 0.2;
+  const P = (x, y) => `${x.toFixed(1)},${y.toFixed(1)}`;
+  const tip = P(cx + ux * len, cy + uy * len), L = P(cx + ux * b + px * w, cy + uy * b + py * w), R = P(cx + ux * b - px * w, cy + uy * b - py * w);
+  return `<polygon points="${cx},${cy} ${L} ${tip}" fill="${INK}"/><polygon points="${cx},${cy} ${tip} ${R}" fill="#fff" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/>`;
+}
+// r = north/south needle length; east is 1.5x, west 0.85x. Sits on the baseline.
+const compass = (cx, base, r, ring) => {
+  const cy = base - r;
+  return (ring ? `<circle cx="${cx}" cy="${cy}" r="${r * .66}" fill="none" stroke="${INK}" stroke-width="1.4"/>` : '') +
+    needle(cx, cy, 0, r * 1.5, r * .2) + needle(cx, cy, 90, r, r * .2) + needle(cx, cy, 180, r * .85, r * .2) + needle(cx, cy, 270, r, r * .2);
+};
+const fonts = [['Archivo', 800, 'bold sans'], ['Libre Caslon Display', 400, 'serif']];
+const sizes = [['period-sized', 11, false, 44], ['small', 17, true, 52], ['medium', 25, true, 64]];
+const mk = (f, s, w, h, big) => {
+  const gap = s[3];                     // space the compass takes between the letters
+  const aEnd = f[0] === 'Archivo' ? 104 : 100;
+  const cx = aEnd + gap * .42, kx = aEnd + gap;
+  return `<svg ${big ? 'class="big"' : ''} viewBox="0 0 ${kx + 100} 140" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg">
+    <text x="18" y="122" font-family="${f[0]}" font-weight="${f[1]}" font-size="122" fill="${INK}">A</text>
+    ${compass(cx, 122, s[1], s[2])}
+    <text x="${kx}" y="122" font-family="${f[0]}" font-weight="${f[1]}" font-size="122" fill="${INK}">K</text></svg>`;
+};
+document.getElementById('grid').innerHTML = fonts.flatMap(f => sizes.map(s => `
+  <div class="card">
+    ${mk(f, s, 300, 140, true)}
+    <div class="studio">STUDIO</div>
+    <div class="icons">${mk(f, s, 96, 45)}${mk(f, s, 48, 22)}</div>
+    <div class="label">A·K, compass as the full stop · ${s[0]} · ${f[2]}</div>
+  </div>`)).join('');
+</script>
+</body>
+</html>
