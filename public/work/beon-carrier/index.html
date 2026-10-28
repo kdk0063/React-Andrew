@@ -109,8 +109,11 @@ h1{
 .specs div{padding:12px 16px 14px 0;border-bottom:var(--hair) solid var(--rule);}
 .specs dt{margin:0;}
 .specs dd{margin:6px 0 0;font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:17px;letter-spacing:-.01em;}
-.specs dd a{text-decoration:none;border-bottom:var(--hair) solid var(--ink);}
-.specs dd a:hover{background:var(--wash);}
+.specs dd a{display:inline-flex;align-items:center;gap:8px;margin-top:2px;padding:7px 15px 7px 12px;background:#1B5FAA;color:#FFFFFF;text-decoration:none;border-radius:999px;font-size:15px;transition:background .15s,transform .15s;}
+.specs dd a::before{content:"";width:8px;height:8px;border-radius:50%;background:#4ADE80;animation:livepulse 1.8s ease-out infinite;}
+.specs dd a:hover{background:#154C8A;transform:translateY(-1px);}
+@keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.7);}70%,100%{box-shadow:0 0 0 7px rgba(74,222,128,0);}}
+@media (prefers-reduced-motion:reduce){.specs dd a::before{animation:none;}}
 
 .hero-shot{margin:clamp(32px,5vw,56px) 0 0;}
 .hero-shot img{display:block;width:100%;height:auto;border:var(--hair) solid var(--ink);background:var(--paper-2);}
@@ -246,7 +249,7 @@ figcaption{
       <div><dt class="label">Role</dt><dd>Full-stack developer</dd></div>
       <div><dt class="label">Company</dt><dd>NTG</dd></div>
       <div><dt class="label">Years</dt><dd>03/2019 – 01/2024</dd></div>
-      <div><dt class="label">Status</dt><dd><a href="https://ntgfreight.com/technology/beon-carrier/" target="_blank" rel="noopener noreferrer">Live ↗</a></dd></div>
+      <div><dt class="label">Status</dt><dd><a href="https://ntgfreight.com/technology/beon-carrier/" target="_blank" rel="noopener noreferrer">See it live ↗</a></dd></div>
     </dl>
 
     <figure class="hero-shot">
