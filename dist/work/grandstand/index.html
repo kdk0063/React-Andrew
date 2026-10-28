@@ -116,7 +116,7 @@ h1{
 .live-tag i::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:compass-ping 1.6s ease-out infinite;}
 .specs dd{position:relative;flex:1;display:flex;align-items:center;}
 @keyframes compass-ping{to{transform:scale(2.6);opacity:0;}}
-.specs dd a.compass{position:static;display:inline-flex;align-items:center;gap:8px;margin:-8px 0 -8px -3px;color:var(--ink);text-decoration:none;}
+.specs dd a.compass{position:static;display:inline-flex;align-items:center;gap:4px;margin:-8px 0;color:var(--ink);text-decoration:none;}
 .compass .orbit{position:relative;flex:none;width:60px;height:40px;}
 .compass .ring{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:var(--ink);stroke-width:1;opacity:.35;}
 .compass .ring.front{z-index:2;opacity:.6;}
@@ -127,8 +127,6 @@ h1{
 .compass:hover .moon,.compass:focus-visible .moon{animation-duration:1.6s;}
 .compass .go{display:inline-flex;align-items:baseline;gap:4px;border-bottom:var(--hair) solid transparent;transition:border-color .2s;}
 .compass:hover .go,.compass:focus-visible .go{border-bottom-color:var(--ink);}
-.compass .arw{display:inline-block;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
-.compass:hover .arw,.compass:focus-visible .arw{transform:translate(2px,-2px);}
 .compass:focus-visible{outline:none;}
 .specs dd a.compass:focus-visible::after{outline:2px solid var(--ink);outline-offset:-2px;}
 @keyframes compass-orbit{
@@ -291,7 +289,7 @@ figcaption{
       <div><dt class="label">Role</dt><dd>Design, 3D &amp; engineering</dd></div>
       <div><dt class="label">Type</dt><dd>Personal product</dd></div>
       <div><dt class="label">Year</dt><dd>2026</dd></div>
-      <div><dt class="label">Status</dt><dd><span class="live-tag"><i aria-hidden="true"></i>Live</span></dd></div><div><dt class="label">Visit</dt><dd><a class="compass" href="https://www.thegrandstands.net/" target="_blank" rel="noopener noreferrer" aria-label="Visit the live site (opens in a new tab)"><span class="orbit" aria-hidden="true"><svg class="ring" viewBox="0 0 60 40"><ellipse cx="30" cy="20" rx="27" ry="8"/></svg><svg class="rose" viewBox="-124 -124 248 248"><defs><clipPath id="east-tip"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#east-tip)"/></g></svg><svg class="ring front" viewBox="0 0 60 40"><path d="M3 20A27 8 0 0 0 57 20"/></svg><span class="moon"></span></span><span class="go">Visit site<span class="arw">↗</span></span></a></dd></div>
+      <div><dt class="label">Status</dt><dd><span class="live-tag"><i aria-hidden="true"></i>Live</span></dd></div><div><dt class="label">Visit</dt><dd><a class="compass" href="https://www.thegrandstands.net/" target="_blank" rel="noopener noreferrer" aria-label="Visit the live site (opens in a new tab)"><span class="go">Visit site</span><span class="orbit" aria-hidden="true"><svg class="ring" viewBox="0 0 60 40"><ellipse cx="30" cy="20" rx="27" ry="8"/></svg><svg class="rose" viewBox="-124 -124 248 248"><defs><clipPath id="east-tip"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#east-tip)"/></g></svg><svg class="ring front" viewBox="0 0 60 40"><path d="M3 20A27 8 0 0 0 57 20"/></svg><span class="moon"></span></span></a></dd></div>
     </dl>
     <figure class="hero-shot">
       <img src="landing.jpg" alt="Grandstand home page: the headline Take your seat in the grandstand over a 3D diorama of Monza, a red results ticker along the top and a results card." width="1600" height="1000">
