@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live Badge Round 3</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--ink:#0C0D0F;--paper:#FFFFFF;--red:#D7261E;--gold:#E9A23B;--green:#22C55E;--mono:"IBM Plex Mono",monospace;--sans:"Archivo",sans-serif;--spring:cubic-bezier(.34,1.56,.64,1);--ease:cubic-bezier(.7,0,.2,1)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);padding:40px clamp(16px,4vw,64px) 80px}
+h1{font-weight:800;font-variation-settings:'wdth' 80;font-size:40px;letter-spacing:-.02em;margin:0 0 6px}
+p.lead{font:400 13px var(--mono);color:#55575c;margin:0 0 30px;max-width:720px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+.cell{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:22px 22px 26px;display:flex;flex-direction:column;gap:12px}
+.tag{font:500 12px var(--mono);letter-spacing:.1em}
+.tag small{display:block;margin-top:6px;font-weight:400;letter-spacing:0;color:#6b6b6b;line-height:1.5}
+.stage{height:340px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:30px}
+a{color:inherit;text-decoration:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ring g{transform-origin:75px 75px;animation:spin 16s linear infinite}
+.ring text{font:500 11px var(--mono);letter-spacing:.3em;fill:currentColor}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);position:relative}
+.dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:ping 1.6s ease-out infinite}
+@keyframes ping{to{transform:scale(2.8);opacity:0}}
+.mag{will-change:transform;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+
+/* A · PEEK — screenshots of the live site fan out from behind the badge */
+.peek{position:relative;width:150px;height:150px;display:grid;place-items:center}
+.peek .cards{position:absolute;left:50%;top:50%;width:0;height:0}
+.peek img{position:absolute;width:132px;height:84px;object-fit:cover;left:-66px;top:-42px;border:1.5px solid var(--ink);background:#eee;box-shadow:0 10px 24px rgba(0,0,0,.18);
+  transform:translate(0,0) rotate(0) scale(.3);opacity:0;transition:transform .55s var(--spring),opacity .25s}
+.peek:hover img{opacity:1}
+.peek:hover img:nth-child(1){transform:translate(-96px,-150px) rotate(-11deg) scale(1);transition-delay:0s}
+.peek:hover img:nth-child(2){transform:translate(0,-178px) rotate(2deg) scale(1);transition-delay:.06s}
+.peek:hover img:nth-child(3){transform:translate(96px,-148px) rotate(12deg) scale(1);transition-delay:.12s}
+.peek .face{position:relative;width:150px;height:150px;border-radius:50%;background:var(--paper);display:grid;place-items:center}
+.peek .core{width:62px;height:62px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;transition:background .35s,transform .5s var(--spring)}
+.peek .core svg{width:22px;height:22px;transition:transform .5s var(--spring)}
+.peek:hover .core{background:var(--red);transform:scale(1.1)}
+.peek:hover .core svg{transform:rotate(-45deg)}
+.peek:hover .ring g{animation-duration:5s}
+.peek .live{position:absolute;left:50%;top:50%;margin:-30px 0 0 18px;border:2px solid var(--paper);box-sizing:content-box}
+
+/* B · TACTILE — a physical disc you press, ring spins on its face */
+.press{position:relative;width:156px;height:156px;border-radius:50%;background:radial-gradient(120% 120% at 30% 20%,#2a2c31 0%,var(--ink) 55%);color:#fff;display:grid;place-items:center;
+  box-shadow:0 8px 0 #000,0 18px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.18);transform:translateY(0);transition:transform .25s var(--spring),box-shadow .25s var(--spring)}
+.press:hover{transform:translateY(-3px);box-shadow:0 11px 0 #000,0 24px 36px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.18)}
+.press:active{transform:translateY(7px);box-shadow:0 1px 0 #000,0 4px 10px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.1);transition-duration:.08s}
+.press .ring{inset:3px;width:calc(100% - 6px);height:calc(100% - 6px)}
+.press:hover .ring g{animation-duration:5s}
+.press .star{width:46px;height:46px;transition:transform .7s var(--spring)}
+.press:hover .star{transform:rotate(90deg) scale(1.15)}
+.press .live{position:absolute;top:22px;left:50%;margin-left:-4px}
+
+/* C · KINETIC — letters placed round the ring hop in a wave; compass needle swings */
+.kin{position:relative;width:160px;height:160px;display:grid;place-items:center}
+.kin .letters{position:absolute;inset:0;animation:spin 18s linear infinite}
+.kin:hover .letters{animation-duration:7s}
+.kin .ch{position:absolute;left:50%;top:50%;width:12px;height:16px;margin:-8px 0 0 -6px;font:500 11px/16px var(--mono);text-align:center}
+.kin .ch i{display:block;font-style:normal}
+.kin:hover .ch i{animation:hop .6s var(--spring) both;animation-delay:calc(var(--i) * 18ms)}
+@keyframes hop{0%{transform:translateY(0)}40%{transform:translateY(-7px);color:var(--red)}100%{transform:translateY(0)}}
+.kin .rose{width:96px;height:96px;animation:sway 3.2s ease-in-out infinite alternate}
+.kin:hover .rose{animation-play-state:paused}
+.kin .needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1)}
+.kin:hover .needle{transform:rotate(0deg)}
+@keyframes sway{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<h1>Live badge — round 3</h1>
+<p class="lead">From the references: useLayouts' tactile, physical feel (springy press, depth, cards that fan out) and Prompt Motion's kinetic type. Every motion has a job: show what's behind the link, feel clickable, or say “live”.</p>
+<div class="grid" id="g"></div>
+<script>
+const ring=(id,r,txt)=>{const c=2*Math.PI*r;return `<svg class="ring" viewBox="0 0 150 150"><g><defs><path id="${id}" d="M75,75 m-${r},0 a${r},${r} 0 1,1 ${2*r},0 a${r},${r} 0 1,1 -${2*r},0"/></defs><text><textPath href="#${id}" textLength="${c.toFixed(1)}" lengthAdjust="spacing">${txt}</textPath></text></g></svg>`;};
+const arrow=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+const star=`<svg class="star" viewBox="-10 -10 20 20"><path d="M0 -10L2 -2L10 0L2 2L0 10L-2 2L-10 0L-2 -2Z" fill="#fff"/><path d="M0 0L10 0L2 -2Z" fill="#E9A23B"/><path d="M0 0L10 0L2 2Z" fill="#C6801F"/></svg>`;
+const rose=`<svg class="rose" viewBox="-50 -50 100 100">
+ <circle r="44" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 5"/><g class="needle">
+ <path d="M0 0L0 -34L-7 0Z" fill="currentColor"/><path d="M0 0L0 -34L7 0Z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+ <path d="M0 0L0 34L7 0Z" fill="currentColor"/><path d="M0 0L0 34L-7 0Z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+ <path d="M0 0L-30 0L0 7Z" fill="currentColor"/><path d="M0 0L-30 0L0 -7Z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+ <path d="M0 0L44 0L0 -8Z" fill="#E9A23B"/><path d="M0 0L44 0L0 8Z" fill="#C6801F"/><circle r="3" fill="currentColor"/></g></svg>`;
+// Kinetic ring: one span per letter, rotated into place
+const kinetic=(txt,r)=>{const n=txt.length;return [...txt].map((c,i)=>`<span class="ch" style="--i:${i};transform:rotate(${(i*360/n).toFixed(2)}deg) translateY(-${r}px)"><i>${c===' '?'&nbsp;':c}</i></span>`).join('');};
+const img=p=>`../../public/work/grandstand/${p}`;
+const cells=[
+ ['A · PEEK','Hover and screenshots of the live site fan out of the badge. You see what you\'ll get before you click.',
+  `<a class="peek mag" href="#"><span class="cards"><img src="${img('race-monza.jpg')}" alt=""><img src="${img('landing.jpg')}" alt=""><img src="${img('scene-cota.jpg')}" alt=""></span><span class="face">${ring('ra',62,'VISIT LIVE SITE · THEGRANDSTANDS.NET · ')}<span class="live dot"></span><span class="core">${arrow}</span></span></a>`],
+ ['B · TACTILE','A physical disc with depth. Lifts on hover, presses down when clicked. Your east star turns on its face.',
+  `<a class="press mag" href="#">${ring('rb',60,'LIVE NOW · VISIT THE SITE · LIVE NOW · VISIT THE SITE · ')}<span class="live dot"></span>${star}</a>`],
+ ['C · KINETIC COMPASS','Rests pointing north. On hover the letters hop in a wave and the needle swings east — 東.',
+  `<a class="kin mag" href="#"><span class="letters">${kinetic('LIVE NOW · POINT EAST · VISIT SITE · ',70)}</span>${rose}</a>`],
+];
+document.getElementById('g').innerHTML=cells.map(([t,s,h])=>`<div class="cell"><div class="tag">${t}<small>${s}</small></div><div class="stage">${h}</div></div>`).join('');
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+ document.querySelectorAll('.mag').forEach(el=>{
+  el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect();const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;el.style.translate=`${(x*.18).toFixed(1)}px ${(y*.18).toFixed(1)}px`;});
+  el.addEventListener('mouseleave',()=>{el.style.translate='';});
+ });
+}
+</script>
+</body>
+</html>

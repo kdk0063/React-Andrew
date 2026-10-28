@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live Button Options</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--ink:#0C0D0F;--paper:#FFFFFF;--rule:#CFCFC9;--red:#D7261E;--green:#22C55E;--gold:#E9A23B;--mono:"IBM Plex Mono",monospace;--sans:"Archivo",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);padding:40px clamp(16px,4vw,64px) 80px}
+h1{font-weight:800;font-variation-settings:'wdth' 80;font-size:40px;letter-spacing:-.02em;margin:0 0 6px}
+p.lead{font:400 13px var(--mono);color:#55575c;margin:0 0 36px}
+.opt{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:center;border-top:1px solid var(--ink);padding:28px 0}
+.tag{font:500 12px var(--mono);letter-spacing:.1em}
+.tag small{display:block;margin-top:6px;font-weight:400;letter-spacing:0;color:#6b6b6b;line-height:1.5}
+.stage{display:flex;align-items:center;min-height:120px}
+a{color:inherit;text-decoration:none}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:none;position:relative}
+.dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:ping 1.6s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.8);opacity:0}}
+
+/* 01 Wipe: outline, ink floods in from left, arrow flies out and back */
+.wipe{position:relative;display:inline-flex;align-items:center;gap:12px;padding:14px 20px;border:1.5px solid var(--ink);font:500 13px var(--mono);letter-spacing:.14em;overflow:hidden;isolation:isolate;transition:color .35s}
+.wipe::before{content:"";position:absolute;inset:0;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.7,0,.2,1);z-index:-1}
+.wipe:hover{color:#fff}.wipe:hover::before{transform:scaleX(1)}
+.arw{position:relative;width:14px;height:14px;overflow:hidden;display:inline-block}
+.arw i{position:absolute;inset:0;font-style:normal;line-height:14px;transition:transform .4s cubic-bezier(.7,0,.2,1)}
+.arw i+i{transform:translate(-100%,100%)}
+.wipe:hover .arw i:first-child,.split:hover .arw i:first-child{transform:translate(100%,-100%)}
+.wipe:hover .arw i+i,.split:hover .arw i+i{transform:translate(0,0)}
+
+/* 02 Ticker: a running marquee inside a black bar */
+.ticker{display:inline-flex;align-items:center;width:300px;height:48px;background:var(--ink);color:#fff;overflow:hidden;font:500 13px var(--mono);letter-spacing:.14em;position:relative}
+.ticker .run{display:flex;white-space:nowrap;animation:run 9s linear infinite}
+.ticker span.it{display:inline-flex;align-items:center;gap:12px;padding-right:24px}
+.ticker:hover .run{animation-duration:3s}
+.ticker .end{position:absolute;right:0;top:0;bottom:0;width:48px;background:var(--red);display:grid;place-items:center;font-size:18px;transition:width .35s cubic-bezier(.7,0,.2,1)}
+.ticker:hover .end{width:64px}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* 03 Spinning badge: circular text around an arrow */
+.badge{position:relative;width:118px;height:118px;display:grid;place-items:center}
+.badge svg{position:absolute;inset:0;animation:spin 14s linear infinite}
+.badge:hover svg{animation-duration:4s}
+.badge text{font:500 10.5px var(--mono);letter-spacing:.32em;fill:var(--ink)}
+.badge .core{width:52px;height:52px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:20px;transition:transform .35s cubic-bezier(.7,0,.2,1),background .35s}
+.badge:hover .core{transform:scale(1.15) rotate(45deg);background:var(--red)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* 04 Split: two-part block, status + destination */
+.split{display:inline-flex;align-items:stretch;border:1.5px solid var(--ink);font:500 13px var(--mono);letter-spacing:.12em}
+.split .l{display:flex;align-items:center;gap:10px;padding:13px 16px;background:var(--ink);color:#fff}
+.split .r{display:flex;align-items:center;gap:14px;padding:13px 18px;font-family:var(--sans);font-weight:600;letter-spacing:-.005em;font-size:16px;transition:background .3s,padding .3s}
+.split:hover .r{background:var(--gold);padding-right:26px}
+
+/* 05 Big type: the URL itself as the button, with a sliding underline */
+.bigtype{display:inline-flex;align-items:baseline;gap:14px;font-weight:800;font-variation-settings:'wdth' 75;font-size:clamp(32px,5vw,52px);letter-spacing:-.03em;line-height:1;position:relative;padding-bottom:6px}
+.bigtype .lbl{font:500 11px var(--mono);letter-spacing:.14em;display:inline-flex;gap:8px;align-items:center;align-self:center}
+.bigtype::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--red);transform:scaleX(.18);transform-origin:left;transition:transform .5s cubic-bezier(.7,0,.2,1)}
+.bigtype:hover::after{transform:scaleX(1)}
+.bigtype .go{display:inline-block;transition:transform .4s cubic-bezier(.7,0,.2,1)}
+.bigtype:hover .go{transform:translate(6px,-6px)}
+
+/* 06 Stamp: tilted seal that straightens and inks on hover */
+.stamp{display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:12px 20px 10px;border:2.5px solid var(--red);color:var(--red);transform:rotate(-6deg);transition:transform .35s cubic-bezier(.3,1.6,.5,1),background .25s,color .25s;font:500 11px var(--mono);letter-spacing:.2em}
+.stamp b{font:800 26px var(--sans);font-variation-settings:'wdth' 70;letter-spacing:.04em;line-height:1}
+.stamp:hover{transform:rotate(0) scale(1.06);background:var(--red);color:#fff}
+
+@media (max-width:700px){.opt{grid-template-columns:1fr;gap:14px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<h1>“See it live” — button options</h1>
+<p class="lead">Hover each one. All use the site's ink, mono type and square edges.</p>
+
+<div class="opt"><div class="tag">01 · WIPE<small>Ink floods in on hover,<br>arrow flies out and back.</small></div>
+<div class="stage"><a class="wipe" href="#"><span class="dot"></span>VISIT LIVE SITE <span class="arw"><i>↗</i><i>↗</i></span></a></div></div>
+
+<div class="opt"><div class="tag">02 · TICKER<small>Running marquee, like the<br>Grandstand race ticker.</small></div>
+<div class="stage"><a class="ticker" href="#"><span class="run"><span class="it"><span class="dot"></span>LIVE NOW</span><span class="it">VISIT SITE</span><span class="it"><span class="dot"></span>LIVE NOW</span><span class="it">VISIT SITE</span><span class="it"><span class="dot"></span>LIVE NOW</span><span class="it">VISIT SITE</span><span class="it"><span class="dot"></span>LIVE NOW</span><span class="it">VISIT SITE</span></span><span class="end">↗</span></a></div></div>
+
+<div class="opt"><div class="tag">03 · SPINNING BADGE<small>Rotating text ring,<br>speeds up on hover.</small></div>
+<div class="stage"><a class="badge" href="#"><svg viewBox="0 0 118 118"><defs><path id="c" d="M59,59 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs><text><textPath href="#c" textLength="292">VISIT LIVE SITE • VISIT LIVE SITE • </textPath></text></svg><span class="core">↗</span></a></div></div>
+
+<div class="opt"><div class="tag">04 · SPLIT<small>Status block + destination.<br>Gold on hover (your star).</small></div>
+<div class="stage"><a class="split" href="#"><span class="l"><span class="dot"></span>LIVE</span><span class="r">thegrandstands.net <span class="arw"><i>↗</i><i>↗</i></span></span></a></div></div>
+
+<div class="opt"><div class="tag">05 · BIG TYPE<small>The site name is the button.<br>Red rule draws across.</small></div>
+<div class="stage"><a class="bigtype" href="#"><span class="lbl"><span class="dot"></span>LIVE</span>thegrandstands.net<span class="go">↗</span></a></div></div>
+
+<div class="opt"><div class="tag">06 · STAMP<small>Tilted seal that snaps<br>straight and inks in.</small></div>
+<div class="stage"><a class="stamp" href="#">● ON AIR<b>SEE IT LIVE</b>VISIT SITE ↗</a></div></div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orbit Moon Button</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- Saved component: East star in a level orbit with a gold moon. Moon passes in front of / behind the star,
+     shrinks at the back (via transform, NOT the scale property, so it stays on the ring). Star swings north to east on hover.
+     Was live in the case-study Visit column until 2026-10-28; kept here for reuse. -->
+<style>
+:root{--ink:#0C0D0F;--paper:#FFFFFF;--hair:1px;--mono:"IBM Plex Mono",monospace;}
+body{margin:0;min-height:100vh;display:grid;place-items:center;font:600 17px Archivo,sans-serif;color:var(--ink);background:var(--paper)}
+dd{margin:0}
+.specs dd a.compass{display:inline-flex;align-items:center;gap:4px;color:var(--ink);text-decoration:none;}
+.compass .orbit{position:relative;flex:none;width:60px;height:40px;}
+.compass .ring{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:var(--ink);stroke-width:1;opacity:.35;}
+.compass .ring.front{z-index:2;opacity:.6;}
+.compass .rose{position:absolute;left:15px;top:5px;width:30px;height:30px;overflow:visible;z-index:1;}
+.compass .needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
+.compass:hover .needle,.compass:focus-visible .needle{transform:rotate(0deg);}
+.compass .moon{position:absolute;left:0;top:0;width:6px;height:6px;border-radius:50%;background:#E9A23B;box-shadow:0 0 0 1.5px var(--paper);offset-path:path('M30 28A27 8 0 0 1 3 20A27 8 0 0 1 30 12A27 8 0 0 1 57 20A27 8 0 0 1 30 28Z');offset-rotate:0deg;animation:compass-orbit 4.5s linear infinite;}
+.compass:hover .moon,.compass:focus-visible .moon{animation-duration:1.6s;}
+.compass .go{display:inline-flex;align-items:baseline;gap:4px;border-bottom:var(--hair) solid transparent;transition:border-color .2s;}
+.compass:hover .go,.compass:focus-visible .go{border-bottom-color:var(--ink);}
+.compass:focus-visible{outline:none;}
+.specs dd a.compass:focus-visible::after{outline:2px solid var(--ink);outline-offset:-2px;}
+@keyframes compass-orbit{
+  0%{offset-distance:0%;z-index:3;transform:scale(1);}
+  24.9%{z-index:3;}25%{z-index:0;transform:scale(.8);}
+  50%{transform:scale(.65);}
+  74.9%{z-index:0;}75%{z-index:3;transform:scale(.8);}
+  100%{offset-distance:100%;z-index:3;transform:scale(1);}}
+@media (prefers-reduced-motion:reduce){.compass *{animation:none!important;transition:none!important;}}
+</style></head><body><dl class="specs"><dd><a class="compass" href="#" target="_blank" rel="noopener noreferrer" aria-label="Visit the live site (opens in a new tab)"><span class="go">Visit site</span><span class="orbit" aria-hidden="true"><svg class="ring" viewBox="0 0 60 40"><ellipse cx="30" cy="20" rx="27" ry="8"/></svg><svg class="rose" viewBox="-124 -124 248 248"><defs><clipPath id="east-tip"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#east-tip)"/></g></svg><svg class="ring front" viewBox="0 0 60 40"><path d="M3 20A27 8 0 0 0 57 20"/></svg><span class="moon"></span></span></a></dd></dl></body></html>
