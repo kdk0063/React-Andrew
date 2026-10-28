@@ -28,7 +28,7 @@
       id: 'grandstand', design: 'supreme', title: 'Grandstands', spineTitle: 'Grandstands', coverTitle: 'Grand<br>stands',
       kicker: 'Personal · Alpha', tag: '3D web',
       desc: 'Real Formula 1 races replayed on a tiny 3D world you can walk around: every lap, pit stop and overtake from the actual race, on hand-built dioramas of each circuit, in the browser.',
-      meta: [['Role', 'Design, 3D & engineering'], ['Stack', 'Three.js, React Three Fiber, Blender, OpenStreetMap'], ['Status', 'Live · Alpha, designers wanted']],
+      meta: [['Role', 'Design, 3D & engineering'], ['Stack', 'Three.js, React Three Fiber, Blender, OpenStreetMap'], ['Status', 'Live · Alpha, open to collaborators']],
       links: [['Open project', '/work/grandstand/', true]],
       liveUrl: 'https://www.thegrandstands.net/',
       size: { h: 400, d: 53 }, spine: { image: '/books/grandstand-spine.jpg', bg: '#D7392B', fg: '#FFFFFF', ac: '#121212', pat: 'check' }, cover: { image: '/books/grandstand-cover.jpg', bg: '#D7392B', fg: '#FFFFFF' }
