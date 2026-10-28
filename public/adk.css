@@ -84,3 +84,19 @@ img{max-width:100%;display:block;}
 .brand .logo,.wordmark .logo{display:block;height:auto;}
 .lockup{display:flex;flex-direction:column;align-items:center;gap:3px;}
 .lockup .sub{font-family:"Archivo",sans-serif;font-weight:800;font-size:7px;line-height:1;letter-spacing:.14em;margin-right:-.14em;text-transform:uppercase;color:#0A0A0A;}
+
+/* footer line with the 東奎 mark */
+.foot-line{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding:8px var(--pad) 28px;margin:0;}
+.foot-line{display:flex;align-items:center;justify-content:center;gap:9px;}
+.foot-line .hanja{height:16px;width:auto;display:block;}
+/* 東奎 in 먹 ink with a seal-red sun and clan-gold star, written in stroke order (획순) each time the footer comes into view */
+.foot-line.armed .stk{stroke-dasharray:1;stroke-dashoffset:1;}
+.foot-line.armed .sun,.foot-line.armed .sta{opacity:0;}
+.foot-line.play .stk{animation:hj-write .32s cubic-bezier(.6,0,.3,1) forwards;animation-delay:calc(var(--n) * .16s);}
+.foot-line .sun{transform-box:fill-box;transform-origin:50% 100%;}
+.foot-line.play .sun{animation:hj-rise .7s cubic-bezier(.3,1.4,.5,1) .5s forwards;}
+.foot-line .sta{transform-box:fill-box;transform-origin:50% 50%;}
+.foot-line.play .sta{animation:hj-land .6s cubic-bezier(.3,1.8,.5,1) 1.9s forwards;}
+@keyframes hj-write{to{stroke-dashoffset:0;}}
+@keyframes hj-rise{from{opacity:0;transform:translateY(40%) scaleY(.6);}to{opacity:1;transform:none;}}
+@keyframes hj-land{from{opacity:0;transform:scale(0) rotate(-90deg);}to{opacity:1;transform:none;}}
