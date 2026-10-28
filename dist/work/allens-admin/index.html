@@ -110,19 +110,20 @@ h1{
 .specs dt{margin:0;}
 .specs dd{margin:6px 0 0;font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:17px;letter-spacing:-.01em;}
 .specs div{position:relative;}
-.specs dd a.compass{display:inline-flex;align-items:center;gap:9px;color:var(--ink);text-decoration:none;}
+.specs dd a.compass{position:static;display:block;width:108px;height:58px;margin-top:4px;color:var(--ink);text-decoration:none;}
 .specs dd a.compass::after{content:"";position:absolute;inset:0;}
-.compass .pulse{position:relative;width:8px;height:8px;border-radius:50%;background:#22C55E;}
-.compass .pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:compass-ping 1.6s ease-out infinite;}
-.compass .orbit{position:absolute;right:-2px;top:50%;width:136px;height:92px;margin-top:-46px;transform:scale(.78);transform-origin:right center;pointer-events:none;transition:translate .5s cubic-bezier(.2,.8,.2,1);}
-@media (max-width:819px){.compass .orbit{transform:scale(.72);}}
+.live-tag{display:inline-flex;align-items:center;gap:6px;margin-left:8px;color:var(--ink);}
+.live-tag i{position:relative;width:7px;height:7px;border-radius:50%;background:#22C55E;}
+.live-tag i::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:compass-ping 1.6s ease-out infinite;}
+.specs dd{position:relative;}
+.compass .orbit{position:absolute;left:-4px;top:0;width:112px;height:58px;pointer-events:none;transition:translate .5s cubic-bezier(.2,.8,.2,1);}
 @keyframes compass-ping{to{transform:scale(2.6);opacity:0;}}
 .compass .track{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:rgba(12,13,15,.3);stroke-width:1;stroke-dasharray:2 4;}
-.compass .rose{position:absolute;left:39px;top:19px;width:58px;height:58px;overflow:visible;z-index:1;animation:compass-sway 3.2s ease-in-out infinite alternate;}
+.compass .rose{position:absolute;left:36px;top:11px;width:40px;height:40px;overflow:visible;z-index:1;animation:compass-sway 3.2s ease-in-out infinite alternate;}
 .compass:hover .rose,.compass:focus-visible .rose{animation-play-state:paused;}
 .compass .needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
 .compass:hover .needle,.compass:focus-visible .needle{transform:rotate(0deg);}
-.compass .ch{position:absolute;left:0;top:0;width:10px;height:14px;font:600 10.5px/14px var(--mono);text-align:center;offset-path:path('M68 67A60 19 0 0 1 8 48A60 19 0 0 1 68 29A60 19 0 0 1 128 48A60 19 0 0 1 68 67Z');offset-rotate:0deg;animation:compass-orbit 14s linear infinite;}
+.compass .ch{position:absolute;left:0;top:0;width:8px;height:12px;font:600 9px/12px var(--mono);text-align:center;offset-path:path('M56 45A49 14 0 0 1 7 31A49 14 0 0 1 56 17A49 14 0 0 1 105 31A49 14 0 0 1 56 45Z');offset-rotate:0deg;animation:compass-orbit 14s linear infinite;}
 .compass .ch i{display:block;font-style:normal;}
 .compass:hover .ch i,.compass:focus-visible .ch i{animation:compass-hop .6s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(var(--i) * 18ms);}
 .compass:focus-visible{outline:none;}
@@ -133,7 +134,7 @@ h1{
   50%{opacity:.08;scale:.72;}
   74.9%{z-index:0;}75%{z-index:2;opacity:.45;scale:.86;}
   100%{offset-distance:100%;z-index:2;opacity:1;scale:1;}}
-@keyframes compass-hop{40%{transform:translateY(-4px);color:#D7261E;}}
+@keyframes compass-hop{40%{transform:translateY(-3px);color:#D7261E;}}
 @keyframes compass-sway{from{transform:rotate(-7deg);}to{transform:rotate(7deg);}}
 @media (prefers-reduced-motion:reduce){.compass *{animation:none!important;transition:none!important;}}
 
