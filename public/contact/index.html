@@ -109,6 +109,7 @@
           <option>Brand identity &amp; logo</option>
           <option>Web app or internal tool</option>
           <option>Online store</option>
+          <option value="Collaboration">Collaboration</option>
           <option>Something else</option>
         </select>
       </div>
@@ -145,6 +146,11 @@
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ sent.classList.add('in'); }); });
   }
   if (/[?&]sent=1/.test(location.search)) done();
+  // ?type=collab arrives from the Grandstands open call
+  if (/[?&]type=collab/.test(location.search)) {
+    form.elements.project_type.value='Collaboration';
+    form.elements.message.placeholder='Tell us about you: your work or portfolio link, what you’d bring to Grandstands, and your favourite circuit…';
+  }
   form.addEventListener('submit', function(e){
     e.preventDefault();
     status.textContent='';
