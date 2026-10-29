@@ -261,6 +261,7 @@ figcaption{
 .phones figure{margin:0;}
 .phones img{display:block;width:100%;height:auto;aspect-ratio:636/1107;object-fit:contain;background:#fff;}
 .phones figcaption{text-transform:uppercase;}
+.stack{display:grid;gap:12px;}
 .duties{margin:14px 0 0;padding:0;list-style:none;border-top:var(--hair) solid var(--rule);}
 .duties li{padding:10px 0 11px;border-bottom:var(--hair) solid var(--rule-faint);font-size:16px;}
 .duties li::before{content:"— ";color:var(--ink-2);}
@@ -388,7 +389,7 @@ figcaption{
     <div class="sechead">
       <span class="label" style="color:var(--ink)">Booking flow</span>
       <span class="bar"></span>
-      <span class="mono" style="color:var(--ink-2)">SESSION · TIME · DETAILS · DONE</span>
+      <span class="mono" style="color:var(--ink-2)">SESSION · TIME &amp; DETAILS · DONE</span>
     </div>
 
     <div class="steps">
@@ -406,31 +407,24 @@ figcaption{
 
       <article class="step reveal">
         <div>
-          <div class="num">02 — Time</div>
-          <h3>See only times that are really free</h3>
-          <p>Choosing a day asks the script for that day’s open slots, worked out from the owner’s calendar, opening hours and the session length. Past days are disabled, and times are shown in Eastern time.</p>
+          <div class="num">02 — Time &amp; details</div>
+          <h3>Only real open times, then four fields</h3>
+          <p>Choosing a day asks the script for that day’s open slots, worked out from the owner’s calendar, opening hours and the session length, in Eastern time. Then it’s name, email and phone, plus room for special requests. Nothing is paid online: payment is taken after the session, and changes are made with a phone call, which is how the owner prefers to work.</p>
         </div>
-        <figure>
-          <img src="book-time.jpg" alt="Booking step 2, Select Date and Time: a monthly calendar with a day selected and a grid of available half-hour times in Eastern Time." width="1544" height="1568" loading="lazy">
-          <figcaption><span>Fig. 04 — Date and time</span><span>Step 2 of 3</span></figcaption>
-        </figure>
+        <div class="stack">
+          <figure>
+            <img src="book-time.jpg" alt="Booking step 2, Select Date and Time: a monthly calendar with a day selected beside a grid of available half-hour times in Eastern Time." width="1544" height="732" loading="lazy">
+          </figure>
+          <figure>
+            <img src="book-details.jpg" alt="Booking step 3, Your Information: first name, last name, email and phone fields." width="1544" height="692" loading="lazy">
+            <figcaption><span>Fig. 04 — Date, time and details</span><span>Steps 2–3 of 3</span></figcaption>
+          </figure>
+        </div>
       </article>
 
       <article class="step reveal">
         <div>
-          <div class="num">03 — Details</div>
-          <h3>Four fields and a note</h3>
-          <p>Name, email and phone, plus room for special requests. There’s nothing to pay online: payment is taken after the session, and changes are made with a phone call, which is how the owner prefers to work.</p>
-        </div>
-        <figure>
-          <img src="book-details.jpg" alt="Booking step 3, Your Information: first name, last name, email, phone and special requests fields, a Confirm Booking button and a note that nothing is paid now." width="1544" height="1134" loading="lazy">
-          <figcaption><span>Fig. 05 — Your information</span><span>Step 3 of 3</span></figcaption>
-        </figure>
-      </article>
-
-      <article class="step reveal">
-        <div>
-          <div class="num">04 — Confirmed</div>
+          <div class="num">03 — Confirmed</div>
           <h3>Booked, on both calendars</h3>
           <p>On “Confirm Booking” the script verifies the bot check, takes the lock, makes sure the slot is still free and creates the event on the owner’s calendar. The client and the owner each get a confirmation email within seconds.</p>
         </div>
