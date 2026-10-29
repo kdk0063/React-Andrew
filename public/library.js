@@ -28,7 +28,7 @@
       id: 'genesismassage', design: 'prince', title: 'Genesis Massage', spineTitle: 'Genesis Massage', coverTitle: 'Genesis<br>Massage',
       kicker: 'Client · 2026', tag: 'Booking site',
       desc: 'A calm, booking-first website for a massage practice in Vienna, Virginia. Clients pick a session and a time and book in under a minute; the owner runs the whole schedule from Google Calendar, with no paid backend.',
-      meta: [['Role', 'Project manager & system architect'], ['Team', 'With Christina Park (design & front end)'], ['Stack', 'React 19, Google Apps Script, Calendar API'], ['Status', 'Live']],
+      meta: [['Role', 'Project manager & system architect'], ['Team', 'With Christina Park'], ['Stack', 'React 19, Google Apps Script, Calendar API'], ['Status', 'Live']],
       links: [['Open project', '/work/genesis-massage/', true], ['Visit site ↗', 'https://genesis-massage.com/']],
       size: { h: 360, d: 38 }, spine: { bg: '#1E3B9E', fg: '#FFFFFF', ac: '#F6D23A', pat: 'dots' }, cover: { bg: '#1E3B9E', fg: '#FFFFFF' }
     },
