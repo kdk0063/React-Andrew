@@ -140,6 +140,13 @@
       '</svg>';
   }
 
+  // The ADK East star: rests north, swings east when its book opens.
+  function eastStar(id) {
+    var d = 'M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z';
+    return '<svg class="east" viewBox="-124 -124 248 248" aria-hidden="true"><defs><clipPath id="' + id + '"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs>' +
+      '<g class="needle"><path d="' + d + '" fill="currentColor"/><path d="' + d + '" fill="#E9A23B" clip-path="url(#' + id + ')"/></g></svg>';
+  }
+
   var DESIGNS = {
     pride: {
       cover: function () {
@@ -198,11 +205,15 @@
       }
     },
     supreme: {
-      cover: function () {
-        return '<div class="cvx cvx-supreme"><div class="sp-box"><span>Grandstands</span></div><div class="sp-emboss">ADK STUDIO</div></div>';
+      // b.box is the box-logo word (or mark), b.emboss the stamped line below
+      // it (b.ink prints it in the box's red), b.star adds the East star.
+      cover: function (b) {
+        return '<div class="cvx cvx-supreme"><div class="sp-box"><span>' + (b.box || 'Grandstands') + '</span></div>' +
+          '<div class="sp-emboss' + (b.ink ? ' ink' : '') + '">' + (b.star ? eastStar('sp-tip-' + b.id) : '') + '<span>' + (b.emboss || 'ADK STUDIO') + '</span></div></div>';
       },
-      spine: function () {
-        return '<span class="sp-spine-box"><span class="t">Grandstands</span></span><span class="sp-spine-pub">ADK</span>';
+      spine: function (b) {
+        return '<span class="sp-spine-box"><span class="t">' + (b.spineBox || b.box || 'Grandstands') + '</span></span>' +
+          (b.star ? '<span class="sp-spine-star">' + eastStar('sp-stip-' + b.id) + '</span>' : '<span class="sp-spine-pub">' + (b.spinePub || 'ADK') + '</span>');
       }
     },
     apc: {

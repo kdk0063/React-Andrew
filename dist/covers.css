@@ -99,6 +99,17 @@
   font-size:1.18em;letter-spacing:-.02em;line-height:1;padding:.2em .32em .24em;}
 .sp-emboss{left:0;right:0;bottom:.7em;text-align:center;font-family:"Archivo",sans-serif;font-weight:700;font-size:.42em;
   letter-spacing:.32em;color:#F3F3F1;text-shadow:1px 1px 0 rgba(255,255,255,.9),-1px -1px 0 rgba(0,0,0,.14);}
+/* Box mark, red-ink stamp and East star (B-Sides) */
+.sp-box .sp-logo{display:block;height:1.2em;width:auto;margin:.04em .02em;filter:brightness(0) invert(1);}
+.sp-emboss{display:flex;align-items:center;justify-content:center;gap:.3em;}
+.sp-emboss.ink{color:#E0262B;text-shadow:0 1px 0 rgba(255,255,255,.7),0 -1px 0 rgba(0,0,0,.12);}
+.sp-emboss.ink span{mix-blend-mode:multiply;}
+.sp-emboss .east{display:block;width:1.5em;height:1.5em;margin:-.3em 0;overflow:visible;color:#E0262B;}
+.sp-spine-star{display:flex;}
+.sp-spine-star .east{display:block;overflow:visible;width:calc(var(--d) * .5);height:calc(var(--d) * .5);color:#E0262B;}
+.cvx .needle,.spx-supreme .needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
+.book.is-open .cvx .needle{transform:rotate(0deg);transition-delay:.5s;}
+@media (prefers-reduced-motion:reduce){.cvx .needle,.spx-supreme .needle{transition:none;}}
 .spx-supreme{background:#F3F3F1;border-color:#D6D6D2;padding:22px 0 12px;}
 .sp-spine-box{background:#E0262B;padding:8px 3px;display:flex;}
 .spx-supreme .t{color:#fff;font-family:"Jost","Futura",sans-serif;font-style:italic;font-weight:800;text-transform:none;

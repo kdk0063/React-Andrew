@@ -73,6 +73,15 @@
       meta: [['Role', 'Junior full-stack developer'], ['Years', '2017–2018'], ['Stack', 'React, AngularJS, ASP.NET Web API, SQL Server']],
       links: [['Open project', '/work/babel-dabble/', true]],
       size: { h: 345, d: 41 }, spine: { image: '/books/babeldabble-spine.jpg', bg: '#44507C', fg: '#FFFFFF', ac: '#7FB2E5', pat: 'stripes' }, cover: { image: '/books/babeldabble-cover.jpg', bg: '#44507C', fg: '#FFFFFF' }
+    },
+    {
+      id: 'bsides', design: 'supreme', title: 'B-Sides', spineTitle: 'B-Sides', coverTitle: 'B-Sides',
+      box: '<img class="sp-logo" src="/brand/adk-tag.svg" alt="ADK">', spineBox: 'B-Sides', emboss: 'B-SIDES', ink: true, star: true,
+      kicker: 'Personal · Idea bank', tag: 'Notebook',
+      desc: 'The studio’s notebook: everything that isn’t client work. Homages to book covers, posters and album sleeves redrawn for my own projects, and ideas for how a portfolio can behave, like this bookcase.',
+      meta: [['Contents', 'Cover homages, posters, album art, concepts'], ['Status', 'Always in progress']],
+      links: [['Open the notebook', '/work/b-sides/', true]],
+      size: { h: 340, d: 44 }, spine: { bg: '#F3F3F1', fg: '#FFFFFF', ac: '#E0262B', pat: 'band' }, cover: { bg: '#F3F3F1', fg: '#E0262B' }
     }
   ];
 

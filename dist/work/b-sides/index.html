@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="B-Sides — the ADK Studio notebook: homages to book covers, posters and album sleeves redrawn for the studio’s projects, and concepts behind the site.">
+  <meta name="color-scheme" content="light">
+  <meta property="og:title" content="B-Sides — ADK Studio">
+  <meta property="og:description" content="The ADK Studio notebook: cover homages and ideas.">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <title>B-Sides — ADK Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400..600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Abril+Fatface&family=Jost:ital,wght@1,800&family=Permanent+Marker&family=Grand+Hotel&display=swap">
+  <link rel="stylesheet" href="/covers.css">
+  <script src="/covers.js"></script>
+</head>
+<body>
+
+<style>
+/* Same tokens and primitives as the home page, so the case study reads as
+   part of the same document rather than a separate microsite. */
+:root{
+  --paper:#FFFFFF;
+  --paper-2:#F4F4F2;
+  --ink:#0C0D0F;
+  --ink-2:#6B6B67;
+  --rule:#CFCFC9;
+  --rule-faint:#E4E4DE;
+  --accent:#0C0D0F;
+  --wash:#EDEDEB;
+
+  --sans:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+
+  color-scheme:light;
+
+  --maxw:1280px;
+  --pad:clamp(20px,4vw,64px);
+  --hair:1px;
+}
+
+*{box-sizing:border-box;}
+html{background:var(--paper);}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;}
+::selection{background:var(--accent);color:var(--paper);}
+img{max-width:100%;}
+
+
+.shell{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);}
+
+.label{
+  font-family:var(--sans);font-variation-settings:'wdth' 88;font-weight:600;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);
+}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;font-variant-numeric:tabular-nums;}
+
+/* ---------- masthead ---------- */
+.masthead{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:var(--hair) solid var(--ink);}
+.masthead .shell{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding-top:12px;padding-bottom:11px;
+}
+.wordmark{
+  font-family:var(--sans);font-weight:700;font-variation-settings:'wdth' 100;
+  font-size:14px;letter-spacing:-.01em;text-transform:uppercase;text-decoration:none;
+}
+.mastnav{display:flex;gap:22px;align-items:baseline;}
+.mastnav a{
+  text-decoration:none;border-bottom:var(--hair) solid transparent;padding-bottom:2px;
+  transition:border-color .18s ease;
+}
+.mastnav a:hover,.mastnav a:focus-visible{border-bottom-color:var(--accent);}
+.mastnav a:focus-visible,.wordmark:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+
+/* ---------- sections ---------- */
+.sec{border-top:var(--hair) solid var(--ink);padding:clamp(40px,6vw,72px) 0 clamp(48px,7vw,88px);}
+.sec:first-of-type{border-top:0;}
+.sechead{display:flex;align-items:baseline;gap:16px;padding:14px 0 0;}
+.sechead .bar{flex:1;height:var(--hair);background:var(--rule);}
+.sec > .shell > .sechead{padding-top:0;margin-top:-26px;}
+
+/* ---------- title block ---------- */
+.titleblock{padding:clamp(40px,7vw,88px) 0 clamp(40px,6vw,64px);}
+h1{
+  font-family:var(--sans);font-weight:700;font-variation-settings:'wdth' 96;
+  font-size:clamp(40px,7vw,92px);line-height:.95;letter-spacing:-.04em;
+  margin:18px 0 0;
+}
+.lede{
+  font-size:clamp(17px,1.5vw,20px);line-height:1.5;max-width:36em;margin:22px 0 0;
+}
+.lede em{color:var(--ink-2);}
+.specs{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:0;
+  margin-top:clamp(32px,5vw,48px);border-top:var(--hair) solid var(--ink);
+}
+@media (min-width:820px){.specs{grid-template-columns:repeat(4,1fr);}.specs.has-visit{grid-template-columns:repeat(5,1fr);}}
+.specs div{padding:12px 16px 14px 0;border-bottom:var(--hair) solid var(--rule);}
+.specs dt{margin:0;}
+.specs dd{margin:6px 0 0;font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:17px;letter-spacing:-.01em;}
+.specs div{position:relative;display:flex;flex-direction:column;}
+.specs dd a.compass::after{content:"";position:absolute;inset:0;}
+.live-tag{display:inline-flex;align-items:center;gap:9px;color:var(--ink);}
+.live-tag i{position:relative;width:8px;height:8px;border-radius:50%;background:#22C55E;}
+.live-tag i::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:compass-ping 1.6s ease-out infinite;}
+.specs dd{position:relative;flex:1;display:flex;align-items:center;}
+@keyframes compass-ping{to{transform:scale(2.6);opacity:0;}}
+.specs dd a.compass{position:static;display:inline-flex;align-items:center;gap:6px;color:var(--ink);text-decoration:none;}
+.compass .mark{width:34px;height:34px;margin:-8px -6px -8px -2px;overflow:visible;color:var(--ink);}
+.compass .needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
+.compass:hover .needle,.compass:focus-visible .needle{transform:rotate(0deg);}
+.compass .go{display:inline-flex;align-items:baseline;gap:4px;border-bottom:var(--hair) solid transparent;transition:border-color .2s;}
+.compass:hover .go,.compass:focus-visible .go{border-bottom-color:var(--ink);}
+.compass:focus-visible{outline:none;}
+.specs dd a.compass:focus-visible::after{outline:2px solid var(--ink);outline-offset:-2px;}
+@media (prefers-reduced-motion:reduce){.compass *{animation:none!important;transition:none!important;}}
+
+.hero-shot{margin:clamp(32px,5vw,56px) 0 0;}
+.hero-shot img{display:block;width:100%;height:auto;border:var(--hair) solid var(--ink);background:var(--paper-2);}
+
+figcaption{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  margin-top:8px;padding-top:7px;border-top:var(--hair) solid var(--rule);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--ink-2);
+  text-transform:uppercase;
+}
+
+/* ---------- flow ---------- */
+.flowmap{margin-top:28px;}
+.flowmap svg{display:block;width:100%;height:auto;}
+.flowmap .box{fill:var(--paper);stroke:var(--ink);}
+.flowmap .box.alt{fill:var(--paper-2);}
+.flowmap .t{fill:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.06em;}
+.flowmap .s{fill:var(--ink-2);font-family:var(--mono);font-size:8.5px;letter-spacing:.04em;}
+.flowmap .ln{stroke:var(--ink);fill:none;}
+.scrollx{overflow-x:auto;}
+.scrollx svg{min-width:720px;}
+.flowmap .dash{stroke:var(--ink-2);stroke-dasharray:3 3;fill:none;}
+.flowmap svg.flowmap-wide{display:none;}
+@media (min-width:760px){.flowmap svg.flowmap-wide{display:block;}.flowmap svg.flowmap-tall{display:none;}}
+
+.steps{margin-top:clamp(36px,5vw,56px);}
+.step{
+  display:grid;grid-template-columns:1fr;gap:18px 40px;
+  padding:26px 0 34px;border-top:var(--hair) solid var(--rule);
+}
+.step:first-child{border-top:var(--hair) solid var(--ink);}
+@media (min-width:900px){.step{grid-template-columns:minmax(0,4fr) minmax(0,8fr);}}
+.step .num{font-family:var(--mono);font-size:11.5px;}
+.step h3{
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 94;
+  font-size:clamp(22px,2.4vw,28px);line-height:1.08;letter-spacing:-.025em;margin:8px 0 0;
+}
+.step p{margin:12px 0 0;font-size:16px;color:var(--ink-2);max-width:32em;}
+.step p code,.note code,.stacktable code{font-family:var(--mono);font-size:.82em;color:var(--ink);background:var(--paper-2);padding:1px 4px;}
+.step figure{margin:0;}
+.step figure img{display:block;width:100%;height:auto;border:var(--hair) solid var(--ink);background:var(--paper-2);}
+.pair{display:grid;grid-template-columns:1fr;gap:18px;}
+@media (min-width:640px){.pair{grid-template-columns:1fr 1fr;}}
+.phone{display:grid;grid-template-columns:1fr;gap:18px;align-items:end;}
+@media (min-width:640px){.phone{grid-template-columns:minmax(0,5fr) minmax(0,2fr);}}
+
+/* ---------- stack table ---------- */
+.stacktable{width:100%;border-collapse:collapse;margin-top:28px;border-top:var(--hair) solid var(--ink);}
+.stacktable th,.stacktable td{text-align:left;vertical-align:top;padding:14px 18px 15px 0;border-bottom:var(--hair) solid var(--rule);}
+.stacktable th{font-weight:inherit;}
+.stacktable td.tool{
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;
+  font-size:17px;letter-spacing:-.01em;white-space:nowrap;
+}
+.stacktable td.why{font-size:15.5px;color:var(--ink-2);}
+.stacktable .layer{width:120px;}
+@media (max-width:700px){
+  .stacktable,.stacktable tbody,.stacktable tr,.stacktable td{display:block;}
+  .stacktable thead{display:none;}
+  .stacktable tr{padding:12px 0 14px;border-bottom:var(--hair) solid var(--rule);}
+  .stacktable td{padding:0;border:0;}
+  .stacktable td.tool{margin-top:4px;}
+  .stacktable td.why{margin-top:6px;}
+}
+
+/* ---------- notes ---------- */
+.notes{display:grid;grid-template-columns:1fr;gap:0;margin-top:28px;border-top:var(--hair) solid var(--ink);}
+@media (min-width:820px){.notes{grid-template-columns:1fr 1fr;}}
+.note{padding:22px 0 26px;border-bottom:var(--hair) solid var(--rule);}
+@media (min-width:820px){
+  .note:nth-child(odd){padding-right:32px;border-right:var(--hair) solid var(--rule);}
+  .note:nth-child(even){padding-left:32px;}
+}
+.note h4{
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 90;
+  font-size:19px;letter-spacing:-.01em;margin:10px 0 8px;
+}
+.note p{margin:0;font-size:15.5px;line-height:1.55;color:var(--ink-2);}
+
+/* ---------- footer ---------- */
+.nextlinks{display:flex;flex-direction:column;margin-top:26px;border-top:var(--hair) solid var(--ink);}
+.nextlinks a{
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:15px 0;border-bottom:var(--hair) solid var(--rule);text-decoration:none;
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:19px;letter-spacing:-.015em;
+  transition:padding-left .18s ease;
+}
+.nextlinks a span{font-family:var(--mono);font-size:11px;font-weight:400;color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;}
+.nextlinks a:hover,.nextlinks a:focus-visible{padding-left:10px;}
+.nextlinks a:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;background:var(--wash);}
+/* East star: rests north, swings east on hover */
+.brand,.wordmark{display:inline-flex;align-items:center;gap:7px;}
+.brand .logo,.wordmark .logo{display:block;height:auto;}
+.lockup{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.lockup .sub{font-family:"Archivo",sans-serif;font-weight:800;font-size:7px;line-height:1;letter-spacing:.14em;margin-right:-.14em;text-transform:uppercase;color:#0A0A0A;}
+.brand .mark,.wordmark .mark{width:36px;height:36px;margin:-10px -10px -10px -9px;overflow:visible;}
+.brand .needle,.wordmark .needle{transform:none;transition:none;}
+.nextlinks a.live{align-items:center;}
+.nextlinks a.live .go{display:inline-flex;align-items:center;gap:10px;}
+.nextlinks a.live .go i{width:7px;height:7px;border-radius:50%;background:#22C55E;}
+.nextlinks a.live .mark{width:40px;height:40px;margin:-10px 0 -10px -2px;overflow:visible;color:var(--ink);}
+.needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
+.nextlinks a.live:hover .needle,.nextlinks a.live:focus-visible .needle{transform:rotate(0deg);}
+@media (prefers-reduced-motion:reduce){.needle{transition:none;}}
+.foot-line{display:inline-flex;align-items:center;justify-content:center;gap:9px;}
+.foot-line .hanja{height:16px;width:auto;display:block;}
+/* 東奎 in 먹 ink with a seal-red sun and clan-gold star, written in stroke order (획순) each time the footer comes into view */
+.foot-line.armed .stk{stroke-dasharray:1;stroke-dashoffset:1;}
+.foot-line.armed .sun,.foot-line.armed .sta{opacity:0;}
+.foot-line.play .stk{animation:hj-write .32s cubic-bezier(.6,0,.3,1) forwards;animation-delay:calc(var(--n) * .16s);}
+.foot-line .sun{transform-box:fill-box;transform-origin:50% 100%;}
+.foot-line.play .sun{animation:hj-rise .7s cubic-bezier(.3,1.4,.5,1) .5s forwards;}
+.foot-line .sta{transform-box:fill-box;transform-origin:50% 50%;}
+.foot-line.play .sta{animation:hj-land .6s cubic-bezier(.3,1.8,.5,1) 1.9s forwards;}
+@keyframes hj-write{to{stroke-dashoffset:0;}}
+@keyframes hj-rise{from{opacity:0;transform:translateY(40%) scaleY(.6);}to{opacity:1;transform:none;}}
+@keyframes hj-land{from{opacity:0;transform:scale(0) rotate(-90deg);}to{opacity:1;transform:none;}}
+.colophon{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 28px;
+  margin-top:clamp(56px,8vw,104px);padding:12px 0 40px;border-top:var(--hair) solid var(--ink);
+}
+
+.reveal{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1);}
+:root.js-reveal .reveal{opacity:0;transform:translateY(14px);}
+:root.js-reveal .reveal.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){
+  .reveal,:root.js-reveal .reveal{opacity:1;transform:none;transition:none;}
+  .nextlinks a{transition:none;}
+}
+.phones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+.phones figure{margin:0;}
+.phones img{display:block;width:100%;height:auto;aspect-ratio:636/1107;object-fit:contain;background:#fff;}
+.phones figcaption{text-transform:uppercase;}
+.stack{display:grid;gap:12px;}
+.duties{margin:14px 0 0;padding:0;list-style:none;border-top:var(--hair) solid var(--rule);}
+.duties li{padding:10px 0 11px;border-bottom:var(--hair) solid var(--rule-faint);font-size:16px;}
+.duties li::before{content:"— ";color:var(--ink-2);}
+/* ---------- notebook ---------- */
+.intro{max-width:40em;margin:28px 0 0;font-size:16px;color:var(--ink-2);}
+.live-tag.wip i{background:#E9A23B;}
+/* ---------- pages: turn sideways within a chapter ---------- */
+.pager-wrap{position:relative;margin-top:clamp(28px,4vw,40px);}
+.pager{display:grid;grid-auto-flow:column;grid-auto-columns:86%;gap:24px;overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;scrollbar-width:none;padding:8px 0 14px;}
+.pager::-webkit-scrollbar{display:none;}
+.pager > *{scroll-snap-align:start;min-width:0;}
+@media (min-width:760px){
+  .pager{grid-auto-columns:calc((100% - 72px) / 2);gap:72px;}
+  /* the spine of the open book, between the two visible pages */
+  .pager-wrap::after{content:"";position:absolute;top:0;bottom:44px;left:50%;width:72px;transform:translateX(-50%);pointer-events:none;
+    background:linear-gradient(90deg,transparent,rgba(0,0,0,.035) 42%,rgba(0,0,0,.08) 50%,rgba(0,0,0,.035) 58%,transparent);}
+}
+.pagectl{display:flex;align-items:center;gap:14px;margin-top:10px;padding-top:12px;border-top:var(--hair) solid var(--rule);}
+.pagectl button{width:38px;height:38px;flex:none;border-radius:50%;border:var(--hair) solid var(--ink);background:var(--paper);color:var(--ink);
+  font-size:16px;line-height:1;cursor:pointer;transition:background .15s,color .15s,opacity .2s;}
+.pagectl button:hover:not(:disabled){background:var(--ink);color:var(--paper);}
+.pagectl button:disabled{opacity:.25;cursor:default;}
+.pagectl button:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+.pagectl .folio{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;min-width:12ch;}
+.pagectl .progress{flex:1;height:2px;background:var(--rule-faint);position:relative;overflow:hidden;}
+.pagectl .progress i{position:absolute;left:0;top:0;bottom:0;background:var(--tab,var(--ink));width:0;transition:width .3s,left .3s;}
+.pager:focus-visible{outline:2px solid var(--ink);outline-offset:4px;}
+.pager .note{padding:24px 24px 28px;border:var(--hair) solid var(--rule);border-top:3px solid var(--tab,var(--ink));}
+.pager .note h4{font-size:clamp(20px,2vw,24px);}
+.pairing{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.pairing .tag{display:block;margin-bottom:7px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+.side-h .tag{color:var(--ink);}
+.intro.game{margin-top:14px;color:var(--ink);}
+.intro.game strong{font-family:var(--sans);font-weight:700;}
+.linkbtn{font:inherit;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:none;border:0;padding:0 0 1px;margin-left:8px;
+  color:var(--ink-2);border-bottom:var(--hair) solid currentColor;cursor:pointer;}
+.linkbtn:hover{color:var(--ink);}
+/* face-down card */
+.card{position:relative;aspect-ratio:.72;perspective:1100px;}
+.card-in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,1.25,.45,1);}
+.tile.done .card-in{transform:rotateY(180deg);}
+.tile.instant .card-in{transition:none;}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;border-radius:1px 3px 3px 1px;
+  box-shadow:0 1px 0 rgba(0,0,0,.08),0 10px 22px -12px rgba(0,0,0,.45);}
+.face.back{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--paper);
+  background:var(--ink) repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 1px,transparent 1px 6px);}
+.face.back::after{content:"";position:absolute;inset:7px;border:var(--hair) solid rgba(255,255,255,.22);}
+.face.back .east{width:30%;height:auto;color:#E9A23B;overflow:visible;}
+.face.back .needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
+.tile:hover .face.back .needle{transform:rotate(0deg);}
+.face.back .qm{font-family:var(--sans);font-weight:800;font-size:clamp(34px,4vw,48px);line-height:1;}
+.face.back .hint{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;}
+.face.orig{transform:rotateY(180deg);background:var(--paper-2);}
+.orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s;}
+.orig.has-img img{opacity:1;}
+.orig .ph{position:absolute;inset:8px;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:10px;
+  border:var(--hair) dashed var(--rule);font-family:var(--sans);font-weight:600;font-size:13px;line-height:1.2;color:var(--ink-2);}
+.orig .ph small{font-family:var(--mono);font-weight:400;font-size:9.5px;letter-spacing:.04em;}
+.orig.has-img .ph{display:none;}
+/* the guess */
+.quiz{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+.quiz button{font-family:var(--sans);font-size:12.5px;font-weight:500;line-height:1.2;text-align:left;padding:7px 11px;border-radius:999px;
+  border:var(--hair) solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;transition:background .15s,color .15s;}
+.quiz button:hover:not(:disabled){background:var(--ink);color:var(--paper);}
+.quiz button:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+.quiz button.wrong{border-color:var(--rule);color:var(--ink-2);text-decoration:line-through;cursor:default;}
+.quiz button.giveup{border-color:transparent;color:var(--ink-2);font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;}
+.quiz button.giveup:hover:not(:disabled){background:var(--wash);color:var(--ink);}
+.tile.done .quiz button{cursor:default;}
+.tile.done .quiz button:not(.right){opacity:.35;}
+.tile.done .quiz button.right{background:var(--ink);color:var(--paper);opacity:1;}
+.tile.named .quiz button.right::before{content:"✓ ";}
+.tile.done .quiz .giveup{display:none;}
+.tile.nope .pairing{animation:nope .4s cubic-bezier(.36,.07,.19,.97);}
+@keyframes nope{20%,60%{transform:translateX(-5px);}40%,80%{transform:translateX(5px);}}
+/* the answer stays hidden until the card turns */
+.tile:not(.done) .ans{color:transparent;background:var(--rule-faint);border-radius:2px;}
+.tile:not(.done) figcaption small{visibility:hidden;}
+@media (prefers-reduced-motion:reduce){.card-in,.face.back .needle{transition:none;}.tile.nope .pairing{animation:none;}}
+.tile{margin:0;}
+.tile-cover{position:relative;aspect-ratio:.72;overflow:hidden;border-radius:1px 3px 3px 1px;
+  box-shadow:0 1px 0 rgba(0,0,0,.08),0 10px 22px -12px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;}
+.tile-cover::before{content:"";position:absolute;inset:0 auto 0 0;width:5%;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,rgba(0,0,0,.16),rgba(255,255,255,.08) 55%,transparent);}
+.tile:hover .tile-cover{transform:translateY(-6px);box-shadow:0 1px 0 rgba(0,0,0,.08),0 18px 30px -14px rgba(0,0,0,.5);}
+.tile:hover .cvx .needle{transform:rotate(0deg);transition-delay:0s;}
+.tile figcaption{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;text-transform:none;letter-spacing:0;align-items:baseline;}
+.tile figcaption .n{grid-row:span 2;font-size:10.5px;}
+.tile figcaption .after{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em;line-height:1.25;}
+.tile figcaption .after em{font-style:normal;font-weight:400;color:var(--ink-2);}
+.tile figcaption small{display:block;font-family:var(--mono);font-weight:400;font-size:10px;color:var(--ink-2);margin-top:3px;letter-spacing:.03em;}
+.tile figcaption .for{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin-top:4px;}
+@media (prefers-reduced-motion:reduce){.tile-cover{transition:none;}}
+/* ---------- the book: contents, divider tabs, one chapter per page ---------- */
+.toc{list-style:none;margin:28px 0 0;padding:0;border-top:var(--hair) solid var(--ink);counter-reset:none;}
+.toc a{display:flex;align-items:baseline;gap:14px;padding:14px 0;border-bottom:var(--hair) solid var(--rule);text-decoration:none;}
+.toc .ch{width:2.4em;font-family:var(--mono);font-size:11.5px;color:var(--ink-2);}
+.toc .tt{font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:clamp(19px,2vw,24px);letter-spacing:-.015em;}
+.toc .tt em{font-family:var(--serif);font-style:italic;font-weight:400;font-size:.7em;color:var(--ink-2);margin-left:.4em;letter-spacing:0;}
+.toc .dots{flex:1;min-width:20px;border-bottom:2px dotted var(--rule);transform:translateY(-5px);}
+.toc .pg{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-2);white-space:nowrap;}
+.toc a:hover .tt,.toc a:focus-visible .tt{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;}
+@media (max-width:560px){.toc .tt em{display:none;}}
+
+.tabs{position:sticky;top:var(--mast,49px);z-index:4;background:var(--paper);margin-top:clamp(40px,6vw,64px);}
+.tabrow{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-top:10px;border-bottom:3px solid var(--tab-active,var(--ink));}
+.tabrow::-webkit-scrollbar{display:none;}
+.tabrow a{flex:none;display:flex;align-items:center;gap:8px;padding:9px 16px 8px;margin-top:6px;border-radius:7px 7px 0 0;
+  background:var(--tab);color:var(--tab-ink);text-decoration:none;font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:-.005em;
+  opacity:.55;transition:margin-top .25s cubic-bezier(.3,1.4,.5,1),opacity .2s,padding .25s;}
+.tabrow a .ch{font-family:var(--mono);font-size:10px;font-weight:400;opacity:.8;}
+.tabrow a:hover{opacity:.85;margin-top:3px;}
+.tabrow a[aria-selected="true"]{opacity:1;margin-top:0;padding-bottom:11px;}
+.tabrow a:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+.chapter{padding:clamp(28px,4vw,44px) 0 clamp(48px,7vw,88px);}
+.js-book .chapter{display:none;}
+.js-book .chapter.on{display:block;transform-origin:0 50%;animation:pageturn .55s cubic-bezier(.2,.8,.2,1);}
+@keyframes pageturn{from{opacity:0;transform:perspective(1600px) rotateY(-7deg) translateX(18px);}to{opacity:1;transform:none;}}
+:not(.js-book) > .chapter + .chapter{border-top:3px solid var(--tab);}
+.runhead{display:flex;justify-content:space-between;gap:16px;padding-bottom:9px;border-bottom:var(--hair) solid var(--rule);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+.chhead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;}
+.chtitle{font-family:var(--sans);font-weight:700;font-variation-settings:'wdth' 96;font-size:clamp(34px,5vw,60px);line-height:1;letter-spacing:-.035em;margin:26px 0 0;}
+.chtitle::after{content:"";display:block;width:44px;height:4px;margin-top:14px;background:var(--tab);}
+.score{font-size:11px;letter-spacing:.08em;color:var(--ink-2);}
+.blank{margin-top:32px;padding:clamp(40px,7vw,80px) 24px;border:var(--hair) dashed var(--rule);text-align:center;
+  background:repeating-linear-gradient(var(--paper) 0 27px,var(--rule-faint) 27px 28px);}
+.blank p{margin:10px auto 0;max-width:28em;font-size:15.5px;color:var(--ink-2);}
+.turn{display:flex;justify-content:space-between;gap:16px;margin-top:clamp(40px,6vw,64px);padding-top:14px;border-top:var(--hair) solid var(--ink);
+  font-family:var(--sans);font-weight:600;font-size:15px;}
+.turn a{text-decoration:none;border-bottom:var(--hair) solid transparent;transition:border-color .2s;}
+.turn a:hover,.turn a:focus-visible{border-bottom-color:var(--ink);}
+.turn a:last-child{margin-left:auto;}
+@media (prefers-reduced-motion:reduce){.js-book .chapter.on{animation:none;}.tabrow a{transition:none;}}
+/* On the narrowest phones keep only the way back. */
+@media (max-width:419px){.mastnav a:not(:last-child){display:none;}}
+</style>
+
+<header class="masthead">
+  <div class="shell">
+    <a class="wordmark" href="../../" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="../../brand/adk-tag.svg" alt="" width="58" height="28"><span class="sub">Studio</span></span></a>
+    <nav class="mastnav label" aria-label="Case study">
+      <a href="#contents">Contents</a>
+      <a href="../../projects/">← All work</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="titleblock">
+  <div class="shell">
+    <div class="label">Notebook &nbsp;/&nbsp; Personal · Idea bank</div>
+    <h1>B-Sides</h1>
+    <p class="lede">The studio’s notebook: everything that isn’t the single. Homages to book covers, posters and album sleeves, each redrawn from scratch with one of my projects in place of the original title, and ideas for how a portfolio can behave. <em>Some of these end up on the shelf; most just live here.</em></p>
+
+    <dl class="specs">
+      <div><dt class="label">Chapters</dt><dd>4</dd></div>
+      <div><dt class="label">Covers</dt><dd id="cover-count">10</dd></div>
+      <div><dt class="label">Started</dt><dd>2026</dd></div>
+      <div><dt class="label">Status</dt><dd><span class="live-tag wip"><i aria-hidden="true"></i>Always in progress</span></dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec" id="contents">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label" style="color:var(--ink)">Contents</span>
+      <span class="bar"></span>
+    </div>
+    <ol class="toc">
+      <li><a href="#covers" data-go="covers"><span class="ch">I</span><span class="tt">Covers <em>Name that cover</em></span><span class="dots"></span><span class="pg" data-count="covers">10 entries</span></a></li>
+      <li><a href="#posters" data-go="posters"><span class="ch">II</span><span class="tt">Posters</span><span class="dots"></span><span class="pg">Blank, for now</span></a></li>
+      <li><a href="#sleeves" data-go="sleeves"><span class="ch">III</span><span class="tt">Album sleeves</span><span class="dots"></span><span class="pg">Blank, for now</span></a></li>
+      <li><a href="#concepts" data-go="concepts"><span class="ch">IV</span><span class="tt">Concepts</span><span class="dots"></span><span class="pg">4 entries</span></a></li>
+    </ol>
+  </div>
+</section>
+
+<div class="book" id="book">
+  <nav class="tabs" aria-label="Chapters">
+    <div class="shell"><div class="tabrow" role="tablist">
+      <a href="#covers" role="tab" data-go="covers" style="--tab:#E0262B;--tab-ink:#FFFFFF"><span class="ch">I</span>Covers</a>
+      <a href="#posters" role="tab" data-go="posters" style="--tab:#E9A23B;--tab-ink:#0C0D0F"><span class="ch">II</span>Posters</a>
+      <a href="#sleeves" role="tab" data-go="sleeves" style="--tab:#1E3B9E;--tab-ink:#FFFFFF"><span class="ch">III</span>Album sleeves</a>
+      <a href="#concepts" role="tab" data-go="concepts" style="--tab:#0C0D0F;--tab-ink:#FFFFFF"><span class="ch">IV</span>Concepts</a>
+    </div></div>
+  </nav>
+
+  <section class="chapter" id="covers" role="tabpanel" style="--tab:#E0262B">
+    <div class="shell">
+      <div class="runhead"><span>B-Sides</span><span>Chapter I · Covers</span></div>
+      <div class="chhead"><h2 class="chtitle">Covers</h2><span class="mono score" id="score" aria-live="polite">GUESS THE ORIGINAL</span></div>
+    <p class="intro">The rule for every cover: keep the layout, palette and lettering of the original, redraw the art from scratch, and swap the title for a project’s name. No brand marks are copied; each one carries the ADK star instead.</p>
+    <p class="intro game"><strong>Name that cover.</strong> Each original is face down. Pick the book you think it is: get it right and the card turns over. <button type="button" class="linkbtn" id="reset" hidden>Start over</button></p>
+      <div class="gallery pager" id="gallery" aria-label="Covers, one per page"></div>
+      <div class="turn"><span></span><a href="#posters" data-go="posters">Next chapter: Posters <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <section class="chapter" id="posters" role="tabpanel" style="--tab:#E9A23B">
+    <div class="shell">
+      <div class="runhead"><span>B-Sides</span><span>Chapter II · Posters</span></div>
+      <h2 class="chtitle">Posters</h2>
+      <p class="intro">Gig and film posters, one per project. The same rule as the covers, at poster size: a famous layout, my project’s name, original art.</p>
+      <div class="blank"><span class="label">Blank pages, for now</span><p>The first poster is in sketches. This chapter fills in as they’re finished.</p></div>
+      <div class="turn"><a href="#covers" data-go="covers"><span aria-hidden="true">←</span> Covers</a><a href="#sleeves" data-go="sleeves">Next chapter: Album sleeves <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <section class="chapter" id="sleeves" role="tabpanel" style="--tab:#1E3B9E">
+    <div class="shell">
+      <div class="runhead"><span>B-Sides</span><span>Chapter III · Album sleeves</span></div>
+      <h2 class="chtitle">Album sleeves</h2>
+      <p class="intro">Twelve inches square: iconic record covers reworked for the studio’s releases. A B-side should have a sleeve, after all.</p>
+      <div class="blank"><span class="label">Blank pages, for now</span><p>Nothing pressed yet. Check back.</p></div>
+      <div class="turn"><a href="#posters" data-go="posters"><span aria-hidden="true">←</span> Posters</a><a href="#concepts" data-go="concepts">Next chapter: Concepts <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <section class="chapter" id="concepts" role="tabpanel" style="--tab:#0C0D0F">
+    <div class="shell">
+      <div class="runhead"><span>B-Sides</span><span>Chapter IV · Concepts</span></div>
+      <h2 class="chtitle">Concepts</h2>
+      <p class="intro">Ideas for how a portfolio can behave, most of them already running on this site.</p>
+      <div class="notes pager" aria-label="Concepts, one per page">
+        <div class="note"><div class="label">01 · Bookcase</div><h4>Every project is a book</h4><p>The work page is a shelf. Each project gets a spine sized to its scope and a cover of its own, and you open a book to read it, the way you’d browse a real bookcase.</p></div>
+        <div class="note"><div class="label">02 · Motion</div><h4>North, then east</h4><p>The ADK star rests pointing north and swings east when you hover or act, like a compass needle settling on a heading. It’s the studio’s one signature move.</p></div>
+        <div class="note"><div class="label">03 · Footer</div><h4>東奎, in stroke order</h4><p>The footer writes my name in hanja stroke by stroke each time it scrolls into view, with a seal-red sun rising inside 東 and a clan-gold star landing on 奎.</p></div>
+        <div class="note"><div class="label">04 · This book</div><h4>A Supreme box, a compass star</h4><p>The notebook’s own cover: the Supreme book’s red box with the ADK tag in it, and “B-Sides” stamped in red below, led by the East star.</p></div>
+      </div>
+      <div class="turn"><a href="#sleeves" data-go="sleeves"><span aria-hidden="true">←</span> Album sleeves</a><a href="#contents" data-go="contents">Back to contents <span aria-hidden="true">↑</span></a></div>
+    </div>
+  </section>
+</div>
+
+<section class="sec" id="next">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label" style="color:var(--ink)">Next</span>
+      <span class="bar"></span>
+    </div>
+    <div class="nextlinks">
+      <a href="/contact/">Have an idea to trade? <span>Contact</span></a>
+      <a href="../../projects/">Back to all work <span>Index</span></a>
+    </div>
+
+    <div class="colophon">
+      <span class="mono foot-line" id="foot-line" style="color:var(--ink-2)"><span>© 2026 ADK STUDIO</span><span aria-hidden="true">·</span><svg class="hanja" viewBox="-6 -6 232 112" role="img" aria-label="東奎"><g transform="translate(0 0) scale(1)"><path class="stk" pathLength="1" style="--n:0" d="M4 8H96" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:1" d="M50 0V20" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><rect class="sun" x="16" y="19" width="68" height="44" rx="11" fill="#B7282E"/><path class="stk" pathLength="1" style="--n:2" d="M50 19V63" fill="none" stroke="#2A2623" stroke-width="11" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:3" d="M16 41H84" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:4" d="M50 62A44 38 0 0 1 6 100" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:5" d="M50 62A44 38 0 0 0 94 100" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/></g><g transform="translate(120 0) scale(1)"><path class="stk" pathLength="1" style="--n:6" d="M4 15H78" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><circle class="sta" cx="89" cy="15" r="11" fill="#F5C902"/><circle cx="89" cy="15" r="3.8" fill="#FFFFFF"/><path class="stk" pathLength="1" style="--n:7" d="M50 0V15A44 29 0 0 1 6 44" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:8" d="M50 15A44 29 0 0 0 94 44" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:9" d="M50 50V100" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:10" d="M26 54H74" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:11" d="M14 67H86" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:12" d="M26 81H74" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:13" d="M4 95H96" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/></g></svg></span>
+      <span class="mono" style="color:var(--ink-2)">HOMAGES, REDRAWN · ORIGINALS © THEIR OWNERS</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+// Cover gallery: each homage is rendered by the same code as the shelf (covers.js).
+(function(){
+  var C = window.ADK_COVERS, g = document.getElementById('gallery');
+  if (!C || !g) return;
+  var ITEMS = [
+    ['supreme', 'Supreme', 'Phaidon, 2019', 'B-Sides (this notebook)', { id: 'gal', box: '<img class="sp-logo" src="/brand/adk-tag.svg" alt="ADK">', emboss: 'B-SIDES', ink: true, star: true }],
+    ['prince', 'The Little Prince', 'Harcourt edition', 'Genesis Massage'],
+    ['pride', 'Pride and Prejudice', 'Hugh Thomson’s peacock binding, 1894', 'Allen’s Cabinets'],
+    ['catcher', 'The Catcher in the Rye', 'First edition, 1951', 'Allen’s Admin'],
+    ['knicks', 'The Basketball History of the New York Knicks', 'Historic Newspapers', 'Allen’s Admin'],
+    ['f451', 'Fahrenheit 451', 'First edition, 1953', 'Grandstands'],
+    ['white', 'The White Album', 'Joan Didion, 1979', 'MeChelinGuide'],
+    ['apc', 'This is the A.P.C. Book', 'A.P.C.', 'Allen’s Cabinets'],
+    ['nike', 'Look Good, Feel Good, Play Good', 'Nike Apparel, Phaidon', 'Kidian'],
+    ['stussy', 'Stussy: Vintage Retrospective', 'Stüssy', 'Babel Dabble']
+  ].filter(function(it){ return C[it[0]]; });
+  var esc = function(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); };
+  // Name that cover: the homage is face up, its original face down. Pick the
+  // right title (or give up) and the original turns over. Progress is kept in
+  // this browser only.
+  var DECOYS = ['The Great Gatsby', 'Nineteen Eighty-Four', 'On the Road', 'Brave New World', 'Catch-22', 'Lord of the Flies', 'To Kill a Mockingbird', 'Slam Jam: The Book'];
+  var KEY = 'bsides-named', state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+  var save = function(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+  var seed = function(str){ var h = 7; for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0; return h; };
+  var options = function(it, i){
+    var pool = ITEMS.filter(function(o){ return o !== it; }).map(function(o){ return o[1]; }).concat(DECOYS), h = seed(it[0]), out = [it[1]];
+    while (out.length < 3) { var pick = pool[h % pool.length]; h = (h * 1103515245 + 12345) >>> 0; if (out.indexOf(pick) < 0) out.push(pick); }
+    return out.sort(function(x, y){ return seed(x + it[0]) - seed(y + it[0]); });
+  };
+  var star = '<svg class="east" viewBox="-124 -124 248 248" aria-hidden="true"><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/></g></svg>';
+  g.innerHTML = ITEMS.map(function(it, i){
+    return '<figure class="tile" data-k="' + it[0] + '"><div class="pairing">' +
+      '<div class="side-h"><span class="tag">Homage</span><div class="tile-cover cov-' + it[0] + '">' + C[it[0]].cover(it[4] || {}) + '</div></div>' +
+      '<div class="side-o"><span class="tag">Original</span><div class="card"><div class="card-in">' +
+        '<div class="face back" aria-hidden="true">' + star + '<span class="qm">?</span><span class="hint">Name it below</span></div>' +
+        '<div class="face orig"><img data-src="originals/' + it[0] + '.jpg" alt="' + esc(it[1]) + ', original cover">' +
+          '<div class="ph"><span>' + esc(it[1]) + '</span><small>' + esc(it[2]) + '</small></div></div>' +
+      '</div></div></div></div>' +
+      '<div class="quiz" role="group" aria-label="Which book is homage ' + (i + 1) + ' based on?">' +
+        options(it, i).map(function(o){ return '<button type="button" class="opt" data-ok="' + (o === it[1] ? 1 : 0) + '">' + esc(o) + '</button>'; }).join('') +
+        '<button type="button" class="giveup">Show me</button></div>' +
+      '<figcaption><span class="n">' + String(i + 1).padStart(2, '0') + '</span><span class="after"><em>After</em> <span class="ans">' + esc(it[1]) + '</span>' +
+      '<small>' + esc(it[2]) + '</small></span><span class="for">For ' + esc(it[3]) + '</span></figcaption></figure>';
+  }).join('');
+
+  var score = document.getElementById('score'), reset = document.getElementById('reset');
+  var tally = function(){
+    var named = 0, seen = 0;
+    ITEMS.forEach(function(it){ if (state[it[0]]) { seen++; if (state[it[0]] === 'named') named++; } });
+    score.textContent = seen ? 'NAMED ' + named + ' OF ' + ITEMS.length + (seen === ITEMS.length ? (named === ITEMS.length ? ' · PERFECT SHELF' : ' · ALL TURNED') : '') : 'GUESS THE ORIGINAL';
+    reset.hidden = !seen;
+  };
+  var turn = function(tile, how, animate){
+    var img = tile.querySelector('.orig img');
+    if (!img.src) {
+      img.addEventListener('load', function(){ img.closest('.orig').classList.add('has-img'); });
+      img.src = img.getAttribute('data-src');
+    }
+    if (!animate) tile.classList.add('instant');
+    tile.classList.add('done', how);
+    tile.querySelectorAll('.quiz button').forEach(function(b){ b.disabled = true; if (b.getAttribute('data-ok') === '1') b.classList.add('right'); });
+    if (!animate) requestAnimationFrame(function(){ tile.classList.remove('instant'); });
+  };
+  g.querySelectorAll('.tile').forEach(function(tile){
+    var k = tile.getAttribute('data-k');
+    if (state[k]) turn(tile, state[k], false);
+    tile.querySelector('.quiz').addEventListener('click', function(e){
+      var b = e.target.closest('button'); if (!b || b.disabled || tile.classList.contains('done')) return;
+      if (b.classList.contains('giveup')) { state[k] = 'shown'; turn(tile, 'shown', true); }
+      else if (b.getAttribute('data-ok') === '1') { state[k] = 'named'; turn(tile, 'named', true); }
+      else { b.disabled = true; b.classList.add('wrong'); tile.classList.remove('nope'); void tile.offsetWidth; tile.classList.add('nope'); return; }
+      save(); tally();
+    });
+  });
+  reset.addEventListener('click', function(){
+    state = {}; save();
+    g.querySelectorAll('.tile').forEach(function(t){
+      t.classList.remove('done', 'named', 'shown', 'nope');
+      t.querySelectorAll('.quiz button').forEach(function(b){ b.disabled = false; b.classList.remove('right', 'wrong'); });
+    });
+    tally();
+  });
+  tally();
+  document.getElementById('cover-count').textContent = ITEMS.length;
+  var tc = document.querySelector('[data-count="covers"]'); if (tc) tc.textContent = ITEMS.length + ' entries';
+  // Cover lettering is sized in em from --w, the cover's width.
+  var size = function(){ g.querySelectorAll('.tile-cover').forEach(function(el){ el.style.setProperty('--w', el.clientWidth + 'px'); }); };
+  size();
+  if ('ResizeObserver' in window) new ResizeObserver(size).observe(g); else addEventListener('resize', size);
+})();
+</script>
+
+
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js-reveal');
+  var revealAll = function(){ items.forEach(function(el){ el.classList.add('in'); }); };
+  setTimeout(revealAll, 2000);
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+<script>
+// Replay the 東奎 stroke-order animation every time the footer scrolls into view
+(function(){
+  var f=document.getElementById('foot-line');
+  if(!f||!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  f.classList.add('armed');
+  new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){f.classList.remove('play');void f.offsetWidth;f.classList.add('play');}
+    else f.classList.remove('play');
+  });},{threshold:0.6}).observe(f);
+})();
+</script>
+<script>
+// One chapter per page: a tab (or contents line) opens its chapter, the hash
+// keeps it linkable, and Back walks through the chapters you've read.
+(function(){
+  var book = document.getElementById('book'); if (!book) return;
+  var chapters = [].slice.call(book.querySelectorAll('.chapter'));
+  var tabs = [].slice.call(book.querySelectorAll('.tabrow a'));
+  var mast = document.querySelector('.masthead');
+  document.documentElement.classList.add('js-book');
+  var setMast = function(){ if (mast) book.style.setProperty('--mast', mast.offsetHeight + 'px'); };
+  setMast(); addEventListener('resize', setMast);
+  var show = function(id, scroll){
+    var ch = document.getElementById(id);
+    if (!ch || !ch.classList.contains('chapter')) { ch = chapters[0]; id = ch.id; }
+    chapters.forEach(function(c){ c.classList.toggle('on', c === ch); c.hidden = c !== ch; });
+    tabs.forEach(function(t){ var on = t.getAttribute('data-go') === id; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+    var tab = tabs.filter(function(t){ return t.getAttribute('data-go') === id; })[0];
+    if (tab) { book.querySelector('.tabrow').style.setProperty('--tab-active', getComputedStyle(tab).getPropertyValue('--tab')); tab.scrollIntoView({block:'nearest', inline:'nearest'}); }
+    if (scroll) {
+      var top = book.getBoundingClientRect().top + scrollY - (mast ? mast.offsetHeight : 0);
+      if (scrollY > top || scroll === 'force') scrollTo({top: top, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+    }
+  };
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('[data-go]'); if (!a) return;
+    var id = a.getAttribute('data-go');
+    if (id === 'contents') return; // a normal jump back up the page
+    e.preventDefault();
+    if (location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+    show(id, a.closest('.tabrow') ? true : 'force');
+  });
+  addEventListener('popstate', function(){ show(location.hash.slice(1), true); });
+  var start = location.hash.slice(1), startCh = document.getElementById(start);
+  show(start, false);
+  // A link straight to a chapter lands on it once fonts and images have settled.
+  if (startCh && startCh.classList.contains('chapter')) {
+    var land = function(){ show(start, 'force'); };
+    if (document.readyState === 'complete') land(); else addEventListener('load', land, {once: true});
+  }
+  // Pages within a chapter turn sideways: buttons, arrow keys, swipe.
+  [].slice.call(book.querySelectorAll('.pager')).forEach(function(pg){
+    var wrap = document.createElement('div'); wrap.className = 'pager-wrap';
+    pg.parentNode.insertBefore(wrap, pg); wrap.appendChild(pg);
+    var ctl = document.createElement('div'); ctl.className = 'pagectl';
+    ctl.innerHTML = '<button type="button" class="prev" aria-label="Previous pages">←</button><span class="folio" aria-live="polite"></span><span class="progress"><i></i></span><button type="button" class="next" aria-label="Next pages">→</button>';
+    wrap.appendChild(ctl);
+    var prev = ctl.querySelector('.prev'), next = ctl.querySelector('.next'), folio = ctl.querySelector('.folio'), bar = ctl.querySelector('.progress i');
+    var step = function(){ var a = pg.children[0], b = pg.children[1]; return a ? (b ? b.offsetLeft - a.offsetLeft : a.offsetWidth) : 1; };
+    var update = function(){
+      var n = pg.children.length, st = step(), per = Math.max(1, Math.round((pg.clientWidth + 1) / st));
+      var first = Math.min(n - 1, Math.round(pg.scrollLeft / st)), last = Math.min(n, first + per);
+      folio.textContent = (per > 1 && last - first > 1 ? 'Pages ' + (first + 1) + '–' + last : 'Page ' + (first + 1)) + ' of ' + n;
+      bar.style.left = (first / n * 100) + '%'; bar.style.width = ((last - first) / n * 100) + '%';
+      prev.disabled = pg.scrollLeft < 4; next.disabled = pg.scrollLeft + pg.clientWidth > pg.scrollWidth - 4;
+    };
+    var turn = function(dir){ var st = step(), per = Math.max(1, Math.round((pg.clientWidth + 1) / st)); pg.scrollBy({left: dir * per * st, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); };
+    prev.addEventListener('click', function(){ turn(-1); }); next.addEventListener('click', function(){ turn(1); });
+    pg.tabIndex = 0;
+    pg.addEventListener('keydown', function(e){ if (e.target !== pg) return; if (e.key === 'ArrowRight') { e.preventDefault(); turn(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); turn(-1); } });
+    pg.addEventListener('scroll', function(){ requestAnimationFrame(update); }, {passive: true});
+    addEventListener('resize', update);
+    pg._update = update;
+  });
+  var refresh = function(){ [].slice.call(book.querySelectorAll('.pager')).forEach(function(pg){ if (pg._update) pg._update(); }); };
+  var _show = show; show = function(id, scroll){ _show(id, scroll); refresh(); };
+
+  // Arrow keys move between tabs, as in any tab list.
+  refresh();
+  book.querySelector('.tabrow').addEventListener('keydown', function(e){
+    var i = tabs.indexOf(document.activeElement); if (i < 0 || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
+    var t = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; t.focus(); t.click();
+  });
+})();
+</script>
+<script src="/reads.js" defer></script>
+</body>
+</html>
