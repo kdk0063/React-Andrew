@@ -10,6 +10,7 @@
      apc      A.P.C. Transmission / This is the A.P.C. Book
      nike     Look Good, Feel Good, Play Good: Nike Apparel (Phaidon)
      stussy   Stussy: Vintage Retrospective
+     prince   The Little Prince, Harcourt edition (2000)
      knicks   The Basketball History of the New York Knicks (Historic Newspapers)
    Brand marks themselves (box logo wording, swoosh, signature) are never
    reproduced: every cover carries the project's own name and the ADK star.
@@ -86,6 +87,57 @@
       '<circle cx="96" cy="308" r="13"/><circle cx="96" cy="308" r="5"/><circle cx="222" cy="308" r="13"/><circle cx="222" cy="308" r="5"/>' +
       '<path d="M168 274 C168 262 182 262 184 272"/><path d="M110 292 L150 290 M118 298 L156 296" stroke-width="1"/>' +
       '</g></svg>';
+  }
+
+  /* The Little Prince: a night-blue sky of gold stars over a small grey
+     planet. Here the planet holds a massage table, a rolled towel and a
+     candle whose smoke drifts like the original's volcano; the stars are
+     the ADK star. No figure from the original art is drawn. */
+  function littlePlanet() {
+    var gold = '#F6D23A', ink = '#5B564C';
+    function star(x, y, r, rot) {
+      return '<path transform="translate(' + x + ' ' + y + ') rotate(' + (rot || 0) + ') scale(' + (r / 6) + ') translate(-6 -6)" d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" fill="' + gold + '"/>';
+    }
+    // Speckle the planet with short hand-drawn ticks.
+    var ticks = '';
+    [[150,318],[176,300],[205,330],[238,296],[262,322],[196,362],[228,372],[262,356],[150,372],[120,350],[178,388],[246,392]].forEach(function (t, i) {
+      ticks += '<path d="M' + t[0] + ' ' + t[1] + 'l' + (i % 2 ? 3 : -2) + ' -2" stroke="' + ink + '" stroke-opacity=".45" stroke-width=".8" stroke-linecap="round"/>';
+    });
+    return '<svg viewBox="0 0 288 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+      '<rect width="288" height="400" fill="#1E3B9E"/>' +
+      '<text x="144" y="30" text-anchor="middle" fill="' + gold + '" font-family="Playfair Display,Georgia,serif" font-weight="600" font-size="12.5" letter-spacing="1.6">ADK STUDIO &amp; CHRISTINA PARK</text>' +
+      '<text x="20" y="84" fill="#FFFFFF" font-family="Grand Hotel,cursive" font-size="47">Genesis</text>' +
+      '<text x="96" y="128" fill="#FFFFFF" font-family="Grand Hotel,cursive" font-size="47">Massage</text>' +
+      // Ringed planet, moon and a far moon
+      '<g transform="translate(262 46) rotate(-20)"><circle r="7.5" fill="' + gold + '"/><ellipse rx="13" ry="3.4" fill="none" stroke="' + gold + '" stroke-width="1.4"/></g>' +
+      '<circle cx="54" cy="168" r="17" fill="' + gold + '"/><circle cx="138" cy="232" r="8" fill="' + gold + '"/>' +
+      star(16, 118, 6, 8) + star(236, 140, 7, -12) + star(44, 214, 6, 15) + star(160, 186, 6.5, -6) + star(104, 286, 5, 20) + star(70, 392, 6, 0) + star(276, 230, 4.5, 10) +
+      // Candle smoke, drifting up and left like the volcano's
+      '<path d="M99 281 C92 266 82 260 86 244 C90 230 78 220 70 206" fill="none" stroke="#C9D3F2" stroke-opacity=".55" stroke-width="5" stroke-linecap="round"/>' +
+      '<path d="M99 281 C94 268 86 260 90 246 C93 234 84 224 78 212" fill="none" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round"/>' +
+      // The planet
+      '<circle cx="300" cy="540" r="300" fill="#C9C5BC" stroke="' + ink + '" stroke-opacity=".5" stroke-width="1.2"/>' + ticks +
+      // Candle on the planet's shoulder
+      '<g transform="translate(113 307) rotate(-30)"><rect x="-4" y="-16" width="8" height="16" rx="1" fill="#F4EEDD" stroke="' + ink + '" stroke-width=".8"/><path d="M0 -17c-2.4 -3 -1.2 -6.5 0 -9c1.4 2.6 2.6 6 0 9z" fill="#F2A33A"/></g>' +
+      // Massage table, rolled towel on top
+      '<g transform="translate(212 247) rotate(-6)" stroke="' + ink + '" stroke-width="1.1" stroke-linecap="round">' +
+        '<path d="M-24 0 L-20 30 M24 0 L20 30 M-22 16 L22 16" fill="none"/>' +
+        '<rect x="-34" y="-7" width="68" height="8" rx="3.5" fill="#F4EEDD"/>' +
+        '<rect x="-30" y="-16" width="14" height="9" rx="4.5" fill="#B7D49A"/><circle cx="-23" cy="-11.5" r="2.2" fill="none"/>' +
+        '<path d="M8 -7 c0 -7 10 -7 10 0" fill="#F4EEDD"/>' +
+      '</g>' +
+      // Sprouts on the planet
+      '<g stroke="' + ink + '" stroke-width=".9" fill="none" stroke-linecap="round"><path d="M170 272 l0 -10 M170 264 c-4 -2 -6 0 -6 0 M170 266 c4 -3 6 -1 6 -1"/><path d="M268 236 l-1 -11"/></g>' +
+      '<circle cx="267" cy="224" r="2.4" fill="#E58A3A"/>' +
+      // Seal
+      '<g transform="translate(58 322)">' + (function () {
+        var pts = '', n = 28;
+        for (var i = 0; i < n * 2; i++) { var r = i % 2 ? 41 : 46, a = Math.PI * i / n; pts += (r * Math.cos(a)).toFixed(1) + ',' + (r * Math.sin(a)).toFixed(1) + ' '; }
+        return '<polygon points="' + pts + '" fill="#E1A92C"/>';
+      })() +
+        '<text text-anchor="middle" fill="#3A2A12" font-family="Georgia,serif" font-size="7" letter-spacing=".3">' +
+        '<tspan x="0" y="-15">A NEW</tspan><tspan x="0" y="-6">BOOKING FLOW</tspan><tspan x="0" y="3">FOR THE BELOVED</tspan><tspan x="0" y="12">CLASSIC, WITH</tspan><tspan x="0" y="21">RESTORED CALM</tspan></text></g>' +
+      '</svg>';
   }
 
   var DESIGNS = {
@@ -184,6 +236,14 @@
       },
       spine: function () {
         return '<span></span><span class="t">Babel Dabble: CALLIGRAPHY RETROSPECTIVE</span><span class="st-spine-mark">' + STAR + '</span>';
+      }
+    },
+    prince: {
+      cover: function () {
+        return '<div class="cvx cvx-prince">' + littlePlanet() + '</div>';
+      },
+      spine: function () {
+        return '<span class="lp-spine-by">ADK</span><span class="t">Genesis Massage</span><span class="lp-spine-mark">' + STAR + '</span>';
       }
     }
   };

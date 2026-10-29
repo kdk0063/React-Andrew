@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Case study: Genesis Massage — a booking-first website for a Vienna, Virginia massage practice, with a Google Apps Script booking backend. Project management and system architecture by ADK Studio.">
+  <meta name="color-scheme" content="light">
+  <meta property="og:title" content="Genesis Massage — ADK Studio">
+  <meta property="og:description" content="Book a massage in under a minute, with the owner's own Google Calendar as the backend.">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <title>Genesis Massage — ADK Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400..600&display=swap">
+</head>
+<body>
+
+<style>
+/* Same tokens and primitives as the home page, so the case study reads as
+   part of the same document rather than a separate microsite. */
+:root{
+  --paper:#FFFFFF;
+  --paper-2:#F4F4F2;
+  --ink:#0C0D0F;
+  --ink-2:#6B6B67;
+  --rule:#CFCFC9;
+  --rule-faint:#E4E4DE;
+  --accent:#0C0D0F;
+  --wash:#EDEDEB;
+
+  --sans:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+
+  color-scheme:light;
+
+  --maxw:1280px;
+  --pad:clamp(20px,4vw,64px);
+  --hair:1px;
+}
+
+*{box-sizing:border-box;}
+html{background:var(--paper);}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;}
+::selection{background:var(--accent);color:var(--paper);}
+img{max-width:100%;}
+
+
+.shell{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);}
+
+.label{
+  font-family:var(--sans);font-variation-settings:'wdth' 88;font-weight:600;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);
+}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;font-variant-numeric:tabular-nums;}
+
+/* ---------- masthead ---------- */
+.masthead{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:var(--hair) solid var(--ink);}
+.masthead .shell{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding-top:12px;padding-bottom:11px;
+}
+.wordmark{
+  font-family:var(--sans);font-weight:700;font-variation-settings:'wdth' 100;
+  font-size:14px;letter-spacing:-.01em;text-transform:uppercase;text-decoration:none;
+}
+.mastnav{display:flex;gap:22px;align-items:baseline;}
+.mastnav a{
+  text-decoration:none;border-bottom:var(--hair) solid transparent;padding-bottom:2px;
+  transition:border-color .18s ease;
+}
+.mastnav a:hover,.mastnav a:focus-visible{border-bottom-color:var(--accent);}
+.mastnav a:focus-visible,.wordmark:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+
+/* ---------- sections ---------- */
+.sec{border-top:var(--hair) solid var(--ink);padding:clamp(40px,6vw,72px) 0 clamp(48px,7vw,88px);}
+.sec:first-of-type{border-top:0;}
+.sechead{display:flex;align-items:baseline;gap:16px;padding:14px 0 0;}
+.sechead .bar{flex:1;height:var(--hair);background:var(--rule);}
+.sec > .shell > .sechead{padding-top:0;margin-top:-26px;}
+
+/* ---------- title block ---------- */
+.titleblock{padding:clamp(40px,7vw,88px) 0 clamp(40px,6vw,64px);}
+h1{
+  font-family:var(--sans);font-weight:700;font-variation-settings:'wdth' 96;
+  font-size:clamp(40px,7vw,92px);line-height:.95;letter-spacing:-.04em;
+  margin:18px 0 0;
+}
+.lede{
+  font-size:clamp(17px,1.5vw,20px);line-height:1.5;max-width:36em;margin:22px 0 0;
+}
+.lede em{color:var(--ink-2);}
+.specs{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:0;
+  margin-top:clamp(32px,5vw,48px);border-top:var(--hair) solid var(--ink);
+}
+@media (min-width:820px){.specs{grid-template-columns:repeat(4,1fr);}.specs.has-visit{grid-template-columns:repeat(5,1fr);}}
+.specs div{padding:12px 16px 14px 0;border-bottom:var(--hair) solid var(--rule);}
+.specs dt{margin:0;}
+.specs dd{margin:6px 0 0;font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:17px;letter-spacing:-.01em;}
+.specs div{position:relative;display:flex;flex-direction:column;}
+.specs dd a.compass::after{content:"";position:absolute;inset:0;}
+.live-tag{display:inline-flex;align-items:center;gap:9px;color:var(--ink);}
+.live-tag i{position:relative;width:8px;height:8px;border-radius:50%;background:#22C55E;}
+.live-tag i::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:compass-ping 1.6s ease-out infinite;}
+.specs dd{position:relative;flex:1;display:flex;align-items:center;}
+@keyframes compass-ping{to{transform:scale(2.6);opacity:0;}}
+.specs dd a.compass{position:static;display:inline-flex;align-items:center;gap:6px;color:var(--ink);text-decoration:none;}
+.compass .mark{width:34px;height:34px;margin:-8px -6px -8px -2px;overflow:visible;color:var(--ink);}
+.compass .needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
+.compass:hover .needle,.compass:focus-visible .needle{transform:rotate(0deg);}
+.compass .go{display:inline-flex;align-items:baseline;gap:4px;border-bottom:var(--hair) solid transparent;transition:border-color .2s;}
+.compass:hover .go,.compass:focus-visible .go{border-bottom-color:var(--ink);}
+.compass:focus-visible{outline:none;}
+.specs dd a.compass:focus-visible::after{outline:2px solid var(--ink);outline-offset:-2px;}
+@media (prefers-reduced-motion:reduce){.compass *{animation:none!important;transition:none!important;}}
+
+.hero-shot{margin:clamp(32px,5vw,56px) 0 0;}
+.hero-shot img{display:block;width:100%;height:auto;border:var(--hair) solid var(--ink);background:var(--paper-2);}
+
+figcaption{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  margin-top:8px;padding-top:7px;border-top:var(--hair) solid var(--rule);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--ink-2);
+  text-transform:uppercase;
+}
+
+/* ---------- flow ---------- */
+.flowmap{margin-top:28px;}
+.flowmap svg{display:block;width:100%;height:auto;}
+.flowmap .box{fill:var(--paper);stroke:var(--ink);}
+.flowmap .box.alt{fill:var(--paper-2);}
+.flowmap .t{fill:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.06em;}
+.flowmap .s{fill:var(--ink-2);font-family:var(--mono);font-size:8.5px;letter-spacing:.04em;}
+.flowmap .ln{stroke:var(--ink);fill:none;}
+.scrollx{overflow-x:auto;}
+.scrollx svg{min-width:720px;}
+.flowmap .dash{stroke:var(--ink-2);stroke-dasharray:3 3;fill:none;}
+.flowmap svg.flowmap-wide{display:none;}
+@media (min-width:760px){.flowmap svg.flowmap-wide{display:block;}.flowmap svg.flowmap-tall{display:none;}}
+
+.steps{margin-top:clamp(36px,5vw,56px);}
+.step{
+  display:grid;grid-template-columns:1fr;gap:18px 40px;
+  padding:26px 0 34px;border-top:var(--hair) solid var(--rule);
+}
+.step:first-child{border-top:var(--hair) solid var(--ink);}
+@media (min-width:900px){.step{grid-template-columns:minmax(0,4fr) minmax(0,8fr);}}
+.step .num{font-family:var(--mono);font-size:11.5px;}
+.step h3{
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 94;
+  font-size:clamp(22px,2.4vw,28px);line-height:1.08;letter-spacing:-.025em;margin:8px 0 0;
+}
+.step p{margin:12px 0 0;font-size:16px;color:var(--ink-2);max-width:32em;}
+.step p code,.note code,.stacktable code{font-family:var(--mono);font-size:.82em;color:var(--ink);background:var(--paper-2);padding:1px 4px;}
+.step figure{margin:0;}
+.step figure img{display:block;width:100%;height:auto;border:var(--hair) solid var(--ink);background:var(--paper-2);}
+.pair{display:grid;grid-template-columns:1fr;gap:18px;}
+@media (min-width:640px){.pair{grid-template-columns:1fr 1fr;}}
+.phone{display:grid;grid-template-columns:1fr;gap:18px;align-items:end;}
+@media (min-width:640px){.phone{grid-template-columns:minmax(0,5fr) minmax(0,2fr);}}
+
+/* ---------- stack table ---------- */
+.stacktable{width:100%;border-collapse:collapse;margin-top:28px;border-top:var(--hair) solid var(--ink);}
+.stacktable th,.stacktable td{text-align:left;vertical-align:top;padding:14px 18px 15px 0;border-bottom:var(--hair) solid var(--rule);}
+.stacktable th{font-weight:inherit;}
+.stacktable td.tool{
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;
+  font-size:17px;letter-spacing:-.01em;white-space:nowrap;
+}
+.stacktable td.why{font-size:15.5px;color:var(--ink-2);}
+.stacktable .layer{width:120px;}
+@media (max-width:700px){
+  .stacktable,.stacktable tbody,.stacktable tr,.stacktable td{display:block;}
+  .stacktable thead{display:none;}
+  .stacktable tr{padding:12px 0 14px;border-bottom:var(--hair) solid var(--rule);}
+  .stacktable td{padding:0;border:0;}
+  .stacktable td.tool{margin-top:4px;}
+  .stacktable td.why{margin-top:6px;}
+}
+
+/* ---------- notes ---------- */
+.notes{display:grid;grid-template-columns:1fr;gap:0;margin-top:28px;border-top:var(--hair) solid var(--ink);}
+@media (min-width:820px){.notes{grid-template-columns:1fr 1fr;}}
+.note{padding:22px 0 26px;border-bottom:var(--hair) solid var(--rule);}
+@media (min-width:820px){
+  .note:nth-child(odd){padding-right:32px;border-right:var(--hair) solid var(--rule);}
+  .note:nth-child(even){padding-left:32px;}
+}
+.note h4{
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 90;
+  font-size:19px;letter-spacing:-.01em;margin:10px 0 8px;
+}
+.note p{margin:0;font-size:15.5px;line-height:1.55;color:var(--ink-2);}
+
+/* ---------- footer ---------- */
+.nextlinks{display:flex;flex-direction:column;margin-top:26px;border-top:var(--hair) solid var(--ink);}
+.nextlinks a{
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:15px 0;border-bottom:var(--hair) solid var(--rule);text-decoration:none;
+  font-family:var(--sans);font-weight:600;font-variation-settings:'wdth' 92;font-size:19px;letter-spacing:-.015em;
+  transition:padding-left .18s ease;
+}
+.nextlinks a span{font-family:var(--mono);font-size:11px;font-weight:400;color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;}
+.nextlinks a:hover,.nextlinks a:focus-visible{padding-left:10px;}
+.nextlinks a:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;background:var(--wash);}
+/* East star: rests north, swings east on hover */
+.brand,.wordmark{display:inline-flex;align-items:center;gap:7px;}
+.brand .logo,.wordmark .logo{display:block;height:auto;}
+.lockup{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.lockup .sub{font-family:"Archivo",sans-serif;font-weight:800;font-size:7px;line-height:1;letter-spacing:.14em;margin-right:-.14em;text-transform:uppercase;color:#0A0A0A;}
+.brand .mark,.wordmark .mark{width:36px;height:36px;margin:-10px -10px -10px -9px;overflow:visible;}
+.brand .needle,.wordmark .needle{transform:none;transition:none;}
+.nextlinks a.live{align-items:center;}
+.nextlinks a.live .go{display:inline-flex;align-items:center;gap:10px;}
+.nextlinks a.live .go i{width:7px;height:7px;border-radius:50%;background:#22C55E;}
+.nextlinks a.live .mark{width:40px;height:40px;margin:-10px 0 -10px -2px;overflow:visible;color:var(--ink);}
+.needle{transform:rotate(-90deg);transition:transform 1s cubic-bezier(.3,1.6,.4,1);}
+.nextlinks a.live:hover .needle,.nextlinks a.live:focus-visible .needle{transform:rotate(0deg);}
+@media (prefers-reduced-motion:reduce){.needle{transition:none;}}
+.foot-line{display:inline-flex;align-items:center;justify-content:center;gap:9px;}
+.foot-line .hanja{height:16px;width:auto;display:block;}
+/* 東奎 in 먹 ink with a seal-red sun and clan-gold star, written in stroke order (획순) each time the footer comes into view */
+.foot-line.armed .stk{stroke-dasharray:1;stroke-dashoffset:1;}
+.foot-line.armed .sun,.foot-line.armed .sta{opacity:0;}
+.foot-line.play .stk{animation:hj-write .32s cubic-bezier(.6,0,.3,1) forwards;animation-delay:calc(var(--n) * .16s);}
+.foot-line .sun{transform-box:fill-box;transform-origin:50% 100%;}
+.foot-line.play .sun{animation:hj-rise .7s cubic-bezier(.3,1.4,.5,1) .5s forwards;}
+.foot-line .sta{transform-box:fill-box;transform-origin:50% 50%;}
+.foot-line.play .sta{animation:hj-land .6s cubic-bezier(.3,1.8,.5,1) 1.9s forwards;}
+@keyframes hj-write{to{stroke-dashoffset:0;}}
+@keyframes hj-rise{from{opacity:0;transform:translateY(40%) scaleY(.6);}to{opacity:1;transform:none;}}
+@keyframes hj-land{from{opacity:0;transform:scale(0) rotate(-90deg);}to{opacity:1;transform:none;}}
+.colophon{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 28px;
+  margin-top:clamp(56px,8vw,104px);padding:12px 0 40px;border-top:var(--hair) solid var(--ink);
+}
+
+.reveal{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1);}
+:root.js-reveal .reveal{opacity:0;transform:translateY(14px);}
+:root.js-reveal .reveal.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){
+  .reveal,:root.js-reveal .reveal{opacity:1;transform:none;transition:none;}
+  .nextlinks a{transition:none;}
+}
+.phones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+.phones figure{margin:0;}
+.phones img{display:block;width:100%;height:auto;aspect-ratio:636/1107;object-fit:contain;background:#fff;}
+.phones figcaption{text-transform:uppercase;}
+.duties{margin:14px 0 0;padding:0;list-style:none;border-top:var(--hair) solid var(--rule);}
+.duties li{padding:10px 0 11px;border-bottom:var(--hair) solid var(--rule-faint);font-size:16px;}
+.duties li::before{content:"— ";color:var(--ink-2);}
+/* On the narrowest phones keep only the way back. */
+@media (max-width:419px){.mastnav a:not(:last-child){display:none;}}
+</style>
+
+<header class="masthead">
+  <div class="shell">
+    <a class="wordmark" href="../../" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="../../brand/adk-tag.svg" alt="" width="58" height="28"><span class="sub">Studio</span></span></a>
+    <nav class="mastnav label" aria-label="Case study">
+      <a href="#system">System</a>
+      <a href="#flow">Flow</a>
+      <a href="#role">Roles</a>
+      <a href="../../projects/">← All work</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="titleblock">
+  <div class="shell">
+    <div class="label">Case study &nbsp;/&nbsp; Client · Genesis Massage</div>
+    <h1>Genesis Massage</h1>
+    <p class="lede">A calm, booking-first website for a one-therapist massage practice in Vienna, Virginia. A client picks a session, sees the real open times and books in under a minute, and the owner runs the whole schedule from his own Google Calendar, with no paid backend. <em>I ran the project and designed the system; Christina Park designed and built the front end.</em></p>
+
+    <dl class="specs has-visit">
+      <div><dt class="label">Role</dt><dd>PM &amp; system architect</dd></div>
+      <div><dt class="label">Built with</dt><dd>Christina Park</dd></div>
+      <div><dt class="label">Year</dt><dd>2026</dd></div>
+      <div><dt class="label">Status</dt><dd><span class="live-tag"><i aria-hidden="true"></i>Live</span></dd></div><div><dt class="label">Visit</dt><dd><a class="compass" href="https://genesis-massage.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit the live site (opens in a new tab)"><span class="go">Visit site</span><svg class="mark" viewBox="-124 -124 248 248" aria-hidden="true"><defs><clipPath id="tip-visit"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#tip-visit)"/></g></svg></a></dd></div>
+    </dl>
+
+    <figure class="hero-shot">
+      <img src="home.jpg" alt="Genesis Massage home page: the headline “Your body changes. Your massage should too.” beside a photo of a rolled towel, candle and tea, with Book 60 Minutes and Book 100 Minutes buttons." width="2000" height="1228">
+      <figcaption><span>Fig. 01 — Home</span><span>genesis-massage.com</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" id="brief">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label" style="color:var(--ink)">The brief</span>
+      <span class="bar"></span>
+      <span class="mono" style="color:var(--ink-2)">CALM · CLEAR · BOOKABLE</span>
+    </div>
+    <div class="notes">
+      <div class="note reveal"><div class="label">Goal</div><h4>Every page leads to a booking</h4><p>Present the two sessions clearly, earn trust with a calm brand and real Google reviews, and put “Book” within one tap from anywhere on the site.</p></div>
+      <div class="note reveal"><div class="label">Constraint</div><h4>No backend bill to pay every month</h4><p>A small practice shouldn’t pay for servers or a booking SaaS. The system had to run on tools the owner already has.</p></div>
+      <div class="note reveal"><div class="label">Ownership</div><h4>The owner stays in control</h4><p>Hours, prices and blocked-off days change without a developer. The owner edits his calendar or a spreadsheet, and the site follows.</p></div>
+      <div class="note reveal"><div class="label">Trust</div><h4>No double bookings, no spam</h4><p>Two people choosing the same slot at the same moment can’t both get it, and bots can’t fill the calendar with fake appointments.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="system">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label" style="color:var(--ink)">System</span>
+      <span class="bar"></span>
+      <span class="mono" style="color:var(--ink-2)">GOOGLE AS THE BACKEND</span>
+    </div>
+
+    <div class="step" style="border-top:var(--hair) solid var(--ink);margin-top:28px;">
+      <div>
+        <div class="num">Architecture</div>
+        <h3>A fast static site, with Google doing the heavy lifting</h3>
+      </div>
+      <p style="max-width:40em;margin-top:0">The React site is static and deployed to Netlify from GitHub. Booking calls a Google Apps Script web app, which reads live availability from the owner’s Google Calendar, takes hours and prices from a Google Sheet, writes the appointment back to the calendar and emails both sides. The owner’s calendar is the single source of truth, so there is no database to keep in sync.</p>
+    </div>
+
+    <figure class="flowmap">
+      <svg class="flowmap-wide" viewBox="0 0 1000 330" role="img" aria-label="Architecture: the client's browser loads the React site from Netlify. A booking passes a Cloudflare Turnstile check and goes to a Google Apps Script web app, which uses LockService and CacheService and talks to Google Calendar, Google Sheets and MailApp. The owner manages Calendar and Sheets directly.">
+        <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#0C0D0F"/></marker></defs>
+        <rect class="box" x="10" y="120" width="150" height="64"/><text class="t" x="24" y="146">CLIENT</text><text class="s" x="24" y="164">Phone or desktop browser</text>
+        <rect class="box" x="210" y="120" width="170" height="64"/><text class="t" x="224" y="146">REACT SITE</text><text class="s" x="224" y="164">React 19 · Vite · Netlify</text>
+        <rect class="box alt" x="210" y="16" width="170" height="56"/><text class="t" x="224" y="40">TURNSTILE</text><text class="s" x="224" y="57">Cloudflare bot check</text>
+        <rect class="box" x="440" y="110" width="200" height="84" style="stroke-width:2"/><text class="t" x="456" y="138">APPS SCRIPT WEB APP</text><text class="s" x="456" y="157">Availability · booking API</text><text class="s" x="456" y="173">Validates every request</text>
+        <rect class="box alt" x="440" y="238" width="200" height="74"/><text class="t" x="456" y="262">LOCK + CACHE</text><text class="s" x="456" y="280">LockService: one booking per slot</text><text class="s" x="456" y="296">CacheService: fast open times</text>
+        <rect class="box" x="710" y="16" width="190" height="64"/><text class="t" x="726" y="42">GOOGLE CALENDAR</text><text class="s" x="726" y="60">Free/busy · new events</text>
+        <rect class="box" x="710" y="120" width="190" height="64"/><text class="t" x="726" y="146">GOOGLE SHEETS</text><text class="s" x="726" y="164">Hours · prices · settings</text>
+        <rect class="box" x="710" y="224" width="190" height="64"/><text class="t" x="726" y="250">MAILAPP</text><text class="s" x="726" y="268">Client + owner emails</text>
+        <rect class="box alt" x="930" y="70" width="60" height="164"/><text class="t" x="960" y="152" text-anchor="middle" transform="rotate(-90 960 152)">OWNER</text>
+        <path class="ln" d="M160 152H206" marker-end="url(#ah)"/>
+        <path class="ln" d="M295 120V76" marker-end="url(#ah)"/>
+        <path class="ln" d="M380 152H436" marker-end="url(#ah)"/>
+        <path class="ln" d="M540 194V234" marker-end="url(#ah)"/>
+        <path class="ln" d="M640 130L706 52" marker-end="url(#ah)"/>
+        <path class="ln" d="M640 152H706" marker-end="url(#ah)"/>
+        <path class="ln" d="M640 174L706 252" marker-end="url(#ah)"/>
+        <path class="dash" d="M930 100H904M930 152H904"/>
+        <text class="s" x="168" y="142">visits</text><text class="s" x="384" y="142">book</text><text class="s" x="302" y="100">token</text>
+      </svg>
+      <svg class="flowmap-tall" viewBox="0 0 340 560" role="img" aria-label="Architecture, top to bottom: client browser, React site with Turnstile check, Apps Script web app with lock and cache, then Google Calendar, Google Sheets and MailApp, all managed by the owner.">
+        <defs><marker id="ah2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#0C0D0F"/></marker></defs>
+        <rect class="box" x="10" y="8" width="320" height="52"/><text class="t" x="24" y="30">CLIENT</text><text class="s" x="24" y="47">Phone or desktop browser</text>
+        <rect class="box" x="10" y="96" width="200" height="52"/><text class="t" x="24" y="118">REACT SITE</text><text class="s" x="24" y="135">React 19 · Vite · Netlify</text>
+        <rect class="box alt" x="226" y="96" width="104" height="52"/><text class="t" x="238" y="118">TURNSTILE</text><text class="s" x="238" y="135">Bot check</text>
+        <rect class="box" x="10" y="184" width="320" height="64" style="stroke-width:2"/><text class="t" x="24" y="208">APPS SCRIPT WEB APP</text><text class="s" x="24" y="226">Availability · booking API · validation</text><text class="s" x="24" y="240">LockService · CacheService</text>
+        <rect class="box" x="10" y="290" width="100" height="62"/><text class="t" x="20" y="314">CALENDAR</text><text class="s" x="20" y="332">Free/busy</text><text class="s" x="20" y="344">Events</text>
+        <rect class="box" x="120" y="290" width="100" height="62"/><text class="t" x="130" y="314">SHEETS</text><text class="s" x="130" y="332">Hours</text><text class="s" x="130" y="344">Prices</text>
+        <rect class="box" x="230" y="290" width="100" height="62"/><text class="t" x="240" y="314">MAILAPP</text><text class="s" x="240" y="332">Client +</text><text class="s" x="240" y="344">owner email</text>
+        <rect class="box alt" x="10" y="392" width="210" height="44"/><text class="t" x="24" y="419">OWNER</text>
+        <path class="ln" d="M110 60V92" marker-end="url(#ah2)"/>
+        <path class="ln" d="M210 122H222" marker-end="url(#ah2)"/>
+        <path class="ln" d="M110 148V180" marker-end="url(#ah2)"/>
+        <path class="ln" d="M60 248V286M170 248V286M280 248V286" marker-end="url(#ah2)"/>
+        <path class="dash" d="M60 352V392M170 352V392"/>
+      </svg>
+      <figcaption><span>Fig. 02 — System map</span><span>Solid: requests · dashed: owner edits directly</span></figcaption>
+    </figure>
+
+    <div class="notes">
+      <div class="note reveal"><div class="label">Decision</div><h4>Apps Script instead of a server</h4><p>It runs on Google’s infrastructure at no cost, already has access to the owner’s Calendar, Sheets and Gmail, and has nothing to patch or scale.</p></div>
+      <div class="note reveal"><div class="label">Decision</div><h4>The calendar is the database</h4><p>Open times are calculated from the owner’s real calendar, so a personal appointment he adds on his phone blocks that slot on the site straight away.</p></div>
+      <div class="note reveal"><div class="label">Safeguard</div><h4>Lock, then check again</h4><p>Each booking takes a script lock and re-checks the slot before writing the event, so two clients can never get the same time. Open times are cached for a short while to keep the calendar fast.</p></div>
+      <div class="note reveal"><div class="label">Safeguard</div><h4>Bots stay out</h4><p>Cloudflare Turnstile checks every booking in the background, with no puzzle to solve, and the script verifies the token before it touches the calendar.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="flow">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label" style="color:var(--ink)">Booking flow</span>
+      <span class="bar"></span>
+      <span class="mono" style="color:var(--ink-2)">SESSION · TIME · DETAILS · DONE</span>
+    </div>
+
+    <div class="steps">
+      <article class="step reveal">
+        <div>
+          <div class="num">01 — Session</div>
+          <h3>Pick a session</h3>
+          <p>Two options and nothing more: a 60-minute focused reset or a 100-minute full session, with the price shown up front. Every “Book” button on the site opens this page with its session already selected.</p>
+        </div>
+        <figure>
+          <img src="book-session.jpg" alt="Booking step 1, Select Service: a 60 Minute Session card at $140, selected, and a 100 Minute Session card at $200." width="1544" height="540" loading="lazy">
+          <figcaption><span>Fig. 03 — Select service</span><span>Step 1 of 3</span></figcaption>
+        </figure>
+      </article>
+
+      <article class="step reveal">
+        <div>
+          <div class="num">02 — Time</div>
+          <h3>See only times that are really free</h3>
+          <p>Choosing a day asks the script for that day’s open slots, worked out from the owner’s calendar, opening hours and the session length. Past days are disabled, and times are shown in Eastern time.</p>
+        </div>
+        <figure>
+          <img src="book-time.jpg" alt="Booking step 2, Select Date and Time: a monthly calendar with a day selected and a grid of available half-hour times in Eastern Time." width="1544" height="1568" loading="lazy">
+          <figcaption><span>Fig. 04 — Date and time</span><span>Step 2 of 3</span></figcaption>
+        </figure>
+      </article>
+
+      <article class="step reveal">
+        <div>
+          <div class="num">03 — Details</div>
+          <h3>Four fields and a note</h3>
+          <p>Name, email and phone, plus room for special requests. There’s nothing to pay online: payment is taken after the session, and changes are made with a phone call, which is how the owner prefers to work.</p>
+        </div>
+        <figure>
+          <img src="book-details.jpg" alt="Booking step 3, Your Information: first name, last name, email, phone and special requests fields, a Confirm Booking button and a note that nothing is paid now." width="1544" height="1134" loading="lazy">
+          <figcaption><span>Fig. 05 — Your information</span><span>Step 3 of 3</span></figcaption>
+        </figure>
+      </article>
+
+      <article class="step reveal">
+        <div>
+          <div class="num">04 — Confirmed</div>
+          <h3>Booked, on both calendars</h3>
+          <p>On “Confirm Booking” the script verifies the bot check, takes the lock, makes sure the slot is still free and creates the event on the owner’s calendar. The client and the owner each get a confirmation email within seconds.</p>
+        </div>
+        <div class="pair">
+          <figure>
+            <img src="mobile-home.jpg" alt="Genesis Massage home page on a phone." width="780" height="1560" loading="lazy">
+            <figcaption><span>Home, phone</span><span></span></figcaption>
+          </figure>
+          <figure>
+            <img src="mobile-book.jpg" alt="Booking calendar and available times on a phone." width="780" height="1560" loading="lazy">
+            <figcaption><span>Booking, phone</span><span></span></figcaption>
+          </figure>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="role">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label" style="color:var(--ink)">Roles</span>
+      <span class="bar"></span>
+    </div>
+
+    <div class="step" style="border-top:var(--hair) solid var(--ink);margin-top:28px;">
+      <div>
+        <div class="num">Andrew Kim · ADK Studio</div>
+        <h3>Project manager &amp; system architect</h3>
+        <p>I owned the plan and the system, from the first conversation with the owner to launch.</p>
+      </div>
+      <ul class="duties">
+        <li>Scoped the project with the owner and kept it to what the business needed.</li>
+        <li>Designed the booking architecture on Google Apps Script, Calendar and Sheets.</li>
+        <li>Defined the availability, locking, bot-check and email rules.</li>
+        <li>Set up the GitHub-to-Netlify deployment and the domain.</li>
+        <li>Reviewed builds and tested the booking flow end to end before launch.</li>
+      </ul>
+    </div>
+    <div class="step">
+      <div>
+        <div class="num">Christina Park</div>
+        <h3>Design &amp; front-end development</h3>
+        <p>Christina designed the brand and the interface and wrote most of the front-end code. <a href="https://christinamspark.com/project/genesismassage" target="_blank" rel="noopener noreferrer">Her write-up of the project ↗</a></p>
+      </div>
+      <ul class="duties">
+        <li>Visual design: the calm palette, type and imagery.</li>
+        <li>The React site: pages, booking UI and responsive layout.</li>
+        <li>Google reviews, the embedded map and image optimisation.</li>
+      </ul>
+    </div>
+
+    <table class="stacktable">
+      <thead>
+        <tr><th class="label layer">Layer</th><th class="label">Tool</th><th class="label">Used for</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Interface</td><td class="tool">React 19, Vite, React Router</td><td class="why">The site, the three-step booking page and the routes behind every “Book” button.</td></tr>
+        <tr><td class="label">Backend</td><td class="tool">Google Apps Script</td><td class="why">A web app that serves availability and takes bookings.</td></tr>
+        <tr><td class="label">Data</td><td class="tool">Google Calendar, Sheets</td><td class="why">The calendar holds appointments; a sheet holds hours, prices and settings.</td></tr>
+        <tr><td class="label">Safety</td><td class="tool">LockService, CacheService, Turnstile</td><td class="why">No double bookings, fast open times, no bot bookings.</td></tr>
+        <tr><td class="label">Email</td><td class="tool">MailApp</td><td class="why">Confirmations to the client and the owner.</td></tr>
+        <tr><td class="label">Hosting</td><td class="tool">Netlify, GitHub</td><td class="why">Deploys on every push to the main branch.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="next">
+  <div class="shell">
+    <div class="sechead">
+      <span class="label" style="color:var(--ink)">Next</span>
+      <span class="bar"></span>
+    </div>
+    <div class="nextlinks">
+      <a class="live" href="https://genesis-massage.com/" target="_blank" rel="noopener noreferrer">genesis-massage.com <span class="go"><i></i>Live site<svg class="mark" viewBox="-124 -124 248 248" aria-hidden="true"><defs><clipPath id="tip-live"><rect x="56" y="-40" width="80" height="80"/></clipPath></defs><g class="needle"><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="currentColor"/><path d="M0 -70Q9 -9 116 0Q9 9 0 70Q-9 9 -70 0Q-9 -9 0 -70Z" fill="#E9A23B" clip-path="url(#tip-live)"/></g></svg></span></a>
+      <a href="/contact/">Need a booking site like this? <span>Contact</span></a>
+      <a href="../../projects/">Back to all work <span>Index</span></a>
+    </div>
+
+    <div class="colophon">
+      <span class="mono foot-line" id="foot-line" style="color:var(--ink-2)"><span>© 2026 ADK STUDIO</span><span aria-hidden="true">·</span><svg class="hanja" viewBox="-6 -6 232 112" role="img" aria-label="東奎"><g transform="translate(0 0) scale(1)"><path class="stk" pathLength="1" style="--n:0" d="M4 8H96" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:1" d="M50 0V20" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><rect class="sun" x="16" y="19" width="68" height="44" rx="11" fill="#B7282E"/><path class="stk" pathLength="1" style="--n:2" d="M50 19V63" fill="none" stroke="#2A2623" stroke-width="11" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:3" d="M16 41H84" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:4" d="M50 62A44 38 0 0 1 6 100" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:5" d="M50 62A44 38 0 0 0 94 100" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/></g><g transform="translate(120 0) scale(1)"><path class="stk" pathLength="1" style="--n:6" d="M4 15H78" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><circle class="sta" cx="89" cy="15" r="11" fill="#F5C902"/><circle cx="89" cy="15" r="3.8" fill="#FFFFFF"/><path class="stk" pathLength="1" style="--n:7" d="M50 0V15A44 29 0 0 1 6 44" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:8" d="M50 15A44 29 0 0 0 94 44" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:9" d="M50 50V100" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:10" d="M26 54H74" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:11" d="M14 67H86" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:12" d="M26 81H74" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:13" d="M4 95H96" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/></g></svg></span>
+      <span class="mono" style="color:var(--ink-2)">SITE SCREENS © GENESIS MASSAGE · BUILT WITH CHRISTINA PARK</span>
+    </div>
+  </div>
+</section>
+</main>
+
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js-reveal');
+  var revealAll = function(){ items.forEach(function(el){ el.classList.add('in'); }); };
+  setTimeout(revealAll, 2000);
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+<script>
+// Replay the 東奎 stroke-order animation every time the footer scrolls into view
+(function(){
+  var f=document.getElementById('foot-line');
+  if(!f||!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  f.classList.add('armed');
+  new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){f.classList.remove('play');void f.offsetWidth;f.classList.add('play');}
+    else f.classList.remove('play');
+  });},{threshold:0.6}).observe(f);
+})();
+</script>
+<script src="/reads.js" defer></script>
+</body>
+</html>

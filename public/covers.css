@@ -182,3 +182,11 @@
 .kn-spine-top{font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 66;font-weight:800;font-size:calc(var(--d) * .2);letter-spacing:.06em;}
 .spx-knicks .t{font-family:"Archivo",sans-serif;font-variation-settings:'wdth' 66;font-weight:800;font-size:calc(var(--d) * .42);letter-spacing:.01em;}
 .kn-spine-star{width:calc(var(--d) * .26);}
+
+/* ---------- The Little Prince (Genesis Massage) ---------- */
+.cvx-prince,.spx-prince{background:#1E3B9E;}
+.side-cover.cov-prince{border-color:#16307F;}
+.spx-prince{color:#FFFFFF;border-color:#16307F;}
+.spx-prince .t{font-family:"Grand Hotel",cursive;font-weight:400;text-transform:none;letter-spacing:0;font-size:calc(var(--d) * .5);}
+.lp-spine-by{font-family:"Playfair Display",Georgia,serif;font-weight:600;color:#F6D23A;font-size:calc(var(--d) * .2);letter-spacing:.08em;}
+.lp-spine-mark{width:calc(var(--d) * .3);color:#F6D23A;}

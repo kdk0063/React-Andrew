@@ -25,6 +25,14 @@
       size: { h: 350, d: 41 }, spine: { image: '/books/allensadmin-spine.jpg', bg: '#121212', fg: '#FFFFFF', ac: '#E9A23B', pat: 'stripes' }, cover: { image: '/books/allensadmin-cover.jpg', bg: '#121212', fg: '#E9A23B' }
     },
     {
+      id: 'genesismassage', design: 'prince', title: 'Genesis Massage', spineTitle: 'Genesis Massage', coverTitle: 'Genesis<br>Massage',
+      kicker: 'Client · 2026', tag: 'Booking site',
+      desc: 'A calm, booking-first website for a massage practice in Vienna, Virginia. Clients pick a session and a time and book in under a minute; the owner runs the whole schedule from Google Calendar, with no paid backend.',
+      meta: [['Role', 'Project manager & system architect'], ['Team', 'With Christina Park (design & front end)'], ['Stack', 'React 19, Google Apps Script, Calendar API'], ['Status', 'Live']],
+      links: [['Open project', '/work/genesis-massage/', true], ['Visit site ↗', 'https://genesis-massage.com/']],
+      size: { h: 360, d: 38 }, spine: { bg: '#1E3B9E', fg: '#FFFFFF', ac: '#F6D23A', pat: 'dots' }, cover: { bg: '#1E3B9E', fg: '#FFFFFF' }
+    },
+    {
       id: 'grandstand', design: 'supreme', title: 'Grandstands', spineTitle: 'Grandstands', coverTitle: 'Grand<br>stands',
       kicker: 'Personal · Alpha', tag: '3D web',
       desc: 'Real Formula 1 races replayed on a tiny 3D world you can walk around: every lap, pit stop and overtake from the actual race, on hand-built dioramas of each circuit, in the browser.',
