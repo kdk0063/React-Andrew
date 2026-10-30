@@ -451,6 +451,35 @@ figcaption{
 .status i{width:7px;height:7px;border-radius:50%;background:#22C55E;}
 @media (prefers-reduced-motion:reduce){.js-book .chapter.on{animation:none;}.tabrow a,.card-in,.east .needle{transition:none;}.spread.nope .pairing{animation:none;}}
 
+/* ---------- desktop: the book fills the screen and scrolling turns the page ---------- */
+.flip-on .flip-stage{position:sticky;top:calc(var(--mast,49px) + var(--tabs-h,64px));width:100vw;margin-left:calc(50% - 50vw);background:var(--paper);
+  --page-h:max(440px,calc(100vh - var(--mast,49px) - var(--tabs-h,64px) - 46px));}
+.pager.flip{display:block;position:relative;height:var(--page-h);margin:0;padding:0;overflow:visible;scroll-snap-type:none;}
+.pager.flip:focus-visible{outline-offset:-3px;}
+.pager.flip > .spread{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;padding:0;visibility:hidden;}
+.pager.flip > .spread::after{display:none;}
+.pager.flip > .spread > *{position:relative;height:100%;min-height:0;margin:0;padding:18px clamp(20px,2.4vw,40px);background:var(--paper);
+  overflow:hidden auto;scrollbar-width:none;backface-visibility:hidden;will-change:transform;visibility:hidden;}
+.pager.flip > .spread > *::-webkit-scrollbar{display:none;}
+.pager.flip > .spread > :first-child{transform-origin:100% 50%;box-shadow:inset -40px 0 34px -34px rgba(0,0,0,.24);}
+.pager.flip > .spread > :last-child{transform-origin:0 50%;box-shadow:inset 40px 0 34px -34px rgba(0,0,0,.24);}
+.pager.flip > .spread > .is-vis{visibility:visible;}
+.pager.flip > .spread > *::before{content:"";position:absolute;inset:0;z-index:9;pointer-events:none;opacity:var(--shade,0);
+  background:linear-gradient(var(--shade-dir,to right),#000,rgba(0,0,0,.25) 45%,transparent);}
+.pager.flip .pg-l .pairing{max-width:min(100%,calc((var(--page-h) - 62px) * .72 * 2 + 14px));margin:0 auto;}
+.pager.flip .pg-l:has(.demo){display:flex;}
+.pager.flip .demo{width:100%;min-height:0;}
+.flip-on .pagectl{position:relative;z-index:5;height:46px;margin:0;padding:0 clamp(20px,2.4vw,40px);background:var(--paper);border-top:var(--hair) solid var(--rule);gap:12px;}
+/* content sits centred on each page, and revealing the answer doesn't shift it */
+.pager.flip .pg-l:has(.pairing){display:flex;flex-direction:column;justify-content:center;}
+.pager.flip .pg-l .pairing{width:100%;}
+.pager.flip .pg-r{justify-content:center;}
+.pager.flip .pg-r .folio-foot{position:absolute;right:clamp(20px,2.4vw,40px);bottom:14px;margin:0;padding:0;}
+.pager.flip .spread:not(.done) .facts dd{position:relative;height:auto;overflow:visible;}
+.pager.flip .spread:not(.done) .facts dd::before{position:absolute;top:.3em;left:0;margin:0;}
+@media (min-width:860px){.tabs .shell{max-width:none;padding:0 clamp(20px,2.4vw,40px);}}
+.flip-on .pagectl button{width:30px;height:30px;font-size:14px;}
+
 /* ---------- phones and small tablets: read downwards, thumb-index tabs ---------- */
 @media (max-width:859px){
   .pager{grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;scroll-snap-type:none;gap:0;padding:0;}
@@ -807,33 +836,79 @@ figcaption{
   var nav = book.querySelector('.tabs'), mast = document.querySelector('.masthead');
   var smooth = function(){ return matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'; };
   document.documentElement.classList.add('js-book'); book.classList.add('js-on');
-  var setMast = function(){ if (mast) book.style.setProperty('--mast', mast.offsetHeight + 'px'); };
+  var setMast = function(){ if (mast) book.style.setProperty('--mast', mast.offsetHeight + 'px'); if (nav) book.style.setProperty('--tabs-h', nav.offsetHeight + 'px'); };
   setMast(); addEventListener('resize', setMast);
 
-  // Pages within a chapter.
+  // Pages within a chapter. Desktop: the book pins and scrolling turns the page,
+  // in two halves so the real pages stay interactive (no copies). Phones read
+  // straight down; reduced motion keeps plain sideways paging.
+  var wide = matchMedia('(min-width:860px)'), still = matchMedia('(prefers-reduced-motion: reduce)');
+  var flipping = function(){ return wide.matches && !still.matches; };
   var pagers = [].slice.call(book.querySelectorAll('.pager')).map(function(pg){
-    var wrap = document.createElement('div'); wrap.className = 'pager-wrap';
-    pg.parentNode.insertBefore(wrap, pg); wrap.appendChild(pg);
+    var wrap = document.createElement('div'), stage = document.createElement('div');
+    wrap.className = 'pager-wrap'; stage.className = 'flip-stage';
+    pg.parentNode.insertBefore(wrap, pg); wrap.appendChild(stage); stage.appendChild(pg);
     var ctl = document.createElement('div'); ctl.className = 'pagectl';
     ctl.innerHTML = '<button type="button" class="prev" aria-label="Previous page">←</button><span class="folio" aria-live="polite"></span><span class="progress"><i></i></span><button type="button" class="next" aria-label="Next page">→</button>';
-    wrap.appendChild(ctl);
+    stage.appendChild(ctl);
     var prev = ctl.querySelector('.prev'), next = ctl.querySelector('.next'), folio = ctl.querySelector('.folio'), bar = ctl.querySelector('.progress i');
     var idx = pg.id === 'gallery' ? document.getElementById('cover-index') : null;
+    var pages = function(i){ return pg.children[i].children; };
     var sideways = function(){ return pg.scrollWidth > pg.clientWidth + 4; };
     var step = function(){ var a = pg.children[0], b = pg.children[1]; return a ? (b ? b.offsetLeft - a.offsetLeft : a.offsetWidth) : 1; };
-    var at = function(){ return Math.min(pg.children.length - 1, Math.max(0, Math.round(pg.scrollLeft / step()))); };
-    var mark = function(i){ if (idx) [].forEach.call(idx.children, function(b, j){ b.classList.toggle('on', j === i); if (j === i && sideways()) b.scrollIntoView({block:'nearest', inline:'nearest'}); }); };
-    var update = function(){
-      var n = pg.children.length; if (!n) return;
-      var i = at();
+    var current = 0;
+    var at = function(){ return flipping() ? current : Math.min(pg.children.length - 1, Math.max(0, Math.round(pg.scrollLeft / (step() || 1)))); };
+    var mark = function(i){ if (idx) [].forEach.call(idx.children, function(b, j){ b.classList.toggle('on', j === i); if (j === i && (flipping() || sideways())) idx.scrollLeft = b.offsetLeft - idx.offsetLeft - (idx.clientWidth - b.offsetWidth) / 2; }); };
+    var stageTop = function(){ return parseFloat(getComputedStyle(stage).top) || 0; };
+    var start = function(){ return wrap.getBoundingClientRect().top + scrollY - stageTop(); };
+    var span = function(){ return wrap.offsetHeight - stage.offsetHeight; };
+    // Each page rests for the first and last stretch of its scroll, so it can be read.
+    var eased = function(f){ var t = Math.max(0, Math.min(1, (f - .18) / .64)); return t * t * (3 - 2 * t); };
+    var shade = function(el, v, dir){ el.style.setProperty('--shade', v.toFixed(3)); el.style.setProperty('--shade-dir', dir); };
+    var paint = function(i, f){
+      [].forEach.call(pg.children, function(sp, j){
+        [].forEach.call(sp.children, function(el, side){
+          var vis = false, z = 1, tf = '', sh = 0;
+          if (side === 0 && j === i) vis = true;
+          if (side === 1 && j === i) { vis = f < .5; z = 3; if (f > 0) { tf = 'perspective(3400px) rotateY(' + (-180 * f) + 'deg) skewY(' + (Math.sin(Math.PI * f) * 1.4) + 'deg)'; sh = Math.sin(Math.PI * f) * .38; } }
+          if (side === 1 && j === i + 1 && f > 0) { vis = true; sh = (1 - f) * .3; }
+          if (side === 0 && j === i + 1 && f >= .5) { vis = true; z = 3; tf = 'perspective(3400px) rotateY(' + (180 * (1 - f)) + 'deg) skewY(' + (-Math.sin(Math.PI * f) * 1.4) + 'deg)'; sh = Math.sin(Math.PI * f) * .38; }
+          if (side === 0 && j === i && f > 0) sh = f * .3;
+          el.classList.toggle('is-vis', vis);
+          el.style.zIndex = z; el.style.transform = tf;
+          shade(el, sh, side === 0 ? 'to left' : 'to right');
+        });
+      });
+    };
+    var report = function(i, n){
       folio.textContent = 'Page ' + (i + 1) + ' of ' + n;
       bar.style.left = (i / n * 100) + '%'; bar.style.width = (100 / n) + '%';
       prev.disabled = i === 0; next.disabled = i >= n - 1;
-      if (sideways()) mark(i);
+    };
+    var midFlip = false;
+    var update = function(){
+      var n = pg.children.length; if (!n || !wrap.offsetHeight) return;
+      var on = flipping();
+      pg.classList.toggle('flip', on); wrap.classList.toggle('flip-on', on);
+      if (on) {
+        wrap.style.height = (stage.offsetHeight + (n - 1) * innerHeight * .85) + 'px';
+        var raw = Math.max(0, Math.min(1, (scrollY - start()) / (span() || 1))) * (n - 1);
+        var i = Math.min(n - 1, Math.floor(raw)), f = i < n - 1 ? eased(raw - i) : 0;
+        midFlip = f > 0 && f < 1;
+        if (f === 1) { i++; f = 0; }
+        paint(i, f);
+        current = f >= .5 ? i + 1 : i;
+        report(current, n); mark(current);
+      } else {
+        wrap.style.height = ''; midFlip = false;
+        [].forEach.call(pg.children, function(sp){ [].forEach.call(sp.children, function(el){ el.classList.remove('is-vis'); el.style.zIndex = ''; el.style.transform = ''; }); });
+        var k = at(); report(k, n); if (sideways()) mark(k);
+      }
     };
     var go = function(i){
-      var el = pg.children[i]; if (!el) return;
-      if (sideways()) pg.scrollTo({left: el.offsetLeft - pg.children[0].offsetLeft, behavior: smooth()});
+      var n = pg.children.length, el = pg.children[i]; if (!el) return;
+      if (flipping()) scrollTo({top: start() + (n > 1 ? i / (n - 1) : 0) * span(), behavior: 'smooth'});
+      else if (sideways()) pg.scrollTo({left: el.offsetLeft - pg.children[0].offsetLeft, behavior: smooth()});
       else { el.scrollIntoView({behavior: smooth(), block: 'start'}); mark(i); }
     };
     pg._go = go;
@@ -841,12 +916,25 @@ figcaption{
     next.addEventListener('click', function(){ go(at() + 1); });
     pg.tabIndex = 0;
     pg.addEventListener('keydown', function(e){
-      if (e.target !== pg || !sideways()) return;
+      if (e.target !== pg || !(flipping() || sideways())) return;
       if (e.key === 'ArrowRight') { e.preventDefault(); go(at() + 1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(at() - 1); }
     });
     pg.addEventListener('scroll', function(){ requestAnimationFrame(update); }, {passive: true});
+    // A sideways swipe on a trackpad turns pages too.
+    stage.addEventListener('wheel', function(e){
+      if (!flipping() || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      e.preventDefault(); scrollBy(0, e.deltaX);
+    }, {passive: false});
+    // Never leave a page hanging mid-turn: settle on the nearer one.
+    var idle;
+    addEventListener('scroll', function(){
+      requestAnimationFrame(update);
+      clearTimeout(idle);
+      idle = setTimeout(function(){ if (midFlip && wrap.offsetHeight) go(current); }, 170);
+    }, {passive: true});
     addEventListener('resize', update);
+    wide.addEventListener('change', update); still.addEventListener('change', update);
     return update;
   });
   var refresh = function(){ if (window.ADK_SIZE_COVERS) window.ADK_SIZE_COVERS(); pagers.forEach(function(u){ u(); }); };
