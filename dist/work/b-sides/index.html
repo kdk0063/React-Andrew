@@ -485,6 +485,12 @@ figcaption{
 .flip-on{margin-top:0;}
 #next .colophon{margin-top:0;}
 .op-hint{display:none;}
+#contents{scroll-margin-top:var(--mast,62px);}
+.to-contents{display:none;flex:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);text-decoration:none;
+  padding:7px 12px;border:var(--hair) solid var(--ink);border-radius:999px;transition:background .15s,color .15s;}
+.to-contents:hover,.to-contents:focus-visible{background:var(--ink);color:var(--paper);}
+.flip-on .to-contents{display:inline-block;}
+@media (max-width:419px){.masthead .mastnav a[href="#contents"]{display:inline;}}
 .op-index .label{margin-top:clamp(24px,4vw,32px);}
 .index.text-index{display:block;margin-top:14px;padding:0;border-top:var(--hair) solid var(--ink);overflow:visible;}
 .index.text-index button{display:flex;gap:14px;align-items:baseline;width:100%;padding:13px 0;border-bottom:var(--hair) solid var(--rule);}
@@ -532,7 +538,7 @@ figcaption{
   <div class="shell">
     <a class="wordmark" href="../../" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="../../brand/adk-tag.svg" alt="" width="58" height="28"><span class="sub">Studio</span></span></a>
     <nav class="mastnav label" aria-label="Case study">
-      <a href="#contents">Contents</a>
+      <a href="#contents" data-go="contents">Contents</a>
       <a href="../../projects/">← All work</a>
     </nav>
   </div>
@@ -875,7 +881,7 @@ figcaption{
     wrap.className = 'pager-wrap'; stage.className = 'flip-stage';
     pg.parentNode.insertBefore(wrap, pg); wrap.appendChild(stage); stage.appendChild(pg);
     var ctl = document.createElement('div'); ctl.className = 'pagectl';
-    ctl.innerHTML = '<button type="button" class="prev" aria-label="Previous page">←</button><span class="folio" aria-live="polite"></span><span class="progress"><i></i></span><button type="button" class="next" aria-label="Next page">→</button>';
+    ctl.innerHTML = '<button type="button" class="prev" aria-label="Previous page">←</button><span class="folio" aria-live="polite"></span><span class="progress"><i></i></span><button type="button" class="next" aria-label="Next page">→</button><a class="to-contents" href="#contents" data-go="contents"><span aria-hidden="true">↑</span> Contents</a>';
     stage.appendChild(ctl);
     var prev = ctl.querySelector('.prev'), next = ctl.querySelector('.next'), folio = ctl.querySelector('.folio'), bar = ctl.querySelector('.progress i');
     var idx = pg.querySelector('.index'), lead = pg.querySelector('.opener') ? 1 : 0;
@@ -968,9 +974,11 @@ figcaption{
   });
   var refresh = function(){ if (window.ADK_SIZE_COVERS) window.ADK_SIZE_COVERS(); pagers.forEach(function(u){ u(); }); };
 
+  var current = '';
   var show = function(id, scroll){
     var ch = document.getElementById(id);
     if (!ch || !ch.classList.contains('chapter')) { ch = chapters[0]; id = ch.id; }
+    current = id;
     chapters.forEach(function(c){ c.classList.toggle('on', c === ch); c.hidden = c !== ch; });
     tabs.forEach(function(t){ var on = t.getAttribute('data-go') === id; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
     var tab = tabs.filter(function(t){ return t.getAttribute('data-go') === id; })[0];
@@ -981,15 +989,33 @@ figcaption{
       if (scrollY > top || scroll === 'force') scrollTo({top: top, behavior: smooth()});
     }
   };
+  // Contents is a way out of the pinned book from any page, and coming back
+  // from the contents line of the same chapter returns to the page you left.
+  var isChapter = function(id){ var el = document.getElementById(id); return !!el && el.classList.contains('chapter'); };
+  var toContents = function(){
+    var c = document.getElementById('contents');
+    scrollTo({top: c.getBoundingClientRect().top + scrollY - (mast ? mast.offsetHeight : 0), behavior: smooth()});
+  };
+  var resume = {};
   document.addEventListener('click', function(e){
     var a = e.target.closest('[data-go]'); if (!a) return;
     var id = a.getAttribute('data-go');
-    if (id === 'contents') return;
     e.preventDefault();
+    if (id === 'contents') {
+      if (current && scrollY >= book.getBoundingClientRect().top + scrollY - (mast ? mast.offsetHeight : 0)) resume[current] = scrollY;
+      if (location.hash !== '#contents') history.pushState(null, '', '#contents');
+      toContents();
+      return;
+    }
     if (location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+    if (a.closest('.toc') && resume[id] != null) { show(id, false); scrollTo({top: resume[id], behavior: smooth()}); return; }
     show(id, a.closest('.tabrow') ? true : 'force');
   });
-  addEventListener('popstate', function(){ show(location.hash.slice(1), true); });
+  addEventListener('popstate', function(){
+    var h = location.hash.slice(1);
+    if (isChapter(h)) show(h, true);
+    else if (h === 'contents') toContents();
+  });
   var start = location.hash.slice(1), startCh = document.getElementById(start);
   show(start, false);
   if (startCh && startCh.classList.contains('chapter')) {
