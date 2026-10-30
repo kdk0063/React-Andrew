@@ -493,7 +493,7 @@ figcaption{
 .to-contents{display:none;flex:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);text-decoration:none;
   padding:7px 12px;border:var(--hair) solid var(--ink);border-radius:999px;transition:background .15s,color .15s;}
 .to-contents:hover,.to-contents:focus-visible{background:var(--ink);color:var(--paper);}
-.flip-on .to-contents{display:inline-block;}
+@media (min-width:860px){.to-contents{display:inline-block;}}
 @media (max-width:419px){.masthead .mastnav a[href="#contents"]{display:inline;}}
 .op-index .label{margin-top:clamp(24px,4vw,32px);}
 .index.text-index{display:block;margin-top:14px;padding:0;border-top:var(--hair) solid var(--ink);overflow:visible;}
