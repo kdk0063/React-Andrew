@@ -1032,7 +1032,7 @@ figcaption{
   // Phones: the thumb index slides in only while the book is on screen.
   if ('IntersectionObserver' in window && nav) new IntersectionObserver(function(es){
     es.forEach(function(e){ nav.classList.toggle('side-on', e.isIntersecting); });
-  }, {rootMargin: '-30% 0px -30% 0px'}).observe(book);
+  }, {rootMargin: '-12% 0px -87% 0px'}).observe(book);
 
   // Concept demos.
   var big = book.querySelector('.big-star');
