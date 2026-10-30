@@ -484,6 +484,10 @@ figcaption{
 .chapter:has(.flip-on){padding-top:0;}
 .flip-on{margin-top:0;}
 #next .colophon{margin-top:0;}
+::view-transition-old(root){animation:bs-out .24s ease both;}
+::view-transition-new(root){animation:bs-in .34s cubic-bezier(.2,.8,.2,1) both;}
+@keyframes bs-out{to{opacity:0;}}
+@keyframes bs-in{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
 .op-hint{display:none;}
 #contents{scroll-margin-top:var(--mast,62px);}
 .to-contents{display:none;flex:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);text-decoration:none;
@@ -992,23 +996,28 @@ figcaption{
   // Contents is a way out of the pinned book from any page, and coming back
   // from the contents line of the same chapter returns to the page you left.
   var isChapter = function(id){ var el = document.getElementById(id); return !!el && el.classList.contains('chapter'); };
-  var toContents = function(){
-    var c = document.getElementById('contents');
-    scrollTo({top: c.getBoundingClientRect().top + scrollY - (mast ? mast.offsetHeight : 0), behavior: smooth()});
+  // Long trips dissolve instead of scrolling, so no pages riffle past.
+  var dissolve = function(move){
+    if (!document.startViewTransition || still.matches) { move(); return; }
+    document.startViewTransition(move);
   };
+  var jump = function(y){ scrollTo({top: y, behavior: 'instant'}); };
+  var bookTop = function(){ return book.getBoundingClientRect().top + scrollY - (mast ? mast.offsetHeight : 0); };
+  var toContents = function(){ dissolve(function(){ jump(0); }); };
   var resume = {};
   document.addEventListener('click', function(e){
     var a = e.target.closest('[data-go]'); if (!a) return;
     var id = a.getAttribute('data-go');
     e.preventDefault();
     if (id === 'contents') {
-      if (current && scrollY >= book.getBoundingClientRect().top + scrollY - (mast ? mast.offsetHeight : 0)) resume[current] = scrollY;
+      if (current && scrollY >= bookTop()) resume[current] = scrollY;
       if (location.hash !== '#contents') history.pushState(null, '', '#contents');
       toContents();
       return;
     }
     if (location.hash !== '#' + id) history.pushState(null, '', '#' + id);
-    if (a.closest('.toc') && resume[id] != null) { show(id, false); scrollTo({top: resume[id], behavior: smooth()}); return; }
+    if (a.closest('.toc') && resume[id] != null) { dissolve(function(){ show(id, false); jump(resume[id]); }); return; }
+    if (Math.abs(scrollY - bookTop()) > innerHeight) { dissolve(function(){ show(id, false); jump(bookTop()); }); return; }
     show(id, a.closest('.tabrow') ? true : 'force');
   });
   addEventListener('popstate', function(){
