@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Enter a birth date to get an exact age in years, months and days.">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <title>Age Calculator — ADK Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/adk.css">
+  <link rel="stylesheet" href="/work/side/side.css">
+  <style>
+.stage{background:#F0F0F0;}
+.age{width:min(100%,620px);background:#fff;border-radius:18px 18px 110px 18px;padding:clamp(22px,5vw,44px);font-family:var(--sans);}
+.fields{display:flex;gap:clamp(10px,3vw,24px);}
+.fields label{display:block;font-size:11.5px;font-weight:700;letter-spacing:.2em;color:#716F6F;}
+.fields .f{flex:1;max-width:150px;min-width:0;}
+.fields input{width:100%;box-sizing:border-box;margin-top:7px;padding:12px;border:1px solid #DBDBDB;border-radius:8px;font:700 clamp(18px,4.4vw,26px) var(--sans);color:#151515;}
+.fields input:focus{outline:0;border-color:#854DFF;}
+.f.bad label{color:#D03F2F;}.f.bad input{border-color:#D03F2F;}
+.err{display:block;min-height:16px;margin-top:6px;font-size:11.5px;font-style:italic;color:#D03F2F;}
+.bar{position:relative;display:flex;justify-content:flex-end;align-items:center;margin:14px 0 22px;}
+.bar::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#DBDBDB;}
+.bar button{position:relative;width:60px;height:60px;border-radius:50%;border:0;background:#854DFF;color:#fff;font-size:26px;}
+.bar button:hover{background:#151515;}
+.out{margin:0;font-weight:800;font-style:italic;font-size:clamp(38px,10vw,70px);line-height:1.08;letter-spacing:-.03em;}
+.out b{color:#854DFF;font-weight:800;}
+  </style>
+</head>
+<body>
+<header class="masthead"><div class="shell">
+  <a class="wordmark" href="/" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="/brand/adk-tag.svg" alt="" width="58" height="28"><span class="sub">Studio</span></span></a>
+  <a class="back" href="/projects/#sideshelf">← Side projects</a>
+</div></header>
+<main>
+<div class="shell side-head"><p class="k">Side project · Live demo</p><h1>Age Calculator</h1><p class="l">Enter a birth date to get an exact age in years, months and days.</p></div>
+<section class="stage" aria-label="Age Calculator demo">
+<form class="age" id="form" novalidate><div class="fields">
+<div class="f" id="fd"><label for="d">DAY</label><input id="d" inputmode="numeric" placeholder="DD" maxlength="2" autocomplete="bday-day"><span class="err"></span></div>
+<div class="f" id="fm"><label for="m">MONTH</label><input id="m" inputmode="numeric" placeholder="MM" maxlength="2" autocomplete="bday-month"><span class="err"></span></div>
+<div class="f" id="fy"><label for="y">YEAR</label><input id="y" inputmode="numeric" placeholder="YYYY" maxlength="4" autocomplete="bday-year"><span class="err"></span></div></div>
+<div class="bar"><button type="submit" aria-label="Calculate age">↓</button></div>
+<div class="out" aria-live="polite"><div><b id="ry">--</b> years</div><div><b id="rm">--</b> months</div><div><b id="rd">--</b> days</div></div></form>
+</section>
+<div class="shell">
+<dl class="side-notes"><div><dt>What it is</dt><dd>Validates the day against the real length of that month, rejects future dates, and borrows across months and years to get the exact age.</dd></div><div><dt>Built with</dt><dd>Originally React with form validation; this page is the same logic in plain JavaScript.</dd></div><div><dt>Timeline</dt><dd>Hand-coded in React in February 2024, while learning it. Rebuilt for this page in 2026.</dd></div><div><dt>Source</dt><dd><a href="https://github.com/kdk0063/React-Andrew/blob/master/src/Pages/AgeCalculator.js" rel="noopener">Original React code ↗</a></dd></div></dl>
+<footer class="side-foot"><span>© 2026 ADK Studio</span><a href="/work/side/tip-splitter/">Next: Tip Splitter →</a></footer>
+</div>
+</main>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i);},now=new Date();
+function mark(id,msg){$(id).classList.toggle('bad',!!msg);$(id).querySelector('.err').textContent=msg||'';}
+$('form').addEventListener('submit',function(e){e.preventDefault();
+var ds=$('d').value.trim(),ms=$('m').value.trim(),ys=$('y').value.trim(),d=+ds,m=+ms,y=+ys,num=/^\d+$/;
+var em=!ms?'Required':!num.test(ms)||m<1||m>12?'Must be a valid month':'',ey=!ys?'Required':!num.test(ys)||y<1900||y>now.getFullYear()?'Must be a valid year':'';
+var ed=!ds?'Required':!num.test(ds)||d<1||d>(em||ey?31:new Date(y,m,0).getDate())?'Must be a valid day':'';
+if(!ed&&!em&&!ey&&new Date(y,m-1,d)>now)ey='Must be in the past';
+mark('fd',ed);mark('fm',em);mark('fy',ey);
+if(ed||em||ey){$('ry').textContent=$('rm').textContent=$('rd').textContent='--';return;}
+var Y=now.getFullYear()-y,M=now.getMonth()-(m-1),D=now.getDate()-d;
+if(D<0){D+=new Date(now.getFullYear(),now.getMonth(),0).getDate();M--;}if(M<0){M+=12;Y--;}
+$('ry').textContent=Y;$('rm').textContent=M;$('rd').textContent=D;});
+})();
+</script>
+</body>
+</html>

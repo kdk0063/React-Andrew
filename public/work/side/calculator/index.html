@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A four-function calculator. Press the keys or use your keyboard.">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <title>Calculator — ADK Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/adk.css">
+  <link rel="stylesheet" href="/work/side/side.css">
+  <style>
+.stage{background:#3B4664;}
+.calc{width:min(100%,400px);color:#fff;font-family:var(--sans);}
+.screen{background:#181F33;border-radius:10px;padding:18px 22px;text-align:right;min-height:104px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;}
+.prev{font-family:var(--mono);font-size:14px;min-height:20px;opacity:.65;word-break:break-all;}
+.cur{font-size:clamp(32px,8vw,44px);font-weight:700;letter-spacing:-.02em;word-break:break-all;line-height:1.1;}
+.pad{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,2vw,14px);margin-top:16px;background:#252D44;padding:clamp(14px,3vw,22px);border-radius:10px;}
+.pad button{height:clamp(48px,11vw,60px);border:0;border-radius:8px;background:#EAE3DC;color:#434A59;font-size:clamp(20px,5vw,26px);font-weight:700;box-shadow:0 4px 0 #B3A497;}
+.pad button:active{transform:translateY(3px);box-shadow:0 1px 0 #B3A497;}
+.pad .act{background:#647198;color:#fff;font-size:15px;box-shadow:0 4px 0 #404E72;letter-spacing:.04em;}
+.pad .wide{grid-column:span 2;}
+.pad .eq{background:#D03F2F;color:#fff;box-shadow:0 4px 0 #93261A;}
+  </style>
+</head>
+<body>
+<header class="masthead"><div class="shell">
+  <a class="wordmark" href="/" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="/brand/adk-tag.svg" alt="" width="58" height="28"><span class="sub">Studio</span></span></a>
+  <a class="back" href="/projects/#sideshelf">← Side projects</a>
+</div></header>
+<main>
+<div class="shell side-head"><p class="k">Side project · Live demo</p><h1>Calculator</h1><p class="l">A four-function calculator. Press the keys or use your keyboard.</p></div>
+<section class="stage" aria-label="Calculator demo">
+<div class="calc"><div class="screen" role="status" aria-live="polite"><div class="prev" id="prev"></div><div class="cur" id="cur">0</div></div>
+<div class="pad" id="pad"></div></div>
+</section>
+<div class="shell">
+<dl class="side-notes"><div><dt>What it is</dt><dd>Add, subtract, multiply and divide, with delete and reset. All of its state runs through a single reducer.</dd></div><div><dt>Built with</dt><dd>Originally React and useReducer; this page is the same logic in plain JavaScript.</dd></div><div><dt>Timeline</dt><dd>Hand-coded in React in February 2024, while learning it. Finished and rebuilt for this page in 2026.</dd></div><div><dt>Source</dt><dd><a href="https://github.com/kdk0063/React-Andrew/blob/master/src/Pages/CalculatorPage.js" rel="noopener">Original React code ↗</a></dd></div></dl>
+<footer class="side-foot"><span>© 2026 ADK Studio</span><a href="/work/side/scatter/">Next: Scatter →</a></footer>
+</div>
+</main>
+<script>
+(function(){
+var KEYS=['7','8','9','DEL','4','5','6','+','1','2','3','-','.','0','/','x','RESET','='],pad=document.getElementById('pad'),prevEl=document.getElementById('prev'),curEl=document.getElementById('cur');
+KEYS.forEach(function(k){var b=document.createElement('button');b.type='button';b.textContent=k;b.setAttribute('data-k',k);if(k==='DEL')b.className='act';if(k==='RESET')b.className='act wide';if(k==='=')b.className='eq wide';if(k==='DEL')b.setAttribute('aria-label','Delete');pad.appendChild(b);});
+var state={cur:'',prev:null,op:null,fresh:false};
+function run(a,op,b){a=parseFloat(a);b=parseFloat(b);var r=op==='+'?a+b:op==='-'?a-b:op==='x'?a*b:b===0?NaN:a/b;if(!isFinite(r))return'Error';return String(parseFloat(r.toPrecision(12)));}
+function fmt(s){if(s===''||s==='Error')return s;var p=s.split('.');var n=Number(p[0]);var head=p[0]==='-'?'-':p[0]===''?'':isNaN(n)?p[0]:(p[0].length>15?p[0]:n.toLocaleString('en-US'));if(p[0]==='-0')head='-0';return p.length>1?head+'.'+p[1]:head;}
+function reducer(s,a){var cur=s.cur==='Error'?'':s.cur;switch(a.type){
+case'digit':if(s.fresh)return{cur:a.d==='.'?'0.':a.d,prev:null,op:null,fresh:false};if(a.d==='.'&&cur.indexOf('.')>=0)return s;if(a.d==='0'&&cur==='0')return s;if(cur.replace(/[-.]/g,'').length>=15)return s;return{cur:cur==='0'&&a.d!=='.'?a.d:(cur===''&&a.d==='.'?'0.':cur+a.d),prev:s.prev,op:s.op,fresh:false};
+case'op':if(s.cur==='Error')return s;if(cur===''&&s.prev===null)return s;if(cur==='')return{cur:'',prev:s.prev,op:a.op,fresh:false};if(s.prev===null)return{cur:'',prev:cur,op:a.op,fresh:false};var r=run(s.prev,s.op,cur);if(r==='Error')return{cur:r,prev:null,op:null,fresh:true};return{cur:'',prev:r,op:a.op,fresh:false};
+case'eq':if(s.prev===null||cur==='')return s;return{cur:run(s.prev,s.op,cur),prev:null,op:null,fresh:true};
+case'del':if(s.fresh)return{cur:'',prev:null,op:null,fresh:false};return{cur:cur.slice(0,-1),prev:s.prev,op:s.op,fresh:false};
+case'reset':return{cur:'',prev:null,op:null,fresh:false};}return s;}
+function send(a){state=reducer(state,a);prevEl.textContent=state.prev!==null?fmt(state.prev)+' '+state.op:'';curEl.textContent=fmt(state.cur)||(state.prev!==null?'':'0');}
+function key(k){if(/^[0-9.]$/.test(k))send({type:'digit',d:k});else if(k==='DEL')send({type:'del'});else if(k==='RESET')send({type:'reset'});else if(k==='=')send({type:'eq'});else send({type:'op',op:k});}
+pad.addEventListener('click',function(e){var b=e.target.closest('button');if(b)key(b.getAttribute('data-k'));});
+addEventListener('keydown',function(e){if(e.metaKey||e.ctrlKey||e.altKey)return;var k=e.key;if(/^[0-9.+\-\/]$/.test(k)){if(k==='/')e.preventDefault();key(k);}else if(k==='*'||k==='x')key('x');else if(k==='Enter'||k==='='){if(document.activeElement&&document.activeElement.tagName==='BUTTON'&&k==='Enter')return;key('=');}else if(k==='Backspace')key('DEL');else if(k==='Escape')key('RESET');});
+})();
+</script>
+</body>
+</html>

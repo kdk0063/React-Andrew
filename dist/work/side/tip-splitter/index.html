@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Enter the bill, the tip and the head count. What each person owes updates as you type.">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <title>Tip Splitter — ADK Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/adk.css">
+  <link rel="stylesheet" href="/work/side/side.css">
+  <style>
+.stage{background:#C5E4E7;}
+.tip{width:min(100%,900px);background:#fff;border-radius:22px;padding:clamp(18px,3vw,30px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,44px);font-family:var(--sans);color:#00474B;}
+.tip label,.tip .sub{display:block;font-size:14px;font-weight:700;color:#5E7A7D;}
+.inp{position:relative;margin:8px 0 24px;}
+.inp span{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9EBBBD;font-weight:700;}
+.inp input,.custom{width:100%;box-sizing:border-box;border:2px solid transparent;border-radius:6px;background:#F3F9FA;padding:9px 14px;text-align:right;font:700 22px var(--sans);color:#00474B;}
+.inp input:focus,.custom:focus{outline:0;border-color:#26C2AE;}
+.presets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0 24px;}
+.presets button{border:0;border-radius:6px;background:#00474B;color:#fff;font-weight:700;font-size:20px;padding:9px 0;}
+.presets button:hover{background:#9FE8DF;color:#00474B;}
+.presets button[aria-pressed="true"]{background:#26C2AE;color:#00474B;}
+.res{background:#00474B;color:#fff;border-radius:14px;padding:clamp(20px,3vw,34px);display:flex;flex-direction:column;}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px;}
+.row strong{display:block;font-size:15px;}.row small{color:#7F9D9F;font-size:12.5px;}
+.row output{font-size:clamp(28px,5vw,44px);font-weight:700;color:#26C2AE;letter-spacing:-.02em;word-break:break-all;text-align:right;}
+.reset{margin-top:auto;border:0;border-radius:6px;background:#26C2AE;color:#00474B;font-weight:700;font-size:17px;padding:11px;letter-spacing:.06em;}
+.reset:disabled{opacity:.25;cursor:default;}
+.warn{float:right;color:#D03F2F;font-size:12.5px;font-weight:700;}
+@media (max-width:720px){.tip{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<header class="masthead"><div class="shell">
+  <a class="wordmark" href="/" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="/brand/adk-tag.svg" alt="" width="58" height="28"><span class="sub">Studio</span></span></a>
+  <a class="back" href="/projects/#sideshelf">← Side projects</a>
+</div></header>
+<main>
+<div class="shell side-head"><p class="k">Side project · Live demo</p><h1>Tip Splitter</h1><p class="l">Enter the bill, the tip and the head count. What each person owes updates as you type.</p></div>
+<section class="stage" aria-label="Tip Splitter demo">
+<div class="tip"><div>
+<label for="bill">Bill</label><div class="inp"><span aria-hidden="true">$</span><input id="bill" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0"></div>
+<span class="sub" id="tl">Select tip %</span><div class="presets" id="presets" role="group" aria-labelledby="tl"></div>
+<label for="people">Number of people <span class="warn" id="warn"></span></label><div class="inp"><span aria-hidden="true">#</span><input id="people" type="number" min="0" step="1" inputmode="numeric" placeholder="0"></div>
+</div><div class="res"><div class="row"><div><strong>Tip amount</strong><small>/ person</small></div><output id="tp">$0.00</output></div>
+<div class="row"><div><strong>Total</strong><small>/ person</small></div><output id="tt">$0.00</output></div>
+<button class="reset" id="reset" type="button" disabled>RESET</button></div></div>
+</section>
+<div class="shell">
+<dl class="side-notes"><div><dt>What it is</dt><dd>Preset or custom tip percentages, with the tip and total per person worked out live and a reset once anything has been entered.</dd></div><div><dt>Built with</dt><dd>Originally React state hooks; this page is the same logic in plain JavaScript.</dd></div><div><dt>Timeline</dt><dd>Hand-coded in React in February 2024, while learning it. Rebuilt for this page in 2026.</dd></div><div><dt>Source</dt><dd><a href="https://github.com/kdk0063/React-Andrew/blob/master/src/Pages/TipSplitterPage.js" rel="noopener">Original React code ↗</a></dd></div></dl>
+<footer class="side-foot"><span>© 2026 ADK Studio</span><a href="/work/side/calculator/">Next: Calculator →</a></footer>
+</div>
+</main>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i);},pre=$('presets'),sel=null;
+[5,10,15,25,50].forEach(function(p){var b=document.createElement('button');b.type='button';b.textContent=p+'%';b.setAttribute('data-p',p);b.setAttribute('aria-pressed','false');pre.appendChild(b);});
+var c=document.createElement('input');c.className='custom';c.type='number';c.min='0';c.placeholder='Custom';c.setAttribute('aria-label','Custom tip percent');pre.appendChild(c);
+function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function draw(){var bill=Math.max(parseFloat($('bill').value)||0,0),tip=sel!==null?sel:Math.max(parseFloat(c.value)||0,0),raw=$('people').value,n=Math.max(parseInt(raw,10)||0,0);
+[].forEach.call(pre.querySelectorAll('button'),function(b){b.setAttribute('aria-pressed',+b.getAttribute('data-p')===sel);});
+$('warn').textContent=raw!==''&&n===0?"Can't be zero":'';
+$('tp').textContent=money(n?bill*tip/100/n:0);$('tt').textContent=money(n?bill*(1+tip/100)/n:0);
+$('reset').disabled=!($('bill').value||sel!==null||c.value||raw);}
+pre.addEventListener('click',function(e){var b=e.target.closest('button');if(b){sel=+b.getAttribute('data-p');c.value='';draw();}});
+c.addEventListener('input',function(){sel=null;draw();});$('bill').addEventListener('input',draw);$('people').addEventListener('input',draw);
+$('reset').addEventListener('click',function(){$('bill').value='';$('people').value='';c.value='';sel=null;draw();});
+})();
+</script>
+</body>
+</html>

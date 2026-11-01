@@ -38,8 +38,8 @@
 
   var ITEMS = [
     { id: 'calculator', tone: '#12453F', toneInk: '#E3A857', title: 'Calculator', line: 'It all adds up.', year: '2024',
-      desc: 'A calculator built with React, as a small exercise in managing state with a reducer.',
-      meta: [['Built with', 'React, useReducer, Tailwind'], ['Status', 'Art and copy are placeholders']],
+      desc: 'A four-function calculator with delete and reset, with all of its state running through a single reducer.',
+      meta: [['Built with', 'React, useReducer'], ['Written', 'By hand, February 2024'], ['Status', 'Live demo']], href: '/work/side/calculator/',
       art: function () {
         var CIN = "Cinzel,Georgia,serif";
         return '<defs><linearGradient id="ss-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3BC6B"/><stop offset=".55" stop-color="#DD8A36"/><stop offset="1" stop-color="#A9481A"/></linearGradient></defs>' +
@@ -50,8 +50,8 @@
           txt(150, 441, 'ADK STUDIO · 2024', 6.5, '#B9B2A4', { f: MONO, w: 500, a: 'middle', ls: 1 }) + star(99, 439, 4.5, '#E3A857');
       } },
     { id: 'scatter', tone: '#A82E1F', toneInk: '#F2E6CC', title: 'Scatter', line: 'Every letter finds its place.', year: '2024',
-      desc: 'An intro effect: each letter flies in from a random spot and lands in the word. Built with DOM manipulation and CSS animation.',
-      meta: [['Built with', 'React, CSS animation'], ['Status', 'Art and copy are placeholders']],
+      desc: 'An intro effect: each letter starts in a random spot and drifts into the word, so it never plays the same way twice.',
+      meta: [['Built with', 'React, CSS transitions'], ['Written', 'By hand, February 2024'], ['Status', 'Live demo']], href: '/work/side/scatter/',
       art: function () {
         var COND = "font-family=\"Archivo,Arial,sans-serif\" font-weight=\"800\" font-size=\"39\" fill=\"#0C0D0F\" style=\"font-stretch:62%\" letter-spacing=\"-.2\"";
         return '<rect width="300" height="450" fill="#E7E7E5"/>' +
@@ -66,17 +66,17 @@
           txt(270, 396, '/2024', 17, '#0C0D0F', { w: 800, a: 'end' });
       } },
     { id: 'age', tone: '#F1EADB', toneInk: '#0C0D0F', title: 'Age Calculator', line: 'How long has it been?', year: '2024',
-      desc: 'Enter a birth date and get back the years, months and days. Date logic, form validation and a live result.',
-      meta: [['Built with', 'React, form validation'], ['Status', 'Art and copy are placeholders']],
+      desc: 'Enter a birth date and get the exact age in years, months and days, with real date validation.',
+      meta: [['Built with', 'React, form validation'], ['Written', 'By hand, February 2024'], ['Status', 'Live demo']], href: '/work/side/age-calculator/',
       art: function () { return '<rect width="300" height="450" fill="#F1EADB"/>' + txt(20, 36, 'How long has it been?', 16, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + rings(150, 192, 19, 7, '#0C0D0F', '#E0262B', 12) + txt(20, 376, 'Age', 44, '#0C0D0F', { f: SERIF, w: 400 }) + txt(20, 414, 'Calculator', 38, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#0C0D0F', { f: MONO, w: 500, ls: 1 }); } },
     { id: 'tip', tone: '#2F6B4F', toneInk: '#FFFFFF', title: 'Tip Splitter', line: 'Everyone pays their share.', year: '2024',
-      desc: 'Bill, tip and head count go in; what each person owes comes out as you type. State management and real-time calculation.',
-      meta: [['Built with', 'React, state management'], ['Status', 'Art and copy are placeholders']],
+      desc: 'Bill, tip and head count go in; what each person owes updates as you type.',
+      meta: [['Built with', 'React, state hooks'], ['Written', 'By hand, February 2024'], ['Status', 'Live demo']], href: '/work/side/tip-splitter/',
       art: function () { return '<rect width="300" height="450" fill="#2F6B4F"/>' + txt(20, 36, 'EVERYONE PAYS THEIR SHARE.', 10.5, '#F1EADB', { f: MONO, w: 500, ls: 1 }) + pie(150, 186, 112, '#F1EADB', '#E9A23B', 20) + txt(20, 372, 'Tip', 50, '#F1EADB', { ls: -2 }) + txt(20, 416, 'Splitter', 50, '#E9A23B', { ls: -2 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#F1EADB', { f: MONO, w: 500, ls: 1 }) + star(274, 429, 10, '#E9A23B'); } }
   ];
 
   var STAR = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" fill="currentColor"/></svg>';
-  var info = function (it) { return '<span class="k">Personal · ' + it.year + '</span><h3>' + it.title + '</h3><p>' + it.desc + '</p><dl>' + it.meta.map(function (m) { return '<div><dt>' + m[0] + '</dt><dd>' + m[1] + '</dd></div>'; }).join('') + '</dl>'; };
+  var info = function (it) { return '<span class="k">Personal · ' + it.year + '</span><h3>' + it.title + '</h3><p>' + it.desc + '</p><dl>' + it.meta.map(function (m) { return '<div><dt>' + m[0] + '</dt><dd>' + m[1] + '</dd></div>'; }).join('') + '</dl><a class="ss-open" href="' + it.href + '">Open project →</a>'; };
 
   root.innerHTML =
     '<div class="shell ss-head"><p class="label">The second shelf · 04 side projects</p><h2 id="ss-title">Side projects</h2><p>The small things I built to learn. Each one is rolled up: click to open it, and click again (or press Esc) to roll it back.</p></div>' +

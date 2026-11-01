@@ -1,0 +1,24 @@
+/* The side projects: each page is a working demo with a short note beneath it. */
+.masthead{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--ink);}
+.masthead .shell{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:10px;padding-bottom:10px;}
+.wordmark{color:var(--ink);text-decoration:none;display:inline-flex;}
+.lockup{display:flex;flex-direction:column;align-items:center;}
+.lockup .logo{display:block;height:auto;}
+.lockup .sub{font-family:var(--sans);font-size:7.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:1px;}
+.back{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);text-decoration:none;}
+.back:hover,.back:focus-visible{color:var(--ink);}
+.side-head{padding-top:clamp(32px,5vw,56px);}
+.side-head .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0;}
+.side-head h1{margin:8px 0 0;font:700 clamp(36px,6vw,64px)/1 var(--sans);letter-spacing:-.035em;}
+.side-head p.l{margin:14px 0 0;max-width:36em;color:var(--ink-2);font-size:clamp(16px,1.4vw,18px);line-height:1.55;}
+.stage{margin-top:clamp(24px,4vw,40px);display:grid;place-items:center;min-height:clamp(420px,62vh,620px);padding:clamp(20px,4vw,48px);}
+.side-notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 clamp(24px,5vw,64px);margin:clamp(28px,4vw,44px) 0 0;border-top:1px solid var(--ink);}
+.side-notes div{padding:14px 0;border-bottom:1px solid var(--rule);}
+.side-notes dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+.side-notes dd{margin:6px 0 0;font-size:15.5px;line-height:1.45;}
+.side-notes a{color:var(--ink);}
+.side-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;margin-top:clamp(40px,6vw,72px);padding:14px 0 36px;border-top:1px solid var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);}
+.side-foot a{color:var(--ink);text-decoration:none;font-weight:500;}
+button{font:inherit;cursor:pointer;}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+@media (max-width:640px){.side-foot{flex-direction:column;align-items:center;text-align:center;}}
