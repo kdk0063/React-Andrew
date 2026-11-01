@@ -49,16 +49,21 @@
           txt(150, 426, 'THE FELLOWSHIP OF THE KEYS', 8.6, '#E9C48A', { f: CIN, w: 600, a: 'middle', ls: 1.1 }) +
           txt(150, 441, 'ADK STUDIO · 2024', 6.5, '#B9B2A4', { f: MONO, w: 500, a: 'middle', ls: 1 }) + star(99, 439, 4.5, '#E3A857');
       } },
-    { id: 'scatter', tone: '#3A2E4F', toneInk: '#A6EDE2', title: 'Scatter', line: 'Every letter finds its place.', year: '2024',
+    { id: 'scatter', tone: '#A82E1F', toneInk: '#F2E6CC', title: 'Scatter', line: 'Every letter finds its place.', year: '2024',
       desc: 'An intro effect: each letter flies in from a random spot and lands in the word. Built with DOM manipulation and CSS animation.',
       meta: [['Built with', 'React, CSS animation'], ['Status', 'Art and copy are placeholders']],
       art: function () {
-        var CIN = "Cinzel,Georgia,serif", word = 'SCATTER'.split(''), off = [[-5, -3], [2, 3], [-3, 2], [4, -3], [-4, 3], [3, -2], [-3, 3]];
-        return '<image href="/posters/scatter.jpg" width="300" height="450" preserveAspectRatio="xMidYMid slice"/>' +
-          '<rect y="380" width="300" height="70" fill="url(#ss-fade)"/><defs><linearGradient id="ss-fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05080C" stop-opacity="0"/><stop offset=".55" stop-color="#05080C" stop-opacity=".85"/></linearGradient></defs>' +
-          txt(150, 30, 'ADK STUDIO', 11, '#E7F6F3', { f: CIN, w: 500, a: 'middle', ls: 7 }) +
-          word.map(function (c, i) { return '<text transform="translate(' + (34 + i * 38.6) + ' ' + (420 + off[i][1]) + ') rotate(' + off[i][0] + ')" font-family="' + CIN + '" font-weight="700" font-size="44" fill="#A6EDE2" text-anchor="middle">' + c + '</text>'; }).join('') +
-          txt(150, 438, 'EVERY LETTER FINDS ITS PLACE · IN BROWSERS 2024', 6.6, '#D8EFEA', { f: MONO, w: 500, a: 'middle', ls: .7 });
+        var COND = "font-family=\"Archivo,Arial,sans-serif\" font-weight=\"800\" font-size=\"39\" fill=\"#0C0D0F\" style=\"font-stretch:62%\" letter-spacing=\"-.2\"";
+        return '<rect width="300" height="450" fill="#E7E7E5"/>' +
+          txt(30, 31, 'An ADK Studio project', 6.6, '#0C0D0F', { f: "'Playfair Display',Georgia,serif", w: 700, ls: .7 }) +
+          '<ellipse cx="256" cy="28" rx="14" ry="7" fill="none" stroke="#0C0D0F" stroke-width="1"/>' + star(256, 28, 5, '#0C0D0F') +
+          '<text x="30" y="68" ' + COND + '>Scatter:</text><text x="30" y="102" ' + COND + '>Chapter<tspan dx="6">1</tspan></text>' +
+          '<image href="/posters/scatter.jpg" x="30" y="113" width="240" height="240" preserveAspectRatio="xMidYMid slice"/>' +
+          '<rect x="30" y="358" width="60" height="7" fill="#0C0D0F"/><rect x="90" y="358" width="60" height="7" fill="#A82E1F"/><rect x="150" y="358" width="60" height="7" fill="#C9B48E"/><rect x="210" y="358" width="60" height="7" fill="#F2E6CC"/>' +
+          txt(30, 386, 'BUILT BY', 4.8, '#0C0D0F', { w: 800 }) + txt(62, 386, 'ADK Studio', 6.2, '#333', { w: 400 }) +
+          txt(30, 398, 'BUILT WITH', 4.8, '#0C0D0F', { w: 800 }) + txt(62, 398, 'React, CSS animation', 6.2, '#333', { w: 400 }) +
+          txt(62, 408, 'Every letter finds its place', 6.2, '#333', { w: 400 }) +
+          txt(270, 396, '/2024', 17, '#0C0D0F', { w: 800, a: 'end' });
       } },
     { id: 'age', tone: '#F1EADB', toneInk: '#0C0D0F', title: 'Age Calculator', line: 'How long has it been?', year: '2024',
       desc: 'Enter a birth date and get back the years, months and days. Date logic, form validation and a live result.',
