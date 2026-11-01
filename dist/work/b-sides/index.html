@@ -291,6 +291,14 @@ figcaption{
 .tabs{position:sticky;top:var(--mast,49px);z-index:4;background:var(--paper);margin-top:clamp(40px,6vw,64px);}
 .tabrow{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-top:10px;border-bottom:3px solid var(--tab-active,var(--ink));}
 .tabrow::-webkit-scrollbar{display:none;}
+.tabs .shell{display:flex;align-items:flex-end;}
+.tabrow{flex:1;min-width:0;padding-left:14px;}
+/* The way out: the first divider in the book, always at full strength. */
+.tab-contents{flex:none;display:flex;align-items:center;gap:7px;padding:12px 16px 11px;border-radius:7px 7px 0 0;border-bottom:3px solid var(--tab-active,var(--ink));
+  background:var(--ink);color:var(--paper);text-decoration:none;font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:-.005em;}
+.tab-contents .up{display:inline-block;transition:transform .25s cubic-bezier(.3,1.4,.5,1);}
+.tab-contents:hover .up,.tab-contents:focus-visible .up{transform:translateY(-3px);}
+.tab-contents:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
 .tabrow a{flex:none;display:flex;align-items:center;gap:8px;padding:9px 16px 8px;margin-top:6px;border-radius:7px 7px 0 0;
   background:var(--tab);color:var(--tab-ink);text-decoration:none;font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:-.005em;
   opacity:.55;transition:margin-top .25s cubic-bezier(.3,1.4,.5,1),opacity .2s,padding .25s;}
@@ -490,10 +498,6 @@ figcaption{
 @keyframes bs-in{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
 .op-hint{display:none;}
 #contents{scroll-margin-top:var(--mast,62px);}
-.to-contents{display:none;flex:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);text-decoration:none;
-  padding:7px 12px;border:var(--hair) solid var(--ink);border-radius:999px;transition:background .15s,color .15s;}
-.to-contents:hover,.to-contents:focus-visible{background:var(--ink);color:var(--paper);}
-@media (min-width:860px){.to-contents{display:inline-block;}}
 @media (max-width:419px){.masthead .mastnav a[href="#contents"]{display:inline;}}
 .op-index .label{margin-top:clamp(24px,4vw,32px);}
 .index.text-index{display:block;margin-top:14px;padding:0;border-top:var(--hair) solid var(--ink);overflow:visible;}
@@ -521,10 +525,13 @@ figcaption{
   .pager > .spread{padding:36px 0 40px;border-top:var(--hair) solid var(--rule);scroll-margin-top:calc(var(--mast,49px) + 12px);}
   .pager > .spread:first-child{border-top:0;padding-top:8px;}
   .pagectl{display:none;}
-  .tabs{position:fixed;right:0;top:50%;margin:0;background:none;z-index:6;transform:translate(110%,-50%);transition:transform .35s cubic-bezier(.3,1.3,.5,1);}
+  .tabs{position:fixed;right:0;top:calc(50% + var(--mast,49px)/2);margin:0;background:none;z-index:6;transform:translate(110%,-50%);transition:transform .35s cubic-bezier(.3,1.3,.5,1);}
   .tabs.side-on{transform:translate(0,-50%);}
-  .tabs .shell{padding:0;}
-  .tabrow{flex-direction:column;align-items:flex-end;gap:3px;border:0;padding:0;overflow:visible;}
+  .tabs .shell{padding:0;flex-direction:column;align-items:flex-end;gap:3px;}
+  .tab-contents{margin:0 0 7px;padding:0;width:34px;height:40px;justify-content:center;border:0;border-radius:7px 0 0 7px;font-size:16px;
+    box-shadow:-2px 2px 6px -3px rgba(0,0,0,.35);}
+  .tab-contents .lb{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+  .tabrow{flex:none;flex-direction:column;align-items:flex-end;gap:3px;border:0;padding:0;overflow:visible;}
   .tabrow a{writing-mode:vertical-rl;margin:0;padding:12px 6px;border-radius:7px 0 0 7px;font-size:12px;gap:6px;width:26px;justify-content:center;
     box-shadow:-2px 2px 6px -3px rgba(0,0,0,.35);}
   .tabrow a:hover{margin:0;}
@@ -533,6 +540,7 @@ figcaption{
   .book .shell{padding-right:calc(var(--pad) + 26px);}
   .book .tabs .shell{padding:0;max-width:none;}
 }
+@media (max-width:859px) and (max-height:620px){.tabrow a .ch{display:none;}}
 @media (max-width:859px) and (prefers-reduced-motion:reduce){.tabs{transition:none;}}
 /* On the narrowest phones keep only the way back. */
 @media (max-width:419px){.mastnav a:not(:last-child){display:none;}}
@@ -582,7 +590,7 @@ figcaption{
 
 <div class="book" id="book">
   <nav class="tabs" aria-label="Chapters">
-    <div class="shell"><div class="tabrow" role="tablist">
+    <div class="shell"><a class="tab-contents" href="#contents" data-go="contents"><span class="up" aria-hidden="true">↑</span><span class="lb">Contents</span></a><div class="tabrow" role="tablist">
       <a href="#covers" role="tab" data-go="covers" style="--tab:#E0262B;--tab-ink:#FFFFFF"><span class="ch">I</span>Covers</a>
       <a href="#posters" role="tab" data-go="posters" style="--tab:#E9A23B;--tab-ink:#0C0D0F"><span class="ch">II</span>Posters</a>
       <a href="#sleeves" role="tab" data-go="sleeves" style="--tab:#1E3B9E;--tab-ink:#FFFFFF"><span class="ch">III</span>Album sleeves</a>
@@ -885,7 +893,7 @@ figcaption{
     wrap.className = 'pager-wrap'; stage.className = 'flip-stage';
     pg.parentNode.insertBefore(wrap, pg); wrap.appendChild(stage); stage.appendChild(pg);
     var ctl = document.createElement('div'); ctl.className = 'pagectl';
-    ctl.innerHTML = '<button type="button" class="prev" aria-label="Previous page">←</button><span class="folio" aria-live="polite"></span><span class="progress"><i></i></span><button type="button" class="next" aria-label="Next page">→</button><a class="to-contents" href="#contents" data-go="contents"><span aria-hidden="true">↑</span> Contents</a>';
+    ctl.innerHTML = '<button type="button" class="prev" aria-label="Previous page">←</button><span class="folio" aria-live="polite"></span><span class="progress"><i></i></span><button type="button" class="next" aria-label="Next page">→</button>';
     stage.appendChild(ctl);
     var prev = ctl.querySelector('.prev'), next = ctl.querySelector('.next'), folio = ctl.querySelector('.folio'), bar = ctl.querySelector('.progress i');
     var idx = pg.querySelector('.index'), lead = pg.querySelector('.opener') ? 1 : 0;
@@ -986,7 +994,7 @@ figcaption{
     chapters.forEach(function(c){ c.classList.toggle('on', c === ch); c.hidden = c !== ch; });
     tabs.forEach(function(t){ var on = t.getAttribute('data-go') === id; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
     var tab = tabs.filter(function(t){ return t.getAttribute('data-go') === id; })[0];
-    if (tab) book.querySelector('.tabrow').style.setProperty('--tab-active', getComputedStyle(tab).getPropertyValue('--tab'));
+    if (tab) nav.style.setProperty('--tab-active', getComputedStyle(tab).getPropertyValue('--tab'));
     refresh();
     if (scroll) {
       var top = book.getBoundingClientRect().top + scrollY - (mast ? mast.offsetHeight : 0);
