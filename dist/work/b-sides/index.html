@@ -542,6 +542,13 @@ figcaption{
   .book .tabs .shell{padding:0;max-width:none;}
 }
 @media (max-width:859px) and (max-height:620px){.tabrow a .ch{display:none;}}
+/* A narrow window on a computer: the scrollbar overlays the page edge, so the tabs reach under it and keep their labels clear. */
+@media (max-width:859px) and (any-pointer:fine){
+  .tabrow a{width:42px;padding-right:22px;}
+  .tabrow a[aria-selected="true"]{width:50px;padding-right:25px;}
+  .tab-contents{width:50px;padding-right:16px;}
+  .book .shell{padding-right:calc(var(--pad) + 42px);}
+}
 @keyframes tab-blink{50%{background:#E0262B;}}
 @media (max-width:859px) and (prefers-reduced-motion:reduce){.tabs{transition:none;}.tab-contents{animation:none;}}
 /* On the narrowest phones keep only the way back. */
