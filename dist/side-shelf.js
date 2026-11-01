@@ -1,8 +1,6 @@
 /* MOCK: side projects as rolled posters. Click a roll to flatten it and read
    about it; click again or press Esc to roll it back. */
 (function () {
-  var root = document.getElementById('sideshelf');
-  if (!root) return;
   var SANS = "Archivo,Arial,sans-serif", MONO = "'IBM Plex Mono',monospace", SERIF = "Georgia,serif";
   var star = function (x, y, r, c) { return '<path transform="translate(' + x + ' ' + y + ') scale(' + r / 6 + ') translate(-6 -6)" d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" fill="' + c + '"/>'; };
   var txt = function (x, y, s, size, c, o) { o = o || {}; return '<text x="' + x + '" y="' + y + '" font-family="' + (o.f || SANS) + '" font-size="' + size + '" font-weight="' + (o.w || 700) + '" fill="' + c + '" text-anchor="' + (o.a || 'start') + '" letter-spacing="' + (o.ls || 0) + '"' + (o.it ? ' font-style="italic"' : '') + '>' + s + '</text>'; };
@@ -75,6 +73,11 @@
       art: function () { return '<rect width="300" height="450" fill="#2F6B4F"/>' + txt(20, 36, 'EVERYONE PAYS THEIR SHARE.', 10.5, '#F1EADB', { f: MONO, w: 500, ls: 1 }) + pie(150, 186, 112, '#F1EADB', '#E9A23B', 20) + txt(20, 372, 'Tip', 50, '#F1EADB', { ls: -2 }) + txt(20, 416, 'Splitter', 50, '#E9A23B', { ls: -2 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#F1EADB', { f: MONO, w: 500, ls: 1 }) + star(274, 429, 10, '#E9A23B'); } }
   ];
 
+  window.ADK_POSTERS = {};
+  ITEMS.forEach(function (it) { window.ADK_POSTERS[it.id] = '<svg viewBox="0 0 300 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + it.art() + '</svg>'; });
+
+  var root = document.getElementById('sideshelf');
+  if (!root) return;
   var STAR = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" fill="currentColor"/></svg>';
   var info = function (it) { return '<span class="k">Personal · ' + it.year + '</span><h3>' + it.title + '</h3><p>' + it.desc + '</p><dl>' + it.meta.map(function (m) { return '<div><dt>' + m[0] + '</dt><dd>' + m[1] + '</dd></div>'; }).join('') + '</dl><a class="ss-open" href="' + it.href + '">Open project →</a>'; };
 

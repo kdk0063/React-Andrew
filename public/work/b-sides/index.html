@@ -15,9 +15,10 @@
   <title>B-Sides — ADK Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400..600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Abril+Fatface&family=Jost:ital,wght@1,800&family=Permanent+Marker&family=Grand+Hotel&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400..600&family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Abril+Fatface&family=Jost:ital,wght@1,800&family=Permanent+Marker&family=Grand+Hotel&display=swap">
   <link rel="stylesheet" href="/covers.css">
   <script src="/covers.js"></script>
+  <script src="/side-shelf.js"></script>
 </head>
 <body>
 
@@ -499,6 +500,16 @@ figcaption{
 @keyframes bs-in{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
 .op-hint{display:none;}
 #contents{scroll-margin-top:var(--mast,62px);}
+.poster-art{width:min(100%,380px);aspect-ratio:2/3;margin:0 auto;line-height:0;box-shadow:0 18px 30px -18px rgba(12,13,15,.6);}
+.poster-art svg{display:block;width:100%;height:100%;}
+.pager.flip .pg-l:has(.poster-art){display:flex;align-items:center;justify-content:center;}
+.pager.flip .poster-art{width:auto;height:min(100%,calc(var(--page-h) - 40px));max-width:100%;}
+.poster-open{display:none;width:max-content;margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:var(--hair) solid currentColor;padding-bottom:2px;}
+.spread.done .poster-open{display:inline-block;}
+.mini-rolls{display:flex;align-items:flex-end;gap:5px;height:190px;padding:0 14px;border-bottom:3px solid var(--ink);}
+.mini-rolls i{display:block;position:relative;width:30px;height:180px;border-radius:0 0 50% 50%/0 0 4px 4px;background:linear-gradient(90deg,rgba(0,0,0,.38),rgba(0,0,0,.06) 16%,rgba(255,255,255,.34) 34%,rgba(255,255,255,0) 54%,rgba(0,0,0,.14) 82%,rgba(0,0,0,.42)),var(--c);transition:transform .3s cubic-bezier(.3,1.5,.5,1);}
+.mini-rolls i::before{content:"";position:absolute;left:0;right:0;top:-4px;height:8px;border-radius:50%;background:repeating-radial-gradient(ellipse closest-side,#EFEAE0 0 2px,var(--c) 2px 3px);}
+.mini-rolls i:hover{transform:translateY(-10px);}
 /* The way out on desktop: a quiet pill in the corner, in the chapter's colour, there only while reading. */
 .book-exit{display:none;position:sticky;bottom:0;height:0;z-index:6;}
 @media (min-width:860px){
@@ -592,6 +603,7 @@ figcaption{
     <dl class="specs">
       <div><dt class="label">Chapters</dt><dd>5</dd></div>
       <div><dt class="label">Covers</dt><dd id="cover-count">10</dd></div>
+      <div><dt class="label">Posters</dt><dd>2</dd></div>
       <div><dt class="label">Started</dt><dd>2026</dd></div>
       <div><dt class="label">Status</dt><dd><span class="live-tag wip"><i aria-hidden="true"></i>Always in progress</span></dd></div>
     </dl>
@@ -606,9 +618,9 @@ figcaption{
     </div>
     <ol class="toc">
       <li><a href="#covers" data-go="covers"><span class="ch">I</span><span class="tt">Covers <em>Name that cover</em></span><span class="dots"></span><span class="pg" data-count="covers">10 entries</span></a></li>
-      <li><a href="#posters" data-go="posters"><span class="ch">II</span><span class="tt">Posters</span><span class="dots"></span><span class="pg">Blank, for now</span></a></li>
+      <li><a href="#posters" data-go="posters"><span class="ch">II</span><span class="tt">Posters <em>Name that film</em></span><span class="dots"></span><span class="pg">2 entries</span></a></li>
       <li><a href="#sleeves" data-go="sleeves"><span class="ch">III</span><span class="tt">Album sleeves</span><span class="dots"></span><span class="pg">Blank, for now</span></a></li>
-      <li><a href="#concepts" data-go="concepts"><span class="ch">IV</span><span class="tt">Concepts <em>Ideas the site runs on</em></span><span class="dots"></span><span class="pg">4 entries</span></a></li>
+      <li><a href="#concepts" data-go="concepts"><span class="ch">IV</span><span class="tt">Concepts <em>Ideas the site runs on</em></span><span class="dots"></span><span class="pg">5 entries</span></a></li>
       <li><a href="#notes" data-go="notes"><span class="ch">V</span><span class="tt">Notes</span><span class="dots"></span><span class="pg">Blank, for now</span></a></li>
     </ol>
   </div>
@@ -645,10 +657,57 @@ figcaption{
 
   <section class="chapter" id="posters" role="tabpanel" style="--tab:#E9A23B">
     <div class="shell">
-      <div class="runhead"><span>B-Sides</span><span>Chapter II · Posters</span></div>
-      <h2 class="chtitle">Posters</h2>
-      <p class="intro">Gig and film posters, one per project. The same rule as the covers, at poster size: a famous layout, my project’s name, original art.</p>
-      <div class="blank"><div class="frame" style="aspect-ratio:2/3"></div><span class="label">Blank pages, for now</span><p>The first poster is in sketches. Each one gets a spread here, with the same guessing game.</p></div>
+      <div class="pager" aria-label="Posters, one per spread">
+        <article class="spread opener">
+          <div class="pg pg-r op-text">
+            <div class="runhead"><span>B-Sides</span><span>Chapter II · Posters</span></div>
+            <h2 class="chtitle">Posters</h2>
+            <p class="intro">Film posters for the small side projects, the ones that stand rolled up on the second shelf. A famous poster’s look, my project’s name, the art redrawn.</p>
+            <p class="intro game"><strong>Name that film.</strong> Each poster keeps enough of the original to give it away.</p>
+            <p class="op-hint">Scroll to turn the page</p>
+          </div>
+          <div class="pg op-index"><div class="label">In this chapter</div><div class="index text-index" aria-label="Jump to a poster"><button type="button" data-i="0"><span class="ix">01</span><span class="tx">Calculator</span></button><button type="button" data-i="1"><span class="ix">02</span><span class="tx">Scatter</span></button></div></div>
+        </article>
+        <article class="spread" data-poster="calculator">
+          <div class="pg pg-l"><div class="poster-art" data-art="calculator"></div></div>
+          <div class="pg pg-r"><div class="no">No. 01 · For Calculator</div><h3>What’s the film?</h3>
+            <div class="quiz"><p class="q">Pick one.</p><div class="opts" role="group" aria-label="Which film is poster 01 based on?"><button type="button" class="opt" data-ok="0">Ben-Hur</button><button type="button" class="opt" data-ok="1">The Fellowship of the Ring</button><button type="button" class="opt" data-ok="0">Gladiator</button><button type="button" class="giveup">Show me</button></div></div>
+            <dl class="facts"><div><dt>After</dt><dd><span>The Lord of the Rings: The Fellowship of the Ring<small>Theatrical poster, 2001</small></span></dd></div><div><dt>Kept</dt><dd><span>The two giant statues with raised hands, the river gorge, the white light, the small boats, and the tagline stacked in the sky.</span></dd></div><div><dt>Changed</dt><dd><span>The title is Calculator, the sky says “The Sum Comes to Life”, and the subtitle is “The Fellowship of the Keys”.</span></dd></div></dl>
+            <a class="demo-cta poster-open" href="/work/side/calculator/">Open Calculator →</a>
+            <div class="folio-foot">B-Sides · 01</div></div>
+        </article>
+        <article class="spread" data-poster="scatter">
+          <div class="pg pg-l"><div class="poster-art" data-art="scatter"></div></div>
+          <div class="pg pg-r"><div class="no">No. 02 · For Scatter</div><h3>What’s the film?</h3>
+            <div class="quiz"><p class="q">Pick one.</p><div class="opts" role="group" aria-label="Which film is poster 02 based on?"><button type="button" class="opt" data-ok="0">Collateral</button><button type="button" class="opt" data-ok="0">Taken</button><button type="button" class="opt" data-ok="1">John Wick: Chapter 2</button><button type="button" class="giveup">Show me</button></div></div>
+            <dl class="facts"><div><dt>After</dt><dd><span>John Wick: Chapter 2<small>Minimal print layout, 2017</small></span></dd></div><div><dt>Kept</dt><dd><span>The guns closing in from every side, the pale paper, the heavy condensed title, the colour bars and the slashed year.</span></dd></div><div><dt>Changed</dt><dd><span>The art is redrawn as a three-colour woodcut, and the title and credits belong to Scatter.</span></dd></div></dl>
+            <a class="demo-cta poster-open" href="/work/side/scatter/">Open Scatter →</a>
+            <div class="folio-foot">B-Sides · 02</div></div>
+        </article>
+      </div>
+      <script>
+      (function(){
+        var art = window.ADK_POSTERS || {}, KEY = 'bsides-posters', state = {};
+        try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+        var save = function(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+        document.querySelectorAll('[data-art]').forEach(function(el){ el.innerHTML = art[el.getAttribute('data-art')] || ''; });
+        document.querySelectorAll('[data-poster]').forEach(function(sp){
+          var k = sp.getAttribute('data-poster');
+          var turn = function(how){
+            sp.classList.add('done', how);
+            sp.querySelectorAll('.quiz button').forEach(function(b){ b.disabled = true; if (b.getAttribute('data-ok') === '1') b.classList.add('right'); });
+          };
+          if (state[k]) turn(state[k]);
+          sp.querySelector('.quiz').addEventListener('click', function(e){
+            var b = e.target.closest('button'); if (!b || b.disabled) return;
+            if (b.classList.contains('giveup')) state[k] = 'shown';
+            else if (b.getAttribute('data-ok') === '1') state[k] = 'named';
+            else { b.disabled = true; b.classList.add('wrong'); sp.classList.remove('nope'); void sp.offsetWidth; sp.classList.add('nope'); return; }
+            turn(state[k]); save();
+          });
+        });
+      })();
+      </script>
       <div class="turn"><a href="#covers" data-go="covers"><span aria-hidden="true">←</span> Covers</a><a href="#sleeves" data-go="sleeves">Next chapter: Album sleeves <span aria-hidden="true">→</span></a></div>
     </div>
   </section>
@@ -673,7 +732,7 @@ figcaption{
             <p class="intro">Ideas for how a portfolio can behave. Each one is running on this site; try it on the right-hand page.</p>
             <p class="op-hint">Scroll to turn the page</p>
           </div>
-          <div class="pg op-index"><div class="label">In this chapter</div><div class="index text-index" aria-label="Jump to a concept"><button type="button" data-i="0"><span class="ix">01</span><span class="tx">Every project is a book</span></button><button type="button" data-i="1"><span class="ix">02</span><span class="tx">North, then east</span></button><button type="button" data-i="2"><span class="ix">03</span><span class="tx">東奎, in stroke order</span></button><button type="button" data-i="3"><span class="ix">04</span><span class="tx">A Supreme box, a compass star</span></button></div></div>
+          <div class="pg op-index"><div class="label">In this chapter</div><div class="index text-index" aria-label="Jump to a concept"><button type="button" data-i="0"><span class="ix">01</span><span class="tx">Every project is a book</span></button><button type="button" data-i="1"><span class="ix">02</span><span class="tx">North, then east</span></button><button type="button" data-i="2"><span class="ix">03</span><span class="tx">東奎, in stroke order</span></button><button type="button" data-i="3"><span class="ix">04</span><span class="tx">A Supreme box, a compass star</span></button><button type="button" data-i="4"><span class="ix">05</span><span class="tx">Posters that unroll</span></button></div></div>
         </article>
         <article class="spread">
           <div class="pg pg-r"><div class="no">No. 01 · Bookcase</div><h3>Every project is a book</h3>
@@ -698,6 +757,12 @@ figcaption{
             <p class="lead">The notebook’s own cover: the Supreme book’s red box holding the ADK tag, with “B-Sides” stamped in red below, led by the East star.</p>
             <span class="status"><i aria-hidden="true"></i>On the shelf</span></div>
           <div class="pg pg-l"><div class="demo"><div class="demo-cover" id="self-cover"></div></div></div>
+        </article>
+        <article class="spread">
+          <div class="pg pg-r"><div class="no">No. 05 · Second shelf</div><h3>Posters that unroll</h3>
+            <p class="lead">Side projects aren’t books, so they get a different object. Each stands rolled up with its title running down the tube; click one and it unrolls flat, with the working project a click away.</p>
+            <span class="status"><i aria-hidden="true"></i>Live on the projects page</span></div>
+          <div class="pg pg-l"><div class="demo"><div class="mini-rolls" aria-hidden="true"><i style="--c:#12453F"></i><i style="--c:#A82E1F"></i><i style="--c:#F1EADB"></i><i style="--c:#2F6B4F"></i></div><a class="demo-cta" href="/projects/#sideshelf">See the shelf</a></div></div>
         </article>
       </div>
       <div class="turn"><a href="#sleeves" data-go="sleeves"><span aria-hidden="true">←</span> Album sleeves</a><a href="#notes" data-go="notes">Next chapter: Notes <span aria-hidden="true">→</span></a></div>
