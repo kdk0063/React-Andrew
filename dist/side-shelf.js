@@ -44,15 +44,22 @@
         var CIN = "Cinzel,Georgia,serif";
         return '<defs><linearGradient id="ss-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3BC6B"/><stop offset=".55" stop-color="#DD8A36"/><stop offset="1" stop-color="#A9481A"/></linearGradient></defs>' +
           '<image href="/posters/calculator.jpg" width="300" height="450" preserveAspectRatio="xMidYMid slice"/>' +
-          ['THE', 'SUM', 'COMES', 'TO LIFE'].map(function (w, i) { return txt(150, 36 + i * 17, w, 12, '#4B4C4A', { f: CIN, w: 500, a: 'middle', ls: 1.4 }); }).join('') +
+          ['THE', 'SUM', 'COMES', 'TO LIFE'].map(function (w, i) { return txt(150, 36 + i * 17, w, 12, '#6A675F', { f: CIN, w: 500, a: 'middle', ls: 1.4 }); }).join('') +
           '<text x="150" y="412" text-anchor="middle" textLength="236" lengthAdjust="spacingAndGlyphs" font-family="' + CIN + '" font-weight="700" font-size="34" fill="url(#ss-gold)" stroke="#2A1206" stroke-width=".5" paint-order="stroke">CALCULATOR</text>' +
           txt(150, 426, 'THE FELLOWSHIP OF THE KEYS', 8.6, '#E9C48A', { f: CIN, w: 600, a: 'middle', ls: 1.1 }) +
           txt(150, 441, 'ADK STUDIO · 2024', 6.5, '#B9B2A4', { f: MONO, w: 500, a: 'middle', ls: 1 }) + star(99, 439, 4.5, '#E3A857');
       } },
-    { id: 'scatter', tone: '#F2C230', toneInk: '#0C0D0F', title: 'Scatter', line: 'Every letter finds its place.', year: '2024',
+    { id: 'scatter', tone: '#3A2E4F', toneInk: '#A6EDE2', title: 'Scatter', line: 'Every letter finds its place.', year: '2024',
       desc: 'An intro effect: each letter flies in from a random spot and lands in the word. Built with DOM manipulation and CSS animation.',
       meta: [['Built with', 'React, CSS animation'], ['Status', 'Art and copy are placeholders']],
-      art: function () { return '<rect width="300" height="450" fill="#F2C230"/>' + scatter(146, 1.28, '#0C0D0F', '#E0262B') + txt(20, 376, 'SCATTER', 44, '#0C0D0F', { ls: -.6 }) + txt(20, 398, 'Every letter finds its place.', 13, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + txt(20, 434, 'ADK STUDIO · 2024', 9, '#0C0D0F', { f: MONO, w: 500, ls: 1 }) + star(274, 429, 10, '#0C0D0F'); } },
+      art: function () {
+        var CIN = "Cinzel,Georgia,serif", word = 'SCATTER'.split(''), off = [[-5, -3], [2, 3], [-3, 2], [4, -3], [-4, 3], [3, -2], [-3, 3]];
+        return '<image href="/posters/scatter.jpg" width="300" height="450" preserveAspectRatio="xMidYMid slice"/>' +
+          '<rect y="380" width="300" height="70" fill="url(#ss-fade)"/><defs><linearGradient id="ss-fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05080C" stop-opacity="0"/><stop offset=".55" stop-color="#05080C" stop-opacity=".85"/></linearGradient></defs>' +
+          txt(150, 30, 'ADK STUDIO', 11, '#E7F6F3', { f: CIN, w: 500, a: 'middle', ls: 7 }) +
+          word.map(function (c, i) { return '<text transform="translate(' + (34 + i * 38.6) + ' ' + (420 + off[i][1]) + ') rotate(' + off[i][0] + ')" font-family="' + CIN + '" font-weight="700" font-size="44" fill="#A6EDE2" text-anchor="middle">' + c + '</text>'; }).join('') +
+          txt(150, 438, 'EVERY LETTER FINDS ITS PLACE · IN BROWSERS 2024', 6.6, '#D8EFEA', { f: MONO, w: 500, a: 'middle', ls: .7 });
+      } },
     { id: 'age', tone: '#F1EADB', toneInk: '#0C0D0F', title: 'Age Calculator', line: 'How long has it been?', year: '2024',
       desc: 'Enter a birth date and get back the years, months and days. Date logic, form validation and a live result.',
       meta: [['Built with', 'React, form validation'], ['Status', 'Art and copy are placeholders']],
