@@ -1,5 +1,5 @@
-/* MOCK: side projects on a second shelf, as film posters for now. Art is drawn
-   here; set fmt to 'album' for the square sleeve versions. */
+/* MOCK: side projects as rolled posters. Click a roll to flatten it and read
+   about it; click again or press Esc to roll it back. */
 (function () {
   var root = document.getElementById('sideshelf');
   if (!root) return;
@@ -37,52 +37,52 @@
   }
 
   var ITEMS = [
-    { id: 'calculator', title: 'Calculator', line: 'It all adds up.', lab: '#E9A23B', year: '2024',
+    { id: 'calculator', tone: '#3B4664', toneInk: '#FFFFFF', title: 'Calculator', line: 'It all adds up.', year: '2024',
       desc: 'A calculator built with React, as a small exercise in managing state with a reducer.',
       meta: [['Built with', 'React, useReducer, Tailwind'], ['Status', 'Art and copy are placeholders']],
-      album: function () { return '<rect width="300" height="300" fill="#3B4664"/>' + txt(20, 52, 'Calculator', 40, '#fff', { ls: -1.6 }) + keypad(20, 76, 59, 44, '#fff', '#E9A23B') + star(278, 24, 8, '#E9A23B'); },
-      poster: function () { return '<rect width="300" height="450" fill="#3B4664"/>' + txt(20, 36, 'IT ALL ADDS UP.', 12, '#fff', { f: MONO, w: 500, ls: 1.5 }) + keypad(20, 56, 59, 58, '#fff', '#E9A23B') + txt(20, 372, 'Calcu-', 50, '#fff', { ls: -2 }) + txt(20, 416, 'lator', 50, '#E9A23B', { ls: -2 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#fff', { f: MONO, w: 500, ls: 1 }) + star(274, 424, 10, '#E9A23B'); } },
-    { id: 'scatter', title: 'Scatter', line: 'Every letter finds its place.', lab: '#E0262B', year: '2024',
+      art: function () { return '<rect width="300" height="450" fill="#3B4664"/>' + txt(20, 36, 'IT ALL ADDS UP.', 12, '#fff', { f: MONO, w: 500, ls: 1.5 }) + keypad(20, 56, 59, 58, '#fff', '#E9A23B') + txt(20, 372, 'Calcu-', 50, '#fff', { ls: -2 }) + txt(20, 416, 'lator', 50, '#E9A23B', { ls: -2 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#fff', { f: MONO, w: 500, ls: 1 }) + star(274, 424, 10, '#E9A23B'); } },
+    { id: 'scatter', tone: '#F2C230', toneInk: '#0C0D0F', title: 'Scatter', line: 'Every letter finds its place.', year: '2024',
       desc: 'An intro effect: each letter flies in from a random spot and lands in the word. Built with DOM manipulation and CSS animation.',
       meta: [['Built with', 'React, CSS animation'], ['Status', 'Art and copy are placeholders']],
-      album: function () { return '<rect width="300" height="300" fill="#F2C230"/>' + scatter(118, 1, '#0C0D0F', '#E0262B') + txt(20, 284, 'SCATTER', 15, '#0C0D0F', { ls: 5 }) + star(278, 279, 8, '#0C0D0F'); },
-      poster: function () { return '<rect width="300" height="450" fill="#F2C230"/>' + scatter(146, 1.28, '#0C0D0F', '#E0262B') + txt(20, 376, 'SCATTER', 44, '#0C0D0F', { ls: -.6 }) + txt(20, 398, 'Every letter finds its place.', 13, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + txt(20, 434, 'ADK STUDIO · 2024', 9, '#0C0D0F', { f: MONO, w: 500, ls: 1 }) + star(274, 429, 10, '#0C0D0F'); } },
-    { id: 'age', title: 'Age Calculator', line: 'How long has it been?', lab: '#F1EADB', year: '2024',
+      art: function () { return '<rect width="300" height="450" fill="#F2C230"/>' + scatter(146, 1.28, '#0C0D0F', '#E0262B') + txt(20, 376, 'SCATTER', 44, '#0C0D0F', { ls: -.6 }) + txt(20, 398, 'Every letter finds its place.', 13, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + txt(20, 434, 'ADK STUDIO · 2024', 9, '#0C0D0F', { f: MONO, w: 500, ls: 1 }) + star(274, 429, 10, '#0C0D0F'); } },
+    { id: 'age', tone: '#F1EADB', toneInk: '#0C0D0F', title: 'Age Calculator', line: 'How long has it been?', year: '2024',
       desc: 'Enter a birth date and get back the years, months and days. Date logic, form validation and a live result.',
       meta: [['Built with', 'React, form validation'], ['Status', 'Art and copy are placeholders']],
-      album: function () { return '<rect width="300" height="300" fill="#F1EADB"/>' + rings(150, 128, 15, 7, '#0C0D0F', '#E0262B', 9) + txt(20, 268, 'Age Calculator', 25, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + txt(20, 287, 'DD / MM / YYYY', 10, '#0C0D0F', { f: MONO, w: 500, ls: 1.5 }); },
-      poster: function () { return '<rect width="300" height="450" fill="#F1EADB"/>' + txt(20, 36, 'How long has it been?', 16, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + rings(150, 192, 19, 7, '#0C0D0F', '#E0262B', 12) + txt(20, 376, 'Age', 44, '#0C0D0F', { f: SERIF, w: 400 }) + txt(20, 414, 'Calculator', 38, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#0C0D0F', { f: MONO, w: 500, ls: 1 }); } },
-    { id: 'tip', title: 'Tip Splitter', line: 'Everyone pays their share.', lab: '#2F6B4F', year: '2024',
+      art: function () { return '<rect width="300" height="450" fill="#F1EADB"/>' + txt(20, 36, 'How long has it been?', 16, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + rings(150, 192, 19, 7, '#0C0D0F', '#E0262B', 12) + txt(20, 376, 'Age', 44, '#0C0D0F', { f: SERIF, w: 400 }) + txt(20, 414, 'Calculator', 38, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#0C0D0F', { f: MONO, w: 500, ls: 1 }); } },
+    { id: 'tip', tone: '#2F6B4F', toneInk: '#FFFFFF', title: 'Tip Splitter', line: 'Everyone pays their share.', year: '2024',
       desc: 'Bill, tip and head count go in; what each person owes comes out as you type. State management and real-time calculation.',
       meta: [['Built with', 'React, state management'], ['Status', 'Art and copy are placeholders']],
-      album: function () { return '<rect width="300" height="300" fill="#2F6B4F"/>' + pie(150, 130, 92, '#F1EADB', '#E9A23B', 16) + txt(20, 278, 'Tip Splitter', 30, '#F1EADB', { ls: -1 }) + star(278, 268, 8, '#E9A23B'); },
-      poster: function () { return '<rect width="300" height="450" fill="#2F6B4F"/>' + txt(20, 36, 'EVERYONE PAYS THEIR SHARE.', 10.5, '#F1EADB', { f: MONO, w: 500, ls: 1 }) + pie(150, 186, 112, '#F1EADB', '#E9A23B', 20) + txt(20, 372, 'Tip', 50, '#F1EADB', { ls: -2 }) + txt(20, 416, 'Splitter', 50, '#E9A23B', { ls: -2 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#F1EADB', { f: MONO, w: 500, ls: 1 }) + star(274, 429, 10, '#E9A23B'); } }
+      art: function () { return '<rect width="300" height="450" fill="#2F6B4F"/>' + txt(20, 36, 'EVERYONE PAYS THEIR SHARE.', 10.5, '#F1EADB', { f: MONO, w: 500, ls: 1 }) + pie(150, 186, 112, '#F1EADB', '#E9A23B', 20) + txt(20, 372, 'Tip', 50, '#F1EADB', { ls: -2 }) + txt(20, 416, 'Splitter', 50, '#E9A23B', { ls: -2 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#F1EADB', { f: MONO, w: 500, ls: 1 }) + star(274, 429, 10, '#E9A23B'); } }
   ];
 
-  var fmt = 'poster', cur = 'calculator';
-  root.innerHTML =
-    '<div class="shell ss-head"><div><p class="label">The second shelf · 04 side projects</p><h2 id="ss-title">Side projects</h2><p>The small things I built to learn. Not books: these get a different format.</p></div></div>' +
-    '<div class="ss-rack" id="ss-rack"></div><div class="shell"><div class="ss-detail" id="ss-detail" aria-live="polite"></div></div>';
-  var rack = root.querySelector('#ss-rack'), detail = root.querySelector('#ss-detail');
+  var STAR = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" fill="currentColor"/></svg>';
+  var info = function (it) { return '<span class="k">Personal · ' + it.year + '</span><h3>' + it.title + '</h3><p>' + it.desc + '</p><dl>' + it.meta.map(function (m) { return '<div><dt>' + m[0] + '</dt><dd>' + m[1] + '</dd></div>'; }).join('') + '</dl>'; };
 
-  function draw() {
-    root.className = 'sideshelf is-' + fmt;
-    var h = fmt === 'poster' ? 450 : 300;
-    rack.innerHTML = ITEMS.map(function (it) {
-      return '<button type="button" class="ss-item' + (it.id === cur ? ' on' : '') + '" data-id="' + it.id + '" aria-pressed="' + (it.id === cur) + '" aria-label="' + it.title + '" style="--lab:' + it.lab + '"><span class="ss-record" aria-hidden="true"></span><span class="ss-art"><svg viewBox="0 0 300 ' + h + '" aria-hidden="true">' + it[fmt]() + '</svg></span></button>';
-    }).join('') + '<div class="ss-slot"><span>Open slot</span><span>Next one goes here</span></div>';
-    tell();
-  }
-  function tell() {
-    var it = ITEMS.filter(function (x) { return x.id === cur; })[0];
-    detail.innerHTML = '<div><span class="k">Personal · ' + it.year + '</span><h3>' + it.title + '</h3><p>' + it.desc + '</p></div><dl>' + it.meta.map(function (m) { return '<div><dt>' + m[0] + '</dt><dd>' + m[1] + '</dd></div>'; }).join('') + '</dl>';
+  root.innerHTML =
+    '<div class="shell ss-head"><p class="label">The second shelf · 04 side projects</p><h2 id="ss-title">Side projects</h2><p>The small things I built to learn. Each one is rolled up: click to open it, and click again (or press Esc) to roll it back.</p></div>' +
+    '<div class="ss-rack" id="ss-rack">' + ITEMS.map(function (it) {
+      return '<div class="ss-slot" data-id="' + it.id + '" style="--tone:' + it.tone + ';--tone-ink:' + it.toneInk + '">' +
+        '<button type="button" class="ss-roll" aria-expanded="false" aria-label="' + it.title + ' poster">' +
+          '<span class="ss-art"><svg viewBox="0 0 300 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + it.art() + '</svg></span>' +
+          '<span class="ss-tube"><span class="ss-name">' + it.title + '</span><span class="ss-star">' + STAR + '</span><span class="ss-band"></span></span>' +
+        '</button><div class="ss-panel">' + info(it) + '</div></div>';
+    }).join('') + '<div class="ss-empty">Open slot</div></div><div class="shell"><div class="ss-below" id="ss-below" aria-live="polite"></div></div>';
+  var slots = [].slice.call(root.querySelectorAll('.ss-slot')), below = root.querySelector('#ss-below');
+
+  function open(id) {
+    slots.forEach(function (sl) {
+      var on = sl.getAttribute('data-id') === id;
+      sl.classList.toggle('on', on);
+      sl.querySelector('.ss-roll').setAttribute('aria-expanded', on);
+    });
+    var it = ITEMS.filter(function (x) { return x.id === id; })[0];
+    below.innerHTML = it ? info(it) : '';
   }
   root.addEventListener('click', function (e) {
-    var i = e.target.closest('.ss-item');
-    if (!i) return;
-    cur = i.getAttribute('data-id');
-    rack.querySelectorAll('.ss-item').forEach(function (b) { var on = b === i; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
-    tell();
+    var r = e.target.closest('.ss-roll');
+    if (!r) return;
+    var sl = r.parentNode;
+    open(sl.classList.contains('on') ? null : sl.getAttribute('data-id'));
   });
-  draw();
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') open(null); });
 })();

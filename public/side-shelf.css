@@ -1,56 +1,65 @@
-/* MOCK: the second shelf, side projects as album sleeves or film posters. */
+/* MOCK: the second shelf. Each side project is a rolled poster standing in line.
+   Clicking one unrolls it: the roll travels right and thins out, uncovering the
+   art, while its slot widens and pushes the other rolls along. */
 .sideshelf{padding:0 0 clamp(64px,8vw,104px);}
-.ss-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px 32px;}
 .ss-head h2{margin:6px 0 0;font-family:var(--sans);font-weight:700;font-size:clamp(28px,4vw,44px);letter-spacing:-.03em;line-height:1.05;}
 .ss-head p{margin:10px 0 0;max-width:34em;color:var(--ink-2);font-size:16px;line-height:1.5;}
-.ss-switch{display:inline-flex;border:1px solid var(--ink);border-radius:999px;padding:3px;gap:2px;}
-.ss-switch button{appearance:none;border:0;background:none;color:var(--ink);border-radius:999px;padding:8px 14px;font:600 13px var(--sans);cursor:pointer;}
-.ss-switch button[aria-pressed="true"]{background:var(--ink);color:var(--paper);}
-.ss-switch button:focus-visible,.ss-item:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
-.ss-mock{display:block;margin-top:7px;text-align:right;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
 
-.ss-rack{display:flex;align-items:flex-end;gap:clamp(16px,2.2vw,32px);margin-top:clamp(28px,4vw,44px);padding:24px var(--pad) 0;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity;scroll-padding:0 var(--pad);}
-.ss-rack::-webkit-scrollbar{display:none;}
-.ss-item{appearance:none;position:relative;flex:none;display:block;padding:0;border:0;background:none;cursor:pointer;scroll-snap-align:start;text-align:left;color:inherit;width:var(--ss-w);}
-.ss-art{position:relative;z-index:1;display:block;width:100%;line-height:0;}
-.ss-art svg{display:block;width:100%;height:auto;}
-.ss-item,.ss-slot{--ss-w:clamp(180px,calc((100vw - 2 * var(--pad) - 120px) / 5.5),250px);}
+.ss-rack{--w:260px;--h:390px;--t:60px;--edge:16px;--gapx:36px;--panel:340px;--ease:cubic-bezier(.45,.05,.2,1);
+  display:flex;align-items:flex-end;gap:6px;margin-top:clamp(20px,3vw,32px);padding:28px var(--pad) 0;border-bottom:1px solid var(--ink);overflow:hidden;}
+.ss-slot{position:relative;flex:none;width:var(--t);height:var(--h);transition:width .8s var(--ease);}
+.ss-slot.on{width:calc(var(--w) + var(--edge) + var(--gapx) + var(--panel) + var(--gapx));}
 
-/* sleeves: a record slides out of the one you pick */
-.is-album .ss-rack{border-bottom:1px solid var(--ink);padding-right:calc(var(--pad) + 60px);}
-.is-album .ss-art{box-shadow:0 8px 18px -10px rgba(12,13,15,.55);}
-.is-album .ss-item{transition:margin-right .45s cubic-bezier(.22,1,.36,1);}
-.is-album .ss-item.on{margin-right:calc(var(--ss-w) * .36);}
-.ss-record{position:absolute;top:3%;right:3%;width:94%;aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle,var(--lab) 0 16%,#0C0D0F 16.4% 17%,#17181B 17.2% 100%);transition:transform .45s cubic-bezier(.22,1,.36,1);}
-.ss-record::before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 3px,rgba(255,255,255,.05) 3px 4px);-webkit-mask:radial-gradient(circle,transparent 18%,#000 18.5%);mask:radial-gradient(circle,transparent 18%,#000 18.5%);}
-.ss-record::after{content:"";position:absolute;left:50%;top:50%;width:3%;height:3%;margin:-1.5%;border-radius:50%;background:var(--paper);}
-.is-album .ss-item:hover .ss-record{transform:translateX(9%);}
-.is-album .ss-item.on .ss-record{transform:translateX(38%) rotate(40deg);}
-.is-poster .ss-record{display:none;}
+.ss-roll{appearance:none;position:absolute;left:0;top:0;bottom:0;width:var(--t);padding:0;border:0;background:none;color:inherit;cursor:pointer;transition:width .8s var(--ease),transform .25s;}
+.ss-slot.on .ss-roll{width:calc(var(--w) + var(--edge));}
+.ss-slot:not(.on) .ss-roll:hover{transform:translateY(-6px);}
+.ss-roll:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
 
-/* posters: pinned to a rail, on a wall */
-.is-poster .ss-rack{padding-top:30px;padding-bottom:30px;background:var(--paper-2,#F3F3F1);border-top:1px solid var(--ink);align-items:stretch;}
-.is-poster .ss-art{box-shadow:0 14px 26px -14px rgba(12,13,15,.6);transition:transform .3s cubic-bezier(.22,1,.36,1);}
-.is-poster .ss-item:hover .ss-art,.is-poster .ss-item.on .ss-art{transform:translateY(-6px);}
-.is-poster .ss-item.on::after{content:"";position:absolute;left:0;right:0;bottom:-14px;height:3px;background:var(--ink);}
+/* the flat poster, uncovered from the left */
+.ss-art{position:absolute;left:0;top:0;width:var(--w);height:var(--h);line-height:0;clip-path:inset(0 100% 0 0);transition:clip-path .8s var(--ease);}
+.ss-art svg{display:block;width:100%;height:100%;}
+.ss-slot.on .ss-art{clip-path:inset(0 0 0 0);}
 
-/* the open slot */
-.ss-slot{flex:none;width:var(--ss-w);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1.5px dashed var(--rule,#bbb);color:var(--ink-2);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;text-align:center;scroll-snap-align:start;background:var(--paper);}
-.is-album .ss-slot{aspect-ratio:1;}
-.is-poster .ss-slot{aspect-ratio:2/3;}
+/* the roll: printed side out, the title running down its length, held by a clear band */
+.ss-tube{position:absolute;left:0;top:0;bottom:0;width:var(--t);border-radius:0 0 50% 50%/0 0 5px 5px;
+  background:linear-gradient(90deg,rgba(0,0,0,.38),rgba(0,0,0,.06) 16%,rgba(255,255,255,.34) 34%,rgba(255,255,255,0) 54%,rgba(0,0,0,.14) 82%,rgba(0,0,0,.42)),var(--tone);
+  box-shadow:6px 2px 10px -5px rgba(12,13,15,.5);transition:transform .8s var(--ease),width .8s var(--ease);}
+.ss-slot.on .ss-tube{transform:translateX(var(--w));width:var(--edge);}
+.ss-tube::before{content:"";position:absolute;left:0;right:0;top:-6px;height:12px;border-radius:50%;
+  background:radial-gradient(ellipse closest-side,#3a3530 0 22%,transparent 24%),repeating-radial-gradient(ellipse closest-side,#EFEAE0 0 3px,var(--tone) 3px 4px);box-shadow:inset 0 0 0 1px rgba(40,34,24,.35);}
+.ss-name{position:absolute;left:0;right:0;top:18px;bottom:62px;display:flex;align-items:center;justify-content:flex-start;writing-mode:vertical-rl;overflow:hidden;
+  font:800 calc(var(--t) * .58)/1 var(--sans);letter-spacing:-.015em;color:var(--tone-ink);white-space:nowrap;transition:opacity .2s;}
+.ss-star{position:absolute;left:0;right:0;bottom:16px;display:grid;place-items:center;color:var(--tone-ink);transition:opacity .2s;}
+.ss-star svg{width:14px;height:14px;}
+.ss-band{position:absolute;left:-1px;right:-1px;bottom:44px;height:14px;border-radius:2px;
+  background:linear-gradient(90deg,rgba(255,255,255,.1),rgba(255,255,255,.5) 30%,rgba(255,255,255,.12) 55%,rgba(255,255,255,.3));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.5),0 2px 3px -1px rgba(0,0,0,.4);transition:opacity .2s;}
+.ss-slot.on .ss-name,.ss-slot.on .ss-band,.ss-slot.on .ss-star{opacity:0;}
 
-.ss-detail{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px clamp(24px,5vw,72px);margin-top:26px;}
-.ss-detail h3{margin:6px 0 0;font:700 clamp(24px,3vw,32px)/1.1 var(--sans);letter-spacing:-.025em;}
-.ss-detail .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);}
-.ss-detail p{margin:10px 0 0;color:var(--ink-2);font-size:16px;line-height:1.5;}
-.ss-detail dl{margin:0;border-top:1px solid var(--rule,#ddd);}
-.ss-detail dl div{display:flex;gap:18px;padding:9px 0;border-bottom:1px solid var(--rule,#ddd);font-size:14.5px;}
-.ss-detail dt{width:8em;flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding-top:2px;}
-.ss-detail dd{margin:0;}
-@media (max-width:640px){
-  .ss-detail{grid-template-columns:1fr;}
-  .ss-item,.ss-slot{--ss-w:64vw;}
-  .ss-mock{text-align:left;}
+/* details beside the flat poster */
+.ss-panel{position:absolute;left:calc(var(--w) + var(--edge) + var(--gapx));bottom:0;width:var(--panel);padding-bottom:18px;opacity:0;visibility:hidden;transform:translateX(-10px);transition:opacity .2s,transform .2s,visibility .2s;}
+.ss-slot.on .ss-panel{opacity:1;visibility:visible;transform:none;transition:opacity .3s .7s,transform .3s .7s,visibility 0s .7s;}
+.ss-panel .k,.ss-below .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);}
+.ss-panel h3,.ss-below h3{margin:6px 0 0;font:700 clamp(24px,3vw,32px)/1.1 var(--sans);letter-spacing:-.025em;}
+.ss-panel p,.ss-below p{margin:10px 0 0;color:var(--ink-2);font-size:16px;line-height:1.5;}
+.ss-panel dl,.ss-below dl{margin:16px 0 0;border-top:1px solid var(--rule);}
+.ss-panel dl div,.ss-below dl div{display:flex;gap:18px;padding:9px 0;border-bottom:1px solid var(--rule);font-size:14.5px;}
+.ss-panel dt,.ss-below dt{width:8em;flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding-top:2px;}
+.ss-panel dd,.ss-below dd{margin:0;}
+.ss-below{display:none;margin-top:22px;}
+
+/* the open slot: an empty outline, waiting for the next roll */
+.ss-empty{flex:none;width:var(--t);height:var(--h);border:1.5px dashed #BDBDB8;border-bottom:0;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;color:var(--ink-2);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;}
+
+@media (max-width:1040px){
+  .ss-slot.on{width:calc(var(--w) + var(--edge));}
+  .ss-panel{display:none;}
+  .ss-below{display:block;}
 }
-@media (prefers-reduced-motion:reduce){.ss-item,.ss-record,.ss-art{transition:none!important;}}
+@media (max-width:640px){
+  .ss-rack{--t:34px;--w:calc(100vw - 2 * var(--pad) - 3 * 34px - 3 * 6px - 16px);--h:calc(var(--w) * 1.5);}
+  .ss-empty{display:none;}
+}
+@media (prefers-reduced-motion:reduce){
+  .ss-slot,.ss-roll,.ss-art,.ss-tube,.ss-panel,.ss-name,.ss-band,.ss-star{transition:none!important;}
+}
