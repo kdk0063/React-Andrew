@@ -36,6 +36,7 @@
     .proof b{font-weight:800;font-variation-settings:'wdth' 110;text-transform:uppercase;letter-spacing:.02em;color:var(--gold);white-space:nowrap;}
 
   </style>
+<link rel="stylesheet" href="/side-shelf.css">
 </head>
 <body>
 
@@ -63,6 +64,7 @@
   <div class="shelf-detail" id="shelf-detail" aria-live="polite"></div>
   <div class="shell"><p class="shelf-note">09 books · Client work and personal projects</p></div>
   </div>
+  <div class="sideshelf" id="sideshelf" aria-labelledby="ss-title"></div>
 </section>
 
 
@@ -77,6 +79,7 @@
 
 <script src="/covers.js"></script>
 <script src="/library.js"></script>
+<script src="/side-shelf.js"></script>
 <script>
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
