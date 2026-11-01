@@ -37,10 +37,18 @@
   }
 
   var ITEMS = [
-    { id: 'calculator', tone: '#3B4664', toneInk: '#FFFFFF', title: 'Calculator', line: 'It all adds up.', year: '2024',
+    { id: 'calculator', tone: '#12453F', toneInk: '#E3A857', title: 'Calculator', line: 'It all adds up.', year: '2024',
       desc: 'A calculator built with React, as a small exercise in managing state with a reducer.',
       meta: [['Built with', 'React, useReducer, Tailwind'], ['Status', 'Art and copy are placeholders']],
-      art: function () { return '<rect width="300" height="450" fill="#3B4664"/>' + txt(20, 36, 'IT ALL ADDS UP.', 12, '#fff', { f: MONO, w: 500, ls: 1.5 }) + keypad(20, 56, 59, 58, '#fff', '#E9A23B') + txt(20, 372, 'Calcu-', 50, '#fff', { ls: -2 }) + txt(20, 416, 'lator', 50, '#E9A23B', { ls: -2 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#fff', { f: MONO, w: 500, ls: 1 }) + star(274, 424, 10, '#E9A23B'); } },
+      art: function () {
+        var CIN = "Cinzel,Georgia,serif";
+        return '<defs><linearGradient id="ss-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3BC6B"/><stop offset=".55" stop-color="#DD8A36"/><stop offset="1" stop-color="#A9481A"/></linearGradient></defs>' +
+          '<image href="/posters/calculator.jpg" width="300" height="450" preserveAspectRatio="xMidYMid slice"/>' +
+          ['THE', 'SUM', 'COMES', 'TO LIFE'].map(function (w, i) { return txt(150, 36 + i * 17, w, 12, '#4B4C4A', { f: CIN, w: 500, a: 'middle', ls: 1.4 }); }).join('') +
+          '<text x="150" y="412" text-anchor="middle" textLength="236" lengthAdjust="spacingAndGlyphs" font-family="' + CIN + '" font-weight="700" font-size="34" fill="url(#ss-gold)" stroke="#2A1206" stroke-width=".5" paint-order="stroke">CALCULATOR</text>' +
+          txt(150, 426, 'THE FELLOWSHIP OF THE KEYS', 8.6, '#E9C48A', { f: CIN, w: 600, a: 'middle', ls: 1.1 }) +
+          txt(150, 441, 'ADK STUDIO · 2024', 6.5, '#B9B2A4', { f: MONO, w: 500, a: 'middle', ls: 1 }) + star(99, 439, 4.5, '#E3A857');
+      } },
     { id: 'scatter', tone: '#F2C230', toneInk: '#0C0D0F', title: 'Scatter', line: 'Every letter finds its place.', year: '2024',
       desc: 'An intro effect: each letter flies in from a random spot and lands in the word. Built with DOM manipulation and CSS animation.',
       meta: [['Built with', 'React, CSS animation'], ['Status', 'Art and copy are placeholders']],
