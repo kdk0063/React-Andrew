@@ -49,18 +49,10 @@
       desc: 'Enter a birth date and get back the years, months and days. Date logic, form validation and a live result.',
       meta: [['Built with', 'React, form validation'], ['Status', 'Art and copy are placeholders']],
       art: function () { return '<rect width="300" height="450" fill="#F1EADB"/>' + txt(20, 36, 'How long has it been?', 16, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + rings(150, 192, 19, 7, '#0C0D0F', '#E0262B', 12) + txt(20, 376, 'Age', 44, '#0C0D0F', { f: SERIF, w: 400 }) + txt(20, 414, 'Calculator', 38, '#0C0D0F', { f: SERIF, w: 400, it: 1 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#0C0D0F', { f: MONO, w: 500, ls: 1 }); } },
-    { id: 'tip', tone: '#17A33B', toneInk: '#FFE11A', title: 'Tip Splitter', line: 'Everyone pays their share.', year: '2024',
+    { id: 'tip', tone: '#2F6B4F', toneInk: '#FFFFFF', title: 'Tip Splitter', line: 'Everyone pays their share.', year: '2024',
       desc: 'Bill, tip and head count go in; what each person owes comes out as you type. State management and real-time calculation.',
       meta: [['Built with', 'React, state management'], ['Status', 'Art and copy are placeholders']],
-      art: function () {
-        var title = function (x, w, str) { return '<text x="' + x + '" y="46" textLength="' + w + '" lengthAdjust="spacingAndGlyphs" font-family="\'Playfair Display\',Georgia,serif" font-weight="700" font-size="36" fill="#FFE11A" stroke="#C4161C" stroke-width="1.1" paint-order="stroke">' + str + '</text>'; };
-        return '<image href="/posters/tip-splitter.jpg" width="300" height="450" preserveAspectRatio="xMidYMid slice"/>' +
-          title(16, 57, 'TIP') +
-          '<path d="M84 46V30l-4 3-2-2 19-16 6 5v-4h5v8l8 7-2 2-4-3v16z" fill="#C4161C"/><rect x="89" y="33" width="5" height="5" fill="#FFE11A"/><rect x="99" y="33" width="5" height="5" fill="#FFE11A"/>' +
-          title(120, 164, 'SPLITTER') +
-          '<rect x="16" y="52" width="268" height="1.4" fill="#C4161C"/>' +
-          txt(284, 436, 'ADK STUDIO · 2024', 9, '#fff', { f: MONO, w: 500, ls: 1, a: 'end' }) + star(276, 420, 8, '#FFE11A');
-      } },
+      art: function () { return '<rect width="300" height="450" fill="#2F6B4F"/>' + txt(20, 36, 'EVERYONE PAYS THEIR SHARE.', 10.5, '#F1EADB', { f: MONO, w: 500, ls: 1 }) + pie(150, 186, 112, '#F1EADB', '#E9A23B', 20) + txt(20, 372, 'Tip', 50, '#F1EADB', { ls: -2 }) + txt(20, 416, 'Splitter', 50, '#E9A23B', { ls: -2 }) + txt(20, 437, 'ADK STUDIO · 2024', 9, '#F1EADB', { f: MONO, w: 500, ls: 1 }) + star(274, 429, 10, '#E9A23B'); } }
   ];
 
   var STAR = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0l1.4 4.6L12 6 7.4 7.4 6 12 4.6 7.4 0 6l4.6-1.4z" fill="currentColor"/></svg>';
