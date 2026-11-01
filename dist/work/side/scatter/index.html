@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="An intro effect: each letter starts in a random spot and drifts into the word. Press the button to scatter it again.">
+  <meta name="description" content="An intro effect: each letter starts in a random spot and drifts into the word. Click the text to scatter it again.">
   <meta name="color-scheme" content="light">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
@@ -16,13 +16,15 @@
   <link rel="stylesheet" href="/adk.css">
   <link rel="stylesheet" href="/work/side/side.css">
   <style>
-.stage{background:#EFEDE7;overflow:hidden;}
-.scatter{list-style:none;margin:0;padding:0;display:flex;gap:clamp(4px,2vw,22px);font:800 clamp(38px,11vw,120px)/1 var(--sans);letter-spacing:-.02em;}
-.scatter li{display:block;will-change:transform;}
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+.stage{position:relative;background:#fff;overflow:hidden;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.scatter{list-style:none;margin:0;padding:0;position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);white-space:nowrap;}
+.scatter li{display:inline-block;margin-right:25px;font-family:"Open Sans",Arial,sans-serif;font-weight:300;font-size:32px;color:#000;text-shadow:4px 4px 1px rgba(0,0,0,.3);}
+.scatter li:last-child{margin-right:0;}
 .scatter.go li{transition:transform 2.5s ease;}
-.again{margin-top:28px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:10px 18px;font-family:var(--sans);font-weight:600;font-size:14px;}
-.again:hover{background:var(--ink);color:var(--paper);}
-.wrapc{display:flex;flex-direction:column;align-items:center;}
+.again{position:absolute;left:50%;top:calc(45% + 42px);transform:translate(-50%,-50%);border:0;background:none;color:#000;padding:6px 10px;font-family:"Open Sans",Arial,sans-serif;font-size:12.8px;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:0;}50%{opacity:1;}}
+@media (prefers-reduced-motion:reduce){.again{animation:none;}}
   </style>
 </head>
 <body>
@@ -31,12 +33,12 @@
   <a class="back" href="/projects/#sideshelf">← Side projects</a>
 </div></header>
 <main>
-<div class="shell side-head"><p class="k">Side project · Live demo</p><h1>Scatter</h1><p class="l">An intro effect: each letter starts in a random spot and drifts into the word. Press the button to scatter it again.</p></div>
+<div class="shell side-head"><p class="k">Side project · Live demo</p><h1>Scatter</h1><p class="l">An intro effect: each letter starts in a random spot and drifts into the word. Click the text to scatter it again.</p></div>
 <section class="stage" aria-label="Scatter demo">
-<div class="wrapc"><ul class="scatter" id="word" aria-label="Scatter"></ul><button class="again" type="button" id="again">Scatter it again</button></div>
+<ul class="scatter" id="word" aria-label="Scatter"></ul><button class="again" type="button" id="again">Click to refresh</button>
 </section>
 <div class="shell">
-<dl class="side-notes"><div><dt>What it is</dt><dd>On load, every letter gets a random offset. Removing the offset lets a long CSS transition carry it home, so it never plays the same way twice.</dd></div><div><dt>Built with</dt><dd>Originally React with refs and CSS transitions; this page is the same technique in plain JavaScript.</dd></div><div><dt>Timeline</dt><dd>Hand-coded in React in February 2024, while learning it. Rebuilt for this page in 2026.</dd></div><div><dt>Source</dt><dd><a href="https://github.com/kdk0063/React-Andrew/blob/master/src/Pages/ScatterCssPage.js" rel="noopener">Original React code ↗</a></dd></div></dl>
+<dl class="side-notes"><div><dt>What it is</dt><dd>On load, every letter gets a random offset. Removing the offset lets a long CSS transition carry it home, so it never plays the same way twice.</dd></div><div><dt>Built with</dt><dd>Originally React with refs and CSS transitions; this page is the same technique in plain JavaScript, with the original styling.</dd></div><div><dt>Timeline</dt><dd>Hand-coded in React in February 2024, while learning it. Rebuilt for this page in 2026.</dd></div><div><dt>Source</dt><dd><a href="https://github.com/kdk0063/React-Andrew/blob/master/src/Pages/ScatterCssPage.js" rel="noopener">Original React code ↗</a></dd></div></dl>
 <footer class="side-foot"><span>© 2026 ADK Studio</span><a href="/work/side/age-calculator/">Next: Age Calculator →</a></footer>
 </div>
 </main>
@@ -44,7 +46,7 @@
 (function(){
 var word=document.getElementById('word'),still=matchMedia('(prefers-reduced-motion:reduce)').matches;
 'SCATTER'.split('').forEach(function(c){var li=document.createElement('li');li.textContent=c;li.setAttribute('aria-hidden','true');word.appendChild(li);});
-function play(){var w=Math.min(innerWidth*.5,420),h=Math.min(innerHeight*.28,220);word.classList.remove('go');[].forEach.call(word.children,function(li){li.style.transform=still?'none':'translate('+(Math.random()*w*2-w)+'px,'+(Math.random()*h*2-h)+'px) rotate('+(Math.random()*120-60)+'deg)';});void word.offsetWidth;requestAnimationFrame(function(){requestAnimationFrame(function(){word.classList.add('go');[].forEach.call(word.children,function(li){li.style.transform='none';});});});}
+function play(){word.classList.remove('go');[].forEach.call(word.children,function(li){li.style.transform=still?'none':'translate('+(Math.random()*250-125)+'px,'+(Math.random()*250-125)+'px)';});void word.offsetWidth;setTimeout(function(){word.classList.add('go');[].forEach.call(word.children,function(li){li.style.transform='translate(0,0)';});},0);}
 document.getElementById('again').addEventListener('click',play);play();
 })();
 </script>
