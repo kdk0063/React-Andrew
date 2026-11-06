@@ -78,7 +78,7 @@
       id: 'bsides', design: 'supreme', title: 'B-Sides', spineTitle: 'B-Sides', coverTitle: 'B-Sides',
       box: '<img class="sp-logo" src="/brand/adk-tag.svg" alt="ADK">', spineBox: 'B-Sides', emboss: 'B-SIDES', ink: true, star: true,
       kicker: 'Personal · Idea bank', tag: 'Notebook',
-      desc: 'The studio’s notebook: everything that isn’t client work. Homages to book covers, posters and album sleeves redrawn for my own projects, and ideas for how a portfolio can behave, like this bookcase.',
+      desc: 'My notebook of visual ideas: homages to book covers, posters and album sleeves I love, reworked in my own style, alongside experiments in how a portfolio can behave.',
       meta: [['Contents', 'Cover homages, posters, album art, concepts'], ['Status', 'Always in progress']],
       links: [['Open the notebook', '/work/b-sides/', true]],
       size: { h: 340, d: 44 }, spine: { bg: '#F3F3F1', fg: '#FFFFFF', ac: '#E0262B', pat: 'band' }, cover: { bg: '#F3F3F1', fg: '#E0262B' }
