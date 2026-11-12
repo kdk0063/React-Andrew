@@ -20,7 +20,7 @@ The ADK Studio portfolio at https://studioadk.com. `dist/` is committed and serv
 - **Never include "Andrew Dong Kyu Kim"** (the owner's full name) in the logo or lockups. "ADK STUDIO" and "STUDIO" are fine.
 - **Signature motion:** the compass or star rests pointing north and swings east on hover or action (click, tap, focus, load-in). Use a springy `cubic-bezier(.3,1.6,.4,1)` with the needle going from `rotate(-90deg)` to `0`. The header logo star is static, pointing east.
 - **Orbit motif:** the East star inside a thin level ring, with a small gold moon (#E9A23B) orbiting it. It's saved as a component at `design/live-button/orbit-moon.html` but not placed yet.
-- **Clan colour and 東奎 mark:** the family gold is #F5C902. The footer's 東奎 hanja mark uses Meok ink (#2A2623) strokes, a seal-red (#B7282E) sun in 東 and a clan-gold star on 奎, and it writes itself in stroke order when it scrolls into view. Glyphs are in `design/brand/hanja/glyphs.js`. A Korean feel (오방색, 한지, 도장) is welcome.
+- **Clan colour and 東奎 mark:** the family gold is #F5C902. The footer's 東奎 hanja mark uses Meok ink (#2A2623) strokes, a seal-red (#B7282E) sun on the east half of 東 and a clan-gold star on 奎, and it writes itself in stroke order when it scrolls into view. Glyphs are in `design/brand/hanja/glyphs.js`. A Korean feel (오방색, 한지, 도장) is welcome.
 
 ## Side-project posters (`/projects` second shelf)
 

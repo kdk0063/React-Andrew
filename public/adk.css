@@ -93,10 +93,10 @@ img{max-width:100%;display:block;}
 .foot-line.armed .stk{stroke-dasharray:1;stroke-dashoffset:1;}
 .foot-line.armed .sun,.foot-line.armed .sta{opacity:0;}
 .foot-line.play .stk{animation:hj-write .32s cubic-bezier(.6,0,.3,1) forwards;animation-delay:calc(var(--n) * .16s);}
-.foot-line .sun{transform-box:fill-box;transform-origin:50% 100%;}
-.foot-line.play .sun{animation:hj-rise .7s cubic-bezier(.3,1.4,.5,1) .5s forwards;}
+.foot-line .sun{transform-box:fill-box;transform-origin:100% 50%;}
+.foot-line.play .sun{animation:hj-rise .8s cubic-bezier(.6,0,.3,1) .8s forwards;}
 .foot-line .sta{transform-box:fill-box;transform-origin:50% 50%;}
-.foot-line.play .sta{animation:hj-land .6s cubic-bezier(.3,1.8,.5,1) 1.9s forwards;}
+.foot-line.play .sta{animation:hj-land .6s cubic-bezier(.3,1.8,.5,1) 2.3s forwards;}
 @keyframes hj-write{to{stroke-dashoffset:0;}}
-@keyframes hj-rise{from{opacity:0;transform:translateY(40%) scaleY(.6);}to{opacity:1;transform:none;}}
+@keyframes hj-rise{from{opacity:1;transform:scaleX(0);}to{opacity:1;transform:none;}}
 @keyframes hj-land{from{opacity:0;transform:scale(0) rotate(-90deg);}to{opacity:1;transform:none;}}

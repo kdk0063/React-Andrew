@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>東 options</title>
+<style>
+:root{--ink:#2A2623;--red:#B7282E;--gold:#F5C902;--paper:#fff;}
+body{margin:0;background:#F4F3EF;color:#0C0D0F;font:15px/1.5 "Helvetica Neue",Arial,sans-serif;padding:32px 20px 60px;}
+h1{font-size:28px;letter-spacing:-.02em;margin:0;}p.l{color:#666;max-width:46em;margin:8px 0 24px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;}
+.card{background:#fff;border:1px solid #DDD;padding:18px 18px 16px;cursor:pointer;}
+.card h2{margin:0;font-size:15px;}.card .k{font:11px/1.4 Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:#888;}
+.card p{margin:4px 0 12px;color:#555;font-size:13.5px;}
+.big svg{width:100%;height:auto;display:block;}
+.small{display:flex;flex-direction:column;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid #EEE;font:11px Menlo,monospace;letter-spacing:.06em;color:#6B6B67;}
+.small span{display:flex;align-items:center;gap:8px;}
+.small svg{height:16px;width:auto}.small .s22 svg{height:22px}
+.ref{font-family:"Hiragino Mincho ProN","Songti SC","AppleMyungjo",serif;font-size:96px;line-height:1;letter-spacing:.06em;color:#2A2623;}
+.ref small{display:block;font:12px Menlo,monospace;letter-spacing:.06em;color:#888;margin-top:8px}
+.stk{stroke-dasharray:1;stroke-dashoffset:0;}
+.play .stk{stroke-dashoffset:1;animation:w .32s cubic-bezier(.6,0,.3,1) forwards;animation-delay:calc(var(--n)*.16s);}
+.play .sun{opacity:0;animation:r .7s cubic-bezier(.3,1.4,.5,1) .5s forwards;transform-box:fill-box;transform-origin:50% 100%;}
+.play .sta{opacity:0;animation:l .6s cubic-bezier(.3,1.8,.5,1) 2.3s forwards;transform-box:fill-box;transform-origin:50% 50%;}
+/* east needle: rests north, swings east (signature motion) */
+.ndl{transform-box:fill-box;transform-origin:35.3% 50%;}
+.play .ndl{opacity:0;animation:nd .9s cubic-bezier(.3,1.6,.4,1) 1.5s forwards;}
+@keyframes nd{0%{opacity:0;transform:rotate(-90deg) scale(.4)}25%{opacity:1;transform:rotate(-90deg)}100%{opacity:1;transform:rotate(0)}}
+.play .half{opacity:0;animation:sw .8s cubic-bezier(.6,0,.3,1) .5s forwards;transform-box:fill-box;transform-origin:100% 50%;}
+@keyframes sw{from{opacity:1;transform:scaleX(0)}to{opacity:1;transform:none}}
+@keyframes w{to{stroke-dashoffset:0}}@keyframes r{from{opacity:0;transform:translateY(30%) scale(.6)}to{opacity:1;transform:none}}@keyframes l{from{opacity:0;transform:scale(0) rotate(-90deg)}to{opacity:1;transform:none}}
+</style></head><body>
+<h1>東 — new drawings</h1>
+<p class="l">The current 東 has no frame around 日 and its middle stroke stops above the legs, so it reads more like 申 or 車. Every option below follows the real structure: 一 on top, a full 日 box with its middle line, the centre stroke running through to the bottom, and both legs springing from under the box. 奎 stays as it is. Options E–G accent “east” inside the character itself. Click a card to replay.</p>
+<div class="grid" id="g"></div>
+<script>
+const INK='#2A2623',RED='#B7282E',GOLD='#F5C902',PAPER='#FFFFFF';
+const P=(d,w,n,c=INK,j='round')=>`<path class="stk" pathLength="1" style="--n:${n}" d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="butt" stroke-linejoin="${j}"/>`;
+// 東 in a 100 cell, in real stroke order: 一, 日 (left, top-right, middle, bottom), 丨, 丿, ㇏
+const east=(o)=>{const ink=o.ink||INK,cut=o.cut||ink;return (o.under||'')+
+  P('M5 14H95',12,0,ink)+P('M21 27V63',10,1,o.frame||ink,'miter')+P('M21 27H79V63',10,2,o.frame||ink,'miter')+P('M21 45H79',9,3,cut)+P('M21 63H79',10,4,o.frame||ink)+
+  (o.split?P('M50 0V27',11,5,ink)+P('M50 27V63',10,5,cut)+P('M50 63V100',11,5,ink):P('M50 0V100',11,5,ink))+
+  P('M47 66Q31 88 5 99',12,6,ink)+P('M53 66Q69 88 95 99',12,7,ink);};
+const NEEDLE=(c=RED)=>`<path class="ndl" d="M66 14L78 5L100 14L78 23Z" fill="${c}"/>`;
+const eastN=(o)=>east(o).replace(/d="M5 14H95"/,'d="M5 14H74"')+NEEDLE(o.needle);
+const kui=(o)=>{const ink=o.ink||INK;return P('M4 15H78',13,8,ink)+`<circle class="sta" cx="89" cy="15" r="11" fill="${GOLD}"/><circle cx="89" cy="15" r="3.8" fill="${o.dot||PAPER}"/>`+
+  P('M50 0V15A44 29 0 0 1 6 44',12,9,ink)+P('M50 15A44 29 0 0 0 94 44',12,10,ink)+P('M50 50V100',10,11,ink)+P('M26 54H74',10,12,ink)+P('M14 67H86',10,13,ink)+P('M26 81H74',10,14,ink)+P('M4 95H96',10,15,ink);};
+const svg=(inner,vb='-6 -6 232 112')=>`<svg viewBox="${vb}" role="img" aria-label="東奎">${inner}</svg>`;
+const pair=(e,k,bg='')=>svg(bg+`<g>${e}</g><g transform="translate(120 0)">${k}</g>`);
+const O=[
+ {k:'A',t:'Sun behind the grid',d:'Ink strokes drawn true, with the red sun filling 日 behind them. Closest to today’s mark, now readable.',
+  s:pair(east({under:`<rect class="sun" x="21" y="27" width="58" height="36" fill="${RED}"/>`}),kui({}))},
+ {k:'B',t:'Red 日, paper cuts',d:'日 becomes a solid red block with its middle line and centre stroke cut out in white; the rest is ink. Bolder colour, still the right strokes.',
+  s:pair(east({under:`<rect class="sun" x="16" y="22" width="68" height="46" rx="3" fill="${RED}"/>`,frame:RED,cut:PAPER,split:true}),kui({}))},
+ {k:'C',t:'Name seal (도장)',d:'Both characters cut white out of one red seal, the way a name stamp is carved. Unmistakably a name, and the most Korean.',
+  s:svg(`<rect x="-6" y="-6" width="232" height="112" rx="10" fill="${RED}"/><g transform="translate(6 6) scale(.88)"><g>${east({ink:PAPER})}</g><g transform="translate(125 0)">${kui({ink:PAPER,dot:RED})}</g></g>`)},
+ {k:'E',t:'Needle pointing east',d:'The right end of 一 becomes the compass needle, the same east point as the ADK star. It writes in pointing north, then swings east, and aims straight at 奎’s gold star: east → star.',
+  s:pair(eastN({}),kui({}))},
+ {k:'F',t:'Sun on the east side',d:'Only the east half of 日 is lit red, as if the sun is coming up on the right. The colour sweeps in from the east as it writes.',
+  s:pair(east({under:`<rect class="half" x="50" y="27" width="29" height="36" fill="${RED}"/>`}),kui({}))},
+ {k:'G',t:'Sun + east needle',d:'Option A’s red sun inside 日, plus the east needle on 一. Both meanings at once: 東 is the sun rising in the east.',
+  s:pair(eastN({under:`<rect class="sun" x="21" y="27" width="58" height="36" fill="${RED}"/>`}),kui({}))},
+ {k:'D',t:'Ink only',d:'No colour inside the character at all: 東 and 奎 in plain ink, with only the gold star on 奎. Quietest and clearest at small sizes.',
+  s:pair(east({}),kui({}))},
+];
+const g=document.getElementById('g');
+g.innerHTML=`<div class="card"><div class="k">Reference</div><h2>Typeset 東奎</h2><p>The characters in a standard serif, for comparison.</p><div class="ref">東奎<small>System font, not for use</small></div></div>`+
+ O.map(o=>`<div class="card" data-k="${o.k}"><div class="k">Option ${o.k}</div><h2>${o.t}</h2><p>${o.d}</p><div class="big">${o.s}</div>
+ <div class="small"><span>© 2026 ADK STUDIO · ${o.s}</span><span class="s22">© 2026 ADK STUDIO · ${o.s}</span></div></div>`).join('');
+const play=c=>{c.classList.remove('play');void c.offsetWidth;c.classList.add('play');};
+g.querySelectorAll('[data-k]').forEach(c=>{c.addEventListener('click',()=>play(c));play(c);});
+</script></body></html>
