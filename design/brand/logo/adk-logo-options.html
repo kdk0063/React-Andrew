@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ADK Studio logo</title>
+<style>
+:root{--stone:#BDB8B0;--stone-2:#C9C4BC;--rule:#A39E95;--ink:#1F1D1B;--ink-2:#4A4540;--red:#B7282E;}
+body{margin:0;background:var(--stone);color:var(--ink);font:15px/1.5 "Helvetica Neue",Arial,sans-serif;padding:32px 16px 60px;}
+h1{font-size:28px;letter-spacing:-.02em;margin:0;}p.l{color:var(--ink-2);max-width:50em;margin:8px 0 24px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px;max-width:1240px;}
+.card{background:var(--stone-2);border:1px solid var(--rule);padding:18px;}
+.card h2{margin:0;font-size:15px;}.k{font:11px/1.4 Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+.card p{margin:4px 0 14px;color:var(--ink-2);font-size:13.5px;}
+.stage{display:flex;justify-content:center;align-items:center;padding:56px 28px;min-height:150px;}
+.stage.st{background:var(--stone);color:var(--ink);} .stage.dk{background:var(--ink);color:var(--stone);margin-top:10px;padding:34px 28px;min-height:0}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding:14px 18px;background:var(--stone);border-bottom:1px solid var(--rule);font:11px Menlo,monospace;letter-spacing:.08em;color:var(--ink-2);}
+.tiny{display:flex;align-items:center;gap:18px;margin-top:10px;padding:12px 18px;background:var(--stone);font:11px Menlo,monospace;color:var(--ink-2);}
+.bar svg,.tiny svg{color:var(--ink);}
+svg{display:block}
+/* signature motion: the needle rests north and swings east on hover / focus / tap */
+.ndl{transform-box:fill-box;transform-origin:50% 50%;transform:rotate(-90deg);transition:transform .7s cubic-bezier(.3,1.6,.4,1);}
+.card:hover .ndl,.card:focus-within .ndl,.card.on .ndl{transform:rotate(0deg);}
+@media (prefers-reduced-motion:reduce){.ndl{transition:none}}
+</style></head><body>
+<h1>ADK Studio — logo, in the custom letters</h1>
+<p class="l">Four directions, all set in your redrawn A–Z, on stone and reversed on ink, with header and footer sizes. Hover (or tap) a card: the east needle in C rests north and swings east, the studio’s signature motion.</p>
+<div class="grid" id="g"></div>
+<script src="engine.js"></script>
+<script>
+const RED='#B7282E',STONE='#BDB8B0';
+const frame=(W,H,inner,s)=>`<svg viewBox="0 ${-OV} ${W} ${H+2*OV}" fill="none" stroke="currentColor" stroke-width="${s}" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" role="img" aria-label="ADK Studio.">${inner}</svg>`;
+const at=(x,y,k,inner,s)=>`<g transform="translate(${x} ${y}) scale(${k})" stroke-width="${s}">${inner}</g>`;
+
+// A · Wordmark
+function A(){const s=15,[g,w]=word('ADK STUDIO.',s,RED);return frame(w,100,g,s);}
+
+// B · Stacked lockup: big ADK, STUDIO. tracked out to the same width underneath
+function B(){const s=17,[g1,w1]=word('ADK',s,RED);const k=.3,ss=15,[g0,w0]=word('STUDIO.',ss,RED);
+  const tr=(w1/k-w0)/6,[g2,w2]=word('STUDIO.',ss,RED,tr);const gap=26;
+  return frame(w1,100+gap+100*k,g1+at(0,100+gap,k,g2,ss),s);}
+
+// C · East needle: the full stop becomes the compass needle (north at rest, east on hover)
+function C(){const s=15,[g,w]=word('ADK STUDIO',s);const L=56,h=19,x=w+10,cy=50;
+  const needle=`<path class="ndl" d="M${x} ${cy} L${x+L*.32} ${cy-h/2} L${x+L} ${cy} L${x+L*.32} ${cy+h/2} Z" fill="${RED}" stroke="none"/>`;
+  return frame(x+L,100,g+needle,s);}
+
+// D · Seal: ADK cut in stone out of a seal-red block (도장), STUDIO. set beside it
+function D(){const s=16,[g1,w1]=word('ADK',s);const pad=24,SW=w1+pad*2,SH=100+pad*2;
+  const seal=`<rect x="0" y="${-pad}" width="${SW}" height="${SH}" rx="3" fill="${RED}" stroke="none"/><g transform="translate(${pad} 0)" style="color:${STONE}">${g1}</g>`;
+  const k=.42,ss=15,[g2,w2]=word('STUDIO.',ss);const x2=SW+26;
+  return `<svg viewBox="0 ${-pad} ${x2+w2*k} ${SH}" fill="none" stroke="currentColor" stroke-width="${s}" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" role="img" aria-label="ADK Studio.">${seal}${at(x2,100-100*k,k,g2,ss)}</svg>`;}
+
+const O=[
+ {k:'A',t:'Wordmark',d:'ADK STUDIO. in one line, with the seal-red full stop. Quiet and typographic, closest to the reference.',f:A,big:'width:86%',hdr:'width:136px',ft:'height:13px'},
+ {k:'B',t:'Stacked lockup',d:'A big ADK with STUDIO. tracked out to exactly the same width beneath it. A compact block for the header and social squares.',f:B,big:'width:50%',hdr:'height:34px',ft:'height:20px'},
+ {k:'C',t:'East needle',d:'The full stop becomes the compass needle from the ADK star. It rests pointing north and swings east on hover or tap: 東, east.',f:C,big:'width:86%',hdr:'width:150px',ft:'height:13px'},
+ {k:'D',t:'Seal (도장)',d:'ADK carved in stone out of a seal-red block, like a name stamp, with STUDIO. beside it. The seal alone works as the icon.',f:D,big:'width:78%',hdr:'height:30px',ft:'height:16px'},
+];
+const put=(svg,css)=>svg.replace('<svg',`<svg style="${css}"`);
+document.getElementById('g').innerHTML=O.map(o=>{const m=o.f();return `<div class="card" tabindex="0"><div class="k">Option ${o.k}</div><h2>${o.t}</h2><p>${o.d}</p>
+ <div class="stage st">${put(m,o.big)}</div>
+ <div class="stage dk">${put(m,o.big.replace(/\d+%/,v=>Math.round(parseInt(v)*.7)+'%'))}</div>
+ <div class="bar">${put(m,o.hdr+';flex:none')}<span>WORK · B-SIDES · CONTACT</span></div>
+ <div class="tiny">${put(m,o.ft+';width:auto')}<span>footer size</span></div></div>`;}).join('');
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('on')));
+</script></body></html>

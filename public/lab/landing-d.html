@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab D · The library — ADK Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/adk.css">
+  <style>
+    .mono{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);}
+    section{position:relative;}
+    /* ---------- hero ---------- */
+    .hero{text-align:center;padding:clamp(56px,9vw,112px) 0 clamp(40px,6vw,72px);}
+    .hero h1{font-size:clamp(40px,6.2vw,88px);font-weight:700;font-stretch:88%;letter-spacing:-.045em;line-height:.95;margin:16px auto 0;max-width:15ch;}
+    .hero h1 .w{display:inline-block;opacity:0;transform:translateY(.4em);animation:wrise .8s cubic-bezier(.2,1.2,.3,1) forwards;animation-delay:calc(var(--i) * 55ms + 80ms);}
+    @keyframes wrise{to{opacity:1;transform:none}}
+    .hero .lede{max-width:36em;margin:22px auto 0;color:var(--ink-2);opacity:0;animation:fade .8s .55s forwards;}
+    .hero .cta{margin-top:28px;opacity:0;animation:fade .8s .7s forwards;}
+    @keyframes fade{to{opacity:1}}
+    /* four covers, dealt onto the table; each tilts toward the cursor */
+    .deal{display:flex;justify-content:center;align-items:flex-end;gap:clamp(14px,2.6vw,36px);margin-top:clamp(44px,6vw,72px);perspective:1200px;}
+    .deal a{--rx:0deg;--ry:0deg;--lift:0px;width:clamp(120px,15vw,210px);text-decoration:none;color:inherit;display:flex;flex-direction:column;align-items:center;gap:14px;
+      opacity:0;transform:translateY(40px) rotate(var(--r0));animation:deal .9s cubic-bezier(.2,1.3,.3,1) forwards;animation-delay:calc(var(--i) * 110ms + .85s);}
+    @keyframes deal{to{opacity:1;transform:rotate(var(--r0))}}
+    .deal .bk{position:relative;width:100%;aspect-ratio:.72;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.3,1.4,.4,1);
+      transform:translateY(var(--lift)) rotateX(var(--rx)) rotateY(var(--ry));}
+    .deal a.live .bk{transition:transform .12s linear;}
+    .deal .bk img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:2px 5px 5px 2px;
+      box-shadow:0 26px 44px -24px rgba(0,0,0,.55),0 6px 12px rgba(0,0,0,.12);}
+    .deal .bk::before{content:"";position:absolute;inset:0 auto 0 0;width:7%;z-index:2;border-radius:2px 0 0 2px;background:linear-gradient(90deg,rgba(0,0,0,.22),rgba(255,255,255,.18) 60%,transparent);}
+    .deal .bk::after{content:"";position:absolute;inset:0;z-index:3;border-radius:2px 5px 5px 2px;pointer-events:none;opacity:0;transition:opacity .3s;
+      background:radial-gradient(circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.45),transparent 55%);}
+    .deal a:hover .bk::after{opacity:1;}
+    .deal .lab{display:flex;flex-direction:column;align-items:center;gap:3px;transition:transform .4s cubic-bezier(.3,1.4,.4,1);}
+    .deal .lab b{font-size:13px;font-weight:600;letter-spacing:-.005em;color:var(--ink);opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .35s;}
+    .deal a:hover .lab b,.deal a:focus-visible .lab b{opacity:1;transform:none;}
+    /* ---------- the library preview ---------- */
+    .lib{border-top:1px solid var(--rule);padding:clamp(56px,8vw,96px) 0 clamp(48px,6vw,72px);}
+    .lib-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:16px 40px;}
+    .lib h2,.side h2{font-size:clamp(34px,4.6vw,60px);font-weight:700;font-stretch:88%;letter-spacing:-.04em;line-height:1;margin:10px 0 0;}
+    .lib .lede,.side .lede{color:var(--ink-2);max-width:36em;margin:14px 0 0;}
+    .shelf{position:relative;margin-top:clamp(64px,7vw,88px);display:flex;justify-content:center;align-items:flex-end;gap:3px;padding:0 8px;}
+    .shelf::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:10px;background:linear-gradient(#D9D6CF,#C9C5BC);box-shadow:0 14px 22px -14px rgba(0,0,0,.45);}
+    .sp{position:relative;display:block;height:calc(var(--h) * var(--k));width:calc(var(--d) * var(--k));text-decoration:none;flex:none;
+      transform:translateY(0);transition:transform .45s cubic-bezier(.3,1.5,.4,1),filter .3s;}
+    .sp img,.sp .flat{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:2px 2px 0 0;box-shadow:inset -1px 0 0 rgba(0,0,0,.12);}
+    .sp .flat{display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font-weight:700;font-size:12px;letter-spacing:.02em;}
+    .sp::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.16),rgba(255,255,255,.14) 30%,transparent 55%,rgba(0,0,0,.12));pointer-events:none;}
+    .sp:hover,.sp:focus-visible{transform:translateY(-14%);}
+    .shelf:hover .sp:not(:hover){filter:saturate(.7) brightness(.97);}
+    .sp .tip{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(4px);white-space:nowrap;background:var(--ink);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;opacity:0;pointer-events:none;transition:opacity .2s,transform .3s;}
+    .sp:hover .tip,.sp:focus-visible .tip{opacity:1;transform:translateX(-50%);}
+    .lib .note{margin-top:34px;display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;}
+    .lib .note a{color:var(--ink);}
+    /* ---------- side projects ---------- */
+    .side{border-top:1px solid var(--rule);padding:clamp(56px,8vw,96px) 0;}
+    .posters{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2vw,24px);margin-top:clamp(32px,4vw,48px);}
+    .pc{text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:12px;}
+    .pc .art{position:relative;aspect-ratio:2/3;overflow:hidden;background:var(--tone);box-shadow:0 18px 30px -20px rgba(0,0,0,.45);transition:transform .45s cubic-bezier(.3,1.4,.4,1),box-shadow .45s;}
+    .pc .art svg{position:absolute;inset:0;width:100%;height:100%;}
+    .pc .art::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 45%,transparent 60%);transform:translateX(-100%);transition:transform .9s cubic-bezier(.3,0,.2,1);}
+    .pc:hover .art{transform:translateY(-6px);box-shadow:0 30px 40px -24px rgba(0,0,0,.55);}
+    .pc:hover .art::after{transform:translateX(100%);}
+    .pc .row{display:flex;justify-content:space-between;align-items:baseline;}
+    .pc b{font-size:15px;font-weight:600;}
+    .foot{border-top:1px solid var(--rule);padding-top:26px;}
+    .lab-tag{position:fixed;left:16px;bottom:16px;z-index:30;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:7px 10px;}
+    .lab-tag a{color:#fff;margin-left:8px;opacity:.7;}
+    @media (max-width:760px){
+      .deal{flex-wrap:wrap;gap:22px 16px;}.deal a{width:calc(50% - 8px);max-width:180px;}
+      .lib-head{grid-template-columns:1fr;}
+      .shelf{justify-content:center;padding:0 8px;}
+      .posters{grid-template-columns:1fr 1fr;}
+      .deal .lab b{opacity:1;transform:none;}
+    }
+    @media (prefers-reduced-motion:reduce){.hero h1 .w,.hero .lede,.hero .cta,.deal a{animation:none;opacity:1;transform:none}.sp,.deal .bk,.pc .art{transition:none}}
+  </style>
+</head>
+<body>
+<header class="site-head">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="/brand/adk-tag.svg" alt="" width="62" height="30"><span class="sub">Studio</span></span></a>
+    <nav class="nav" aria-label="Main"><a class="link" href="/projects/">Projects</a><a class="btn btn-primary" href="/contact/">Contact</a></nav>
+  </div>
+</header>
+<main>
+  <section class="shell hero">
+    <p class="mono">Andrew Kim · Designer &amp; developer</p>
+    <h1 id="h1">A few chapters from my life in design and code.</h1>
+    <p class="lede">I’m Andrew Kim, a designer and developer. These projects mark chapters in my working life. Their covers are a separate expression of my taste—homages to books, posters, and artwork I love for their design, color, and mood.</p>
+    <div class="cta"><a class="btn btn-primary" href="/projects/">Explore projects</a></div>
+    <div class="deal" id="deal"></div>
+  </section>
+
+  <section class="lib">
+    <div class="shell">
+      <div class="lib-head">
+        <div>
+          <p class="mono">The library · 09 books</p>
+          <h2>Projects</h2>
+          <p class="lede">Each book holds a project from my working life. Its cover tells a separate story: a visual homage to books, posters, and art I love for their design, color, and mood.</p>
+        </div>
+        <a class="btn btn-primary" href="/projects/">Open the library</a>
+      </div>
+      <div class="shelf" id="shelf" aria-label="The library, one spine per project"></div>
+      <div class="note"><span class="mono">Pull a spine to open its chapter</span><span class="mono"><a href="/work/b-sides/">B-Sides</a> · a notebook of visual ideas</span></div>
+    </div>
+  </section>
+
+  <section class="side">
+    <div class="shell">
+      <p class="mono">The second shelf · 04 side projects</p>
+      <h2>Side projects</h2>
+      <p class="lede">Some chapters begin with a question of my own. These small experiments let me follow an idea and learn by making.</p>
+      <div class="posters" id="posters"></div>
+    </div>
+  </section>
+
+  <div class="shell foot"><p class="foot-line" id="foot-line"><span>© 2026 ADK Studio</span><span aria-hidden="true">·</span><svg class="hanja" viewBox="-6 -6 232 112" role="img" aria-label="東奎"><g transform="translate(0 0) scale(1)"><rect class="sun" x="50" y="27" width="29" height="36" fill="#B7282E"/><path class="stk" pathLength="1" style="--n:0" d="M5 14H95" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:1" d="M21 27V63" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="miter"/><path class="stk" pathLength="1" style="--n:2" d="M21 27H79V63" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="miter"/><path class="stk" pathLength="1" style="--n:3" d="M21 45H79" fill="none" stroke="#2A2623" stroke-width="9" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:4" d="M21 63H79" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:5" d="M50 0V100" fill="none" stroke="#2A2623" stroke-width="11" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:6" d="M47 66Q31 88 5 99" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:7" d="M53 66Q69 88 95 99" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/></g><g transform="translate(120 0) scale(1)"><path class="stk" pathLength="1" style="--n:8" d="M4 15H78" fill="none" stroke="#2A2623" stroke-width="13" stroke-linecap="butt" stroke-linejoin="round"/><circle class="sta" cx="89" cy="15" r="11" fill="#F5C902"/><circle cx="89" cy="15" r="3.8" fill="#FFFFFF"/><path class="stk" pathLength="1" style="--n:9" d="M50 0V15A44 29 0 0 1 6 44" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:10" d="M50 15A44 29 0 0 0 94 44" fill="none" stroke="#2A2623" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:11" d="M50 50V100" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:12" d="M26 54H74" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:13" d="M14 67H86" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:14" d="M26 81H74" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/><path class="stk" pathLength="1" style="--n:15" d="M4 95H96" fill="none" stroke="#2A2623" stroke-width="10" stroke-linecap="butt" stroke-linejoin="round"/></g></svg></p></div>
+</main>
+<div class="lab-tag">Lab D · The library <a href="/lab/">all concepts</a></div>
+<script src="/side-shelf.js"></script>
+<script>
+(function(){
+  // headline: one span per word, rising in turn
+  var h1 = document.getElementById('h1');
+  h1.innerHTML = h1.textContent.split(' ').map(function(w, i){ return '<span class="w" style="--i:' + i + '">' + w + '</span>'; }).join(' ');
+
+  // four covers, dealt with a slight hand-placed rotation
+  var four = [
+    ['allenscabinets', 'allenscabinets.com', 'Client work · 2026', '/books/allenscabinets-cover.jpg', '/work/allenskb/', -2.2],
+    ['grandstand', 'Grandstands', 'Personal · Alpha', '/books/grandstand-cover.jpg', '/work/grandstand/', 1.4],
+    ['beoncarrier', 'Beon Carrier', 'Client work · 2019–2024', '/books/beoncarrier-cover.jpg', '/work/beon-carrier/', -1],
+    ['babeldabble', 'Babel Dabble', 'Contract · Ed-tech', '/books/babeldabble-cover.jpg', '/work/babel-dabble/', 2]
+  ];
+  var deal = document.getElementById('deal');
+  deal.innerHTML = four.map(function(b, i){
+    return '<a href="' + b[4] + '" style="--i:' + i + ';--r0:' + b[5] + 'deg"><div class="bk"><img src="' + b[3] + '" alt="' + b[1] + ' cover"></div><div class="lab"><b>' + b[1] + '</b><span class="mono">' + b[2] + '</span></div></a>';
+  }).join('');
+  // tilt toward the cursor, with a light that follows it
+  if (matchMedia('(hover: hover)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    [].forEach.call(deal.children, function(a){
+      var bk = a.querySelector('.bk');
+      a.addEventListener('mousemove', function(e){
+        var r = bk.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        a.classList.add('live');
+        bk.style.setProperty('--ry', (x * 18).toFixed(2) + 'deg'); bk.style.setProperty('--rx', (-y * 14).toFixed(2) + 'deg');
+        bk.style.setProperty('--lift', '-10px'); bk.style.setProperty('--gx', ((x + .5) * 100).toFixed(1) + '%'); bk.style.setProperty('--gy', ((y + .5) * 100).toFixed(1) + '%');
+      });
+      a.addEventListener('mouseleave', function(){ a.classList.remove('live'); ['--ry', '--rx', '--lift'].forEach(function(p){ bk.style.removeProperty(p); }); });
+    });
+  }
+
+  // the shelf: real spines at their real heights and depths
+  var spines = [
+    ['allenscabinets', 'allenscabinets.com', 380, 73, '/books/allenscabinets-spine.jpg'],
+    ['allensadmin', 'Allen’s Admin', 350, 41, '/books/allensadmin-spine.jpg'],
+    ['genesismassage', 'Genesis Massage', 360, 38, null, '#1E3B9E', '#fff'],
+    ['grandstand', 'Grandstands', 400, 53, '/books/grandstand-spine.jpg'],
+    ['mechelinguide', 'MeChelinGuide', 330, 47, '/books/mechelinguide-spine.jpg'],
+    ['beoncarrier', 'Beon Carrier', 370, 54, '/books/beoncarrier-spine.jpg'],
+    ['kidian', 'Kidian', 320, 30, '/books/kidian-spine.jpg'],
+    ['babeldabble', 'Babel Dabble', 345, 41, '/books/babeldabble-spine.jpg'],
+    ['bsides', 'B-Sides', 340, 44, null, '#F3F3F1', '#E0262B']
+  ];
+  var shelf = document.getElementById('shelf'), k = innerWidth < 760 ? .52 : .9;
+  shelf.style.setProperty('--k', k);
+  shelf.innerHTML = spines.map(function(s){
+    var face = s[4] ? '<img src="' + s[4] + '" alt="">' : '<span class="flat" style="background:' + s[5] + ';color:' + s[6] + '">' + s[1] + '</span>';
+    return '<a class="sp" href="/projects/#book/' + s[0] + '" style="--h:' + s[2] + 'px;--d:' + s[3] + 'px;--k:' + k + '" aria-label="' + s[1] + '">' + face + '<span class="tip">' + s[1] + '</span></a>';
+  }).join('');
+
+  // side projects, with their real poster art
+  var side = [['calculator', 'Calculator', '#12453F', '/work/side/calculator/'], ['scatter', 'Scatter', '#A82E1F', '/work/side/scatter/'], ['age', 'Age Calculator', '#F1EADB', '/work/side/age-calculator/'], ['tip', 'Tip Splitter', '#2F6B4F', '/work/side/tip-splitter/']];
+  document.getElementById('posters').innerHTML = side.map(function(s){
+    return '<a class="pc" href="' + s[3] + '"><div class="art" style="--tone:' + s[2] + '">' + ((window.ADK_POSTERS || {})[s[0]] || '') + '</div><div class="row"><b>' + s[1] + '</b><span class="mono">Open ↗</span></div></a>';
+  }).join('');
+
+  // the 東奎 mark writes itself when the footer comes into view
+  var fl = document.getElementById('foot-line');
+  if (fl && 'IntersectionObserver' in window){
+    fl.classList.add('armed');
+    new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ fl.classList.add('play'); } }); }, { threshold: .6 }).observe(fl);
+  }
+})();
+</script>
+</body>
+</html>

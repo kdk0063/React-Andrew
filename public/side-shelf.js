@@ -82,7 +82,7 @@
   var info = function (it) { return '<span class="k">Personal · ' + it.year + '</span><h3>' + it.title + '</h3><p>' + it.desc + '</p><dl>' + it.meta.map(function (m) { return '<div><dt>' + m[0] + '</dt><dd>' + m[1] + '</dd></div>'; }).join('') + '</dl><a class="ss-open" href="' + it.href + '">Open project →</a>'; };
 
   root.innerHTML =
-    '<div class="shell ss-head"><p class="label">The second shelf · 04 side projects</p><h2 id="ss-title">Side projects</h2><p>The small things I built to learn. Each one is rolled up: click to open it, and click again (or press Esc) to roll it back.</p></div>' +
+    '<div class="shell ss-head"><p class="label">The second shelf · 04 side projects</p><h2 id="ss-title">Side projects</h2><p>Some chapters begin with a question of my own. These small experiments let me follow an idea and learn by making. Click a poster to see what I made.</p></div>' +
     '<div class="ss-rack" id="ss-rack">' + ITEMS.map(function (it) {
       return '<div class="ss-slot" data-id="' + it.id + '" style="--tone:' + it.tone + ';--tone-ink:' + it.toneInk + '">' +
         '<button type="button" class="ss-roll" aria-expanded="false" aria-label="' + it.title + ' poster">' +

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab C · Open the book — ADK Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/adk.css">
+  <style>
+    :root{--cloth:#1F1D1B;--stone:#BDB8B0;--leaf:#FBFAF7;}
+    .run{position:relative;height:300vh;}
+    .stage{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.4vh,26px);overflow:hidden;padding-top:56px;}
+    .over{text-align:center;transition:opacity .4s,transform .4s;}
+    .over .label{margin:0;}
+    .m-h1{display:none;}
+    .hint{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);transition:opacity .4s;}
+    /* the book: a spread of two pages; closed, only the right half (the cover) shows, centred */
+    .book{--W:min(86vw,980px,calc((100svh - 220px) * 1.42));width:var(--W);aspect-ratio:1.42;position:relative;perspective:2400px;container-type:inline-size;
+      transform:translateX(calc(var(--shift) * -25%));}
+    .half{position:absolute;top:0;bottom:0;width:50%;}
+    .pg-r{right:0;background:var(--leaf);border-radius:0 4px 4px 0;box-shadow:inset 14px 0 18px -14px rgba(0,0,0,.25),0 30px 60px -30px rgba(0,0,0,.45);}
+    .pg-r::after{content:"";position:absolute;top:3px;bottom:3px;right:-5px;width:5px;border-radius:0 3px 3px 0;
+      background:repeating-linear-gradient(90deg,#e9e6df 0 1px,var(--leaf) 1px 2px);box-shadow:2px 0 3px rgba(0,0,0,.12);}
+    .leaf{right:0;transform-origin:0 50%;transform-style:preserve-3d;transform:rotateY(calc(var(--open) * -180deg));}
+    .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+    .front{background:var(--cloth);color:var(--stone);border-radius:3px 6px 6px 3px;overflow:hidden;
+      box-shadow:0 40px 70px -34px rgba(0,0,0,.6),0 8px 18px rgba(0,0,0,.2);
+      background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.35),rgba(255,255,255,.06) 5%,transparent 9%);background-size:3px 3px,100% 100%;}
+    .front .wm{position:absolute;left:12%;right:12%;top:42%;width:76%;height:auto;}
+    .front .ndl{transform-box:fill-box;transform-origin:31% 50%;transform:rotate(-90deg);transition:transform .9s cubic-bezier(.3,1.6,.4,1);}
+    .run.going .front .ndl{transform:rotate(0);}
+    .front .top,.front .bot{position:absolute;left:12%;right:12%;font-family:var(--mono);font-size:max(9px,1.25cqw);letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between;opacity:.75;}
+    .front .top{top:9%;border-bottom:1px solid rgba(189,184,176,.35);padding-bottom:1.2cqw;}
+    .front .bot{bottom:9%;}
+    .back{transform:rotateY(180deg);background:var(--leaf);border-radius:4px 0 0 4px;box-shadow:inset -14px 0 18px -14px rgba(0,0,0,.25),0 30px 60px -30px rgba(0,0,0,.45);}
+    .inner{position:absolute;inset:9% 10%;display:flex;flex-direction:column;}
+    .back .inner{justify-content:space-between;}
+    .back .label{font-size:max(9px,1.1cqw);margin:0;}
+    .back h1{font-size:4.1cqw;font-weight:700;font-stretch:88%;letter-spacing:-.04em;line-height:.98;margin:2.2cqw 0 0;}
+    .back p{font-size:max(11px,1.45cqw);line-height:1.5;color:var(--ink-2);margin:0;}
+    .back .sig{font-family:var(--mono);font-size:max(9px,1.05cqw);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);display:flex;justify-content:space-between;}
+    .pg-r .inner h2{font-family:var(--mono);font-size:max(9px,1.1cqw);font-weight:500;letter-spacing:.14em;text-transform:uppercase;margin:0 0 1.6cqw;padding-bottom:1.2cqw;border-bottom:1px solid var(--ink);}
+    .pg-r ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;flex:1;justify-content:space-between;}
+    .pg-r li a{display:grid;grid-template-columns:2.4em auto 1fr auto;align-items:baseline;gap:.8cqw;text-decoration:none;color:var(--ink);font-size:max(12px,1.75cqw);font-weight:600;letter-spacing:-.01em;padding:.25cqw 0;transition:transform .45s cubic-bezier(.3,1.4,.4,1);}
+    .pg-r li a .n{font-family:var(--mono);font-weight:400;font-size:.68em;color:var(--ink-2);}
+    .pg-r li a .d{border-bottom:1px dotted #B9B9B5;transform:translateY(-.3em);}
+    .pg-r li a .y{font-family:var(--mono);font-weight:400;font-size:.68em;color:var(--ink-2);}
+    .pg-r li a:hover{transform:translateX(.6cqw);}
+    .pg-r li a:hover .t{color:#B7282E;}
+    .after{padding:clamp(48px,7vw,90px) 0;text-align:center;}
+    .after p{color:var(--ink-2);max-width:30em;margin:12px auto 24px;}
+    .lab-tag{position:fixed;left:16px;bottom:16px;z-index:30;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:7px 10px;}
+    .lab-tag a{color:#fff;margin-left:8px;opacity:.7;}
+    /* phone: one page wide; the cover lifts away to the left and reveals the contents */
+    @media (max-width:720px){
+      .book{--W:min(88vw,calc((100svh - 200px) * .71));aspect-ratio:.71;transform:none;}
+      .half{width:100%;}
+      .leaf{transform:rotateY(calc(var(--open) * -120deg));opacity:calc(1 - var(--open) * 1.4);}
+      .book{--W:min(88vw,calc((100svh - 300px) * .71));}
+      .m-h1{display:block;font-size:26px;font-weight:700;font-stretch:88%;letter-spacing:-.035em;line-height:1;margin:10px auto 0;max-width:13ch;opacity:var(--o,0);transform:translateY(calc((1 - var(--o,0)) * 10px));}
+      .back{display:none;}
+      .pg-r .inner{inset:8% 8%;}
+      .pg-r li a{font-size:max(13px,3.6cqw);}
+      .pg-r .inner h2,.front .top,.front .bot{font-size:max(9px,2.4cqw);}
+      .front .wm{top:44%;}
+    }
+    @media (prefers-reduced-motion:reduce){.front .ndl{transition:none}}
+  </style>
+</head>
+<body>
+<header class="site-head">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="/brand/adk-tag.svg" alt="" width="62" height="30"><span class="sub">Studio</span></span></a>
+    <nav class="nav" aria-label="Main"><a class="link" href="/projects/">Projects</a><a class="btn btn-primary" href="/contact/">Contact</a></nav>
+  </div>
+</header>
+<section class="run" id="run">
+  <div class="stage">
+    <div class="over" id="over"><p class="label">ADK Studio · Andrew Kim</p><h1 class="m-h1">A few chapters from my life in design and code</h1></div>
+    <div class="book" id="book" style="--open:0;--shift:1">
+      <div class="half pg-r"><div class="inner"><h2>Contents</h2><ol id="toc"></ol></div></div>
+      <div class="half leaf">
+        <div class="face front">
+          <div class="top"><span>A few chapters</span><span>2017–2026</span></div>
+          <svg class="wm" viewBox="0 -2.5 842 105" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" role="img" aria-label="ADK Studio."><defs><clipPath id="cvlogo0"><rect x="1" y="0" width="86" height="100"/></clipPath><clipPath id="cvlogo1"><rect x="96" y="0" width="82" height="100"/></clipPath><clipPath id="cvlogo2"><rect x="191" y="0" width="74" height="100"/></clipPath><clipPath id="cvlogo4"><rect x="310" y="-2.5" width="66" height="105"/></clipPath><clipPath id="cvlogo5"><rect x="382" y="0" width="72" height="100"/></clipPath><clipPath id="cvlogo6"><rect x="463" y="0" width="76" height="102.5"/></clipPath><clipPath id="cvlogo7"><rect x="555" y="0" width="82" height="100"/></clipPath><clipPath id="cvlogo8"><rect x="650" y="0" width="15" height="100"/></clipPath><clipPath id="cvlogo9"><rect x="678" y="-2.5" width="94" height="105"/></clipPath></defs><g transform="translate(-1 0)"><g clip-path="url(#cvlogo0)"><path transform="translate(1 0)" d="M4.245 115 L43 0 L81.755 115 M25.5 64 H60.5"/></g><g clip-path="url(#cvlogo1)"><path transform="translate(96 0)" d="M7.5 7.5 H40 A34.5 42.5 0 0 1 40 92.5 H7.5 Z"/></g><g clip-path="url(#cvlogo2)"><path transform="translate(191 0)" d="M7.5 0 V100 M81.70564516129032 -15 L-15 85.34728033472803 M26.567162008663363 35.90077487464925 L77.69578912466844 115"/></g><g clip-path="url(#cvlogo4)"><path transform="translate(310 0)" d="M56.5 24 C53.5 11 42 5 33 5 C16.5 5 9.5 13 9.5 26 C9.5 37 25 44 33 47 C45 51 58.5 57 58.5 72 C58.5 87 44 95 33 95 C16.5 95 7.5 89 6.5 74"/></g><g clip-path="url(#cvlogo5)"><path transform="translate(382 0)" d="M0 7.5 H72 M36 0 V100"/></g><g clip-path="url(#cvlogo6)"><path transform="translate(463 0)" d="M7.5 0 V56 A30.5 39 0 0 0 68.5 56 V0"/></g><g clip-path="url(#cvlogo7)"><path transform="translate(555 0)" d="M7.5 7.5 H40 A34.5 42.5 0 0 1 40 92.5 H7.5 Z"/></g><g clip-path="url(#cvlogo8)"><path transform="translate(650 0)" d="M7.5 0 V100"/></g><g clip-path="url(#cvlogo9)"><path transform="translate(678 0)" d="M47 5 A39.5 45 0 1 0 47 95 A39.5 45 0 1 0 47 5"/></g></g><path class="ndl" d="M786 50 L803.92 40.5 L842 50 L803.92 59.5 Z" fill="#B7282E" stroke="none"/></svg>
+          <div class="bot"><span>Design &amp; code</span><span>Vol. I</span></div>
+        </div>
+        <div class="face back"><div class="inner">
+          <div><p class="label">ADK Studio · Andrew Kim</p><h1>A few chapters from my life in design and code</h1></div>
+          <p>I’m Andrew Kim, a designer and developer. These projects mark chapters in my working life. The covers are separate expressions of my taste—homages to books, posters, and artwork I love for their design, color, and mood.</p>
+          <div class="sig"><span>Vol. I · 2017–2026</span><span>東奎</span></div>
+        </div></div>
+      </div>
+    </div>
+    <div class="hint" id="hint">Scroll to open</div>
+  </div>
+</section>
+<section class="shell after">
+  <p class="label">The library</p>
+  <p>Every chapter is a book on the shelf, with a cover of its own.</p>
+  <a class="btn btn-primary" href="/projects/">Browse the shelf</a>
+</section>
+<div class="lab-tag">Lab C · Open the book <a href="/lab/">all concepts</a></div>
+<script src="/lab/chapters.js"></script>
+<script>
+(function(){
+  var toc = document.getElementById('toc');
+  toc.innerHTML = CH.slice().reverse().map(function(c, i){
+    return '<li><a href="' + c.href + '"><span class="n">' + ROMAN[i] + '</span><span class="t">' + c.t + '</span><span class="d"></span><span class="y">' + c.y + '</span></a></li>';
+  }).join('');
+  var run = document.getElementById('run'), book = document.getElementById('book'), hint = document.getElementById('hint'), over = document.getElementById('over');
+  var ease = function(t){ return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+  function frame(){
+    var span = run.offsetHeight - innerHeight, p = Math.min(1, Math.max(0, -run.getBoundingClientRect().top / span));
+    var o = ease(Math.min(1, Math.max(0, (p - .12) / .6)));          // hold closed for a beat, then open
+    book.style.setProperty('--open', o.toFixed(4));
+    book.style.setProperty('--shift', (1 - o).toFixed(4));             // slide from cover-centred to spread-centred
+    run.classList.toggle('going', p > .01);
+    hint.style.opacity = 1 - Math.min(1, p * 8);
+    over.style.setProperty('--o', o.toFixed(3));
+    over.querySelector('.label').style.opacity = innerWidth > 720 ? (1 - o).toFixed(3) : 1;
+  }
+  frame(); addEventListener('scroll', function(){ requestAnimationFrame(frame); }, { passive: true }); addEventListener('resize', frame);
+})();
+</script>
+</body>
+</html>

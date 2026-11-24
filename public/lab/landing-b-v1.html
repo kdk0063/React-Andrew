@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab B v1 · East — ADK Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/adk.css">
+  <style>
+    .intro{text-align:center;padding:clamp(56px,9vw,112px) 0 clamp(20px,3vw,32px);}
+    .intro h1{font-size:clamp(38px,6.4vw,92px);font-weight:700;font-stretch:88%;letter-spacing:-.045em;line-height:.94;margin:14px auto 0;max-width:13ch;}
+    .intro .lede{max-width:34em;margin:20px auto 0;color:var(--ink-2);}
+    .hint{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:28px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);}
+    .hint i{display:block;width:1px;height:28px;background:var(--ink);transform-origin:top;animation:drip 1.8s cubic-bezier(.6,0,.3,1) infinite;}
+    @keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+    /* the scroll-driven timeline */
+    .run{position:relative;}
+    .stage{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;grid-template-rows:1fr auto;}
+    .year{position:absolute;left:var(--pad);top:calc(72px + 3vh);font-family:var(--mono);font-size:clamp(56px,10vw,150px);line-height:1;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px var(--ink);opacity:.9;}
+    .year b{display:inline-block;font-weight:400;}
+    .count{position:absolute;right:var(--pad);top:calc(80px + 3vh);font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-2);}
+    .lane{position:relative;align-self:end;height:min(52vh,420px);}
+    .track{position:absolute;left:50%;bottom:64px;display:flex;align-items:flex-end;gap:var(--gap);will-change:transform;}
+    .bk{--w:clamp(130px,15vw,210px);width:var(--w);aspect-ratio:.72;flex:none;position:relative;transform-origin:50% 100%;transition:transform .55s cubic-bezier(.3,1.4,.4,1),opacity .4s,filter .4s;opacity:.5;filter:saturate(.6);transform:scale(.86);}
+    .bk.on{opacity:1;filter:none;transform:translateY(-18px) scale(1.06);}
+    .bk .face{position:absolute;inset:0;border-radius:2px 5px 5px 2px;overflow:hidden;box-shadow:0 26px 40px -22px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.12);}
+    .bk .face::before{content:"";position:absolute;inset:0 auto 0 0;width:7%;background:linear-gradient(90deg,rgba(0,0,0,.22),rgba(255,255,255,.18) 60%,transparent);z-index:2;}
+    .bk img,.bk .flat{width:100%;height:100%;object-fit:cover;display:block;}
+    .flat{display:flex;align-items:flex-end;padding:14%;font-weight:700;font-size:20px;letter-spacing:-.02em;line-height:1;}
+    .ruler{position:absolute;left:0;right:0;bottom:40px;height:1px;background:var(--ink);}
+    .tick{position:absolute;bottom:14px;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-2);white-space:nowrap;}
+    .tick::before{content:"";position:absolute;left:50%;top:-19px;width:1px;height:8px;background:var(--ink);}
+    /* the needle playhead */
+    .head{position:absolute;left:50%;top:0;bottom:40px;width:0;pointer-events:none;}
+    .head::before{content:"";position:absolute;left:-.5px;top:34px;bottom:0;width:1px;background:linear-gradient(var(--ink) 0 0) top/1px 100% no-repeat;opacity:.18;}
+    .head svg{position:absolute;left:-17px;top:0;width:34px;height:34px;overflow:visible;}
+    .ndl{transform-box:fill-box;transform-origin:31% 50%;transform:rotate(-90deg);transition:transform .8s cubic-bezier(.3,1.6,.4,1);}
+    .run.going .ndl{transform:rotate(0);}
+    .cap{display:grid;grid-template-columns:1fr auto;align-items:end;gap:6px 24px;padding:18px var(--pad) clamp(24px,4vh,40px);border-top:1px solid var(--rule);min-height:120px;}
+    .cap .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);}
+    .cap h2{grid-column:1;margin:0;font-size:clamp(30px,4.4vw,56px);font-weight:650;font-stretch:90%;letter-spacing:-.035em;line-height:1;}
+    .cap h2 span{display:inline-block;animation:up .5s cubic-bezier(.3,1.3,.4,1);}
+    @keyframes up{from{opacity:0;transform:translateY(40%)}to{opacity:1;transform:none}}
+    .cap a.btn{grid-column:2;grid-row:1/3;align-self:center;}
+    .after{padding:clamp(56px,8vw,100px) 0;text-align:center;}
+    .after p{color:var(--ink-2);max-width:30em;margin:12px auto 24px;}
+    .lab-tag{position:fixed;left:16px;bottom:16px;z-index:30;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:7px 10px;}
+    .lab-tag a{color:#fff;margin-left:8px;opacity:.7;}
+    @media (max-width:640px){.cap{grid-template-columns:1fr}.cap a.btn{grid-column:1;grid-row:auto;justify-self:start;margin-top:8px}.year{top:76px}.count{display:none}}
+    @media (prefers-reduced-motion:reduce){.bk,.ndl{transition:none}.cap h2 span{animation:none}.hint i{animation:none}}
+  </style>
+</head>
+<body>
+<header class="site-head">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="ADK Studio home"><span class="lockup"><img class="logo" src="/brand/adk-tag.svg" alt="" width="62" height="30"><span class="sub">Studio</span></span></a>
+    <nav class="nav" aria-label="Main"><a class="link" href="/projects/">Projects</a><a class="btn btn-primary" href="/contact/">Contact</a></nav>
+  </div>
+</header>
+<section class="shell intro">
+  <p class="label">ADK Studio · Andrew Kim</p>
+  <h1>A few chapters from my life in design and code</h1>
+  <p class="lede">I’m Andrew Kim, a designer and developer. These projects mark chapters in my working life, read from the first to the latest: east, like the star.</p>
+  <div class="hint"><i></i>Scroll to read east</div>
+</section>
+<section class="run" id="run">
+  <div class="stage">
+    <div class="year" aria-hidden="true"><b id="yr">2017</b></div>
+    <div class="count" id="count">I / IX</div>
+    <div class="lane">
+      <div class="ruler"></div>
+      <div class="track" id="track"></div>
+      <div class="head"><svg viewBox="-12 -12 24 24" aria-hidden="true"><path class="ndl" d="M-5 0L0 -3.4L11 0L0 3.4Z" fill="#B7282E"/></svg></div>
+    </div>
+    <div class="cap" id="cap" aria-live="polite"></div>
+  </div>
+</section>
+<section class="shell after">
+  <p class="label">The library</p>
+  <p>Every chapter is a book on the shelf, with a cover of its own.</p>
+  <a class="btn btn-primary" href="/projects/">Browse the shelf</a>
+</section>
+<div class="lab-tag">Lab B v1 · East <a href="/lab/">all concepts</a></div>
+<script src="/lab/chapters.js"></script>
+<script>
+(function(){
+  var run = document.getElementById('run'), track = document.getElementById('track'), cap = document.getElementById('cap'),
+      yr = document.getElementById('yr'), count = document.getElementById('count'), N = CH.length;
+  run.style.height = (N * 55 + 60) + 'vh';
+  track.innerHTML = CH.map(function(c, i){ return '<a class="bk" href="' + c.href + '" data-i="' + i + '" aria-label="' + c.t + '"><div class="face">' + coverHTML(c) + '</div></a>'; }).join('');
+  var books = [].slice.call(track.children), cur = -1;
+  function layout(){
+    var gap = Math.max(28, innerWidth * .05); track.style.setProperty('--gap', gap + 'px');
+    // year ticks under each change of year
+    [].slice.call(document.querySelectorAll('.tick')).forEach(function(t){ t.remove(); });
+    books.forEach(function(b, i){ if (i === 0 || CH[i].y0 !== CH[i - 1].y0){ var t = document.createElement('span'); t.className = 'tick'; t.textContent = CH[i].y0; t.dataset.i = i; track.parentNode.appendChild(t); } });
+  }
+  function show(i){
+    if (i === cur) return; cur = i; var c = CH[i];
+    books.forEach(function(b, j){ b.classList.toggle('on', j === i); });
+    cap.innerHTML = '<div class="k">' + ROMAN[i] + ' · ' + c.k + ' · ' + c.tag + ' · ' + c.y + '</div><h2><span>' + c.t + '</span></h2><a class="btn btn-primary" href="' + c.href + '">Open chapter</a>';
+    yr.textContent = c.y0; count.textContent = ROMAN[i] + ' / ' + ROMAN[N - 1];
+  }
+  function frame(){
+    var r = run.getBoundingClientRect(), span = run.offsetHeight - innerHeight;
+    var p = Math.min(1, Math.max(0, -r.top / span)), raw = p * (N - 1), i0 = Math.floor(raw), t = raw - i0;
+    // rest on each book for a moment, then glide to the next, so the needle always lands on a cover
+    var g = t < .28 ? 0 : t > .72 ? 1 : (function(u){ return u * u * (3 - 2 * u); })((t - .28) / .44), f = Math.min(N - 1, i0 + g);
+    run.classList.toggle('going', p > .002);
+    var w = books[0].offsetWidth, gap = parseFloat(getComputedStyle(track).gap) || 40, step = w + gap;
+    var x = -(f * step) - w / 2;
+    track.style.transform = 'translateX(' + x + 'px)';
+    document.querySelectorAll('.tick').forEach(function(t){ var i = +t.dataset.i; t.style.left = 'calc(50% + ' + (x + i * step + w / 2) + 'px)'; });
+    show(Math.round(f));
+  }
+  layout(); frame();
+  addEventListener('scroll', function(){ requestAnimationFrame(frame); }, { passive: true });
+  addEventListener('resize', function(){ layout(); frame(); });
+})();
+</script>
+</body>
+</html>
