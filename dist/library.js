@@ -250,9 +250,9 @@
       if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
     }
   } else {
-    // No book in the link: the first book starts open, as a preview of
-    // how the shelf works.
-    var first = shelf.querySelector('.book');
+    // No book in the link: B-Sides, the studio's notebook, starts open as a
+    // preview of how the shelf works (the first book if it is ever missing).
+    var first = document.getElementById('book-bsides') || shelf.querySelector('.book');
     if (first) open(first, false, true);
   }
 })();
