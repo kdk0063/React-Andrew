@@ -503,16 +503,19 @@ figcaption{
 .pager.flip > .spread > *::-webkit-scrollbar{display:none;}
 /* Page edges: the paper block shows on both sides, as on a real book. The left stack grows and the right one
    shrinks as you read (--prog runs 0 to 1 across the chapter); fine lines, tapering towards the outside. */
-.flip-on .flip-stage{--edge:clamp(10px,1.3vw,18px);}
-.pager.flip{margin:0 var(--edge);}
+/* The open book sits on a desk, with room on every side so the whole spread reads as one object. */
+.flip-on .flip-stage{--edge:clamp(10px,1.3vw,18px);--gutter:clamp(28px,5vw,88px);background:#EFEEEA;}
+.pager.flip{margin:14px calc(var(--gutter) + var(--edge)) 0;height:calc(var(--page-h) - 28px);
+  box-shadow:0 34px 50px -30px rgba(12,13,15,.45),0 2px 6px rgba(12,13,15,.08);}
 .pager.flip::before,.pager.flip::after{content:"";position:absolute;top:5px;bottom:5px;z-index:0;pointer-events:none;
   background:repeating-linear-gradient(90deg,#B4AFA5 0 1px,#F4F2ED 1px 3px);box-shadow:inset 0 0 0 .5px rgba(0,0,0,.08);filter:drop-shadow(0 8px 8px rgba(0,0,0,.12));}
 .pager.flip::before{right:100%;width:calc(3px + (var(--edge) - 3px) * var(--prog,0));clip-path:polygon(0 1.4%,100% 0,100% 100%,0 98.6%);}
 .pager.flip::after{left:100%;width:calc(3px + (var(--edge) - 3px) * (1 - var(--prog,0)));clip-path:polygon(0 0,100% 1.4%,100% 98.6%,0 100%);}
-.flip-stage > .turnlayer{position:absolute;margin:0;z-index:4;pointer-events:none;}
-.flip-stage > .turnlayer::before,.flip-stage > .turnlayer::after{display:none;}
-.pager.flip.turnlayer > .spread{visibility:visible;}
-.turnlayer .strip{box-shadow:none !important;}
+.flip-stage > .turnlayer{position:absolute;z-index:6;pointer-events:none;}
+.turnlayer .tl-box{position:absolute;top:0;height:100%;overflow:hidden;}
+.turnlayer .tl-box i{position:absolute;left:0;top:0;height:400vh;margin-top:-200vh;transform-origin:0 50%;}
+.turnlayer .tl-cast i{background:linear-gradient(90deg,rgba(0,0,0,.30),rgba(0,0,0,.10) 35%,transparent);}
+.turnlayer .tl-crease i{background:linear-gradient(90deg,rgba(0,0,0,.22),rgba(255,255,255,.35) 18%,rgba(0,0,0,.06) 55%,transparent);}
 /* the sheet being turned: a soft highlight rides the bend, nearest the spine */
 .pager.flip > .spread > *::after{content:"";position:absolute;inset:0;z-index:10;pointer-events:none;opacity:var(--gloss,0);
   background:linear-gradient(var(--gloss-dir,to right),rgba(0,0,0,.18) 0,rgba(255,255,255,.42) 8%,rgba(255,255,255,.1) 24%,transparent 46%,rgba(0,0,0,.05) 70%,rgba(0,0,0,.14) 100%);}
@@ -524,7 +527,7 @@ figcaption{
 .pager.flip .pg-l .pairing{max-width:min(100%,calc((var(--page-h) - 62px) * .72 * 2 + 14px));margin:0 auto;}
 .pager.flip .pg-l:has(.demo){display:flex;}
 .pager.flip .demo{width:100%;min-height:0;}
-.flip-on .pagectl{position:relative;z-index:5;height:46px;margin:0;padding:0 calc(clamp(20px,2.4vw,40px) + var(--edge,0px));background:var(--paper);border-top:var(--hair) solid var(--rule);gap:12px;}
+.flip-on .pagectl{position:relative;z-index:5;height:46px;margin:14px 0 0;padding:0 calc(var(--gutter,0px) + var(--edge,0px));background:#EFEEEA;border-top:0;gap:12px;}
 /* content sits centred on each page, and revealing the answer doesn't shift it */
 .pager.flip .pg-l:has(.pairing){display:flex;flex-direction:column;justify-content:center;}
 .pager.flip .pg-l .pairing{width:100%;}
@@ -533,7 +536,7 @@ figcaption{
 .pager.flip .spread:not(.done) .facts dd{position:relative;height:auto;overflow:visible;}
 .pager.flip .spread:not(.done) .facts dd::before{position:absolute;top:.3em;left:0;margin:0;}
 @media (min-width:860px){.tabs .shell{max-width:none;padding:0 clamp(20px,2.4vw,40px);}
-  .book:has(.chapter.on .flip-on) .tabs .shell{padding:0 calc(clamp(20px,2.4vw,40px) + clamp(10px,1.3vw,18px));}}
+  .book:has(.chapter.on .flip-on) .tabs .shell{padding:0 calc(clamp(28px,5vw,88px) + clamp(10px,1.3vw,18px));}}
 .flip-on .pagectl button{width:30px;height:30px;font-size:14px;}
 
 /* opening spread: the chapter's first page, so a tab lands straight in the book */
@@ -568,9 +571,9 @@ figcaption{
   .book-exit a:hover,.book-exit a:focus-visible{background:var(--ink);color:var(--paper);}
   .book-exit a:hover .up,.book-exit a:focus-visible .up{transform:translateY(-2px);}
   .book-exit a:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
-  .book:has(.chapter.on .flip-on) .book-exit a{bottom:4px;}
+  .book:has(.chapter.on .flip-on) .book-exit a{bottom:4px;right:calc(clamp(28px,5vw,88px) + clamp(10px,1.3vw,18px));}
   .pagectl{padding-right:190px;}
-  .flip-on .pagectl{padding-right:calc(clamp(20px,2.4vw,40px) + var(--edge,0px) + 186px);}
+  .flip-on .pagectl{padding-right:calc(var(--gutter,0px) + var(--edge,0px) + 186px);}
 }
 @media (prefers-reduced-motion:reduce){.book-exit a,.book-exit .up{transition:none;}}
 @media (max-width:419px){.masthead .mastnav a[href="#contents"]{display:inline;}}
@@ -1085,74 +1088,83 @@ figcaption{
     // Each page rests for the first and last stretch of its scroll, so it can be read.
     var eased = function(f){ var t = Math.max(0, Math.min(1, (f - .18) / .64)); return t * t * (3 - 2 * t); };
     var shade = function(el, v, dir){ el.style.setProperty('--shade', v.toFixed(3)); el.style.setProperty('--shade-dir', dir); };
-    // A turn, after a printed flip book. The sheet is soft: it is drawn as K vertical strips, each hinged to the
-    // last and turned a little less, so it bows like paper (the free edge trails). It lifts off the block, every
-    // strip takes its own light from its angle, and the page underneath darkens as the sheet passes over it.
-    var K = 10, layer = null, layerSp = null, cache = new Map();
+    // A turn, after a printed flip book: the sheet's bottom outer corner is lifted and carried across in an arc,
+    // and the paper folds along the line halfway between where the corner was and where it is now. The front is
+    // cut along that fold; the flap shows the back of the sheet (the next left page) reflected across the fold;
+    // a soft shadow falls on the page being uncovered and the flap darkens along its crease.
+    var layer = null, castBox = null, cast = null, creaseBox = null, crease = null;
     var ensureLayer = function(){
       if (layer) return;
-      layer = document.createElement('div'); layer.className = 'pager flip turnlayer'; layer.setAttribute('aria-hidden', 'true');
-      layerSp = document.createElement('div'); layerSp.className = 'spread'; layer.appendChild(layerSp);
+      layer = document.createElement('div'); layer.className = 'turnlayer'; layer.setAttribute('aria-hidden', 'true');
+      layer.innerHTML = '<div class="tl-box tl-cast"><i></i></div><div class="tl-box tl-crease"><i></i></div>';
       stage.insertBefore(layer, pg.nextSibling);
+      castBox = layer.children[0]; cast = castBox.firstChild; creaseBox = layer.children[1]; crease = creaseBox.firstChild;
     };
-    var stripsFor = function(el){
-      if (cache.has(el)) return cache.get(el);
-      var list = [];
-      for (var k = 1; k < K; k++){
-        var c = el.cloneNode(true);
-        c.removeAttribute('id'); [].forEach.call(c.querySelectorAll('[id]'), function(n){ n.removeAttribute('id'); });
-        c.inert = true; c.classList.add('strip', 'is-vis'); c.style.display = 'none';
-        layerSp.appendChild(c); list.push(c);
+    // keep the part of polygon P on the side of the line where dot(p - M, n) has the sign sg
+    var cut = function(P, M, n, sg){
+      var out = [], side = function(q){ return sg * ((q[0] - M[0]) * n[0] + (q[1] - M[1]) * n[1]); };
+      for (var k = 0; k < P.length; k++){
+        var A = P[k], B = P[(k + 1) % P.length], sa = side(A), sb = side(B);
+        if (sa >= 0) out.push(A);
+        if ((sa >= 0) !== (sb >= 0)) { var t = sa / (sa - sb); out.push([A[0] + (B[0] - A[0]) * t, A[1] + (B[1] - A[1]) * t]); }
       }
-      cache.set(el, list); return list;
+      return out;
     };
-    var hideStrips = function(keep){ cache.forEach(function(list, el){ if (el !== keep) list.forEach(function(c){ c.style.display = 'none'; }); }); };
-    var lit = function(deg){ return 'brightness(' + (1 - .2 * Math.abs(Math.sin(deg * Math.PI / 180))).toFixed(3) + ')'; };
-    // front: hinge on the left edge (the spine), angle 0 → -180; back: hinge on the right edge, 180 → 0
-    var bend = function(el, base, f, front){
+    var poly = function(P){ return P.length < 3 ? 'polygon(0 0,0 0,0 0)' : 'polygon(' + P.map(function(q){ return q[0].toFixed(1) + 'px ' + q[1].toFixed(1) + 'px'; }).join(',') + ')'; };
+    var flat = function(el){ el.style.transform = ''; el.style.clipPath = ''; el.style.transformOrigin = ''; el.style.filter = ''; };
+    var fold = function(front, back, f){
       ensureLayer();
-      layer.style.left = pg.offsetLeft + 'px'; layer.style.top = pg.offsetTop + 'px';
-      layer.style.width = pg.offsetWidth + 'px'; layer.style.height = pg.offsetHeight + 'px';
-      layerSp.className = el.parentNode.className;
-      var W = el.offsetWidth, w = W / K, s = Math.sin(Math.PI * f), lift = 'perspective(1800px) translateZ(' + (s * 10).toFixed(1) + 'px) ';
-      var d = (front ? 1 : -1) * (40 * s) / (K - 1), sign = front ? 1 : -1, list = stripsFor(el);
-      hideStrips(el);
-      var seg = function(node, k){
-        var tf = lift + 'rotateY(' + base.toFixed(2) + 'deg)';
-        for (var j = 1; j <= k; j++){ var b = (j * w * sign).toFixed(2); tf += ' translateX(' + b + 'px) rotateY(' + d.toFixed(2) + 'deg) translateX(' + (-b) + 'px)'; }
-        var lo = Math.max(0, k * w - .8), hi = Math.max(0, W - (k + 1) * w - .8);
-        node.style.transformOrigin = front ? '0 50%' : '100% 50%';
-        node.style.transform = tf;
-        node.style.clipPath = front ? 'inset(0 ' + hi.toFixed(1) + 'px 0 ' + lo.toFixed(1) + 'px)' : 'inset(0 ' + lo.toFixed(1) + 'px 0 ' + hi.toFixed(1) + 'px)';
+      var W = front.offsetWidth, H = front.offsetHeight, spine = front.offsetLeft;   // spread coords: origin at the spine
+      layer.style.left = (pg.offsetLeft) + 'px'; layer.style.top = pg.offsetTop + 'px'; layer.style.width = pg.offsetWidth + 'px'; layer.style.height = pg.offsetHeight + 'px';
+      // the corner rides an arc inside the reach of the spine, rising as it crosses
+      var a = Math.PI * f, Cx = W * Math.cos(a), Cy = H - W * .3 * Math.sin(a);
+      var Bx = W, By = H, dx = Bx - Cx, dy = By - Cy, L = Math.hypot(dx, dy) || 1e-6, n = [dx / L, dy / L], M = [(Bx + Cx) / 2, (By + Cy) / 2];
+      var R = [[0, 0], [W, 0], [W, H], [0, H]];
+      var keep = cut(R, M, n, -1), flap = cut(R, M, n, 1);
+      // front: what is left of the sheet on the spine side of the fold
+      front.style.clipPath = poly(keep);
+      // back: the next left page, placed so it is the sheet's reverse folded across the line
+      var nx = n[0], ny = n[1], r11 = 1 - 2 * nx * nx, r12 = -2 * nx * ny, r22 = 1 - 2 * ny * ny;
+      var A11 = -r11, A12 = r12, A21 = -r12, A22 = r22;                     // reflection after the left-right flip
+      var wx = W - M[0], wy = -M[1], tx = r11 * wx + r12 * wy + M[0] + W, ty = r12 * wx + r22 * wy + M[1];
+      back.style.transformOrigin = '0 0';
+      back.style.transform = 'matrix(' + [A11, A21, A12, A22, tx, ty].map(function(v){ return v.toFixed(4); }).join(',') + ')';
+      back.style.clipPath = poly(flap.map(function(q){ return [W - q[0], q[1]]; }));
+      // shadows, laid along the fold: one falls on the uncovered page, one shades the flap at its crease
+      var ang = Math.atan2(n[1], n[0]) * 180 / Math.PI, s = Math.sin(Math.PI * f);
+      var place = function(box, el, clip, width, alpha){
+        box.style.left = spine + 'px'; box.style.width = W + 'px'; box.style.clipPath = poly(clip);
+        el.style.width = width + 'px'; el.style.opacity = alpha.toFixed(3);
+        el.style.transform = 'translate(' + M[0].toFixed(1) + 'px,' + M[1].toFixed(1) + 'px) rotate(' + ang.toFixed(2) + 'deg)';
       };
-      seg(el, 0);
-      list.forEach(function(c, k){
-        c.style.display = ''; c.style.position = 'absolute'; c.style.top = '0'; c.style.height = '100%';
-        c.style.left = el.offsetLeft + 'px'; c.style.width = W + 'px'; c.style.zIndex = 3;
-        c.scrollTop = el.scrollTop; seg(c, k + 1);
-        c.style.setProperty('--gloss', el.style.getPropertyValue('--gloss')); c.style.setProperty('--gloss-dir', el.style.getPropertyValue('--gloss-dir'));
-        c.style.setProperty('--shade', el.style.getPropertyValue('--shade')); c.style.setProperty('--shade-dir', el.style.getPropertyValue('--shade-dir'));
-      });
+      place(castBox, cast, flap, 40 + 90 * s, .5 + .5 * s);
+      var flapNow = flap.map(function(q){ var d = 2 * ((q[0] - M[0]) * nx + (q[1] - M[1]) * ny); return [q[0] - d * nx, q[1] - d * ny]; });
+      creaseBox.style.left = spine + 'px'; creaseBox.style.width = W + 'px';
+      crease.style.width = (30 + 60 * s) + 'px'; crease.style.opacity = (.55 + .45 * s).toFixed(3);
+      crease.style.transform = 'translate(' + M[0].toFixed(1) + 'px,' + M[1].toFixed(1) + 'px) rotate(' + (ang + 180).toFixed(2) + 'deg)';
+      // the crease shading can reach left of the spine, so its box spans the whole spread
+      creaseBox.style.left = '0px'; creaseBox.style.width = pg.offsetWidth + 'px';
+      creaseBox.style.clipPath = poly(flapNow.map(function(q){ return [q[0] + spine, q[1]]; }));
+      crease.style.transform = 'translate(' + (M[0] + spine).toFixed(1) + 'px,' + M[1].toFixed(1) + 'px) rotate(' + (ang + 180).toFixed(2) + 'deg)';
+      layer.style.display = '';
     };
-    var flat = function(el){ el.style.transform = ''; el.style.clipPath = ''; el.style.filter = ''; el.style.transformOrigin = ''; };
     var paint = function(i, f){
-      var s = Math.sin(Math.PI * f), turning = null, base = 0, front = true;
+      var front = null, back = null, turning = f > 0 && f < 1 && i + 1 < pg.children.length;
       [].forEach.call(pg.children, function(sp, j){
         [].forEach.call(sp.children, function(el, side){
-          var vis = false, z = 1, sh = 0, gl = 0, turn = false;
-          if (side === 0 && j === i) vis = true;
-          if (side === 1 && j === i) { vis = f < .5; z = 3; if (f > 0 && f < .5) { turn = true; base = -180 * f; front = true; sh = s * .18; gl = s; } }
-          if (side === 1 && j === i + 1 && f > 0) { vis = true; sh = (1 - f) * .34; }
-          if (side === 0 && j === i + 1 && f >= .5) { vis = true; z = 3; if (f < 1) { turn = true; base = 180 * (1 - f); front = false; sh = s * .18; gl = s; } }
-          if (side === 0 && j === i && f > 0) sh = f * .34;
+          var vis = false, z = 1;
+          if (j === i && side === 0) vis = true;
+          if (j === i && side === 1) { vis = !turning ? f < .5 : true; z = 3; if (turning) front = el; }
+          if (turning && j === i + 1) { vis = true; z = side === 0 ? 4 : 1; if (side === 0) back = el; }
           el.classList.toggle('is-vis', vis);
           el.style.zIndex = z;
-          shade(el, sh, side === 0 ? 'to left' : 'to right');
-          el.style.setProperty('--gloss', gl.toFixed(3)); el.style.setProperty('--gloss-dir', side === 1 ? 'to right' : 'to left');
-          if (turn) turning = el; else flat(el);
+          shade(el, 0, side === 0 ? 'to left' : 'to right');
+          el.style.setProperty('--gloss', '0');
+          if (!(turning && (el === front || el === back))) flat(el);
         });
       });
-      if (turning) bend(turning, base, f, front); else hideStrips(null);
+      if (turning && front && back) fold(front, back, f);
+      else if (layer) layer.style.display = 'none';
       pg.style.setProperty('--prog', ((i + f) / Math.max(1, pg.children.length - 1)).toFixed(4));
     };
     // The page glides to where the scroll says it should be, instead of jumping with each wheel tick.
@@ -1194,7 +1206,7 @@ figcaption{
       } else {
         wrap.style.height = ''; midFlip = false;
         [].forEach.call(pg.children, function(sp){ [].forEach.call(sp.children, function(el){ el.classList.remove('is-vis'); el.style.zIndex = ''; el.style.transform = ''; el.style.filter = ''; el.style.clipPath = ''; el.style.transformOrigin = ''; el.style.removeProperty('--gloss'); });
-        if (layer) hideStrips(null); shown = null; });
+        if (layer) layer.style.display = 'none'; shown = null; });
         var k = at(); report(k, n); if (sideways()) mark(k);
       }
     };
